@@ -1,6 +1,7 @@
 # ERA Admin Documentation Wireframe
-**Purpose:** Script-parseable wireframe for generating folder structure  
-**Format:** Each `## FILE: path` section → create that file  
+
+**Purpose:** Script-parseable wireframe for generating folder structure
+**Format:** Each `## FILE: path` section → create that file
 **Date:** October 20, 2025
 
 ---
@@ -24,22 +25,27 @@
 ### 1. Overview
 
 ERA Admin integrates 4 ERA data systems:
-- Google Docs Agendas
-- Airtable (630 people)
-- Fathom Inventory (1,953 participants)
-- ERA Landscape
 
-### 2. Orientation
+- Google Docs Agendas - Meeting notes with participant lists
+- Airtable - Membership database
+- Fathom Inventory - Automated meeting analysis
+- ERA Landscape - Network visualization
 
-**Current:** ✅ Operational, monorepo established (Oct 20)  
-**Recent:** Phase 4B-2 87% complete
+**Goal:** Unified view of the ERA community
 
-**Details:** [CONTEXT_RECOVERY.md](#file-context_recoverymd)
+### 2. Orientation - Where to Find What
+
+**You are here:** Main entry point for ERA_Admin
+
+**For current status:** [CONTEXT_RECOVERY.md](#file-context_recoverymd)
+**For AI assistants:** [AI_HANDOFF_GUIDE.md](#file-ai_handoff_guidemd)
+**For principles:** [WORKING_PRINCIPLES.md](#file-working_principlesmd)
+**For components:** See Specialized Topics below
 
 ### 3. Principles
 
 - Human-AI Collaboration
-- Component Independence  
+- Component Independence
 - Git/PR Workflow
 - Testing Discipline
 
@@ -48,11 +54,13 @@ ERA Admin integrates 4 ERA data systems:
 ### 4. Specialized Topics
 
 **Documentation:**
+
 - [CONTEXT_RECOVERY.md](#file-context_recoverymd)
 - [AI_HANDOFF_GUIDE.md](#file-ai_handoff_guidemd)
 - [WORKING_PRINCIPLES.md](#file-working_principlesmd)
 
 **Components:**
+
 - [FathomInventory/README.md](#file-fathominventoryreadmemd)
 - [airtable/README.md](#file-airtablereadmemd)
 - [integration_scripts/README.md](#file-integration_scriptsreadmemd)
@@ -65,7 +73,9 @@ ERA Admin integrates 4 ERA data systems:
 
 ### 1. Overview
 
-Current state and resume work guide
+**Purpose:** Current system state and how to resume work
+
+**This document contains:** Status, recent changes, what's in progress
 
 ### 2. Orientation
 
@@ -80,6 +90,7 @@ Current state and resume work guide
 ### 4. Specialized Topics
 
 **System State:**
+
 - ✅ Airtable: 630 people
 - ✅ Fathom: 1,953 participants, 3AM automation
 - ✅ Phase 4B-2: 87% (1,698/1,953)
@@ -87,6 +98,7 @@ Current state and resume work guide
 **Recent:** Oct 20 monorepo consolidation
 
 **Component context:**
+
 - [FathomInventory/CONTEXT_RECOVERY.md](#file-fathominventorycontext_recoverymd)
 
 **Back:** [README.md](#file-readmemd)
@@ -112,6 +124,7 @@ Guide for AI assistants on ERA Admin
 **See:** [WORKING_PRINCIPLES.md](#file-working_principlesmd) for complete philosophy
 
 **Key for AI:**
+
 - Discussion ≠ directive
 - Ask "Should I proceed?"
 - Proactive validation
@@ -121,9 +134,11 @@ Guide for AI assistants on ERA Admin
 **General workflow:** DO/DON'T lists
 
 **Specialized workflows:**
+
 - Phase 4B-2: [integration_scripts/AI_WORKFLOW_GUIDE.md](#file-integration_scriptsai_workflow_guidemd)
 
 **Related:**
+
 - [WORKING_PRINCIPLES.md](#file-working_principlesmd)
 - [CONTEXT_RECOVERY.md](#file-context_recoverymd)
 
@@ -142,6 +157,7 @@ Philosophy, Git workflow, testing, documentation practices
 ### 2. Orientation
 
 **Referenced by:**
+
 - [AI_HANDOFF_GUIDE.md](#file-ai_handoff_guidemd)
 - All component READMEs
 
@@ -152,13 +168,16 @@ Philosophy, Git workflow, testing, documentation practices
 ### 4. Specialized Topics
 
 **Human-AI Collaboration:**
+
 - Captain-advisor model
 - Vigilance against self-delusion
 
 **Component Architecture:**
+
 - Independence, boundaries, centralized config
 
 **Git/PR Workflow:**
+
 ```
 git checkout -b feature
 git commit -m "message"
@@ -179,23 +198,31 @@ gh pr create
 
 ### 1. Overview
 
-**Part of:** [/README.md](#file-readmemd)
+FathomInventory is one of three components in ERA_Admin.
 
-Automated meeting analysis: downloads Fathom summaries, tracks 1,953 participants
+**Purpose:** Automated meeting analysis system
 
-### 2. Orientation
+**What it does:**
+1. Discovers new Fathom calls
+2. Shares to automated receiver
+3. Downloads summary emails
+4. Processes into structured database
+5. Reports daily status
 
-**System:** See [/CONTEXT_RECOVERY.md](#file-context_recoverymd)
+### 2. Orientation - Where to Find What
 
-**Component:**
-- ✅ Operational, 3AM daily runs
-- Recent: Monorepo consolidation (Oct 20)
+**Path:** [/README.md](#file-readmemd) → FathomInventory
+
+**For system-wide status:** [/CONTEXT_RECOVERY.md](#file-context_recoverymd)
+**For component status:** [CONTEXT_RECOVERY.md](#file-fathominventorycontext_recoverymd)
+**For principles:** See section 3 below
 
 ### 3. Principles
 
 **System:** See [/WORKING_PRINCIPLES.md](#file-working_principlesmd)
 
 **FathomInventory-specific:**
+
 - Authentication health checks
 - Pipeline reliability
 - Date normalization (ISO format)
@@ -203,11 +230,13 @@ Automated meeting analysis: downloads Fathom summaries, tracks 1,953 participant
 ### 4. Specialized Topics
 
 **Subdirectories:**
+
 - [authentication/README.md](#file-fathominventoryauthenticationreadmemd)
 - analysis/
 - docs/
 
 **Files:**
+
 - [CONTEXT_RECOVERY.md](#file-fathominventorycontext_recoverymd)
 - DEVELOPMENT.md
 - BACKUP_AND_RECOVERY.md
@@ -222,7 +251,9 @@ Automated meeting analysis: downloads Fathom summaries, tracks 1,953 participant
 
 ### 1. Overview
 
-FathomInventory-specific context
+**Purpose:** FathomInventory-specific status and context
+
+**This document contains:** Component health, recent changes, integration status
 
 ### 2. Orientation
 
@@ -237,6 +268,7 @@ FathomInventory-specific context
 ### 4. Specialized Topics
 
 **Component status:**
+
 - Automation: ✅ Running
 - Health: ✅ All checks passing
 - Recent: Oct 20 test path fixed
@@ -251,22 +283,26 @@ FathomInventory-specific context
 
 ### 1. Overview
 
-**Part of:** [FathomInventory](#file-fathominventoryreadmemd) → authentication
+FathomInventory authentication subdirectory
 
-Cookie/token management for Fathom auth
+**Purpose:** Cookie and token management for Fathom authentication
 
-### 2. Orientation
+**Key files:** credentials.json, token.json, fathom_cookies_*.json (all gitignored)
+
+### 2. Orientation - Where to Find What
 
 **Path:** [/README](#file-readmemd) → [FathomInventory](#file-fathominventoryreadmemd) → authentication
 
-**When:** Cookies expired, token refresh, account switching
+**When to use:** Cookies expired, token refresh, account switching
+**For status:** See parent component's CONTEXT_RECOVERY.md
 
 ### 3. Principles
 
-**System:** [/WORKING_PRINCIPLES.md](#file-working_principlesmd)  
+**System:** [/WORKING_PRINCIPLES.md](#file-working_principlesmd)
 **Component:** [../README.md](#file-fathominventoryreadmemd)
 
 **Auth-specific:**
+
 - Security first (never commit credentials)
 - Pre-flight checks
 - Multiple account support
@@ -274,6 +310,7 @@ Cookie/token management for Fathom auth
 ### 4. Specialized Topics
 
 **Guides:**
+
 - cookie_export_guide.md
 - google_api_setup_guide.md
 
@@ -287,21 +324,29 @@ Cookie/token management for Fathom auth
 
 ### 1. Overview
 
-**Part of:** [/README.md](#file-readmemd)
+airtable is one of three components in ERA_Admin.
 
-Manual membership tracking, 630 people
+**Purpose:** Manual membership tracking and exports
 
-### 2. Orientation
+**What it does:**
+- Manual database of ERA members and donors
+- Export data for cross-correlation with FathomInventory
+- Ground truth for member/donor status
 
-**System:** See [/CONTEXT_RECOVERY.md](#file-context_recoverymd)
+### 2. Orientation - Where to Find What
 
-**Component:** ✅ Operational, +58 people from Phase 4B-2
+**Path:** [/README.md](#file-readmemd) → airtable
+
+**For system-wide status:** [/CONTEXT_RECOVERY.md](#file-context_recoverymd)
+**For component status:** Check actual data (630 people tracked)
+**For principles:** See section 3 below
 
 ### 3. Principles
 
 **System:** See [/WORKING_PRINCIPLES.md](#file-working_principlesmd)
 
 **airtable-specific:**
+
 - Manual data entry (ground truth)
 - Export hygiene
 - Config security
@@ -309,6 +354,7 @@ Manual membership tracking, 630 people
 ### 4. Specialized Topics
 
 **Files:**
+
 - config.py.template
 - export_people.py
 - SAFETY_NOTICE.md
@@ -323,36 +369,44 @@ Manual membership tracking, 630 people
 
 ### 1. Overview
 
-**Part of:** [/README.md](#file-readmemd)
+integration_scripts is one of three components in ERA_Admin.
 
-Cross-component bridges for participant enrichment
+**Purpose:** Cross-component bridging for participant enrichment
+
+**What it does:** Bridges FathomInventory ↔ Airtable to enrich participant data
 
 **Phases:**
-- 4B-1: Fuzzy matching (✅ 364)
-- 4B-2: Collaborative review (✅ 87%, 409)
 
-### 2. Orientation
+- Phase 4B-1: Automated fuzzy matching
+- Phase 4B-2: Collaborative human-AI review
 
-**System:** See [/CONTEXT_RECOVERY.md](#file-context_recoverymd)
+### 2. Orientation - Where to Find What
 
-**Component:** Round 8 complete, 255 remaining
+**Path:** [/README.md](#file-readmemd) → integration_scripts
+
+**For system-wide status:** [/CONTEXT_RECOVERY.md](#file-context_recoverymd)
+**For phase progress:** PHASE4B2_PROGRESS_REPORT.md
+**Which README to read:** See section 4 below
 
 ### 3. Principles
 
 **System:** See [/WORKING_PRINCIPLES.md](#file-working_principlesmd)
 
 **integration-specific:**
+
 - Collaborative human-AI workflow
 - Data validation with human approval
 
 ### 4. Specialized Topics
 
 **Which README:**
+
 - This file: Overview
 - README_PHASE4B.md: System details
 - README_PHASE4B_DETAILED.md: Technical deep dive
 
 **AI Workflow:**
+
 - [AI_WORKFLOW_GUIDE.md](#file-integration_scriptsai_workflow_guidemd) - Phase 4B-2 specific
 
 **Back:** [/README.md](#file-readmemd)
@@ -365,9 +419,11 @@ Cross-component bridges for participant enrichment
 
 ### 1. Overview
 
-**Part of:** [/AI_HANDOFF_GUIDE.md](#file-ai_handoff_guidemd) → [integration_scripts](#file-integration_scriptsreadmemd)
+integration_scripts → AI_WORKFLOW_GUIDE
 
-6-phase workflow for Phase 4B-2 collaborative review
+**Purpose:** Specialized 6-phase workflow for Phase 4B-2 collaborative data review
+
+**Scope:** Phase 4B-2 specifics (for general AI workflow, see /AI_HANDOFF_GUIDE.md)
 
 ### 2. Orientation
 
@@ -377,7 +433,7 @@ Cross-component bridges for participant enrichment
 
 ### 3. Principles
 
-**System:** [/WORKING_PRINCIPLES.md](#file-working_principlesmd)  
+**System:** [/WORKING_PRINCIPLES.md](#file-working_principlesmd)
 **AI-general:** [/AI_HANDOFF_GUIDE.md](#file-ai_handoff_guidemd)
 
 **Phase 4B-2:** 6-phase cycle, human approval required
@@ -403,6 +459,7 @@ pattern = r'^## FILE: (.+\.md)$'
 ```
 
 **Validation checklist:**
+
 - [ ] All links resolve to ## FILE: sections
 - [ ] Every component has 4 sections
 - [ ] Principles reference, don't duplicate
