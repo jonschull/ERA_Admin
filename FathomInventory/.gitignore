@@ -1,0 +1,43 @@
+# Secrets and tokens
+fathom_cookies.json
+fathom_cookies.json.backup.*
+credentials.json
+token.json
+
+# Data and logs (local only, never push)
+fathom_emails.db
+all_fathom_calls.tsv
+*_calls.tsv
+*.log
+analysis_results.txt
+
+# Temporary/one-off scripts
+scrape_*.py
+
+# App bundles / binaries / caches
+FathomRunner.app/
+__pycache__/
+*.pyc
+*.DS_Store
+.env
+.venv
+venv/
+ERA_Admin_venv/
+playwright/.cache/
+
+# Test/coverage artifacts
+.coverage
+htmlcov/
+pytest_cache/
+
+# Local backups
+backups/
+fathom_cookies_*.json
+token_jschull.json
+test_db_mode.py
+fathom_daily_report*.txt
+
+# Vestigial/archived files (historical reference, not tracked)
+vestigial/
+*.db.backup_*
+*_backup_*.db

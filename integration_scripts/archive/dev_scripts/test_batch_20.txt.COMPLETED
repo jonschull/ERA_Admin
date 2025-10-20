@@ -1,0 +1,59 @@
+# Phase 4B-2 Test Batch (25 people)
+# Mix of categories for workflow testing
+
+## DUPLICATES (6) - Should be easy merges
+1. MOSES, GFCCA → merge with enriched "Moses" if exists, or organization?
+2. Frederic Jennings, www.bio4climate.org → merge with: Frederic Jennings (or Fred Jennings)
+3. Charlie Shore, Gaithersburg, MD → merge with: Charlie Shore
+4. MOSES, GFCCA (2) → merge with: MOSES, GFCCA or drop
+5. MOSES, GFCCA (5) → merge with: MOSES, GFCCA or drop
+6. aniqa Locations: Bangladesh, Egypt, Sikkim → probably drop (looks like metadata)
+
+## HIGH-ACTIVITY PEOPLE (10) - Need research
+7. Jake Fairbanks Kelley (15 records) - Real person? Gmail?
+8. Mike Lynn (9 records) - FOUND in Gmail, has 2 emails
+9. Charlie Shore (7 records) - FOUND in Gmail
+10. Mtokani Saleh (7 records) - Real person? Gmail?
+11. Frederic Jennings (6 records) - Real person, has enriched variant
+12. Jme Conway (6 records) - Real person? Gmail?
+13. Ir Marius (5 records) - Real person? Gmail?
+14. Joshua Laizer (5 records) - Real person? Gmail?
+15. Hashim Yussif (4 records) - Real person? Gmail?
+16. Byamukama nyansio (3 records) - Real person? Gmail?
+
+## AMBIGUOUS (6) - Mix of org/person
+17. Cosmic Labyrinth (3 records) - Organization or person? Gmail?
+18. Kriss Scioneaux (3 records) - Real person? Gmail?
+19. Matthew Hotsko (3 records) - Real person? Gmail?
+20. Neal Spackman (3 records) - Real person? Gmail?
+21. Alisa Keesey (2 records) - Real person? Gmail?
+22. Betty Bitengo (2 records) - Real person? Gmail?
+
+## LOW-ACTIVITY (3) - Quick checks
+23. C. Petruzzi-McHale (2 records) - Real person? Gmail?
+24. Dr. Sanmi O. (2 records) - Real person? Gmail?
+25. Duane Norris (2 records) - Real person? Gmail?
+
+---
+
+## Expected Outcomes:
+
+### Merges (~6)
+- Charlie Shore variants
+- Frederic Jennings variants
+- MOSES duplicates (if not org)
+
+### Drops (~2)
+- aniqa Locations (metadata)
+- MOSES if it's an organization
+
+### Research & Decide (~17)
+- All the full names need Gmail research
+- Determine: add to airtable, merge with existing, or ignore
+
+## Test Goals:
+1. Verify Gmail research provides useful context
+2. Test collaborative discussion workflow
+3. Identify any script issues
+4. Refine decision keywords/process
+5. Estimate time per person (~2-3 minutes?)

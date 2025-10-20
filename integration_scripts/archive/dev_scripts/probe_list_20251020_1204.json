@@ -1,0 +1,69 @@
+{
+  "_INSTRUCTIONS_FOR_CASCADE": {
+    "mission": "Manually investigate each person using thoughtful analysis, not automatic pattern matching",
+    "workflow": "Phase 4B-2: Iterative probing of unenriched Fathom participants",
+    "methodology": [
+      "1. ANALYZE NAME STRUCTURE: Identify person vs org components, clean formatting",
+      "2. SEARCH AIRTABLE: Try full name + word variations, check org field for context",
+      "3. SEARCH GMAIL: Run gmail_research.py, look for mentions/context/relationships",
+      "4. CROSS-REFERENCE: Compare Airtable org field with name, verify Gmail matches",
+      "5. RECOMMEND: Action (merge/add/ignore) + confidence + evidence + method"
+    ],
+    "decision_criteria": {
+      "merge": "High confidence match (>85%) with corroborating evidence from multiple sources",
+      "add_to_airtable": "Real person, ERA-related work, not currently in Airtable",
+      "ignore": "Not ERA-related, organizational junk, or duplicate",
+      "needs_more_info": "Insufficient evidence to make confident decision"
+    },
+    "tools_available": {
+      "gmail_research": "/Users/admin/ERA_Admin/integration_scripts/gmail_research.py",
+      "airtable_csv": "/Users/admin/ERA_Admin/airtable/people_export.csv (592 people)",
+      "fathom_db": "/Users/admin/ERA_Admin/FathomInventory/fathom_emails.db"
+    },
+    "output_format": {
+      "example": "\ud83d\udd0d Probing [Name]...\n1. Analysis: [structure]\n2. Airtable: [results]\n3. Gmail: [findings]\n4. Cross-ref: [verification]\nRECOMMENDATION: [action]\nCONFIDENCE: [0-100]%\nEVIDENCE: [list]\nMETHOD: [approach]"
+    }
+  },
+  "items_to_probe": [
+    {
+      "name": "Duane Norris",
+      "category": "Full Name",
+      "in_airtable": "\u274c",
+      "gmail_count": "\u274c No emails",
+      "gmail_snippet": "Query: Duane Norris",
+      "videos": "2",
+      "status": "needs_probing",
+      "why_flagged": "Not found in Airtable | Found in Gmail - likely real person"
+    },
+    {
+      "name": "MOSES, GFCCA",
+      "category": "Organization",
+      "in_airtable": "\u274c",
+      "gmail_count": "\u274c No emails",
+      "gmail_snippet": "Query: MOSES, GFCCA",
+      "videos": "5",
+      "status": "needs_probing",
+      "why_flagged": "Not found in Airtable | Found in Gmail - likely real person | Contains special chars/org names - ambiguous"
+    },
+    {
+      "name": "MOSES, GFCCA (2)",
+      "category": "Organization",
+      "in_airtable": "\u274c",
+      "gmail_count": "\u274c No emails",
+      "gmail_snippet": "Query: MOSES, GFCCA (2)",
+      "videos": "1",
+      "status": "needs_probing",
+      "why_flagged": "Not found in Airtable | Found in Gmail - likely real person | Contains special chars/org names - ambiguous"
+    },
+    {
+      "name": "MOSES, GFCCA (5)",
+      "category": "Organization",
+      "in_airtable": "\u274c",
+      "gmail_count": "\u274c No emails",
+      "gmail_snippet": "Query: MOSES, GFCCA (5)",
+      "videos": "1",
+      "status": "needs_probing",
+      "why_flagged": "Not found in Airtable | Found in Gmail - likely real person | Contains special chars/org names - ambiguous"
+    }
+  ]
+}

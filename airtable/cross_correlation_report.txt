@@ -1,0 +1,142 @@
+ERA Cross-Correlation Report: Airtable ↔ Fathom
+============================================================
+
+SUMMARY STATISTICS
+--------------------
+Matched records: 297
+Unmatched Airtable members: 295
+Unmatched Fathom participants: 1263
+
+Match rate (Airtable): 50.2%
+Match rate (Fathom): 19.0%
+
+Donors in matched records: 32
+
+TOP MATCHES (by confidence)
+------------------------------
+1.000 | Poyom Riles ↔ Poyom Riles
+1.000 | Katrina Jeffries ↔ Katrina Jeffries
+1.000 | Jim Pryor ↔ jim
+1.000 | Colin Grant ↔ Colin Grant
+1.000 | Jillian McFarland ↔ Jill
+1.000 | Alfredo Quarto ↔ Ed
+1.000 | Leonce Bulonze ↔ Leonce Bulonze
+1.000 | Precious Phiri ↔ Precious Phiri (3)
+1.000 | Jon Westley Magugu ↔ jon
+1.000 | Gerardo Martinez ↔ Gerardo
+1.000 | Ian Redmond ↔ Ian Redmond
+1.000 | Mary Carbajal ↔ Mary Carbajal
+1.000 | Billimarie Lubiano Robinson ↔ Billimarie Lubiano Robinson
+1.000 | Indy Singh ↔ indy singh
+1.000 | Thilo Herbst ↔ Thilo
+1.000 | Jenny Nichols ↔ Jenny Nichols
+1.000 | Mike Lynn ↔ Mike Lynn
+1.000 | Marius Iragi ↔ MARIUS IRAGI
+1.000 | Aimee Samara ↔ Aimee Samara (Krouskop)
+1.000 | Beck Mordini ↔ Bio4Climate1 (Beck Mordini)
+
+UNMATCHED AIRTABLE MEMBERS (295)
+----------------------------------------
+Stefan Schwarzer
+Fernando Rebello
+Sumeet Sandhu
+Dan Fleetwood
+Joe Musa
+Katharhy G.
+Millán Millán
+Forrist Tanner Lytehaause
+Jon Roulac
+Valer Clark
+Prof. Pradeep Nair
+Dave Hodgson
+Noemi Nemes
+Liaquat Hussain
+Denise Pang
+Christine Freeland
+Jeff Goebel
+Katherine Hayhoe
+Tanner Millen
+Rabia Betül Gürel Mohebali
+Atta ul Haq
+Brock Dolman
+Ola Tom Lakere
+Ragu Bharadwaj
+Justus Wanjohi
+Dave maher
+chris.searles
+Peter Bruce-Iri
+Karol Mieczkin
+Marc-André Coulombe
+Jon D. Liu
+Heide Maria Baden
+Revathi Kollegala
+Ilse Koehler-Rollefson
+Celia Francis [DONOR]
+Jan Pokorny
+Troy Carter
+Vivian Kanchian
+Marie Pierre Bilodeau
+Ricardo Amon
+Hoa Phan
+Richard Lackey
+Karl Mechkin
+Kim Stephens
+Luca Tixi
+Steve Brescia
+Richard Mabion
+Rylande Engelhart
+Jack Mazingira
+Natalie Novoselova
+
+UNMATCHED FATHOM PARTICIPANTS (1263)
+---------------------------------------------
+Jeremy Simon (Unknown)
+e-NABLE Events (Unknown)
+CHRISTOPHER - Tanzania (Tanzania)
+e-NABLE Events (3) (Unknown)
+Jon Schull (Upstate New York)
+Alexa Hankins (Unknown)
+Jon Schull (Unknown)
+Kwaxala / Pete (Salt Spring Island, British Columbia)
+ana - Panama Restoration Lab (Unknown)
+Kriss Scioneaux (Unknown)
+Fred Hornaday (Spain)
+Andres's iPhone (2) (Unknown)
+Jon Schull (Unknown)
+Philip Bogdonoff (Unknown)
+Michael Pilarski (Unknown)
+alexa hankins (Unknown)
+Jon Schull (Rochester, New York)
+Louise Mitchell (Unknown)
+Dr Brian von Herzen (Unknown)
+Daniel Langfitt (Northern Vermont)
+Betty Bitengo (Nairobi, Kenya)
+Philip Bogdonoff (Unknown)
+Jon Schull (Unknown)
+Global Earth Repair (Unknown)
+Dr Brian von Herzen (Queensland, Australia, Sunshine Coast)
+Leonard IYAMUREME (Rwanda)
+Hart Hagan (Unknown)
+Katie Ross (Wisconsin, USA)
+Russ Speer (Oakland, California, USA)
+Elizabeth Morgan Tyler (Shimakum, Washington, USA)
+georgeorbelian (San Francisco, California, USA)
+Jonathan Cloud (Rochester, New York, USA)
+Louise Mitchell (Unknown)
+For the Oceans (Costa Rica)
+Jon Schull (Cambridge)
+Ananda Fitzsimmons (Unknown)
+Leonard IYAMUREME (Unknown)
+sustainavistas (Unknown)
+Simon Ticehurst (Unknown)
+Philip Bogdonoff (Vermont)
+Agri-Tech Producers LLC, Joe James (Unknown)
+Dr Brian von Herzen (Unknown)
+Frederic Jennings (Unknown)
+ana - Panama Restoration Lab (Vienna/Panama)
+sustainavistas (Unknown)
+Jon Schull (Unknown)
+Hart Hagan (Unknown)
+Russ Speer (Unknown)
+Didi Pershouse (Vermont)
+Charles Upton (Nevada City, California)

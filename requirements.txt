@@ -1,0 +1,31 @@
+# ERA_Admin Consolidated Requirements
+# Shared venv for all ERA_Admin components: /Users/admin/ERA_Admin_venv
+
+# Core utilities
+beautifulsoup4==4.13.5
+graphviz==0.20.1
+greenlet==3.2.4
+requests>=2.32.0
+typing_extensions==4.15.0
+
+# Web scraping (FathomInventory)
+playwright==1.55.0
+pyee==13.0.0
+soupsieve==2.8
+
+# Google APIs (FathomInventory email download)
+google-api-python-client==2.84.0
+google-auth-httplib2==0.1.0
+google-auth-oauthlib==1.0.0
+
+# Data processing (Airtable)
+pandas>=1.5.0
+python-dateutil>=2.8.0
+tqdm>=4.64.0
+
+# Airtable API
+pyairtable>=2.0.0
+
+# String matching (cross-correlation)
+fuzzywuzzy>=0.18.0
+python-Levenshtein>=0.20.0

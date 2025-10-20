@@ -1,0 +1,34 @@
+"Fathom_Name","Videos_Count","Records","Category","In_Airtable","Gmail_Count","Gmail_Snippet","Comments","ProcessThis","Probe"
+"Jan Dietrick & Ron Whitehurst, BugFarm, Ventura, CA","1","2","Duplicate","✅ Jan Dietrick(100% via word:'Dietrick')","📧 Emails","Query: Jan Dietrick & Ron Whitehurst, BugFarm, Ventura, CA","merge with: Jan Dietrick & Ron Whitehurst
+These are two people who should have separate ERA member entris.  Their company is Bugfarm.","YES","YES"
+"Jan Dietrick, W Ventura","1","2","Duplicate","❌","📧 Emails","Query: Jan Dietrick, W Ventura","merge with: Jan Dietrick
+W Ventura is a location","NO","YES"
+"Jon Schull, EcoRestoration Alliance","2","2","Duplicate","❌","📧 Emails","Query: Jon Schull, EcoRestoration Alliance","merge with: Jon Schull","NO","YES"
+"Jon Schull, EcoRestoration Alliance (7)","1","2","Duplicate","❌","📧 Emails","Query: Jon Schull, EcoRestoration Alliance (7)","merge with: Jon Schull","NO","YES"
+"Katrina Jeffries (5)","1","2","Duplicate","✅ Katrina Jeffries(100% via word:'Katrina')","📧 Emails","Query: Katrina Jeffries (5)","merge with: Katrina Jeffries","YES","NO"
+"Jan Dietrick & Ron Whitehurst","1","2","Full Name","❌","📧 Emails","Query: Jan Dietrick & Ron Whitehurst","These are two people who should have separate ERA member entris.  Their company is Bugfarm i W. Ventura","NO","YES"
+"Jason Theunissen","2","2","Full Name","❌","📧 Emails","Query: Jason Theunissen","drop","YES","YES"
+"Jed Katch","2","2","Full Name","❌","📧 Emails","Query: Jed Katch","ERA Member Jerald Katch","NO","YES"
+"John Dennis Liu","2","2","Full Name","✅ John D. Liu(100%)","📧 Emails","Query: John Dennis Liu","merge with: John D. Liu","YES","NO"
+"John's iPhone","2","2","Full Name","❌","📧 Emails","Query: John's iPhone","ERA Member John Magugu","NO","NO"
+"Joshua Shepard","1","2","Full Name","✅ Joshua Sheppard(95%)","📧 Emails","Query: Joshua Shepard","merge with: Joshua Sheppard","YES","NO"
+"Juan from Panama","2","2","Full Name","✅ Juan Pimento(100% via word:'Juan')","📧 Emails","Query: Juan from Panama","Juan Carlos Monterey
+Organization: Geoversity 
+Organization:  Ministry of the Environment Panama","YES","YES"
+"Leticia Bernardes - explorer.land by OpenForests","1","2","Full Name","✅ Leticia Bernardes(100% via word:'Leticia')","📧 Emails","Query: Leticia Bernardes   explorer land by OpenForests","merge with: Leticia Bernardes","YES","NO"
+"Loren Miller","2","2","Full Name","❌","📧 Emails","Query: Loren Miller","ERA Member Lauren Miller was at previous Town Hall meeting also","NO","NO"
+"Luc Lendrum","1","2","Full Name","❌","📧 Emails","Query: Luc Lendrum","Add or merge ERA Member 
+Luc Lendrum <luc.lendrum@nel-i.com>
+Organization: NEL-i https://nel-i.com/","NO","NO"
+"MC Planning","2","2","Full Name","❌","📧 Emails","Query: MC Planning","Rochelle Bell","NO","NO"
+"MOHAMMED ALKHALID","1","2","Full Name","✅ Mohammed Al Khalid(90%)","📧 Emails","Query: MOHAMMED ALKHALID","merge with: Mohammed Al Khalid","YES","NO"
+"Nabil Chaib-draa","1","2","Full Name","✅ Nabil Chaib Draa(100% via word:'Nabil')","📧 Emails","Query: Nabil Chaib draa","merge with: Nabil Chaib Draa","YES","NO"
+"18022588598","3","3","Phone","❌","📧 Emails","Query: 18022588598","Michael Mayer","NO","NO"
+"Jimmy","1","2","Single Name","✅ Jimmy Pryor(100% via word:'Jimmy')","📧 Emails","Query: Jimmy","merge with: Jimmy Pryor
+confirm using Agenda","YES","YES"
+"Julia","1","2","Single Name","❌","📧 Emails","Query: Julia","drop","NO","YES"
+"KALOMBO-MBILIZI","1","2","Single Name","❌","📧 Emails","Query: KALOMBO MBILIZI","Kalombo Mbilizi
+[note that you are still vulnerable to hypehens]","YES","YES"
+"Kethia","1","2","Single Name","✅ Kethia Calixte(100% via word:'Kethia')","📧 Emails","Query: Kethia","merge with: Kethia Calixte","YES","NO"
+"Mark","1","2","Single Name","✅ Mark Luckenbach(100% via word:'Mark')","📧 Emails","Query: Mark","merge with: Mark Luckenbach","YES","NO"
+"Myhan","1","2","Single Name","❌","📧 Emails","Query: Myhan","Mooyong Han","NO","YES"

@@ -1,0 +1,120 @@
+# =====================================================
+# ERA Admin - Comprehensive .gitignore
+# =====================================================
+
+# ----------------------
+# Credentials & Secrets
+# ----------------------
+**/credentials.json
+**/token.json
+**/token.json.*
+**/token.json.backup*
+**/*_cookies*.json
+**/*.key
+**/*.pem
+**/.env
+**/secrets.*
+**/config.py
+
+# ----------------------
+# Databases
+# ----------------------
+**/*.db
+**/*.db-*
+**/*.sqlite
+**/*.db.backup_*
+**/*_backup_*.db
+**/backups/
+
+# ----------------------
+# Logs
+# ----------------------
+**/*.log
+**/logs/
+**/*_cron.log
+
+# ----------------------
+# Python
+# ----------------------
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+*_venv/
+*.egg
+
+# ----------------------
+# Virtual Environments
+# ----------------------
+# Note: ERA_Admin_venv is outside repo at /Users/admin/ERA_Admin_venv
+ERA_Admin_venv/
+
+# ----------------------
+# IDE & Editors
+# ----------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ----------------------
+# OS Files
+# ----------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ----------------------
+# Node/JavaScript (if needed)
+# ----------------------
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# ----------------------
+# Temporary & Cache
+# ----------------------
+*.tmp
+*.temp
+.cache/
+playwright/.cache/
+
+# ----------------------
+# Test Artifacts
+# ----------------------
+test_results/
+coverage/
+.tox/
+
+# ----------------------
+# Build Artifacts
+# ----------------------
+dist/
+build/
+*.app/
+
+# ----------------------
+# Data Exports (large files)
+# ----------------------
+# Allow small CSVs for testing, exclude large exports
+**/*_export_full.csv
+**/*_large.csv
+**/*_dump.csv
+
+# ----------------------
+# Historical Archives (tracked but excluded from diff)
+# ----------------------
+# Keep historical/ folders in Git but mark as binary
+*.zip
+
+# ----------------------
+# Component-Specific
+# ----------------------
+# FathomInventory specifics are in its own .gitignore
+# ERA_Landscape_Static specifics are in its own .gitignore

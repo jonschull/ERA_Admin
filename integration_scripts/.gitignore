@@ -1,0 +1,10 @@
+# Generated approval tables (keep latest, ignore iterations)
+phase4b1_APPROVALS_*.html
+phase4b1_PREVIEW_*.md
+
+# Deprecated/test scripts
+generate_improved_approval_table.py
+
+# Gmail authentication (sensitive)
+credentials.json
+token_jschull.json

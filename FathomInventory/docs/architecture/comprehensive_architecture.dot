@@ -1,0 +1,60 @@
+digraph FathomInventoryComprehensive {
+    // Graph attributes
+    rankdir=TB;
+    bgcolor=white;
+    fontname=Helvetica;
+    fontsize=12;
+    
+    // Node definitions with styles
+    db [shape=cylinder, style=filled, fillcolor=lightblue, fontname="Helvetica-Bold", fontsize=11, label="fathom_emails.db\n(SQLite Database)"];
+    
+    // Core processing modules
+    converter [shape=folder, style=filled, fillcolor=lightgrey, fontname="Helvetica-Bold", fontsize=10, label="fathom_email_2_md.py"];
+    parser [shape=folder, style=filled, fillcolor=lightgrey, fontname="Helvetica-Bold", fontsize=10, label="parse_md.py"];
+    
+    // Config files
+    cookies [shape=hexagon, style=filled, fillcolor=lightcyan, fontname=Helvetica, fontsize=9, label="cookies.json"];
+    credentials [shape=hexagon, style=filled, fillcolor=lightcyan, fontname=Helvetica, fontsize=9, label="credentials.json"];
+    token [shape=hexagon, style=filled, fillcolor=lightcyan, fontname=Helvetica, fontsize=9, label="token.json"];
+    
+    // Data files
+    all_calls [shape=note, style=filled, fillcolor=lightyellow, fontname=Helvetica, fontsize=10, label="all_fathom_calls.tsv"];
+    era_connections [shape=note, style=filled, fillcolor=lightyellow, fontname=Helvetica, fontsize=10, label="era_connections.tsv"];
+    analysis_results [shape=note, style=filled, fillcolor=lightyellow, fontname=Helvetica, fontsize=10, label="analysis_results.txt"];
+    
+    // Workflow scripts
+    download [shape=box, style="rounded,filled", fillcolor=whitesmoke, fontname=Helvetica, fontsize=10, label="download_emails.py"];
+    batch_convert [shape=box, style="rounded,filled", fillcolor=whitesmoke, fontname=Helvetica, fontsize=10, label="batch_database_converter.py"];
+    daily_share [shape=box, style="rounded,filled", fillcolor=whitesmoke, fontname=Helvetica, fontsize=10, label="run_daily_share.py"];
+    
+    // Analysis and automation
+    batch_analyze [shape=box, style="rounded,filled", fillcolor=whitesmoke, fontname=Helvetica, fontsize=10, label="batch_analyze_calls.py"];
+    ask_fathom [shape=box, style="rounded,filled", fillcolor=whitesmoke, fontname=Helvetica, fontsize=10, label="ask_fathom_ai.py"];
+    run_all [shape=diamond, style=filled, fillcolor=orange, fontname="Helvetica-Bold", fontsize=10, label="run_all.sh"];
+    
+    // Relationships
+    // Core workflow relationships
+    download -> converter [color=blue, label="imports"];
+    download -> credentials [color=orange, label="uses"];
+    download -> token [color=orange, label="uses"];
+    download -> db [color=red, style=bold, label="writes"];
+    
+    batch_convert -> converter [color=blue, label="imports"];
+    batch_convert -> db [color=red, label="updates"];
+    
+    daily_share -> cookies [color=orange, label="uses"];
+    daily_share -> all_calls [color=green, label="reads/writes"];
+    
+    // AI Analysis workflow
+    batch_analyze -> ask_fathom [color=purple, label="calls"];
+    batch_analyze -> era_connections [color=green, label="reads"];
+    batch_analyze -> analysis_results [color=green, label="writes"];
+    ask_fathom -> cookies [color=orange, label="uses"];
+    
+    // Automation relationships
+    run_all -> daily_share [color=red, style=bold, label="executes"];
+    run_all -> download [color=red, style=bold, label="executes"];
+    
+    // Database interactions
+    parser -> db [color=red, label="parses from", style=dashed];
+}

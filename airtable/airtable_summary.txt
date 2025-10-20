@@ -1,0 +1,193 @@
+ERA Airtable Export Summary
+Generated: 2025-10-17 15:54:58
+==================================================
+
+Records exported: 592
+Fields available: 89
+
+Field List:
+  - AGM 2024 Feedback
+  - AI Document Summary
+  - Achievement Reports
+  - Achievements
+  - Action Required
+  - Affiliated Orgs
+  - African 4 Sankey
+  - Andres Tasks
+  - Bio
+  - Categories
+  - City Town
+  - Comments
+  - Committee Possiblities
+  - Committees
+  - Country
+  - Donor Flag
+  - Draft
+  - ERAgroup
+  - ERAupdateGroup
+  - Editable
+  - Email
+  - EngageForm
+  - Expertise and Interests
+  - Facebook
+  - First Contact
+  - First Name
+  - Housecleaning
+  - Instagram
+  - Land Area
+  - Last Donation
+  - Last Message Sent
+  - Last Modified
+  - Last Name
+  - Last event
+  - LinkedIn
+  - Location
+  - Member Projects 2
+  - Messages sent
+  - Name
+  - Next Steps
+  - Org url (from Affiliated Orgs)
+  - Org url (from Affiliated Orgs) 2
+  - Other Links
+  - Panama
+  - People Place Project Org
+  - Phone or Whatsapp
+  - Private Hidden Fields
+  - Profile Image
+  - Projects
+  - Provenance
+  - PubURL
+  - Public Hidden Fields
+  - Publish
+  - Referred by
+  - Referrer
+  - Role(s)
+  - Selected Template
+  - Send This
+  - TH 1-08-2025
+  - TH 1-22-2025
+  - TH 2-05-25
+  - TH 2-19-25
+  - TH 3-05-2025
+  - TH 4-02-2025
+  - TH 4-16-25
+  - TH 4-30-25
+  - TH 5-14-25
+  - TH 5-28-25
+  - TH 6-11-25 (Ocean Restoration)
+  - TH 6-25-25
+  - TH 7-23-25
+  - TH 8-6-25
+  - Template
+  - Template Content
+  - Th 10-1-25
+  - Th 9-17-25
+  - Th 9-3-25
+  - Twitter
+  - Viable Businesses
+  - YouTube
+  - era Member
+  - fix
+  - hereName
+  - hereOrg
+  - logo (from Affiliated Orgs)
+  - pre-Zeffy donor
+  - relevant to Africa
+  - steering
+  - updates
+
+Field Usage Analysis:
+  AI Document Summary: 592/592 (100.0%)
+  Last Modified: 592/592 (100.0%)
+  Name: 592/592 (100.0%)
+  PubURL: 592/592 (100.0%)
+  hereName: 592/592 (100.0%)
+  First Name: 587/592 (99.2%)
+  Email: 571/592 (96.5%)
+  Last Name: 562/592 (94.9%)
+  Bio: 509/592 (86.0%)
+  era Member: 496/592 (83.8%)
+  LinkedIn: 475/592 (80.2%)
+  Publish: 464/592 (78.4%)
+  Profile Image: 449/592 (75.8%)
+  First Contact: 377/592 (63.7%)
+  updates: 202/592 (34.1%)
+  Affiliated Orgs: 200/592 (33.8%)
+  Role(s): 142/592 (24.0%)
+  EngageForm: 103/592 (17.4%)
+  Org url (from Affiliated Orgs): 100/592 (16.9%)
+  Org url (from Affiliated Orgs) 2: 100/592 (16.9%)
+  hereOrg: 100/592 (16.9%)
+  ERAgroup: 89/592 (15.0%)
+  ERAupdateGroup: 89/592 (15.0%)
+  logo (from Affiliated Orgs): 85/592 (14.4%)
+  Location: 77/592 (13.0%)
+  Provenance: 75/592 (12.7%)
+  Categories: 70/592 (11.8%)
+  Comments: 67/592 (11.3%)
+  Other Links: 50/592 (8.4%)
+  Committee Possiblities: 46/592 (7.8%)
+  Facebook: 44/592 (7.4%)
+  fix: 42/592 (7.1%)
+  relevant to Africa: 41/592 (6.9%)
+  Donor Flag: 41/592 (6.9%)
+  Th 9-17-25: 37/592 (6.2%)
+  TH 1-08-2025: 37/592 (6.2%)
+  Andres Tasks: 36/592 (6.1%)
+  Twitter: 33/592 (5.6%)
+  TH 2-19-25: 32/592 (5.4%)
+  TH 5-28-25: 31/592 (5.2%)
+  Viable Businesses: 30/592 (5.1%)
+  Phone or Whatsapp: 27/592 (4.6%)
+  TH 2-05-25: 26/592 (4.4%)
+  Instagram: 26/592 (4.4%)
+  Last event: 25/592 (4.2%)
+  Last Donation: 23/592 (3.9%)
+  TH 4-02-2025: 19/592 (3.2%)
+  African 4 Sankey: 18/592 (3.0%)
+  Land Area: 17/592 (2.9%)
+  TH 4-30-25: 17/592 (2.9%)
+  Th 9-3-25: 16/592 (2.7%)
+  TH 5-14-25: 16/592 (2.7%)
+  YouTube: 16/592 (2.7%)
+  TH 6-11-25 (Ocean Restoration): 16/592 (2.7%)
+  Committees: 15/592 (2.5%)
+  Last Message Sent: 15/592 (2.5%)
+  Messages sent: 15/592 (2.5%)
+  TH 8-6-25: 14/592 (2.4%)
+  steering: 13/592 (2.2%)
+  TH 6-25-25: 13/592 (2.2%)
+  Panama: 13/592 (2.2%)
+  Public Hidden Fields: 12/592 (2.0%)
+  TH 3-05-2025: 12/592 (2.0%)
+  Housecleaning: 11/592 (1.9%)
+  Th 10-1-25: 11/592 (1.9%)
+  Country: 9/592 (1.5%)
+  TH 4-16-25: 9/592 (1.5%)
+  TH 1-22-2025: 9/592 (1.5%)
+  TH 7-23-25: 9/592 (1.5%)
+  Draft: 8/592 (1.4%)
+  Editable: 8/592 (1.4%)
+  Selected Template: 8/592 (1.4%)
+  Template Content: 8/592 (1.4%)
+  City Town: 7/592 (1.2%)
+  AGM 2024 Feedback: 7/592 (1.2%)
+  Referred by: 7/592 (1.2%)
+  Action Required: 7/592 (1.2%)
+  Next Steps: 6/592 (1.0%)
+  pre-Zeffy donor: 4/592 (0.7%)
+  People Place Project Org: 4/592 (0.7%)
+  Projects: 3/592 (0.5%)
+  Achievement Reports: 3/592 (0.5%)
+  Achievements: 3/592 (0.5%)
+  Member Projects 2: 3/592 (0.5%)
+  Private Hidden Fields: 2/592 (0.3%)
+  Send This: 1/592 (0.2%)
+  Expertise and Interests: 1/592 (0.2%)
+  Template: 1/592 (0.2%)
+  Referrer: 1/592 (0.2%)
+
+Key Statistics:
+  Records with names: 592
+  Records with emails: 571
+  Records marked as donors: 41

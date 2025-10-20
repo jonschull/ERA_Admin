@@ -1,0 +1,5 @@
+# pack-refs with: peeled fully-peeled sorted 
+7db715b68cd7eeae3acc66bf0ff936bec5dd65ae refs/remotes/origin/main
+da24acff8802c5d5b01ae9c2e0278de991f4cd5e refs/remotes/origin/refactor/docs-and-logging-oct2025
+94db5c756311c48725d58feb746b3509415101b8 refs/tags/v0.1.0-local-baseline
+^1b662d6f5dfae0b92ace074ef31553306b518d34

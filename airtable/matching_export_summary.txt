@@ -1,0 +1,25 @@
+ERA Airtable Matching Export Summary
+Generated: 2025-10-17 21:09:50
+==================================================
+
+Export Statistics:
+  Total records processed: 592
+  Records with names: 592
+  Records with emails: 571
+  Donor records: 41
+  Names with variations applied: 77
+
+Name Cleaning Examples:
+  'Noah David' → 'Noah Dave'
+  'Jimmy Pryor' → 'Jim Pryor'
+  'Daniel Fleetwood' → 'Dan Fleetwood'
+  'John Westley Magugu' → 'Jon Westley Magugu'
+  'John Roulac' → 'Jon Roulac'
+  'David Hodgson' → 'Dave Hodgson'
+  'Liaquat Hussain ' → 'Liaquat Hussain'
+  'Michael Lynn' → 'Mike Lynn'
+  'David Casselman' → 'Dave Casselman'
+  'David maher' → 'Dave maher'
+
+Ready for cross-correlation with Fathom participant data.
+Use this file for name matching algorithms.

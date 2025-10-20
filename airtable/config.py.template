@@ -1,0 +1,17 @@
+"""
+Airtable Configuration for ERA Admin
+Centralized configuration and credentials management.
+
+IMPORTANT: Copy this file to config.py and fill in your actual API key.
+The config.py file is gitignored to protect your secrets.
+"""
+
+# Airtable API Configuration
+AIRTABLE_CONFIG = {
+    'base_id': 'YOUR_BASE_ID_HERE',  # Example: 'appe7aXupdvB4xXzu'
+    'api_key': 'YOUR_API_KEY_HERE',  # Get from https://airtable.com/account
+    'tables': {
+        'people': 'People',
+        'templates': 'Templates and Scenarios'
+    }
+}
