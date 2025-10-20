@@ -6,7 +6,7 @@ from pathlib import Path
 from datetime import datetime, timedelta
 
 MONITOR_LOG = Path("/Users/admin/Library/Logs/fathom_monitor.log")
-CRON_LOG = Path("/Users/admin/Library/CloudStorage/Dropbox-EcoRestorationAllianceLLC/Jon Schull/CascadeProjects/ERA_Admin/FathomInventory/cron.log")
+CRON_LOG = Path("/Users/admin/ERA_Admin/FathomInventory/cron.log")
 
 def test_no_recent_crash_loops():
     """Test that monitor is not in a crash loop."""
