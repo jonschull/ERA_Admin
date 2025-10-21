@@ -2117,10 +2117,104 @@ The FathomInventory system uses a sophisticated three-tier authentication system
 
 #### The Three Authentication Files
 
-See original FathomInventory/authentication/README.md for:
-- credentials.json structure and setup
-- token.json OAuth flow details
-- fathom_cookies.json manual extraction process
+**1. credentials.json - Google API Client Credentials**
+
+*Purpose:* Contains OAuth 2.0 client credentials for Google API access
+
+*Structure:*
+```json
+{
+  "installed": {
+    "client_id": "57881875374-jtkkfj4s4cbo4dji31pun9td87gt0nba.apps.googleusercontent.com",
+    "project_id": "fathomizer-email-analysis", 
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_secret": "YOUR_CLIENT_SECRET_HERE",
+    "redirect_uris": ["http://localhost"]
+  }
+}
+```
+
+*How it got here:*
+- Created through Google Cloud Console
+- Project: "fathomizer-email-analysis"
+- Gmail API enabled with read-only scope
+- Downloaded as client secrets file from Google Cloud Console
+
+*Expiration:* Does not expire (client credentials are permanent)
+
+*Usage:* Used by `download_emails.py` to initiate OAuth flow
+
+**2. token.json - OAuth Access Token**
+
+*Purpose:* Contains the actual OAuth token for Gmail API access
+
+*Structure:*
+```json
+{
+  "token": "YOUR_ACCESS_TOKEN_HERE",
+  "refresh_token": "YOUR_REFRESH_TOKEN_HERE",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "client_id": "YOUR_CLIENT_ID_HERE",
+  "client_secret": "YOUR_CLIENT_SECRET_HERE",
+  "scopes": ["https://www.googleapis.com/auth/gmail.readonly"],
+  "universe_domain": "googleapis.com",
+  "account": "",
+  "expiry": "2025-09-19T15:05:14.437249Z"
+}
+```
+
+*How it got here:*
+- Generated automatically by first run of `download_emails.py`
+- User completed OAuth flow in browser
+- Google returned access token and refresh token
+- System saved both tokens to this file
+
+*Expiration:*
+- **Access token:** Expires every ~1 hour (see "expiry" field)
+- **Refresh token:** Long-lived (months/years) but can be revoked
+- **Auto-refresh:** System automatically refreshes access token using refresh token
+
+*Usage:* Used by `download_emails.py` for all Gmail API calls
+
+**3. fathom_cookies.json - Browser Session Cookies**
+
+*Purpose:* Contains browser cookies for authenticated Fathom.video session
+
+*Structure:* Array of cookie objects with domains, expiration dates, and values
+```json
+[
+  {
+    "domain": ".fathom.video",
+    "expirationDate": 1775094135,
+    "hostOnly": false,
+    "httpOnly": false,
+    "name": "AMP_MKTG_12e56792f7",
+    "path": "/",
+    "sameSite": "lax",
+    "secure": false,
+    "session": false,
+    "storeId": "0",
+    "value": "JTdCJTdE"
+  }
+  // ... many more cookies
+]
+```
+
+*How it got here:*
+- Manually extracted from browser after logging into Fathom.video
+- Used browser developer tools or cookie export extension
+- Represents authenticated session with Fathom.video
+- **Hard-won solution:** Bypasses complex Fathom authentication
+
+*Expiration:*
+- **Individual cookies expire** at different times (see expirationDate)
+- **Session cookies:** Expire when browser closes
+- **Persistent cookies:** Have specific expiration dates
+- **No auto-refresh:** Must be manually updated when expired
+
+*Usage:* Used by `run_daily_share.py` to access Fathom.video as authenticated user
 
 #### Authentication Flows
 
