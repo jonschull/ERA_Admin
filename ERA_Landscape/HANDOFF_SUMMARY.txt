@@ -1,0 +1,313 @@
+ERA Landscape - Static Viewer - Handoff Package
+===============================================
+Date: October 15, 2025
+Status: ✅ PRODUCTION DEPLOYED & FULLY FUNCTIONAL
+
+AI ASSISTANT: READ THIS FIRST
+------------------------------
+Before responding to the user, immediately read in this order:
+
+1. This file (HANDOFF_SUMMARY.txt) - Project overview
+2. AI_HANDOFF_GUIDE.md - Code patterns, testing, git workflow
+3. TESTING.md - Testing workflow and commands
+4. VISION.md - Long-term collaborative mapping goals
+5. NEXT_STEPS.md - Current roadmap and action items
+
+Then assess current state:
+- On which git branch? (`git branch --show-current`)
+- Does index.html open in browser without errors?
+- Last test run status? (run: cd tests && python test_load.py)
+- Current feature status? (check NEXT_STEPS.md and recent git log)
+
+Then present to user WITHOUT being asked:
+✅ Current git branch and status
+✅ Current feature status
+✅ Browser test result (errors or clean)
+✅ Testing baseline (passing/unknown/needs verification)
+✅ Ready to proceed or need clarification
+
+DO NOT wait for "where are we?" - orient yourself and report status proactively.
+
+CRITICAL: SEE AI_HANDOFF_GUIDE.md FOR DETAILED WORKFLOW & TESTING PRINCIPLES
+-----------------------------------------------------------------------------
+This file = Project state snapshot (what's done, what's not, what's next)
+AI_HANDOFF_GUIDE.md = How to work (testing discipline, git workflow, principles)
+
+Quick checklist before starting work:
+- [ ] Read AI_HANDOFF_GUIDE.md for full testing & workflow principles
+- [ ] Check git branch and status
+- [ ] Verify current state matches what's documented below
+- [ ] Present status to user proactively
+
+During work - Core principle from AI_HANDOFF_GUIDE.md:
+  "Test behavior, not structure. Hunt for problems, not confirmations."
+  
+See AI_HANDOFF_GUIDE.md for:
+- Command output discipline
+- Verification checklist (7 steps)
+- Testing anti-patterns to avoid
+- Git/GitHub workflow details
+
+PROJECT OVERVIEW
+----------------
+
+What This Is:
+✅ Pure static HTML/JavaScript viewer for climate/restoration network graph
+✅ Loads data directly from Google Sheets (no server needed)
+✅ Deployable to GitHub Pages or any static host
+✅ OAuth for editing (sign in to save changes)
+✅ No Python, no backend, no Flask - just HTML + JS
+
+What This Is NOT:
+❌ Not a Python application (that's the parent project)
+❌ Not a backend server (that's ERA_ClimateWeek)
+❌ Not a build/compile process (edit HTML directly)
+
+Relationship to ERA_ClimateWeek:
+- Parent project: https://github.com/jonschull/ERA_ClimateWeek
+- Parent handles: Data processing, CSV imports, Sheet writes
+- This project: Pure viewer, reads from same Sheet
+- Workflow: ClimateWeek processes data → writes to Sheet → Static viewer displays
+
+CURRENT STATE (October 15, 2025)
+---------------------------------
+
+✅ **LIVE SITE**: https://jonschull.github.io/ERA_Landscape_Static/
+✅ **REPOSITORY**: https://github.com/jonschull/ERA_Landscape_Static
+✅ **STATUS**: Fully functional, auto-deploys from main branch
+
+Files:
+✅ index.html - Main HTML file (517 lines, includes Sheets API integration)
+✅ graph.js - JavaScript logic (1046 lines, all UI features)
+✅ README.md - Project overview & quick start
+✅ DEVELOPMENT.md - Developer guide with WORKFLOW REQUIREMENT
+✅ NEXT_STEPS.md - Roadmap & completed phases
+✅ TESTING.md - Testing workflow
+✅ VISION.md - Long-term goals
+✅ AI_HANDOFF_GUIDE.md - For AI assistants
+✅ SHEET_ANALYSIS_V2.md - User tracking & personal sheets design (future)
+✅ tests/*.py - 12 Playwright tests
+✅ .gitignore - Git ignore rules
+
+Git Status:
+✅ Repository: https://github.com/jonschull/ERA_Landscape_Static
+✅ On branch: main
+✅ Remote: origin (GitHub)
+✅ GitHub Pages: ENABLED & AUTO-DEPLOYING
+✅ Latest commit: 312bcda (docs: Emphasize branch-based workflow requirement #3)
+
+Production Features (COMPLETED):
+✅ Google Sheets API integration (read/write)
+✅ OAuth sign-in flow (write access)
+✅ Auto-load data from Sheets on page init
+✅ Auto-fit graph after data loads (2 second physics delay)
+✅ Node scaling by connection count (12-60px, 1-17 connections)
+✅ Interactive graph visualization (vis-network)
+✅ Quick Editor (add/remove connections)
+  ✅ Enter key triggers Add/Update
+  ✅ Yellow border highlights matching nodes
+  ✅ Both From and To fields highlighted simultaneously
+✅ Search filtering
+✅ Hide/show nodes
+✅ Re-Load button (refresh from Sheet with unsaved changes guardrail)
+✅ Save button (OAuth required)
+✅ Hover tooltips on all buttons
+✅ Color-coded by type (person=blue, org=teal, project=purple)
+✅ Type parsed from ID prefix (person::, org::, project::)
+✅ ~355 nodes, ~220 edges (live from Google Sheet)
+
+Next Features (PLANNED):
+📋 User tracking (created_by, updated_by columns) - See SHEET_ANALYSIS_V2.md
+📋 Personal vs Global sheets - See SHEET_ANALYSIS_V2.md
+📋 Node details panel (display url, notes, member, origin fields)
+📋 Admin activity log & selective reversion
+
+ARCHITECTURE (IMPLEMENTED)
+--------------------------
+
+Current Production Flow:
+  User visits https://jonschull.github.io/ERA_Landscape_Static/
+    ↓
+  Browser loads index.html (20KB, no embedded data)
+    ↓
+  Google Sheets API initializes (API key authentication)
+    ↓
+  Auto-loads data from Google Sheet (~355 nodes, ~220 edges)
+    ↓
+  vis-network renders graph
+    ↓
+  Auto-fit animation (2 second delay for physics)
+    ↓
+  User interacts (drag, zoom, search, filter)
+    ↓
+  User clicks "Sign In" (optional, for editing)
+    ↓
+  OAuth flow → authenticated
+    ↓
+  User can save edits back to Sheet
+
+✅ No server. No backend. Pure client-side.
+✅ Data always fresh from Sheet (never stale)
+✅ File size: 20KB (was 131KB with embedded data)
+
+COMPLETED WORK (October 15, 2025)
+----------------------------------
+
+✅ Phase 1-5: Initial deployment (Oct 13-14)
+  - External script loading (graph.js) ✅
+  - Google Sheets API integration ✅  
+  - OAuth sign-in flow ✅
+  - GitHub repository created ✅
+  - GitHub Pages deployment ✅
+
+✅ Phase 6: UI Improvements (Oct 15)
+  - Auto-fit after data load ✅
+  - Node scaling by connection count ✅
+  - Enter key in Quick Editor ✅
+  - Yellow border highlights (both fields simultaneously) ✅
+  - Removed redundant buttons ✅
+  - Added hover tooltips ✅
+  - Re-Load button with guardrail ✅
+
+✅ Documentation & Workflow (Oct 15)
+  - Emphasized branch-based workflow in DEVELOPMENT.md ✅
+  - Updated README.md with current features ✅
+  - Updated NEXT_STEPS.md with Phase 6 ✅
+  - Documented in Issue #2 ✅
+  - Created PR #3 (merged) ✅
+
+NEXT WORK (When Ready)
+----------------------
+
+See SHEET_ANALYSIS_V2.md for detailed design of:
+
+📋 Phase 1: User Tracking (4-6 hours)
+  - Capture user email/name on OAuth sign-in
+  - Add created_by, updated_by, fields_changed columns
+  - Populate on save/update
+  - No UI changes (just backend audit trail)
+
+📋 Phase 2: Personal Sheets (8-12 hours)
+  - Create personal sheet on first save
+  - Checkbox UI (Show Global / Show Personal)
+  - Merge logic (Personal wins conflicts)
+  - Visual distinction (gold borders)
+
+📋 Phase 3: Admin Features (4-6 hours)  
+  - Activity log UI (filter by user)
+  - Selective reversion
+  - Admin panel
+
+TESTING COMMANDS (See TESTING.md and AI_HANDOFF_GUIDE.md for methodology)
+--------------------------------------------------------------------------
+
+Manual browser test:
+  open index.html
+  Check console (Cmd+Option+J)
+
+Playwright test:
+  cd tests && python test_load.py
+
+Full test suite:
+  cd tests && python run_regression_tests.py
+
+See AI_HANDOFF_GUIDE.md for:
+- When to test (before claiming done)
+- What to test (behavior, not structure)
+- How to test (user workflows, not code existence)
+
+LONG-TERM VISION (see VISION.md)
+---------------------------------
+
+Goal: Collaborative network mapping utility
+
+Users can:
+- View shared network graph (public data)
+- Add their own data to shared database
+- Maintain personal views (hide/show preferences)
+- Discover connections added by others
+- Use personal Sheets that complement global Sheet
+
+This creates:
+- Movement-wide utility
+- Collective intelligence
+- Organic network growth
+- Individual customization
+
+Technical evolution:
+- Phase 1: Static viewer (current - this project)
+- Phase 2: OAuth editing (sign in to save)
+- Phase 3: Personal Sheets (user-specific data)
+- Phase 4: Multi-user coordination (discovery)
+- Phase 5: Real-time collaboration (optional)
+
+See VISION.md for full details.
+
+CONTACT & RESOURCES
+-------------------
+
+Original Project: https://github.com/jonschull/ERA_ClimateWeek
+This Project: https://github.com/jonschull/ERA_Landscape_Static (to be created)
+Developer: Jon Schull
+AI Assistant: Claude (Anthropic) via Windsurf Cascade
+
+Google Sheet: 
+  ID: 1cR5X2xFSGffivfsMjyHDDeDJQv6R0kQpVUJsEJ2_1yY
+  URL: https://docs.google.com/spreadsheets/d/1cR5X2xFSGffivfsMjyHDDeDJQv6R0kQpVUJsEJ2_1yY/edit
+  Owner: jschull@gmail.com
+  Access Policy: Write access granted to trusted users only
+  Note: Sheet URL not shared with end users (not ready for public editing)
+
+API Credentials (embedded in index.html):
+  API Key: AIzaSyBp23GwrTURmM3Z1ERZocotnu3Tn96TmUo
+  OAuth Client ID: 57881875374-flipnf45tc25cq7emcr9qhvq7unk16n5.apps.googleusercontent.com
+  OAuth App Name: ERA Graph Browser Client
+  OAuth Status: ✅ In production (public access enabled)
+  Google Cloud Account: fathomizer@ecorestorationalliance.com
+  Google Cloud Console: https://console.cloud.google.com/apis/credentials?project=57881875374
+
+HOW TO HAND OFF
+---------------
+
+For AI Assistant:
+1. Read this file FIRST (you're doing it!)
+2. Read AI_HANDOFF_GUIDE.md (essential patterns)
+3. Read TESTING.md (how to test)
+4. Read VISION.md (understand the goal)
+5. Check NEXT_STEPS.md (what to do now)
+6. Assess current state (git, browser test)
+7. Present status to user proactively
+
+For Human Developer:
+1. Read README.md (project overview)
+2. Read DEVELOPMENT.md (how to edit)
+3. Open index.html in browser
+4. Read VISION.md (long-term goals)
+5. Read NEXT_STEPS.md (current work)
+
+For User/Tester:
+1. Open index.html in browser
+2. Explore the graph
+3. Try clicking nodes, edges
+4. Test search filtering
+5. Report any issues
+
+READY TO START
+--------------
+
+If you're an AI assistant:
+- You've read this file ✅
+- Read AI_HANDOFF_GUIDE.md next ✅
+- Then assess current state ✅
+- Present status to user ✅
+- Ask what to work on next ✅
+
+If you're a human:
+- Read README.md for overview
+- Open index.html to see it work
+- Read DEVELOPMENT.md to edit
+- Check NEXT_STEPS.md for roadmap
+
+Status: ✅ Production deployed and fully functional
+Next: User tracking & personal sheets (see SHEET_ANALYSIS_V2.md)
+Updated: October 15, 2025

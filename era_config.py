@@ -14,7 +14,7 @@ ERA_ADMIN_ROOT = Path(__file__).parent.resolve()
 # Internal paths (relative to ERA_Admin) - portable
 AIRTABLE_DIR = ERA_ADMIN_ROOT / "airtable"
 AIRTABLE_EXPORTS_DIR = AIRTABLE_DIR
-LANDSCAPE_DIR = ERA_ADMIN_ROOT.parent / "ERA_Landscape_Static"  # Sibling folder
+LANDSCAPE_DIR = ERA_ADMIN_ROOT / "ERA_Landscape"  # Component within ERA_Admin
 
 # External paths - EDIT THESE when moving to server
 # Option 1: Use environment variable (preferred for server)
@@ -101,6 +101,7 @@ class Config:
         checks = {
             'ERA_Admin root': cls.ERA_ADMIN_ROOT,
             'Airtable directory': cls.AIRTABLE_DIR,
+            'Landscape directory': cls.LANDSCAPE_DIR,
             'FathomInventory root': cls.FATHOM_INVENTORY_ROOT,
             'Fathom database': cls.FATHOM_DB_PATH,
         }
