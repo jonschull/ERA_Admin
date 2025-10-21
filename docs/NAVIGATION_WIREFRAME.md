@@ -2048,43 +2048,144 @@ ls backups/
 
 ### 1. Overview
 
-FathomInventory authentication subdirectory
+**Purpose:** Cookie and token management for FathomInventory authentication
 
-**Purpose:** Cookie and token management for Fathom authentication
+The FathomInventory system uses a sophisticated three-tier authentication system that represents hard-won solutions to complex authentication challenges across different platforms:
 
-**Key files:** credentials.json, token.json, fathom_cookies_*.json (all gitignored)
+1. **Google API Authentication** (`credentials.json` + `token.json`)
+2. **Fathom.video Session Authentication** (`fathom_cookies.json`)
+3. **OAuth Token Management** (automatic refresh mechanisms)
+
+**This document contains:**
+- The three authentication files (purpose, structure, how they work)
+- Authentication flow analysis (Google API, Fathom cookies)
+- Troubleshooting guide (common problems & solutions)
+- Maintenance schedule (regular checks, emergency recovery)
+- Security considerations (permissions, backups, access scope)
+- Hard-won lessons (from historical evolution)
+
+**Key Insight:** This authentication system represents significant engineering effort and iterative refinement to handle the complexities of modern web authentication across multiple platforms.
 
 ### 2. Orientation - Where to Find What
 
-**You are at:** FathomInventory/authentication guide
+**You are at:** FathomInventory authentication/ subdirectory
+
+**Use this when:**
+- Setting up authentication for first time
+- Troubleshooting auth failures
+- Understanding cookie/token management
+- Planning maintenance schedule
 
 **What you might need:**
-- Parent README → [../README.md](#file-fathominventoryreadmemd)
-- Root README → [/README.md](#file-readmemd)
-- Component status → ../CONTEXT_RECOVERY.md
-- System principles → [/WORKING_PRINCIPLES.md](#file-working_principlesmd)
-
-**When to use:** Cookies expired, token refresh, account switching
+- **Parent component** → [../README.md](#file-fathominventoryreadmemd) - FathomInventory overview
+- **Component context** → [../CONTEXT_RECOVERY.md](#file-fathominventorycontext_recoverymd) - Component state
+- **System principles** → [/WORKING_PRINCIPLES.md](#file-working_principlesmd) - Overall philosophy
+- **Technical docs** → ../docs/AUTHENTICATION_GUIDE.md - Comprehensive auth setup
 
 ### 3. Principles
 
-**System:** [/WORKING_PRINCIPLES.md](#file-working_principlesmd)
-**Component:** [../README.md](#file-fathominventoryreadmemd)
+**System-wide:** See [/WORKING_PRINCIPLES.md](#file-working_principlesmd)
 
-**Auth-specific:**
+**Component-specific:** See [../README.md](#file-fathominventoryreadmemd) Section 3
 
-- Security first (never commit credentials)
-- Pre-flight checks
-- Multiple account support
+**Authentication-specific principles:**
+
+**1. Hard-Won Solutions**
+- Cookie sanitization for Playwright compatibility
+- Auto-refresh logic prevents constant user intervention
+- Graceful degradation when auth fails
+- Minimal necessary permissions (read-only Gmail)
+
+**2. Weekly Maintenance Required**
+- Fathom cookies expire frequently (some daily)
+- System detects failures immediately (as of Oct 17)
+- Refresh weekly with `./scripts/refresh_fathom_auth.sh`
+
+**3. Security First**
+- File permissions: `chmod 600` for all auth files
+- Never commit to version control (use .gitignore)
+- Keep secure backups of working auth files
+- Rotate credentials periodically
+
+**4. Battle-Tested Patterns**
+- Timeouts discovered through trial (Fathom page load: 60s)
+- HTML selector stability (call-gallery-thumbnail remains stable)
+- Process reliability monitoring (watchdog patterns)
+- Authentication evolution from manual → fully automated
 
 ### 4. Specialized Topics
 
-**Guides:**
+#### The Three Authentication Files
 
-- cookie_export_guide.md
-- google_api_setup_guide.md
+See original FathomInventory/authentication/README.md for:
+- credentials.json structure and setup
+- token.json OAuth flow details
+- fathom_cookies.json manual extraction process
 
-**Back:** [FathomInventory](#file-fathominventoryreadmemd) | [/README](#file-readmemd)
+#### Authentication Flows
+
+**Google API (download_emails.py):** Automatic OAuth with token refresh
+
+**Fathom Cookies (run_daily_share.py):** Manual cookie management with sanitization
+
+#### Troubleshooting
+
+**Common Issues:**
+- credentials.json not found → Set up in Google Cloud Console
+- token.json expired → Delete and re-run OAuth flow
+- Fathom access denied → Refresh cookies manually
+- Cookie format errors → Code handles automatically
+
+#### Testing Scripts
+
+**test_all_auth.py** - Test all authentication
+**test_fathom_cookies.py** - Test Fathom only
+**test_google_auth.py** - Test Gmail only
+
+**Usage:**
+```bash
+cd authentication
+python test_all_auth.py        # Test everything
+python test_fathom_cookies.py  # Fathom only
+python test_google_auth.py     # Gmail only
+```
+
+#### Maintenance & Security
+
+**Weekly Tasks:**
+- Check cookie expiration
+- Run test scripts
+- Refresh if needed
+
+**Security:**
+```bash
+chmod 600 credentials.json token.json fathom_cookies.json
+```
+
+**Emergency Recovery:**
+1. Backup auth files
+2. Google: Delete token.json, re-run OAuth
+3. Fathom: Export fresh cookies from browser
+4. Test incrementally
+
+#### Hard-Won Lessons
+
+**From Historical Evolution:**
+- Cookie sanitization critical for Playwright
+- Auto-refresh prevents user intervention
+- Graceful error handling essential
+- Session persistence requires careful maintenance
+- Browser automation can hang - monitoring essential
+- Fathom selectors have remained stable
+
+**Key Timeouts (discovered through trial):**
+- Fathom page load: 60 seconds
+- Authentication verification: 15 seconds
+- Process inactivity: 5 minutes
+
+**Evolution:** Manual → Automated → Fully integrated (3 phases)
+
+**Back to:** [FathomInventory/README.md](#file-fathominventoryreadmemd) | [/README.md](#file-readmemd)
 
 ---
 
