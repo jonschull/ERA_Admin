@@ -96,14 +96,15 @@
    **Sources:** Original component READMEs
    **Goal:** Component overview + principles (reference root + add specifics)
 
-3. **Specialized Docs** (as needed)
-   - [ ] FathomInventory/authentication/README.md
+3. **Specialized Docs** (3 total)
+   - [x] FathomInventory/CONTEXT_RECOVERY.md - ✅ COMPLETE
+   - [ ] FathomInventory/authentication/README.md - NEXT
    - [ ] integration_scripts/AI_WORKFLOW_GUIDE.md
-   - [ ] Others as discovered
    
-   **Before starting:** Read this CONTEXT_RECOVERY
+   **Before starting each:** Read this CONTEXT_RECOVERY
    **Sources:** Original specialized docs
    **Goal:** Deep-dive guides maintaining 4-section structure
+   **Priority:** Complete these to fully enrich wireframe
 
 ---
 
@@ -210,6 +211,14 @@
 
 **COMPONENT READMEs COMPLETE** ✅ (3/3, 100%)
 
+**FathomInventory/CONTEXT_RECOVERY.md enrichment** ✅ (Oct 20, 10:00 PM)
+- Section 1: Purpose, project info, production status, what's contained
+- Section 2: Use cases, root docs, related docs
+- Section 3: System-wide and component principles
+- Section 4: Current state, architecture, key files, resume work, tasks, issues, rollback, testing, AI recovery, contact
+- Pattern: Comprehensive component state with copy-paste commands
+- Commit: 1d35b1e
+
 ### Next Action
 
 **Current:** Component READMEs enrichment (3 files)
@@ -226,7 +235,12 @@
 - Section 3: Principles (system-wide reference + component-specific)
 - Section 4: Specialized topics (practical guidance, commands, files)
 
-**Next (optional):** Specialized docs as needed (AI_WORKFLOW_GUIDE, authentication/README, etc.)
+**Next:** Specialized docs (3 remaining)
+
+**Current:** FathomInventory/authentication/README.md (2/3 specialized)
+**Then:** integration_scripts/AI_WORKFLOW_GUIDE.md (3/3, final)
+
+**Goal:** Fully enrich wireframe to theoretically obviate originals
 
 ---
 
