@@ -1412,6 +1412,34 @@ The content below in Section 4 contains all the principles. They are organized i
 - Check before commit: `git status`, look for sensitive files
 - Use `.gitignore` patterns for generated files
 
+**Enforcement: Branch Protection**
+
+Documentation alone is insufficient. Use GitHub branch protection to technically enforce PR protocol:
+
+*Setup (one-time):*
+```bash
+# Via GitHub CLI:
+gh api repos/OWNER/REPO/branches/main/protection -X PUT --input - << 'EOF'
+{
+  "required_status_checks": null,
+  "enforce_admins": true,
+  "required_pull_request_reviews": {
+    "required_approving_review_count": 0
+  },
+  "restrictions": null
+}
+EOF
+```
+
+*Or via web UI:*
+1. Go to: https://github.com/OWNER/REPO/settings/branches
+2. Add rule for `main`
+3. Check: "Require pull request before merging"
+4. Check: "Include administrators" (enforces for everyone)
+5. Set required approvals to 0 (for solo work)
+
+*Result:* Direct commits to main become technically impossible.
+
 **Living Documents**
 
 **Documents Evolve:**
@@ -1593,6 +1621,209 @@ print(f"🎯 Next step: Review report, then run Phase 5")
 **Meta-Principle:** The principles themselves should follow these principles - be concise, actionable, tested in practice, and regularly validated.
 
 **Back to:** [README.md](#file-readmemd)
+
+---
+
+## FILE: docs/README.md
+
+**Path:** `docs/README.md`
+
+### 1. Overview
+
+**Purpose:** Documentation system design, prototyping, and maintenance
+
+The docs/ component manages ERA_Admin's documentation infrastructure, including the wireframe-based generation system and protocols for maintaining documentation consistency.
+
+**What this component does:**
+- Maintains NAVIGATION_WIREFRAME.md (single source of truth)
+- Generates production documentation via generate_from_wireframe.py
+- Validates navigation integrity (no orphans, all paths work)
+- Provides protocols for adding/updating documentation
+
+**Key files:**
+- NAVIGATION_WIREFRAME.md - Complete documentation content (3,400+ lines)
+- generate_from_wireframe.py - Parser/generator for production docs
+- update_docs.sh - Helper script for regeneration workflow
+- test_navigation.py - Navigation integrity validator
+
+### 2. Orientation - Where to Find What
+
+**You are at:** Documentation department README
+
+**Use this when:**
+- Adding new documentation
+- Updating existing docs
+- Understanding doc structure
+- Troubleshooting navigation
+
+**What you might need:**
+- **Parent** → [/README.md](#file-readmemd) - System overview
+- **Wireframe** → NAVIGATION_WIREFRAME.md - Full documentation content
+- **Principles** → [/WORKING_PRINCIPLES.md](#file-working_principlesmd) - System-wide philosophy
+- **Current state** → CONTEXT_RECOVERY.md - Documentation work status
+
+### 3. Principles
+
+**System-wide:** See [/WORKING_PRINCIPLES.md](#file-working_principlesmd)
+
+**Documentation-specific principles:**
+
+**1. Single Source of Truth**
+- NAVIGATION_WIREFRAME.md contains all content
+- Production docs generated from wireframe
+- Never edit production docs directly
+- Always edit wireframe → regenerate → commit
+
+**2. 4-Section Structure**
+- Section 1: Overview (what/purpose)
+- Section 2: Orientation (navigation help)
+- Section 3: Principles (reference up + add specifics)
+- Section 4: Specialized Topics (details)
+
+**3. Navigation Integrity**
+- No orphan documents (every doc reachable)
+- Always navigate up (back to parent/root)
+- Cross-references work at all levels
+
+**4. No Redundancy**
+- Reference up to system principles
+- Add component-specific details only
+- Don't duplicate explanations
+
+### 4. Specialized Topics
+
+#### Documentation Workflow
+
+**Normal workflow (incremental edits):**
+
+```bash
+# 1. Create feature branch
+git checkout -b docs/update-something
+
+# 2. Edit the wireframe
+vim docs/NAVIGATION_WIREFRAME.md
+
+# 3. Regenerate docs
+./docs/update_docs.sh
+
+# 4. Review changes
+git diff
+
+# 5. Commit and PR
+git add -A
+git commit -m "Update documentation: [description]"
+git push origin docs/update-something
+gh pr create --fill
+gh pr merge --squash --delete-branch
+```
+
+**For major overhauls only:**
+```bash
+python3 docs/archive_and_replace.py  # Creates backup, replaces all
+```
+
+#### Adding New Documents
+
+**Template for new document in wireframe:**
+
+```markdown
+## FILE: path/to/NEW_DOC.md
+
+**Path:** `path/to/NEW_DOC.md`
+
+### 1. Overview
+**Purpose:** [one-line purpose]
+[Full explanation]
+
+### 2. Orientation - Where to Find What
+**You are at:** [location description]
+**What you might need:**
+- [Parent link]
+- [Related links]
+
+### 3. Principles
+**System-wide:** See [/WORKING_PRINCIPLES.md](#file-working_principlesmd)
+[Document-specific principles]
+
+### 4. Specialized Topics
+[Main content]
+
+**Back to:** [Parent](#link) | [/README.md](#file-readmemd)
+```
+
+**Steps to add:**
+1. Add `## FILE:` section to NAVIGATION_WIREFRAME.md
+2. Update link map in generate_from_wireframe.py (if needed)
+3. Run `./docs/update_docs.sh`
+4. Update parent README to reference new doc
+5. Test navigation
+6. Commit via PR
+
+**Link naming convention:**
+- File: `path/to/NEW_DOC.md`
+- Anchor: `#file-pathtonew_docmd` (lowercase, no punctuation)
+
+#### Helper Scripts
+
+**update_docs.sh** - Regenerate production docs from wireframe
+```bash
+./docs/update_docs.sh
+# - Cleans docs_generated/
+# - Runs generate_from_wireframe.py
+# - Copies to production locations
+# - Shows git diff summary
+```
+
+**archive_and_replace.py** - Safe replacement with backup (rare use)
+```bash
+python3 docs/archive_and_replace.py
+# - Creates timestamped backup in historical/
+# - Generates rollback script
+# - Replaces all 10 files
+# Use for: major overhauls, structural changes
+```
+
+**test_navigation.py** - Validate navigation integrity
+```bash
+python3 docs/test_navigation.py docs_generated
+# - Checks for orphans
+# - Verifies all paths to root
+# - Tests link conversion
+```
+
+#### Design Documents
+
+**Current (Active):**
+- NAVIGATION_WIREFRAME.md - Complete doc system (single source of truth)
+- generate_from_wireframe.py - Production generator
+- update_docs.sh - Regeneration helper
+
+**Historical (Reference):**
+- NAVIGATION_DESIGN.md - Original design rationale
+- NAVIGATION_PROTOTYPE.md - Single-doc clickable prototype
+- docs_prototype/ - Early experiments
+
+#### Validation & Testing
+
+**Pre-commit checks:**
+```bash
+# Regenerate and check
+./docs/update_docs.sh
+git diff --stat
+
+# Test navigation
+python3 docs/test_navigation.py docs_generated
+
+# Test script references
+python3 docs/test_script_references.py
+```
+
+**Validation reports:**
+- WIREFRAME_VALIDATION_REPORT.md - Coverage and consistency
+- NAVIGATION_TEST_RESULTS.md - Navigation integrity
+- SCRIPT_COVERAGE_REPORT.md - Script reference analysis
+
+**Back to:** [/README.md](#file-readmemd)
 
 ---
 
