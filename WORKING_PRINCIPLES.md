@@ -194,6 +194,34 @@ The content below in Section 4 contains all the principles. They are organized i
 - Check before commit: `git status`, look for sensitive files
 - Use `.gitignore` patterns for generated files
 
+**Enforcement: Branch Protection**
+
+Documentation alone is insufficient. Use GitHub branch protection to technically enforce PR protocol:
+
+*Setup (one-time):*
+```bash
+# Via GitHub CLI:
+gh api repos/OWNER/REPO/branches/main/protection -X PUT --input - << 'EOF'
+{
+  "required_status_checks": null,
+  "enforce_admins": true,
+  "required_pull_request_reviews": {
+    "required_approving_review_count": 0
+  },
+  "restrictions": null
+}
+EOF
+```
+
+*Or via web UI:*
+1. Go to: https://github.com/OWNER/REPO/settings/branches
+2. Add rule for `main`
+3. Check: "Require pull request before merging"
+4. Check: "Include administrators" (enforces for everyone)
+5. Set required approvals to 0 (for solo work)
+
+*Result:* Direct commits to main become technically impossible.
+
 **Living Documents**
 
 **Documents Evolve:**
