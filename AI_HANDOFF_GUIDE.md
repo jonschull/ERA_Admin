@@ -447,6 +447,47 @@ print("- Next step: Run Phase 5T export script")
 ```
 Then actually update the file.
 
+**6. File Creation Discipline**
+
+**Pattern: Explore Freely, Commit Thoughtfully**
+
+AI can create files during exploration:
+- Prototyping solutions
+- Documenting ideas
+- Testing approaches
+- Generating reports
+
+**But before committing:**
+1. **Review:** `git status` - What files were created?
+2. **Question:** Should this be standalone or incorporated?
+3. **Consolidate:** Merge into existing docs where appropriate
+4. **Delete:** Remove redundant or unnecessary files
+5. **Keep:** Only truly needed standalone files
+
+**Example (Oct 20, 2025):**
+```
+Created during exploration:
+- ENFORCE_PR_PROTOCOL.md (268 lines)
+- ADDING_NEW_DOCS.md (423 lines)
+
+Human review:
+"Should these be separate or incorporated?"
+
+Decision: Consolidate
+- ENFORCE_PR_PROTOCOL → WORKING_PRINCIPLES.md
+- ADDING_NEW_DOCS → docs/README.md
+
+Result: Clean, no documentation sprawl
+```
+
+**Why This Works:**
+- ✅ AI speed (prototype quickly)
+- ✅ Human judgment (catch unnecessary complexity)
+- ✅ Git transparency (nothing hidden)
+- ✅ Discipline (delete or incorporate, never accumulate)
+
+**The Rule:** Create freely during work, review critically before commit.
+
 #### When to Ask vs Proceed
 
 **Proceed Without Asking:**
