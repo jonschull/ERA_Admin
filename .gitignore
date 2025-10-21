@@ -118,3 +118,4 @@ build/
 # ----------------------
 # FathomInventory specifics are in its own .gitignore
 # ERA_Landscape_Static specifics are in its own .gitignore
+docs_generated/
