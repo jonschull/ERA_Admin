@@ -2242,50 +2242,345 @@ python cross_correlate.py
 
 ### 1. Overview
 
-integration_scripts is one of three components in ERA_Admin.
+**Purpose:** Scripts for reconciling data between ERA's various systems
 
-**Purpose:** Cross-component bridging for participant enrichment
+This component provides cross-component integration workflows for enriching participant data. It is one of four components in ERA_Admin and serves as the **integration layer** connecting FathomInventory (AI-generated) with Airtable (human-curated).
 
-**What it does:** Bridges FathomInventory ↔ Airtable to enrich participant data
+**The Problem:**
+ERA has people scattered across multiple systems:
+- **Fathom**: 1,953 video call participants (AI-generated names, often misspelled)
+- **Airtable**: 630 members (authoritative, curated database)
+- **Gmail**: Email history with context about people
 
-**Phases:**
+**Challenge**: Match Fathom participants to Airtable members, enrich Fathom data, handle ambiguous cases.
 
-- Phase 4B-1: Automated fuzzy matching
-- Phase 4B-2: Collaborative human-AI review
+**The Solution: Collaborative Human-AI Review**
+
+Phase 4B builds an interactive system where:
+1. **Script generates** HTML approval table with fuzzy-matched candidates
+2. **Human reviews** with AI assistance, checking video links, adding comments
+3. **Human & AI discuss** ambiguous cases, research via Gmail, make decisions together
+4. **Human exports** CSV with decisions (approve/reject/delete/merge)
+5. **Script processes** only the approved actions
+
+**Key principle:** AI proposes, human disposes, collaboration decides.
+
+**Current Status:**
+
+*Phase 4B-1* ✅ COMPLETE (Oct 19, 2025)
+- 364 participants enriched via automated fuzzy matching (80% threshold)
+- 188 AI-misspelled names corrected
+- 351 members identified, 64 donors
+
+*Phase 4B-2* ✅ 87% COMPLETE (Oct 20, 2025)
+- 409 participants validated via collaborative review (8 rounds)
+- 58 new people added to Airtable (+10% growth)
+- 255 participants remain (~5 more rounds to 95%)
+- Production-ready workflow established
+
+*Phase 4B-3* ⏭️ NEXT
+- Add Airtable-only members to Fathom
+- Ready when Phase 4B-2 reaches 95%+
+
+*Phase 5T* ⭐ AFTER 4B-2
+- Town Hall visualization in ERA Landscape
+- Export meeting chain to Google Sheet
 
 ### 2. Orientation - Where to Find What
 
 **You are at:** integration_scripts component README
 
+**Which README to read:**
+- **This file**: Overview and quick start
+- **README_PHASE4B.md**: Complete Phase 4B system guide (detailed)
+- **README_PHASE4B_DETAILED.md**: Technical deep dive (implementation)
+
+**First-time users:**
+1. Read this Overview (Section 1)
+2. Read README_PHASE4B.md for system details
+3. Follow Quick Start in Section 4
+
+**Resuming Phase 4B-2 work:**
+1. Read [CONTEXT_RECOVERY.md](CONTEXT_RECOVERY.md) - Component state
+2. Read [AI_WORKFLOW_GUIDE.md](AI_WORKFLOW_GUIDE.md) - AI-specific workflow
+3. Check PHASE4B2_PROGRESS_REPORT.md - 8-round analysis
+4. Continue from documented next steps
+
+**AI assistants:**
+1. Read [AI_WORKFLOW_GUIDE.md](AI_WORKFLOW_GUIDE.md) FIRST
+2. 6-phase collaboration cycle explained
+3. Mental states for each phase
+4. Common patterns & decision trees
+
 **What you might need:**
-- Parent README → [/README.md](#file-readmemd)
-- System-wide status → [/CONTEXT_RECOVERY.md](#file-context_recoverymd)
-- Phase progress → PHASE4B2_PROGRESS_REPORT.md
-- System principles → [/WORKING_PRINCIPLES.md](#file-working_principlesmd)
-- Which README to read → See section 4 below
+- **Parent system** → [/README.md](#file-readmemd) - Overall ERA Admin architecture
+- **System-wide status** → [/CONTEXT_RECOVERY.md](#file-context_recoverymd) - Integration status
+- **Component state** → [CONTEXT_RECOVERY.md](CONTEXT_RECOVERY.md) - Phase 4B status
+- **System principles** → [/WORKING_PRINCIPLES.md](#file-working_principlesmd) - Overall philosophy
+- **Phase progress** → PHASE4B2_PROGRESS_REPORT.md - 8-round detailed analysis
+- **AI workflow** → [AI_WORKFLOW_GUIDE.md](AI_WORKFLOW_GUIDE.md) - Collaborative review workflow
+- **FathomInventory** → [/FathomInventory/README.md](#file-fathominventoryreadmemd) - Participant database
+- **Airtable** → [/airtable/README.md](#file-airtablereadmemd) - Member database
 
 ### 3. Principles
 
-**System:** See [/WORKING_PRINCIPLES.md](#file-working_principlesmd)
+**System-wide:** See [/WORKING_PRINCIPLES.md](#file-working_principlesmd)
 
-**integration-specific:**
+**integration_scripts-specific:**
 
-- Collaborative human-AI workflow
-- Data validation with human approval
+**1. Collaborative Human-AI Workflow**
+- **AI proposes, human disposes** - AI generates candidates, human makes final decisions
+- **Collaboration decides** - Ambiguous cases discussed before action
+- **Iterative review** - Batch processing with human approval at each step
+- **6-phase cycle** - Generate, review, parse, discuss, execute, document
+
+**2. Data Validation with Human Approval**
+- **No black-box automation** - Every decision explained and justified
+- **CSV records all decisions** - Auditable trail with comments
+- **Custom comments flagged** - AI identifies cases needing discussion
+- **Human expertise + AI research** - Best of both worlds (Gmail context)
+
+**3. Safe Database Operations**
+- **Automatic backups** - Before every modification
+- **Transaction safety** - Rollback on error
+- **Integrity checks** - Validate before and after
+- **Template enforcement** - TEMPLATE_database_script.py for consistency
+
+**4. Batch Processing**
+- **25 people per batch** - Manageable review sessions
+- **Sequential processing** - Complete each batch before next
+- **Progress tracking** - PHASE4B2_PROGRESS_REPORT.md updated after each round
+- **Incremental improvement** - Each round refines the workflow
+
+**5. NOT Traditional ETL**
+- **Collaborative data curation** - Not automated pipeline
+- **Judgment calls required** - Edge cases need human expertise
+- **Context matters** - Gmail research, video links, meeting history
+- **Quality over speed** - Thorough validation vs bulk processing
 
 ### 4. Specialized Topics
 
-**Which README:**
+#### Quick Start
 
-- This file: Overview
-- README_PHASE4B.md: System details
-- README_PHASE4B_DETAILED.md: Technical deep dive
+**Phase 4B-1 (Re-run to test):**
+```bash
+cd /Users/admin/ERA_Admin
+source ERA_Admin_venv/bin/activate
+python3 integration_scripts/phase4b1_enrich_from_airtable.py
+```
+Opens HTML table → Review → Export CSV → Process
 
-**AI Workflow:**
+**Phase 4B-2 (Current - 8 rounds completed, 87% done):**
+```bash
+# 1. Generate batch (next 25 people)
+python3 integration_scripts/generate_batch_data.py
+python3 integration_scripts/generate_phase4b2_table.py
 
-- [AI_WORKFLOW_GUIDE.md](#file-integration_scriptsai_workflow_guidemd) - Phase 4B-2 specific
+# 2. Review in browser → Export CSV
 
-**Back:** [/README.md](#file-readmemd)
+# 3. Parse and flag custom comments
+python3 integration_scripts/parse_phase4b2_csv.py <csv_file>
+# Discuss custom comments with AI
+
+# 4. Execute approved actions
+python3 integration_scripts/execute_roundN_actions.py
+
+# 5. Document results
+# Update PHASE4B2_PROGRESS_REPORT.md
+```
+
+Includes Gmail research, interactive HTML, collaborative review.
+
+#### Phase Details
+
+**Phase 4B-1: Automated Fuzzy Matching** ✅ COMPLETE (Oct 19, 2025)
+
+*What it does:*
+- Fuzzy matches Fathom participants to Airtable members (80% threshold)
+- Generates sortable HTML table with video links
+- Exports to CSV for collaborative review
+- Processes approved matches safely (backups, transactions)
+- Skips already-enriched participants in future runs
+
+*Results:*
+- 364 participants enriched
+- 188 AI-misspelled names corrected
+- 351 members identified, 64 donors
+- 9 contamination entries deleted
+- 279 unenriched participants remained → Phase 4B-2
+
+*Files:*
+- `phase4b1_enrich_from_airtable.py` - Main pipeline
+- `process_approved_matches.py` - CSV processor
+
+**Phase 4B-2: Collaborative Review** ✅ 87% COMPLETE (Oct 20, 2025)
+
+*What we built:*
+- Interactive HTML table generator with Gmail integration
+- CSV parser for collaborative decision-making
+- Automated execution scripts with safety checks
+- Reusable Airtable addition module
+
+*Results (8 rounds):*
+- **409 participants validated** (~51 avg per round)
+- **58 new people added to Airtable** (+10% growth)
+- **198 actions executed** (merges, adds, drops)
+- **255 participants remain** (87% complete, up from 64%)
+- **Process stabilized** - production-ready workflow
+
+*Key achievements:*
+- Handled phone numbers as names (3 cases)
+- Resolved device names (John's iPhone, etc.)
+- Merged organization names to people
+- Fixed Bio field usage (now empty, provenance in Provenance field)
+- Processed joint entries, duplicates, variants
+
+*Files:*
+- `generate_batch_data.py` - Select next 25 people
+- `generate_phase4b2_table.py` - Create HTML review interface
+- `parse_phase4b2_csv.py` - Parse decisions, flag custom comments
+- `execute_roundN_actions.py` - 8 round execution scripts
+- `add_to_airtable.py` - Reusable addition module
+- `gmail_research.py` - Gmail context retrieval
+
+*Documentation:*
+- **PHASE4B2_PROGRESS_REPORT.md** - Complete 8-round analysis
+- **AI_WORKFLOW_GUIDE.md** - Step-by-step for AI assistants
+
+**Phase 4B-3: Add Airtable-Only Members** ⏭️ NEXT
+
+*Goal:* Insert Airtable members who haven't appeared in Fathom videos yet.
+
+*Readiness:* Phase 4B-2 is 87% complete (255 remaining). Estimated 5 more rounds to reach 95%+ before starting Phase 4B-3.
+
+#### Philosophy
+
+**This is NOT traditional ETL.** It's collaborative data curation:
+
+- **No black-box automation** - Every decision explained and justified
+- **Human expertise + AI research** - Best of both worlds
+- **Iterative discussion** - Review ambiguous cases together before acting
+- **Auditable** - CSV records all decisions with comments
+- **Safe** - Backups, transactions, rollback on error
+
+**The AI's role:**
+- Propose matches based on fuzzy matching
+- Research people via Gmail for context
+- Explain options and trade-offs
+- Execute approved decisions
+
+**The human's role:**
+- Verify identities using video links, Gmail context
+- Make judgment calls on ambiguous cases
+- Decide on edge cases (phone numbers, devices, organizations)
+- Approve actions before execution
+
+#### Templates for Future Scripts
+
+**TEMPLATE_database_script.py** - Template for any script that modifies `fathom_emails.db`
+
+*Enforces:*
+- Automatic backup before modifications
+- Transaction safety (rollback on error)
+- Integrity checks
+- Standard error handling
+
+*Usage:*
+```bash
+cp TEMPLATE_database_script.py your_new_script.py
+# Edit to add your modification logic
+```
+
+Phase 4B scripts follow this pattern.
+
+#### Documentation
+
+**For Humans:**
+- **This README** - Overview and quick start
+- **[README_PHASE4B.md](README_PHASE4B.md)** - Complete Phase 4B system guide
+- **[README_PHASE4B_DETAILED.md](README_PHASE4B_DETAILED.md)** - Technical deep dive
+- **[PHASE4B2_PROGRESS_REPORT.md](PHASE4B2_PROGRESS_REPORT.md)** - 8-round progress analysis
+- **[CONTEXT_RECOVERY.md](CONTEXT_RECOVERY.md)** - Quick orientation for resuming work
+- **[COMMIT_PHASE4B1.md](COMMIT_PHASE4B1.md)** - What was built & why
+
+**For AI Assistants:**
+- **[AI_WORKFLOW_GUIDE.md](AI_WORKFLOW_GUIDE.md)** - Complete workflow for naive AI
+  - Makes implicit habits explicit
+  - 6-phase collaboration cycle
+  - Mental states for each phase
+  - Common patterns & decision trees
+  - Critical rules & troubleshooting
+
+**Archives:**
+- **[archive/early_rounds/](archive/early_rounds/)** - Historical scripts (Rounds 1-3)
+- **[archive/rounds_4_8/](archive/rounds_4_8/)** - Rounds 4-8 execution scripts
+
+#### Configuration
+
+Paths configured in `../era_config.py`:
+```python
+from era_config import Config
+airtable_csv = Config.AIRTABLE_PEOPLE_CSV
+fathom_db = Config.FATHOM_DB_PATH
+```
+
+For server deployment, edit `era_config.py` or set environment variables.
+
+#### Key Files
+
+**Phase 4B-1 Scripts:**
+- `phase4b1_enrich_from_airtable.py` - Main fuzzy matching pipeline
+- `process_approved_matches.py` - CSV processor with safety checks
+
+**Phase 4B-2 Scripts:**
+- `generate_batch_data.py` - Select next 25 unenriched people
+- `generate_phase4b2_table.py` - Create HTML review interface with Gmail links
+- `parse_phase4b2_csv.py` - Parse CSV, flag custom comments for discussion
+- `execute_round4_actions.py` through `execute_round8_actions.py` - Round-specific execution
+- `add_to_airtable.py` - Reusable Airtable addition module
+- `gmail_research.py` - Gmail context retrieval
+
+**Templates:**
+- `TEMPLATE_database_script.py` - Standard pattern for DB modifications
+
+**Documentation:**
+- `README_PHASE4B.md` - Complete system guide
+- `README_PHASE4B_DETAILED.md` - Technical implementation details
+- `PHASE4B2_PROGRESS_REPORT.md` - 8-round analysis with metrics
+- `AI_WORKFLOW_GUIDE.md` - AI assistant workflow guide
+- `CONTEXT_RECOVERY.md` - Component state and resuming work
+- `COMMIT_PHASE4B1.md` - Phase 4B-1 implementation notes
+
+**Archives:**
+- `archive/early_rounds/` - Rounds 1-3 (learning phase)
+- `archive/rounds_4_8/` - Rounds 4-8 (production phase)
+
+#### Integration With Other Components
+
+**Reads from:**
+- **Airtable** (via [airtable/README.md](#file-airtablereadmemd))
+  - `people_export.csv` - 630 members (ground truth)
+  - `people_for_matching.csv` - Cleaned for fuzzy matching
+
+- **FathomInventory** (via [FathomInventory/README.md](#file-fathominventoryreadmemd))
+  - `fathom_emails.db` - 1,953 participants
+  - Participant table for enrichment
+
+**Writes to:**
+- **FathomInventory database**
+  - Updates participant records (member_status, donor_flag, etc.)
+  - Adds provenance tracking (data_source column)
+
+- **Airtable** (via API)
+  - Adds new people discovered in Fathom
+  - Updates only when explicitly approved
+
+**Exports for:**
+- **ERA Landscape** (Phase 5T - future)
+  - Town Hall meeting chain visualization
+  - Export enriched participants to Google Sheet
+
+**Back to:** [/README.md](#file-readmemd)
 
 ---
 
