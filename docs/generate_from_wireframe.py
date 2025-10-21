@@ -60,6 +60,7 @@ def convert_links(content: str, current_file: str) -> str:
         'file-context_recoverymd': 'CONTEXT_RECOVERY.md',
         'file-ai_handoff_guidemd': 'AI_HANDOFF_GUIDE.md',
         'file-working_principlesmd': 'WORKING_PRINCIPLES.md',
+        'file-docsreadmemd': 'docs/README.md',
         'file-fathominventoryreadmemd': 'FathomInventory/README.md',
         'file-fathominventorycontext_recoverymd': 'FathomInventory/CONTEXT_RECOVERY.md',
         'file-fathominventoryauthenticationreadmemd': 'FathomInventory/authentication/README.md',
