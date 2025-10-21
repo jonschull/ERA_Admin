@@ -18,6 +18,35 @@
 
 ---
 
+## Navigation Tree Integrity Principles
+
+**Structural guarantees:**
+
+1. **No Orphans** - Every document is reachable from a README
+2. **Always Navigate Up** - Every README references its parent README
+3. **Mandatory TOC** - All files in folder listed in that folder's README "Specialized Topics"
+
+**Result:** Tree structure rooted at `/README.md`, no dead ends
+
+**Testable:**
+```python
+# Test: No orphan documents
+def test_no_orphans():
+    all_md_files = find_all_markdown_files()
+    all_referenced = extract_links_from_all_readmes()
+    orphans = all_md_files - all_referenced
+    assert orphans == set(), f"Orphaned files: {orphans}"
+
+# Test: Every component README links to parent
+def test_readmes_reference_parent():
+    component_readmes = find_component_readmes()
+    for readme in component_readmes:
+        parent_link = extract_parent_reference(readme)
+        assert parent_link, f"{readme} missing parent reference"
+```
+
+---
+
 ## FILE: README.md
 
 **Path:** `README.md`
@@ -35,12 +64,13 @@ ERA Admin integrates 4 ERA data systems:
 
 ### 2. Orientation - Where to Find What
 
-**You are here:** Main entry point for ERA_Admin
+**You are at:** Main entry point (root README)
 
-**For current status:** [CONTEXT_RECOVERY.md](#file-context_recoverymd)
-**For AI assistants:** [AI_HANDOFF_GUIDE.md](#file-ai_handoff_guidemd)
-**For principles:** [WORKING_PRINCIPLES.md](#file-working_principlesmd)
-**For components:** See Specialized Topics below
+**What you might need:**
+- Current status → [CONTEXT_RECOVERY.md](#file-context_recoverymd)
+- AI guidance → [AI_HANDOFF_GUIDE.md](#file-ai_handoff_guidemd)
+- How we work → [WORKING_PRINCIPLES.md](#file-working_principlesmd)
+- Components → See Specialized Topics below
 
 ### 3. Principles
 
@@ -77,9 +107,14 @@ ERA Admin integrates 4 ERA data systems:
 
 **This document contains:** Status, recent changes, what's in progress
 
-### 2. Orientation
+### 2. Orientation - Where to Find What
 
-**Path:** [README.md](#file-readmemd) → CONTEXT_RECOVERY
+**You are at:** System-wide context document
+
+**What you might need:**
+- Main entry → [README.md](#file-readmemd)
+- Component status → See component CONTEXT_RECOVERY files
+- Principles → [WORKING_PRINCIPLES.md](#file-working_principlesmd)
 
 ### 3. Principles
 
@@ -113,11 +148,15 @@ ERA Admin integrates 4 ERA data systems:
 
 Guide for AI assistants on ERA Admin
 
-### 2. Orientation
+### 2. Orientation - Where to Find What
 
-**Path:** [README.md](#file-readmemd) → AI_HANDOFF_GUIDE
+**You are at:** AI assistant onboarding guide
 
-**After this:** [CONTEXT_RECOVERY.md](#file-context_recoverymd)
+**What you might need:**
+- Main entry → [README.md](#file-readmemd)
+- Current state → [CONTEXT_RECOVERY.md](#file-context_recoverymd)
+- Principles → [WORKING_PRINCIPLES.md](#file-working_principlesmd)
+- Specialized AI workflows → See Specialized Topics below
 
 ### 3. Principles
 
@@ -154,12 +193,15 @@ Guide for AI assistants on ERA Admin
 
 Philosophy, Git workflow, testing, documentation practices
 
-### 2. Orientation
+### 2. Orientation - Where to Find What
 
-**Referenced by:**
+**You are at:** System-wide principles document
 
-- [AI_HANDOFF_GUIDE.md](#file-ai_handoff_guidemd)
-- All component READMEs
+**What you might need:**
+- Main entry → [README.md](#file-readmemd)
+- Current state → [CONTEXT_RECOVERY.md](#file-context_recoverymd)
+- AI guidance → [AI_HANDOFF_GUIDE.md](#file-ai_handoff_guidemd)
+- Component-specific principles → See component READMEs
 
 ### 3. Principles
 
@@ -211,11 +253,14 @@ FathomInventory is one of three components in ERA_Admin.
 
 ### 2. Orientation - Where to Find What
 
-**Path:** [/README.md](#file-readmemd) → FathomInventory
+**You are at:** FathomInventory component README
 
-**For system-wide status:** [/CONTEXT_RECOVERY.md](#file-context_recoverymd)
-**For component status:** [CONTEXT_RECOVERY.md](#file-fathominventorycontext_recoverymd)
-**For principles:** See section 3 below
+**What you might need:**
+- Parent README → [/README.md](#file-readmemd)
+- System-wide status → [/CONTEXT_RECOVERY.md](#file-context_recoverymd)
+- Component status → [CONTEXT_RECOVERY.md](#file-fathominventorycontext_recoverymd)
+- System principles → [/WORKING_PRINCIPLES.md](#file-working_principlesmd)
+- Component principles → See section 3 below
 
 ### 3. Principles
 
@@ -255,11 +300,14 @@ FathomInventory is one of three components in ERA_Admin.
 
 **This document contains:** Component health, recent changes, integration status
 
-### 2. Orientation
+### 2. Orientation - Where to Find What
 
-**Main context:** See [/CONTEXT_RECOVERY.md](#file-context_recoverymd)
+**You are at:** FathomInventory-specific context
 
-**This adds:** Component-specific details
+**What you might need:**
+- Parent README → [README.md](#file-fathominventoryreadmemd)
+- System-wide context → [/CONTEXT_RECOVERY.md](#file-context_recoverymd)
+- Component overview → [README.md](#file-fathominventoryreadmemd)
 
 ### 3. Principles
 
@@ -291,10 +339,15 @@ FathomInventory authentication subdirectory
 
 ### 2. Orientation - Where to Find What
 
-**Path:** [/README](#file-readmemd) → [FathomInventory](#file-fathominventoryreadmemd) → authentication
+**You are at:** FathomInventory/authentication guide
+
+**What you might need:**
+- Parent README → [../README.md](#file-fathominventoryreadmemd)
+- Root README → [/README.md](#file-readmemd)
+- Component status → ../CONTEXT_RECOVERY.md
+- System principles → [/WORKING_PRINCIPLES.md](#file-working_principlesmd)
 
 **When to use:** Cookies expired, token refresh, account switching
-**For status:** See parent component's CONTEXT_RECOVERY.md
 
 ### 3. Principles
 
@@ -335,11 +388,13 @@ airtable is one of three components in ERA_Admin.
 
 ### 2. Orientation - Where to Find What
 
-**Path:** [/README.md](#file-readmemd) → airtable
+**You are at:** airtable component README
 
-**For system-wide status:** [/CONTEXT_RECOVERY.md](#file-context_recoverymd)
-**For component status:** Check actual data (630 people tracked)
-**For principles:** See section 3 below
+**What you might need:**
+- Parent README → [/README.md](#file-readmemd)
+- System-wide status → [/CONTEXT_RECOVERY.md](#file-context_recoverymd)
+- System principles → [/WORKING_PRINCIPLES.md](#file-working_principlesmd)
+- Component principles → See section 3 below
 
 ### 3. Principles
 
@@ -382,11 +437,14 @@ integration_scripts is one of three components in ERA_Admin.
 
 ### 2. Orientation - Where to Find What
 
-**Path:** [/README.md](#file-readmemd) → integration_scripts
+**You are at:** integration_scripts component README
 
-**For system-wide status:** [/CONTEXT_RECOVERY.md](#file-context_recoverymd)
-**For phase progress:** PHASE4B2_PROGRESS_REPORT.md
-**Which README to read:** See section 4 below
+**What you might need:**
+- Parent README → [/README.md](#file-readmemd)
+- System-wide status → [/CONTEXT_RECOVERY.md](#file-context_recoverymd)
+- Phase progress → PHASE4B2_PROGRESS_REPORT.md
+- System principles → [/WORKING_PRINCIPLES.md](#file-working_principlesmd)
+- Which README to read → See section 4 below
 
 ### 3. Principles
 
@@ -425,11 +483,15 @@ integration_scripts → AI_WORKFLOW_GUIDE
 
 **Scope:** Phase 4B-2 specifics (for general AI workflow, see /AI_HANDOFF_GUIDE.md)
 
-### 2. Orientation
+### 2. Orientation - Where to Find What
 
-**Path:** [/README](#file-readmemd) → [AI_HANDOFF_GUIDE](#file-ai_handoff_guidemd) → [integration_scripts](#file-integration_scriptsreadmemd) → This
+**You are at:** integration_scripts AI workflow guide (Phase 4B-2 specific)
 
-**General AI:** See [/AI_HANDOFF_GUIDE.md](#file-ai_handoff_guidemd)
+**What you might need:**
+- Parent README → [README.md](#file-integration_scriptsreadmemd)
+- Root README → [/README.md](#file-readmemd)
+- General AI guidance → [/AI_HANDOFF_GUIDE.md](#file-ai_handoff_guidemd)
+- System principles → [/WORKING_PRINCIPLES.md](#file-working_principlesmd)
 
 ### 3. Principles
 
