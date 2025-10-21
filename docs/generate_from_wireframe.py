@@ -113,6 +113,17 @@ def generate_files(sections: List[Tuple[str, str]], output_dir: str):
         # Convert internal links
         content_with_links = convert_links(content, file_path)
         
+        # Add title with relative path at the top
+        # Convert path to title-case display
+        if file_path == 'README.md':
+            title = "# ERA Admin - System Overview\n\n"
+        else:
+            # Use the file path as the title for disambiguation
+            title = f"# {file_path}\n\n"
+        
+        # Combine title + content
+        final_content = title + content_with_links
+        
         # Create full path
         full_path = output_path / file_path
         
@@ -121,7 +132,7 @@ def generate_files(sections: List[Tuple[str, str]], output_dir: str):
         
         # Write file
         with open(full_path, 'w', encoding='utf-8') as f:
-            f.write(content_with_links)
+            f.write(final_content)
         
         print(f"✅ Created: {file_path}")
     
