@@ -1887,14 +1887,49 @@ python test_google_auth.py     # Test Gmail access only
 
 **Subdirectories:**
 - [authentication/README.md](#file-fathominventoryauthenticationreadmemd) - Cookie and token management
-- analysis/ - AI analysis scripts for ERA meetings
+- analysis/ - AI analysis scripts for ERA meetings (Phases 1-3)
 - docs/ - Detailed technical documentation
-- scripts/ - Pipeline automation scripts
+- scripts/ - Pipeline automation scripts (30+ operational scripts)
+- tests/ - Test suite (unit tests, smoke tests)
 
 **Key Component Files:**
 - [CONTEXT_RECOVERY.md](#file-fathominventorycontext_recoverymd) - Current component state
 - DEVELOPMENT.md - Development workflow, testing, constraints
 - BACKUP_AND_RECOVERY.md - Data backup and recovery procedures
+
+#### Internal Architecture
+
+**Core Modules:**
+- `data_access/` - Database abstraction layer
+  - `db_io.py` - SQLite database operations
+  - `tsv_io.py` - TSV file I/O (legacy format support)
+- `fathom_ops/` - Browser automation internals
+  - `browser.py` - Playwright-based web scraping
+  - `parser.py` - HTML parsing and data extraction
+
+**Analysis Scripts (Phases 1-3):**
+Located in `analysis/`:
+- `batch_analyze_calls.py` - Bulk call analysis
+- `sync_era_meetings.py` - ERA meeting synchronization
+- `import_participants.py` - Participant data import
+- `mark_era_meetings.py` - Meeting classification
+- `ask_fathom_ai.py` - AI-powered analysis
+- See `analysis/README.md` for details
+
+**Maintenance Scripts:**
+Located in `scripts/`:
+- **Health checks:** `database_health_check.sh` - Verify DB integrity
+- **Backfilling:** `backfill_public_urls.py` - Add missing URLs
+- **Migrations:** `fix_*.py` - Various data fixes and schema updates
+- **Utilities:** `create_thumbnails.py`, `batch_database_converter.py`
+- **Monitoring:** `check_auth_health.py` - Authentication status
+
+**Testing:**
+Test suite in `tests/` directory:
+- `test_smoke.py` - Basic functionality tests
+- `test_browser_sanitize.py` - Cookie sanitization tests
+- `test_parser_unit.py` - Parser unit tests
+- Run: `pytest` or `python -m pytest`
 
 **Back to:** [/README.md](#file-readmemd)
 
@@ -2989,6 +3024,19 @@ cp TEMPLATE_database_script.py your_new_script.py
 ```
 
 Phase 4B scripts follow this pattern.
+
+#### Utility Scripts
+
+**Setup & Configuration:**
+- `setup_gmail_auth.py` - One-time Gmail OAuth setup for gmail_research.py
+  - Run once to authorize Gmail access for research features
+  - Creates token file for automated Gmail queries
+
+**Archive:**
+- `archive/` - Historical scripts from early development
+  - `early_rounds/` - Rounds 1-3 execution scripts
+  - `rounds_4_8/` - Rounds 4-8 (reference implementations)
+  - `dev_scripts/` - Development and testing utilities
 
 #### Documentation
 
