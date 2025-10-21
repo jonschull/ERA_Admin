@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>ERA Graph</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>">
+<style>
+  html, body { height: 100%; margin: 0; padding: 0; }
+  #network { width: 100%; height: 100vh; border: 0; }
+  .legend { position: fixed; top: 10px; right: 10px; background: rgba(255,255,255,0.9); padding: 8px 12px; border-radius: 10px; font-family: sans-serif; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; }
+  .legend div { margin: 4px 0; }
+  .legend .dot { display:inline-block; width:12px; height:12px; border-radius:50%; background:#888; margin-right:6px; vertical-align:middle; }
+  .legend .box { display:inline-block; width:12px; height:12px; background:#aaa; margin-right:6px; vertical-align:middle; }
+  .legend .tri { display:inline-block; width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-bottom:12px solid #ce93d8; margin-right:6px; vertical-align:middle; }
+  #loading { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(255,255,255,0.92); display:flex; align-items:center; justify-content:center; z-index: 9999; font-family: sans-serif; }
+  #loading .panel { text-align:center; color:#333; }
+  #loading .title { font-size: 20px; font-weight: 600; margin-bottom: 6px; }
+  #loading .sub { font-size: 13px; color:#666; }
+  #toolbar { position: fixed; top: 10px; left: 10px; background: rgba(255,255,255,0.9); padding: 8px 12px; border-radius: 10px; font-family: sans-serif; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; }
+  #toolbar button { margin-right: 6px; }
+  #curationModal { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.35); display:none; align-items:flex-end; justify-content:flex-start; z-index: 2000; padding: 20px; pointer-events: none; }
+  #curationPanel { width: 720px; max-width: 95vw; max-height: 85vh; overflow: auto; background: rgba(255,255,255,0.90); border-radius: 10px; padding: 14px; box-shadow: 0 4px 18px rgba(0,0,0,0.25); font-family: sans-serif; pointer-events: auto; }
+  #curationPanel h3 { margin: 0 0 6px 0; }
+  #curationList { margin-top: 8px; }
+  #curationList div { margin: 4px 0; }
+  #toast { position: fixed; bottom: 16px; right: 16px; background: rgba(0,0,0,0.8); color:#fff; padding:8px 12px; border-radius:8px; display:none; z-index:3000; font-family: sans-serif; }
+  #curationHandle { user-select:none; cursor: move; background: rgba(0,0,0,0.08); border-radius: 8px; padding: 6px 8px; margin: 0 0 8px; font-size: 12px; color:#444; }
+  #curationUrl { font-size: 12px; color:#3366cc; margin: 4px 0 8px; }
+</style>
+<script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+<!-- Google Sheets API -->
+<script src="https://apis.google.com/js/api.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+<div id="network"></div>
+<div id="loading"><div class="panel"><div class="title">Loading graph…</div><div class="sub"><span id="pct">0</span>% • est <span id="eta">—</span> sec</div></div></div>
+<div id="toolbar">
+  <button id="fitBtn" title="Zoom to show all nodes">Fit</button>
+  <button id="qeSaveTop" style="margin-left:8px; font-weight:600;" title="Save pending edits to Google Sheet">Save Edit</button>
+  <span id="unsavedBadge" style="display:none; margin-left:6px; color:#c00; font-weight:600;">• unsaved edit</span>
+  
+  <button id="refreshBtn" style="margin-left:8px;" title="Reload data from Google Sheet (discards unsaved edits)">↻ Re-Load</button>
+  <button id="signInBtn" onclick="handleSignIn()" style="margin-left:8px;" title="Sign in with Google to enable editing">🔐 Sign In</button>
+</div>
+<div id="toolbar" style="position: fixed; top: 80px; left: 10px; background: rgba(255,255,255,0.9); padding: 8px 12px; border-radius: 10px; font-family: sans-serif; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000;">
+  <div id="quickEditor" style="margin-top:0; font-size:12px;">
+    <div style="margin-bottom:4px; font-weight:600;">Quick Editor</div>
+    <div style="display:flex; flex-wrap:wrap; gap:6px; align-items:center;">
+      <div>
+        <div style="margin-bottom:2px;">
+          <label style="margin-right:6px;"><input type="radio" name="fromType" value="person"> Person</label>
+          <label style="margin-right:6px;"><input type="radio" name="fromType" value="project"> Project</label>
+          <label><input type="radio" name="fromType" value="organization" checked> Org</label>
+        </div>
+        <label>From <input id="qeFrom" list="nodeList" style="width:180px;"></label>
+      </div>
+      <label>Rel
+        <select id="qeRel">
+          <option value="partnership">partnership</option>
+          <option value="affiliation">affiliation</option>
+          <option value="membership">membership</option>
+          <option value="__custom">Custom…</option>
+          <option value="__none">None</option>
+        </select>
+      </label>
+      <div>
+        <div style="margin-bottom:2px;">
+          <label style="margin-right:6px;"><input type="radio" name="toType" value="person"> Person</label>
+          <label style="margin-right:6px;"><input type="radio" name="toType" value="project"> Project</label>
+          <label><input type="radio" name="toType" value="organization" checked> Org</label>
+        </div>
+        <label>To <input id="qeTo" list="nodeList" style="width:180px;"></label>
+      </div>
+      <input id="qeRelCustom" placeholder="custom relationship" style="width:160px; display:none;">
+      <button id="qeAdd">Add/Update</button>
+      <button id="qeRemove">Remove</button>
+      <button id="qeUndo">Undo</button>
+    </div>
+    <datalist id="nodeList"></datalist>
+  </div>
+</div>
+<div class="legend">
+  <div><span class="dot" style="background:#6aa7ff"></span> Person</div>
+  <div><span class="tri"></span> Project</div>
+  <div><span class="box" style="background:#a8dadc"></span> Organization</div>
+</div>
+<div id="curationModal">
+  <div id="curationPanel">
+    <div id="curationHandle">Drag here to reposition</div>
+    <h3>
+      <label style="font-weight:normal;">
+        <input type="checkbox" id="sourceToggle" checked> Curate partners for:
+      </label>
+      <a id="curationSourceLink" href="#" target="_blank"><span id="curationSource"></span></a>
+    </h3>
+    <div><a id="curationUrl" href="#" target="_blank"></a></div>
+    <div style="margin-top:8px;">
+      <label style="font-size:12px;">URL: <input type="text" id="curationUrlInput" style="width:300px;" placeholder="https://..."></label>
+    </div>
+    <div style="margin-top:8px;">
+      <label style="font-size:12px;">Type:</label>
+      <label style="font-size:12px; margin-left:10px;"><input type="radio" name="modalNodeType" value="person"> Person</label>
+      <label style="font-size:12px; margin-left:10px;"><input type="radio" name="modalNodeType" value="project"> Project</label>
+      <label style="font-size:12px; margin-left:10px;"><input type="radio" name="modalNodeType" value="organization"> Organization</label>
+    </div>
+    <div id="curationInfo" style="font-size:12px;color:#666"></div>
+    <div id="curationList"></div>
+    <div style="margin-top:10px;">
+      <button id="closeCuration" style="float:right">Close</button>
+    </div>
+  </div>
+  </div>
+<div id="edgeModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.3); z-index:9999; align-items:center; justify-content:center;">
+  <div id="edgePanel" style="background:white; padding:20px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.3); min-width:400px; max-width:600px; position:relative;">
+    <h3 style="margin-top:0;">Edit Connection</h3>
+    <div style="margin:10px 0;">
+      <strong id="edgeFromLabel"></strong> → <strong id="edgeToLabel"></strong>
+    </div>
+    <div style="margin:15px 0;">
+      <label style="font-size:12px;">Relationship: 
+        <select id="edgeRelSelect" style="margin-left:10px;">
+          <option value="partnership">partnership</option>
+          <option value="affiliation">affiliation</option>
+          <option value="membership">membership</option>
+          <option value="__custom">Custom...</option>
+        </select>
+      </label>
+      <input id="edgeRelCustom" placeholder="custom relationship" style="width:160px; display:none; margin-left:10px;">
+    </div>
+    <div style="margin-top:20px;">
+      <button id="deleteEdge" style="background:#dc3545; color:white; border:none; padding:8px 16px; border-radius:4px; cursor:pointer;">Delete Connection</button>
+      <button id="closeEdgeModal" style="float:right; padding:8px 16px; border-radius:4px; cursor:pointer;">Close</button>
+    </div>
+  </div>
+</div>
+<div id="toast"></div>
+<script>
+  // ========== Google Sheets API Configuration & Functions ==========
+  
+  // Configuration
+  const SHEET_ID = '1cR5X2xFSGffivfsMjyHDDeDJQv6R0kQpVUJsEJ2_1yY';
+  const API_KEY = 'AIzaSyBp23GwrTURmM3Z1ERZocotnu3Tn96TmUo';
+  const CLIENT_ID = '57881875374-flipnf45tc25cq7emcr9qhvq7unk16n5.apps.googleusercontent.com';
+  const SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
+  
+  // State variables
+  let sheetsApiReady = false;
+  let tokenClient = null;
+  let accessToken = null;
+  let pendingSaveAfterAuth = false;
+  
+  /**
+   * Parse node type from ID prefix (person::, org::, project::)
+   * @param {string} id - Node ID like "person::John Doe"
+   * @returns {string} Type: 'person', 'project', or 'organization'
+   */
+  function parseTypeFromId(id) {
+    if (!id) return 'organization';
+    if (id.startsWith('person::')) return 'person';
+    if (id.startsWith('project::')) return 'project';
+    return 'organization';
+  }
+  
+  /**
+   * Get visual properties (color, shape) for a node type
+   * @param {string} type - Node type: 'person', 'project', or 'organization'
+   * @returns {Object} {color: {background, border}, shape}
+   */
+  function getNodeVisuals(type) {
+    if (type === 'person') {
+      return {
+        color: {background: '#6aa7ff', border: '#2f79ff'},
+        shape: 'dot'
+      };
+    } else if (type === 'project') {
+      return {
+        color: {background: '#ce93d8', border: '#ba68c8'},
+        shape: 'triangle'
+      };
+    } else {
+      return {
+        color: {background: '#a8dadc', border: '#457b9d'},
+        shape: 'box'
+      };
+    }
+  }
+  
+  // Initialize Google Sheets API
+  function initSheetsApi() {
+    if (!SHEET_ID || !API_KEY || !CLIENT_ID) {
+      console.log('Serverless mode disabled (missing credentials)');
+      return;
+    }
+    
+    console.log('🔧 Initializing Google Sheets API...');
+    
+    gapi.load('client', async () => {
+      try {
+        console.log('📡 Calling gapi.client.init()...');
+        await gapi.client.init({
+          apiKey: API_KEY,
+          discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4']
+        });
+        console.log('✅ Google Sheets API client initialized (API key mode)');
+        
+        // Verify sheets API is available
+        if (!gapi.client.sheets) {
+          console.error('❌ gapi.client.sheets not available after init');
+          showToast('⚠️ Sheets API requires HTTP/HTTPS (not file://)');
+          hideLoading();
+          return;
+        }
+        
+        // Auto-load data from Sheets on page init
+        loadDataFromSheets().then(() => {
+          console.log('🎉 Initial data load complete');
+          // Fit graph after a delay to allow physics to settle
+          if (window.network) {
+            setTimeout(() => {
+              window.network.fit({ animation: { duration: 1000 } });
+              console.log('🎯 Graph fitted to show all nodes');
+            }, 2000);
+          }
+        }).catch(err => {
+          console.error('Failed to load initial data:', err);
+        });
+        
+        tokenClient = google.accounts.oauth2.initTokenClient({
+          client_id: CLIENT_ID,
+          scope: SCOPES,
+          callback: (response) => {
+            if (response.error) {
+              console.error('OAuth error:', response.error);
+              showToast('❌ Authentication failed');
+              pendingSaveAfterAuth = false;
+              return;
+            }
+            accessToken = response.access_token;
+            gapi.client.setToken({access_token: accessToken});
+            sheetsApiReady = true;
+            
+            localStorage.setItem('gapi_token', JSON.stringify({
+              access_token: accessToken,
+              expires_at: Date.now() + 3600000
+            }));
+            
+            updateSignInStatus(true);
+            console.log('✅ Authenticated with Google Sheets');
+            
+            if (pendingSaveAfterAuth) {
+              pendingSaveAfterAuth = false;
+              saveDataToSheets();
+            }
+          }
+        });
+        
+        const savedToken = localStorage.getItem('gapi_token');
+        if (savedToken) {
+          try {
+            const tokenData = JSON.parse(savedToken);
+            if (tokenData.expires_at > Date.now()) {
+              accessToken = tokenData.access_token;
+              gapi.client.setToken({access_token: accessToken});
+              sheetsApiReady = true;
+              updateSignInStatus(true);
+              console.log('✅ Restored authentication from session');
+            } else {
+              localStorage.removeItem('gapi_token');
+              console.log('⚠️ Saved token expired');
+            }
+          } catch (e) {
+            console.error('Error restoring token:', e);
+            localStorage.removeItem('gapi_token');
+          }
+        }
+        
+      } catch (error) {
+        console.error('Error initializing Google Sheets API:', error);
+      }
+    });
+  }
+  
+  function updateSignInStatus(isSignedIn) {
+    const signInBtn = document.getElementById('signInBtn');
+    if (signInBtn) {
+      if (isSignedIn) {
+        signInBtn.textContent = '✓ Signed In';
+        signInBtn.disabled = true;
+        signInBtn.style.opacity = '0.6';
+      } else {
+        signInBtn.textContent = '🔐 Sign In';
+        signInBtn.disabled = false;
+        signInBtn.style.opacity = '1';
+      }
+    }
+  }
+  
+  function handleSignIn() {
+    if (!tokenClient) {
+      showToast('⚠️ Google Sheets API not ready');
+      return;
+    }
+    tokenClient.requestAccessToken();
+  }
+  
+  async function readSheetTab(tabName) {
+    if (!window.gapi || !window.gapi.client || !window.gapi.client.sheets) {
+      throw new Error('Google Sheets API not initialized');
+    }
+    
+    const response = await gapi.client.sheets.spreadsheets.values.get({
+      spreadsheetId: SHEET_ID,
+      range: `${tabName}!A:Z`
+    });
+    
+    const rows = response.result.values || [];
+    if (rows.length === 0) return [];
+    
+    const headers = rows[0];
+    return rows.slice(1).map(row => {
+      const obj = {};
+      headers.forEach((h, i) => obj[h] = row[i] || '');
+      return obj;
+    });
+  }
+  
+  async function writeSheetTab(tabName, data) {
+    if (!window.gapi || !window.gapi.client || !window.gapi.client.sheets) {
+      throw new Error('Google Sheets API not initialized');
+    }
+    
+    if (!sheetsApiReady) {
+      throw new Error('Not authenticated - please sign in first');
+    }
+    
+    if (data.length === 0) {
+      console.warn(`No data to write to ${tabName}`);
+      return;
+    }
+    
+    const headers = Object.keys(data[0]);
+    const rows = [headers, ...data.map(obj => headers.map(h => obj[h] || ''))];
+    
+    await gapi.client.sheets.spreadsheets.values.clear({
+      spreadsheetId: SHEET_ID,
+      range: `${tabName}!A:Z`
+    });
+    
+    await gapi.client.sheets.spreadsheets.values.update({
+      spreadsheetId: SHEET_ID,
+      range: `${tabName}!A1`,
+      valueInputOption: 'RAW',
+      resource: { values: rows }
+    });
+  }
+  
+  async function loadDataFromSheets() {
+    if (!window.gapi || !window.gapi.client || !window.gapi.client.sheets) {
+      console.log('⚠️ Google Sheets API not initialized. Skipping auto-load.');
+      return null;
+    }
+    
+    try {
+      showToast('Loading from Sheets...');
+      const [nodesData, edgesData] = await Promise.all([
+        readSheetTab('nodes'),
+        readSheetTab('edges')
+      ]);
+      
+      console.log(`✅ Loaded ${nodesData.length} nodes, ${edgesData.length} edges from Sheets`);
+      
+      const nodesPayload = nodesData.map(n => {
+        // Parse type from ID prefix (Sheet's type column is unreliable)
+        const type = parseTypeFromId(n.id);
+        const visuals = getNodeVisuals(type);
+        
+        return {
+          id: n.id,
+          label: n.label,
+          title: n.label,
+          group: type,
+          type: type,
+          shape: visuals.shape,
+          color: visuals.color,
+          url: n.url || '',
+          notes: n.notes || '',
+          member: n.member || '',
+          origin: n.origin || '',
+          hidden: n.hidden === 'true' || n.hidden === true,
+          created_at: n.created_at || '',
+          updated_at: n.updated_at || ''
+        };
+      });
+      
+      const edgesPayload = edgesData.map(e => ({
+        from: e.source,
+        to: e.target,
+        label: e.relationship || '',
+        relationship: e.relationship || '',
+        role: e.role || '',
+        url: e.url || '',
+        notes: e.notes || '',
+        created_at: e.created_at || '',
+        updated_at: e.updated_at || ''
+      }));
+      
+      // Auto-heal: Create missing nodes referenced by edges
+      const nodeIds = new Set(nodesPayload.map(n => n.id));
+      const missingNodes = new Set();
+      
+      edgesPayload.forEach(edge => {
+        if (!nodeIds.has(edge.from)) missingNodes.add(edge.from);
+        if (!nodeIds.has(edge.to)) missingNodes.add(edge.to);
+      });
+      
+      if (missingNodes.size > 0) {
+        console.warn(`🔧 Auto-healing ${missingNodes.size} missing node(s):`);
+        missingNodes.forEach(id => {
+          const type = parseTypeFromId(id);
+          const visuals = getNodeVisuals(type);
+          const label = id.replace(/^(person|org|project)::/, ''); // Strip prefix for display
+          const healedNode = {
+            id: id,
+            label: label,
+            title: `${label}\n(auto-created from edge reference)`,
+            group: type,
+            type: type,
+            shape: visuals.shape,
+            color: visuals.color,
+            url: '',
+            notes: '',
+            member: '',
+            origin: 'auto-healed',
+            hidden: false,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          };
+          nodesPayload.push(healedNode);
+          console.warn(`  → Created: ${id}`);
+        });
+        showToast(`🔧 Auto-created ${missingNodes.size} missing node(s)`);
+      }
+      
+      nodes.clear();
+      edges.clear();
+      nodes.add(nodesPayload);
+      edges.add(edgesPayload);
+      
+      // Scale nodes by connection count
+      const connectionCount = {};
+      edgesPayload.forEach(edge => {
+        connectionCount[edge.from] = (connectionCount[edge.from] || 0) + 1;
+        connectionCount[edge.to] = (connectionCount[edge.to] || 0) + 1;
+      });
+      
+      // Update nodes with scaling value while preserving all other properties
+      const updates = nodesPayload.map(node => ({
+        ...node,  // Keep all existing properties including color
+        value: connectionCount[node.id] || 1  // Add scaling value
+      }));
+      nodes.update(updates);
+      
+      console.log(`📊 Scaled nodes by connections (min: ${Math.min(...Object.values(connectionCount))}, max: ${Math.max(...Object.values(connectionCount))})`);
+      
+      showToast('✅ Loaded from Sheets');
+      hideLoading();
+      return { nodes: nodesPayload, edges: edgesPayload };
+      
+    } catch (error) {
+      console.error('Error loading from Sheets:', error);
+      showToast('❌ Failed to load from Sheets');
+      hideLoading();
+      return null;
+    }
+  }
+  
+  async function saveDataToSheets() {
+    if (!sheetsApiReady) {
+      console.log('⚠️ Not authenticated - requesting sign in...');
+      showToast('⚠️ Sign in required to save');
+      pendingSaveAfterAuth = true;
+      handleSignIn();
+      return;
+    }
+    
+    try {
+      showToast('Saving to Sheets...');
+      
+      const nodesData = nodes.get().map(n => ({
+        id: n.id,
+        label: n.label,
+        type: n.type || 'organization',
+        url: n.url || '',
+        notes: n.notes || '',
+        member: n.member || '',
+        origin: n.origin || '',
+        hidden: n.hidden ? 'true' : '',
+        created_at: n.created_at || '',
+        updated_at: new Date().toISOString()
+      }));
+      
+      const edgesData = edges.get().map(e => ({
+        source: e.from,
+        target: e.to,
+        relationship: e.relationship || e.label,
+        role: e.role || '',
+        url: e.url || '',
+        notes: e.notes || '',
+        created_at: e.created_at || '',
+        updated_at: new Date().toISOString()
+      }));
+      
+      await Promise.all([
+        writeSheetTab('nodes', nodesData),
+        writeSheetTab('edges', edgesData)
+      ]);
+      
+      console.log('✅ Saved to Sheets');
+      showToast('✅ Saved to Sheets');
+      
+    } catch (error) {
+      console.error('Error saving to Sheets:', error);
+      showToast('❌ Failed to save: ' + error.message);
+    }
+  }
+  
+  function hideLoading() {
+    const loadingEl = document.getElementById('loading');
+    if (loadingEl) loadingEl.style.display = 'none';
+  }
+  
+  // Initialize on page load
+  if (SHEET_ID && API_KEY && CLIENT_ID) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSheetsApi);
+    } else {
+      initSheetsApi();
+    }
+  }
+  
+  // ========== Graph Data ==========
+  
+  // Start with empty datasets - data will be loaded from Sheets
+  const nodes = new vis.DataSet([]);
+  const edges = new vis.DataSet([]);
+  const candidatesByOrgId = {};
+  const existingPartnersByOrgId = {"org::Test Person A": ["Test Person B"]};
+</script>
+<script src="./graph.js"></script>
+</body>
+</html>

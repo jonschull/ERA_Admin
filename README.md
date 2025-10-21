@@ -20,10 +20,11 @@ ERA Admin is the **integration hub** for connecting four separate ERA data syste
    - Automated participant extraction from Fathom summaries
    - Daily automation at 3 AM
 
-4. **ERA Landscape** - Network visualization (350+ organizations/people/projects)
+4. **ERA Landscape** - Network visualization (350+ nodes)
    - Interactive network graph of ERA ecosystem
    - Live at: https://jonschull.github.io/ERA_Landscape_Static/
    - Organizations, people, projects + relationships
+   - Static HTML/JS, GitHub Pages deployment
 
 **Goal:** Connect these systems to create a unified view of the ERA community.
 
@@ -148,13 +149,14 @@ ERA Landscape (visualization)
 - AI Workflow: integration_scripts/AI_WORKFLOW_GUIDE.md
 - Progress: integration_scripts/PHASE4B2_PROGRESS_REPORT.md
 
-**ERA_Landscape_Static** (sibling project)
-- Purpose: Interactive network visualization
+**[ERA_Landscape/](../ERA_Landscape/)** - Network visualization
+- Purpose: Interactive graph of ERA ecosystem
 - Content: 350+ organizations, people, projects + relationships
 - Technology: Static HTML/JS, Google Sheets data source
 - Live: https://jonschull.github.io/ERA_Landscape_Static/
-- Git: https://github.com/jonschull/ERA_Landscape_Static
-- Read: ERA_Landscape_Static/README.md, VISION.md
+- Status: ✅ Operational (GitHub Pages deployment)
+- Read: [ERA_Landscape/README.md](ERA_Landscape/README.md)
+- Schema: LANDSCAPE_SHEET_SCHEMA.md
 
 #### Quick Start
 
