@@ -1,5 +1,5 @@
 ERA Airtable Export Summary
-Generated: 2025-10-17 15:54:58
+Generated: 2025-10-20 18:35:34
 ==================================================
 
 Records exported: 592
