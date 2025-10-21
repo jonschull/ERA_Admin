@@ -1,6 +1,8 @@
-# Authentication System Documentation
+# FathomInventory/authentication/README.md
 
-## Overview
+### 1. Overview
+
+**Purpose:** Cookie and token management for FathomInventory authentication
 
 The FathomInventory system uses a sophisticated three-tier authentication system that represents hard-won solutions to complex authentication challenges across different platforms:
 
@@ -8,13 +10,72 @@ The FathomInventory system uses a sophisticated three-tier authentication system
 2. **Fathom.video Session Authentication** (`fathom_cookies.json`)
 3. **OAuth Token Management** (automatic refresh mechanisms)
 
-## The Three Authentication Files
+**This document contains:**
+- The three authentication files (purpose, structure, how they work)
+- Authentication flow analysis (Google API, Fathom cookies)
+- Troubleshooting guide (common problems & solutions)
+- Maintenance schedule (regular checks, emergency recovery)
+- Security considerations (permissions, backups, access scope)
+- Hard-won lessons (from historical evolution)
 
-### 1. credentials.json - Google API Client Credentials
+**Key Insight:** This authentication system represents significant engineering effort and iterative refinement to handle the complexities of modern web authentication across multiple platforms.
 
-**Purpose**: Contains OAuth 2.0 client credentials for Google API access
+### 2. Orientation - Where to Find What
 
-**Structure**:
+**You are at:** FathomInventory authentication/ subdirectory
+
+**Use this when:**
+- Setting up authentication for first time
+- Troubleshooting auth failures
+- Understanding cookie/token management
+- Planning maintenance schedule
+
+**What you might need:**
+- **Parent component** → [../README.md](../README.md) - FathomInventory overview
+- **Component context** → [../CONTEXT_RECOVERY.md](../CONTEXT_RECOVERY.md) - Component state
+- **System principles** → [/WORKING_PRINCIPLES.md](../../WORKING_PRINCIPLES.md) - Overall philosophy
+- **Technical docs** → ../docs/AUTHENTICATION_GUIDE.md - Comprehensive auth setup
+
+### 3. Principles
+
+**System-wide:** See [/WORKING_PRINCIPLES.md](../../WORKING_PRINCIPLES.md)
+
+**Component-specific:** See [../README.md](../README.md) Section 3
+
+**Authentication-specific principles:**
+
+**1. Hard-Won Solutions**
+- Cookie sanitization for Playwright compatibility
+- Auto-refresh logic prevents constant user intervention
+- Graceful degradation when auth fails
+- Minimal necessary permissions (read-only Gmail)
+
+**2. Weekly Maintenance Required**
+- Fathom cookies expire frequently (some daily)
+- System detects failures immediately (as of Oct 17)
+- Refresh weekly with `./scripts/refresh_fathom_auth.sh`
+
+**3. Security First**
+- File permissions: `chmod 600` for all auth files
+- Never commit to version control (use .gitignore)
+- Keep secure backups of working auth files
+- Rotate credentials periodically
+
+**4. Battle-Tested Patterns**
+- Timeouts discovered through trial (Fathom page load: 60s)
+- HTML selector stability (call-gallery-thumbnail remains stable)
+- Process reliability monitoring (watchdog patterns)
+- Authentication evolution from manual → fully automated
+
+### 4. Specialized Topics
+
+#### The Three Authentication Files
+
+**1. credentials.json - Google API Client Credentials**
+
+*Purpose:* Contains OAuth 2.0 client credentials for Google API access
+
+*Structure:*
 ```json
 {
   "installed": {
@@ -29,21 +90,21 @@ The FathomInventory system uses a sophisticated three-tier authentication system
 }
 ```
 
-**How it got here**: 
+*How it got here:*
 - Created through Google Cloud Console
 - Project: "fathomizer-email-analysis"
 - Gmail API enabled with read-only scope
 - Downloaded as client secrets file from Google Cloud Console
 
-**Expiration**: Does not expire (client credentials are permanent)
+*Expiration:* Does not expire (client credentials are permanent)
 
-**Usage**: Used by `download_emails.py` to initiate OAuth flow
+*Usage:* Used by `download_emails.py` to initiate OAuth flow
 
-### 2. token.json - OAuth Access Token
+**2. token.json - OAuth Access Token**
 
-**Purpose**: Contains the actual OAuth token for Gmail API access
+*Purpose:* Contains the actual OAuth token for Gmail API access
 
-**Structure**:
+*Structure:*
 ```json
 {
   "token": "YOUR_ACCESS_TOKEN_HERE",
@@ -58,24 +119,24 @@ The FathomInventory system uses a sophisticated three-tier authentication system
 }
 ```
 
-**How it got here**: 
+*How it got here:*
 - Generated automatically by first run of `download_emails.py`
 - User completed OAuth flow in browser
 - Google returned access token and refresh token
 - System saved both tokens to this file
 
-**Expiration**: 
-- **Access token**: Expires every ~1 hour (see "expiry" field)
-- **Refresh token**: Long-lived (months/years) but can be revoked
-- **Auto-refresh**: System automatically refreshes access token using refresh token
+*Expiration:*
+- **Access token:** Expires every ~1 hour (see "expiry" field)
+- **Refresh token:** Long-lived (months/years) but can be revoked
+- **Auto-refresh:** System automatically refreshes access token using refresh token
 
-**Usage**: Used by `download_emails.py` for all Gmail API calls
+*Usage:* Used by `download_emails.py` for all Gmail API calls
 
-### 3. fathom_cookies.json - Browser Session Cookies
+**3. fathom_cookies.json - Browser Session Cookies**
 
-**Purpose**: Contains browser cookies for authenticated Fathom.video session
+*Purpose:* Contains browser cookies for authenticated Fathom.video session
 
-**Structure**: Array of cookie objects with domains, expiration dates, and values
+*Structure:* Array of cookie objects with domains, expiration dates, and values
 ```json
 [
   {
@@ -90,181 +151,86 @@ The FathomInventory system uses a sophisticated three-tier authentication system
     "session": false,
     "storeId": "0",
     "value": "JTdCJTdE"
-  },
+  }
   // ... many more cookies
 ]
 ```
 
-**How it got here**:
+*How it got here:*
 - Manually extracted from browser after logging into Fathom.video
 - Used browser developer tools or cookie export extension
 - Represents authenticated session with Fathom.video
-- **Hard-won solution**: Bypasses complex Fathom authentication
+- **Hard-won solution:** Bypasses complex Fathom authentication
 
-**Expiration**: 
+*Expiration:*
 - **Individual cookies expire** at different times (see expirationDate)
-- **Session cookies**: Expire when browser closes
-- **Persistent cookies**: Have specific expiration dates
-- **No auto-refresh**: Must be manually updated when expired
+- **Session cookies:** Expire when browser closes
+- **Persistent cookies:** Have specific expiration dates
+- **No auto-refresh:** Must be manually updated when expired
 
-**Usage**: Used by `run_daily_share.py` to access Fathom.video as authenticated user
+*Usage:* Used by `run_daily_share.py` to access Fathom.video as authenticated user
 
-## Authentication Flow Analysis
+#### Authentication Flows
 
-### Google API Flow (download_emails.py)
+**Google API (download_emails.py):** Automatic OAuth with token refresh
 
-```python
-def get_gmail_service():
-    creds = None
-    
-    # 1. Try to load existing token
-    if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
-    
-    # 2. Check if token is valid/expired
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            # 3a. Auto-refresh expired token
-            creds.refresh(Request())
-        else:
-            # 3b. Full OAuth flow (requires user interaction)
-            flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
-            creds = flow.run_local_server(port=0)
-        
-        # 4. Save refreshed/new token
-        with open('token.json', 'w') as token:
-            token.write(creds.to_json())
-    
-    # 5. Create authenticated service
-    return build('gmail', 'v1', credentials=creds)
+**Fathom Cookies (run_daily_share.py):** Manual cookie management with sanitization
+
+#### Troubleshooting
+
+**Common Issues:**
+- credentials.json not found → Set up in Google Cloud Console
+- token.json expired → Delete and re-run OAuth flow
+- Fathom access denied → Refresh cookies manually
+- Cookie format errors → Code handles automatically
+
+#### Testing Scripts
+
+**test_all_auth.py** - Test all authentication
+**test_fathom_cookies.py** - Test Fathom only
+**test_google_auth.py** - Test Gmail only
+
+**Usage:**
+```bash
+cd authentication
+python test_all_auth.py        # Test everything
+python test_fathom_cookies.py  # Fathom only
+python test_google_auth.py     # Gmail only
 ```
 
-### Fathom Cookie Flow (run_daily_share.py)
+#### Maintenance & Security
 
-```python
-# 1. Load cookies from file
-with open(COOKIES_FILE, 'r') as f:
-    cookies = json.load(f)
+**Weekly Tasks:**
+- Check cookie expiration
+- Run test scripts
+- Refresh if needed
 
-# 2. Sanitize cookies for Playwright compatibility
-valid_same_site_values = {'Strict', 'Lax', 'None'}
-for cookie in cookies:
-    if cookie.get('sameSite') not in valid_same_site_values:
-        cookie['sameSite'] = 'Lax'
-    if 'partitionKey' in cookie and not isinstance(cookie.get('partitionKey'), str):
-        del cookie['partitionKey']
-
-# 3. Add cookies to browser context
-await context.add_cookies(cookies)
-
-# 4. Navigate to Fathom with authenticated session
-await page.goto("https://fathom.video/home")
-```
-
-## Troubleshooting Authentication Issues
-
-### Google API Authentication Problems
-
-#### Symptom: "credentials.json not found"
-**Cause**: Missing Google API credentials file
-**Solution**: 
-1. Go to Google Cloud Console
-2. Create new project or select existing "fathomizer-email-analysis"
-3. Enable Gmail API
-4. Create OAuth 2.0 credentials for desktop application
-5. Download client secrets and save as `credentials.json`
-
-#### Symptom: "token.json expired" or "refresh token invalid"
-**Cause**: OAuth tokens have expired or been revoked
-**Solution**:
-1. Delete `token.json` file
-2. Run `download_emails.py`
-3. Complete OAuth flow in browser when prompted
-4. New `token.json` will be generated
-
-#### Symptom: "insufficient permissions" or "scope errors"
-**Cause**: Token was created with wrong scopes
-**Solution**:
-1. Delete `token.json`
-2. Ensure SCOPES in code includes required permissions
-3. Re-run OAuth flow
-
-### Fathom Cookie Authentication Problems
-
-#### Symptom: "Access denied" or redirected to login page
-**Cause**: Cookies have expired or are invalid
-**Solution**:
-1. Manually log into Fathom.video in browser
-2. Export cookies using browser developer tools or extension
-3. Replace `fathom_cookies.json` with fresh cookies
-4. Test with `run_daily_share.py`
-
-#### Symptom: "sameSite" or cookie format errors
-**Cause**: Cookie format incompatibility with Playwright
-**Solution**: The code already handles this with sanitization:
-```python
-if cookie.get('sameSite') not in valid_same_site_values:
-    cookie['sameSite'] = 'Lax'
-```
-
-## Maintenance Schedule
-
-### Regular Maintenance (Monthly)
-- **Check token expiry**: Monitor `token.json` "expiry" field
-- **Test authentication**: Run scripts to verify access
-- **Monitor cookie expiration**: Check Fathom cookies for upcoming expiry
-
-### When Things Break
-- **Google API issues**: Usually auto-resolve with token refresh
-- **Fathom access issues**: Requires manual cookie refresh
-- **Permission changes**: May require new OAuth consent
-
-### Emergency Recovery
-1. **Backup all auth files** before making changes
-2. **Google API**: Delete token.json, re-run OAuth flow
-3. **Fathom**: Export fresh cookies from working browser session
-4. **Test incrementally**: Verify each component works before full automation
-
-## Security Considerations
-
-### File Permissions
+**Security:**
 ```bash
 chmod 600 credentials.json token.json fathom_cookies.json
 ```
 
-### Backup Strategy
-- **Keep secure backups** of working authentication files
-- **Never commit to version control** (use .gitignore)
-- **Rotate credentials** periodically for security
+**Emergency Recovery:**
+1. Backup auth files
+2. Google: Delete token.json, re-run OAuth
+3. Fathom: Export fresh cookies from browser
+4. Test incrementally
 
-### Access Scope
-- **Google API**: Limited to read-only Gmail access
-- **Fathom**: Full user session access (powerful but necessary)
+#### Hard-Won Lessons
 
-## Hard-Won Lessons
+**From Historical Evolution:**
+- Cookie sanitization critical for Playwright
+- Auto-refresh prevents user intervention
+- Graceful error handling essential
+- Session persistence requires careful maintenance
+- Browser automation can hang - monitoring essential
+- Fathom selectors have remained stable
 
-### From Current System:
-1. **Cookie Sanitization**: Playwright requires specific cookie formats
-2. **Auto-refresh Logic**: Prevents constant user intervention
-3. **Error Handling**: Graceful degradation when auth fails
-4. **Scope Management**: Minimal necessary permissions
-5. **Session Persistence**: Cookies must be carefully maintained
+**Key Timeouts (discovered through trial):**
+- Fathom page load: 60 seconds
+- Authentication verification: 15 seconds
+- Process inactivity: 5 minutes
 
-### From Historical Evolution (see HISTORICAL_INSIGHTS_FROM_ARCHIVE.md):
-6. **Manual → Automated**: Early system required manual scrolling and HTML saving
-7. **Watchdog Patterns**: Long-running processes need timeout monitoring and restart logic
-8. **HTML Selector Stability**: Fathom UI selectors (`call-gallery-thumbnail`) have remained stable
-9. **Process Reliability**: Browser automation can hang - robust monitoring is essential
-10. **Data Format Consistency**: TSV format with standard columns enables reliable processing
+**Evolution:** Manual → Automated → Fully integrated (3 phases)
 
-### Key Timeouts Discovered Through Trial:
-- **Fathom page load**: 60 seconds (can be slow)
-- **"My Calls" selector**: 15 seconds for authentication verification
-- **Process inactivity**: 5 minutes before restart (from watchdog experience)
-
-### Authentication Evolution:
-- **Phase 1**: Manual cookie export → manual scrolling → offline HTML parsing
-- **Phase 2**: Automated scrolling → real-time parsing → watchdog monitoring
-- **Phase 3**: Fully automated daily operation → smart error handling → integrated workflows
-
-This authentication system represents significant engineering effort and iterative refinement to handle the complexities of modern web authentication across multiple platforms. The current system preserves battle-tested patterns while eliminating manual intervention points.
+**Back to:** [FathomInventory/README.md](../README.md) | [/README.md](../../README.md)
