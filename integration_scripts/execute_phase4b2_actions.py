@@ -96,10 +96,25 @@ def parse_merge_target(comment):
 def execute_merge(conn, fathom_name, target_name):
     """Merge Fathom participant with Airtable person."""
     
-    # Find target in Airtable
+    # Find target in Airtable - check for typos first
     if target_name not in airtable_people:
-        print(f"   ⚠️  Target '{target_name}' not in Airtable - skipping")
-        return 'skipped_target'  # Special return value
+        # Check if it's a typo (>90% match)
+        from fuzzywuzzy import fuzz
+        best_match = None
+        best_score = 0
+        for existing_name in airtable_people.keys():
+            score = fuzz.ratio(target_name.lower(), existing_name.lower())
+            if score > best_score:
+                best_score = score
+                best_match = existing_name
+        
+        # If likely typo (>90% match), auto-correct it
+        if best_score > 90:
+            print(f"   🔧 Auto-correcting typo: '{target_name}' → '{best_match}' ({best_score}%)")
+            target_name = best_match
+        else:
+            print(f"   ⚠️  Target '{target_name}' not in Airtable - skipping")
+            return 'skipped_target'  # Special return value
     
     target = airtable_people[target_name]
     cursor = conn.cursor()
