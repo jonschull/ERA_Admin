@@ -1118,10 +1118,11 @@
         };
       }
       
-      // Apply scaling intensity: lower = more logarithmic, higher = more linear
+      // Apply scaling intensity: 0 = no scaling (constant), 1 = logarithmic
+      const constantScale = 10;  // Base size for all nodes
       const logScale = Math.log(connections + 1);
-      const linearScale = connections;
-      const blendedScale = logScale + (linearScale - logScale) * networkConfig.scalingIntensity;
+      // Blend from constant (at 0) to logarithmic (at 1)
+      const blendedScale = constantScale + (logScale - constantScale) * networkConfig.scalingIntensity;
       
       return {
         ...node,
