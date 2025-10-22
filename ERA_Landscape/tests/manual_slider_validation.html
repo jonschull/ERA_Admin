@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manual Slider Validation</title>
+    <style>
+        body { font-family: monospace; padding: 20px; }
+        .test { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        .pass { background: #d4edda; }
+        .fail { background: #f8d7da; }
+        button { padding: 10px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Manual Slider Validation for ERA_Landscape</h1>
+    <p>Open <a href="http://localhost:8765" target="_blank">http://localhost:8765</a> in another tab</p>
+    
+    <div class="test">
+        <h3>TEST 1: Node Size with Constant Scaling</h3>
+        <ol>
+            <li>Open Network Settings (🌐 button)</li>
+            <li>Set <b>Node Scaling</b> to 0.00 (constant)</li>
+            <li>Note the size of nodes - all should be equal</li>
+            <li>Set <b>Node Size</b> to 0.5 (small)</li>
+            <li><b>CHECK:</b> Did ALL nodes get smaller? (including Town Halls)</li>
+        </ol>
+        <button onclick="markTest(1, true)">✅ PASS</button>
+        <button onclick="markTest(1, false)">❌ FAIL</button>
+        <div id="result1"></div>
+    </div>
+    
+    <div class="test">
+        <h3>TEST 2: Central Gravity</h3>
+        <ol>
+            <li>Close Network Settings</li>
+            <li>Open Physics Settings (⚙️ button)</li>
+            <li>Note current node positions</li>
+            <li>Set <b>Central Gravity</b> to 0.6 (tight)</li>
+            <li><b>CHECK:</b> Did nodes pull toward center? (may take a few seconds)</li>
+        </ol>
+        <button onclick="markTest(2, true)">✅ PASS</button>
+        <button onclick="markTest(2, false)">❌ FAIL</button>
+        <div id="result2"></div>
+    </div>
+    
+    <div class="test">
+        <h3>TEST 3: Reopen Network - Node Size Still Works</h3>
+        <ol>
+            <li>Close Physics Settings</li>
+            <li>Open Network Settings again</li>
+            <li>Set <b>Node Size</b> to 2.0 (large)</li>
+            <li><b>CHECK:</b> Did nodes get much larger?</li>
+        </ol>
+        <button onclick="markTest(3, true)">✅ PASS</button>
+        <button onclick="markTest(3, false)">❌ FAIL</button>
+        <div id="result3"></div>
+    </div>
+    
+    <div class="test">
+        <h3>TEST 4: Reopen Physics - Central Gravity Still Works</h3>
+        <ol>
+            <li>Close Network Settings</li>
+            <li>Open Physics Settings again</li>
+            <li>Set <b>Central Gravity</b> to 0.1 (loose)</li>
+            <li><b>CHECK:</b> Did nodes spread out more?</li>
+        </ol>
+        <button onclick="markTest(4, true)">✅ PASS</button>
+        <button onclick="markTest(4, false)">❌ FAIL</button>
+        <div id="result4"></div>
+    </div>
+    
+    <div id="summary"></div>
+    
+    <script>
+        const results = {};
+        function markTest(num, passed) {
+            results[num] = passed;
+            const div = document.getElementById('result' + num);
+            div.textContent = passed ? '✅ Marked as PASS' : '❌ Marked as FAIL';
+            div.parentElement.className = 'test ' + (passed ? 'pass' : 'fail');
+            updateSummary();
+        }
+        
+        function updateSummary() {
+            const summary = document.getElementById('summary');
+            const total = Object.keys(results).length;
+            const passed = Object.values(results).filter(r => r).length;
+            summary.innerHTML = `<h2>Summary: ${passed}/${total} tests passed</h2>`;
+            
+            if (total === 4) {
+                if (passed === 4) {
+                    summary.innerHTML += '<p style="color: green; font-size: 18px;"><b>✅ ALL TESTS PASSED - Sliders working correctly!</b></p>';
+                } else {
+                    summary.innerHTML += '<p style="color: red; font-size: 18px;"><b>❌ SOME TESTS FAILED - Please report which ones to developer</b></p>';
+                    summary.innerHTML += '<p>Failed tests: ' + Object.entries(results).filter(([k,v]) => !v).map(([k,v]) => 'TEST ' + k).join(', ') + '</p>';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
