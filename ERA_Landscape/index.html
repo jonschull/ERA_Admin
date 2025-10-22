@@ -394,15 +394,15 @@
         loadDataFromSheets().then(() => {
           console.log('🎉 Initial data load complete');
           // Fit graph after a delay to allow physics to settle
-          // Scale 0.5 shows full Town Hall ring (radius 1000px) with generous space around
+          // Scale 0.3 shows full Town Hall ring (radius 1000px) with generous space around
           if (window.network) {
             setTimeout(() => {
               window.network.fit({ 
                 animation: { duration: 1000 },
-                minZoomLevel: 0.5,
-                maxZoomLevel: 0.5
+                minZoomLevel: 0.3,
+                maxZoomLevel: 0.3
               });
-              console.log('🎯 Graph fitted to show full Town Hall ring with generous padding (scale 0.5)');
+              console.log('🎯 Graph fitted to show full Town Hall ring with generous padding (scale 0.3)');
             }, 2000);
           }
         }).catch(err => {
