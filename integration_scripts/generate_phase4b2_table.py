@@ -113,7 +113,8 @@ def fuzzy_check_airtable(person_name, threshold=80):
     if use_word_matching:
         for word in search_words:
             word_lower = word.lower()
-            for airtable_name, at_person in airtable_people.items():
+            for at_person in airtable_people:
+                airtable_name = at_person['name']
                 name_words = [w.lower() for w in airtable_name.split()]
                 if word_lower in name_words:
                     word_matches.append({
