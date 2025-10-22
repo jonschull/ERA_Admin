@@ -654,15 +654,27 @@
       });
       
       // Update nodes with scaling value while preserving all other properties
-      // Events (Town Halls) scale much less severely due to high participant count
+      // Apply same formula as applyNetworkSettings() for consistency
       const updates = nodesPayload.map(node => {
         const connections = connectionCount[node.id] || 1;
         const type = parseTypeFromId(node.id);
-        // Events scale at 30% rate of other nodes (max 10 instead of full connection count)
-        const scaledValue = type === 'event' ? Math.min(connections * 0.3, 10) : connections;
+        
+        let finalValue;
+        if (type === 'event') {
+          // Events scale minimally, with nodeSize multiplier
+          finalValue = Math.min(connections * 0.3, 10) * (typeof networkConfig !== 'undefined' ? networkConfig.nodeSize : 1.0);
+        } else {
+          // Regular nodes: apply scaling intensity formula
+          const constantScale = 10;
+          const logScale = Math.log(connections + 1);
+          const intensity = (typeof networkConfig !== 'undefined' ? networkConfig.scalingIntensity : 1.0);
+          const blendedScale = constantScale + (logScale - constantScale) * intensity;
+          finalValue = blendedScale * (typeof networkConfig !== 'undefined' ? networkConfig.nodeSize : 1.0);
+        }
+        
         return {
           ...node,
-          value: scaledValue
+          value: finalValue
         };
       });
       nodes.update(updates);
