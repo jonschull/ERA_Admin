@@ -1047,14 +1047,24 @@
           n.originalColor = JSON.parse(JSON.stringify(n.color));
         }
         
+        const isTownHall = n.id.startsWith('event::Town Hall');
+        
         if(visibleSet.has(n.id)){
           // Visible: restore original appearance
           const update = {
             id: n.id,
-            physics: true,
-            fixed: false,
             opacity: 1
           };
+          
+          // Town Halls must stay fixed at periphery even when visible
+          if(isTownHall){
+            update.physics = false;
+            update.fixed = {x: true, y: true};
+          } else {
+            update.physics = true;
+            update.fixed = false;
+          }
+          
           if(n.originalColor){
             update.color = n.originalColor;
           }
