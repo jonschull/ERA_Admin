@@ -174,8 +174,8 @@
       <div style="display:flex; align-items:center; gap:8px;">
         <span style="font-size:11px; color:#666; width:40px;">loose</span>
         <div style="flex:1; position:relative;">
-          <input type="range" id="centralGravity" min="0" max="0.8" step="0.01" value="0.15" style="width:100%;">
-          <span class="slider-value-float" id="centralGravityVal">0.15</span>
+          <input type="range" id="centralGravity" min="0" max="1.0" step="0.05" value="0.4" style="width:100%;">
+          <span class="slider-value-float" id="centralGravityVal">0.4</span>
         </div>
         <span style="font-size:11px; color:#666; width:40px; text-align:right;">tight</span>
       </div>
@@ -186,8 +186,8 @@
       <div style="display:flex; align-items:center; gap:8px;">
         <span style="font-size:11px; color:#666; width:40px;">short</span>
         <div style="flex:1; position:relative;">
-          <input type="range" id="springLength" min="50" max="300" step="5" value="120" style="width:100%;">
-          <span class="slider-value-float" id="springLengthVal">120</span>
+          <input type="range" id="springLength" min="50" max="400" step="10" value="175" style="width:100%;">
+          <span class="slider-value-float" id="springLengthVal">175</span>
         </div>
         <span style="font-size:11px; color:#666; width:40px; text-align:right;">long</span>
       </div>
@@ -198,8 +198,8 @@
       <div style="display:flex; align-items:center; gap:8px;">
         <span style="font-size:11px; color:#666; width:40px;">loose</span>
         <div style="flex:1; position:relative;">
-          <input type="range" id="springConstant" min="0.001" max="0.1" step="0.001" value="0.02" style="width:100%;">
-          <span class="slider-value-float" id="springConstantVal">0.02</span>
+          <input type="range" id="springConstant" min="0.001" max="0.15" step="0.005" value="0.04" style="width:100%;">
+          <span class="slider-value-float" id="springConstantVal">0.04</span>
         </div>
         <span style="font-size:11px; color:#666; width:40px; text-align:right;">tight</span>
       </div>
@@ -258,7 +258,7 @@
       <div style="display:flex; align-items:center; gap:8px;">
         <span style="font-size:11px; color:#666; width:60px;">constant</span>
         <div style="flex:1; position:relative;">
-          <input type="range" id="scalingIntensity" min="0" max="1.0" step="0.05" value="1.0" style="width:100%;">
+          <input type="range" id="scalingIntensity" min="0" max="2.0" step="0.1" value="1.0" style="width:100%;">
           <span class="slider-value-float" id="scalingIntensityVal">1.0</span>
         </div>
         <span style="font-size:11px; color:#666; width:60px; text-align:right;">logarithmic</span>
@@ -270,7 +270,7 @@
       <div style="display:flex; align-items:center; gap:8px;">
         <span style="font-size:11px; color:#666; width:60px;">small</span>
         <div style="flex:1; position:relative;">
-          <input type="range" id="nodeSize" min="0.5" max="2.0" step="0.1" value="1.0" style="width:100%;">
+          <input type="range" id="nodeSize" min="0.2" max="3.0" step="0.1" value="1.0" style="width:100%;">
           <span class="slider-value-float" id="nodeSizeVal">1.0</span>
         </div>
         <span style="font-size:11px; color:#666; width:60px; text-align:right;">large</span>
@@ -282,7 +282,7 @@
       <div style="display:flex; align-items:center; gap:8px;">
         <span style="font-size:11px; color:#666; width:60px;">strong</span>
         <div style="flex:1; position:relative;">
-          <input type="range" id="edgeFading" min="0" max="1.0" step="0.1" value="1.0" style="width:100%;">
+          <input type="range" id="edgeFading" min="0" max="2.0" step="0.1" value="1.0" style="width:100%;">
           <span class="slider-value-float" id="edgeFadingVal">1.0</span>
         </div>
         <span style="font-size:11px; color:#666; width:60px; text-align:right;">none</span>
@@ -294,7 +294,7 @@
       <div style="display:flex; align-items:center; gap:8px;">
         <span style="font-size:11px; color:#666; width:60px;">extreme</span>
         <div style="flex:1; position:relative;">
-          <input type="range" id="edgeThickness" min="0" max="2.0" step="0.1" value="1.0" style="width:100%;">
+          <input type="range" id="edgeThickness" min="0" max="3.0" step="0.1" value="1.0" style="width:100%;">
           <span class="slider-value-float" id="edgeThicknessVal">1.0</span>
         </div>
         <span style="font-size:11px; color:#666; width:60px; text-align:right;">subtle</span>
@@ -841,9 +841,9 @@
   // ========== Physics Controls ==========
   // Load saved settings from localStorage or use defaults
   let physicsConfig = {
-    centralGravity: 0.15,
-    springLength: 120,
-    springConstant: 0.02,
+    centralGravity: 0.4,
+    springLength: 175,
+    springConstant: 0.04,
     avoidOverlap: 0.2,
     edgeMultiplier: 10,
     maxEdgeLength: 300
@@ -1004,17 +1004,17 @@
   
   // Reset to defaults
   document.getElementById('resetPhysics').onclick = () => {
-    document.getElementById('centralGravity').value = 0.15;
-    document.getElementById('springLength').value = 120;
-    document.getElementById('springConstant').value = 0.02;
+    document.getElementById('centralGravity').value = 0.4;
+    document.getElementById('springLength').value = 175;
+    document.getElementById('springConstant').value = 0.04;
     document.getElementById('avoidOverlap').value = 0.2;
     document.getElementById('edgeMultiplier').value = 10;
     document.getElementById('maxEdgeLength').value = 300;
     
     // Update displays
-    document.getElementById('centralGravityVal').textContent = '0.15';
-    document.getElementById('springLengthVal').textContent = '120';
-    document.getElementById('springConstantVal').textContent = '0.02';
+    document.getElementById('centralGravityVal').textContent = '0.4';
+    document.getElementById('springLengthVal').textContent = '175';
+    document.getElementById('springConstantVal').textContent = '0.04';
     document.getElementById('avoidOverlapVal').textContent = '0.2';
     document.getElementById('edgeMultiplierVal').textContent = '10';
     document.getElementById('maxEdgeLengthVal').textContent = '300';
