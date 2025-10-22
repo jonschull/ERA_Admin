@@ -381,11 +381,11 @@
         // Auto-load data from Sheets on page init
         loadDataFromSheets().then(() => {
           console.log('🎉 Initial data load complete');
-          // Fit graph after a delay to allow physics to settle
+          // Fit graph after a delay to allow physics to settle (more zoomed out)
           if (window.network) {
             setTimeout(() => {
-              window.network.fit({ animation: { duration: 1000 } });
-              console.log('🎯 Graph fitted to show all nodes');
+              window.network.fit({ animation: { duration: 1000 }, scale: 0.8 });
+              console.log('🎯 Graph fitted to show all nodes (scale 0.8)');
             }, 2000);
           }
         }).catch(err => {
