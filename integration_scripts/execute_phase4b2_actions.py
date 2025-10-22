@@ -188,6 +188,17 @@ def process_csv_decisions(csv_path):
         if comment:
             probe = True
         
+        # Auto-process standard format decisions even if ProcessThis=NO
+        # User may forget to check box but decision is clear
+        if comment and not process_this:
+            is_standard = (comment.startswith('merge with:') or 
+                          comment.startswith('drop') or 
+                          comment.startswith('ignore') or
+                          comment.startswith('add to airtable'))
+            if is_standard:
+                process_this = True
+                # Silent auto-enable for standard formats
+        
         # Check if comment is custom (not auto-generated)
         is_custom_comment = (comment and 
                             not comment.startswith('merge with:') and
