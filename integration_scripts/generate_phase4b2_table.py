@@ -301,6 +301,9 @@ def suggest_action(name, category, gmail_result, airtable_match):
             return f'merge with: {matched_name}'
         # Otherwise extract base name
         base_name = name.split(',')[0].split('(')[0].strip()
+        # Don't suggest incomplete single names - use Airtable match if available
+        if len(base_name.split()) == 1 and matched_name:
+            return f'merge with: {matched_name}'  # Even if low confidence
         return f'merge with: {base_name}'
     if category == 'single_name':
         if in_airtable:
