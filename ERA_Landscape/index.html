@@ -870,6 +870,19 @@
     document.getElementById('maxEdgeLengthVal').textContent = physicsConfig.maxEdgeLength;
     
     document.getElementById('physicsModal').style.display = 'flex';
+    
+    // Recalculate value positions now that modal is visible
+    setTimeout(() => {
+      ['centralGravity', 'springLength', 'springConstant', 'avoidOverlap', 'edgeMultiplier', 'maxEdgeLength'].forEach(id => {
+        const slider = document.getElementById(id);
+        const valueSpan = document.getElementById(id + 'Val');
+        const percent = (slider.value - slider.min) / (slider.max - slider.min);
+        const sliderWidth = slider.offsetWidth;
+        const thumbWidth = 20;
+        const position = percent * (sliderWidth - thumbWidth) + thumbWidth/2;
+        valueSpan.style.left = position + 'px';
+      });
+    }, 0);
   };
   
   
@@ -1018,6 +1031,19 @@
     document.getElementById('edgeThicknessVal').textContent = networkConfig.edgeThickness;
     
     document.getElementById('networkModal').style.display = 'flex';
+    
+    // Recalculate value positions now that modal is visible
+    setTimeout(() => {
+      ['scalingIntensity', 'nodeSize', 'edgeFading', 'edgeThickness'].forEach(id => {
+        const slider = document.getElementById(id);
+        const valueSpan = document.getElementById(id + 'Val');
+        const percent = (slider.value - slider.min) / (slider.max - slider.min);
+        const sliderWidth = slider.offsetWidth;
+        const thumbWidth = 20;
+        const position = percent * (sliderWidth - thumbWidth) + thumbWidth/2;
+        valueSpan.style.left = position + 'px';
+      });
+    }, 0);
   };
   
   // Network slider handlers
