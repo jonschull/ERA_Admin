@@ -33,7 +33,8 @@ python3 execute_phase4b2_actions.py
 **What it does:**
 - Finds most recent `phase4b2_approvals_*.csv` in directory
 - Creates database backup before changes
-- Executes merges, drops, and additions
+- Executes merges and drops to Fathom database
+- **Executes additions to Airtable** (automated via `add_to_airtable.py`)
 - Commits changes (or rolls back on error)
 
 ### 3. Handle custom comments (if script pauses)
@@ -126,9 +127,12 @@ Update this function if you have new probe results to include.
 **Cause:** Airtable CSV export has unexpected fields
 
 **Solution:**
-- Note person needs manual Airtable addition
-- Track in `FOLLOWUP_REMINDERS.md`
-- Add to Airtable manually via web interface
+- Script WILL attempt automated addition via `add_to_airtable.py`
+- If field mismatch occurs, additions still attempted but may need manual verification
+- Track any failures in `FOLLOWUP_REMINDERS.md`
+- Verify additions succeeded by checking Airtable after execution
+
+**Note:** Always attempt automated addition first - don't default to manual
 
 ### Issue: No Records Found for Name
 **Warning:** `⚠️ No records found for 'PersonName'`
