@@ -716,19 +716,20 @@
                   const dy = fromPos.y - toPos.y;
                   const distance = Math.sqrt(dx * dx + dy * dy);
                 
-                // Map distance to opacity: 0-300px = 0.8 (orphans), 300-600px fade to 0.2, 600+ = 0.05
+                // Map distance to opacity - INCREASED threshold from 300 to 450px for "near"
+                // Many visible connections are in 300-450px range
                 let opacity = 0.05;
                 let width = 0.5;
-                if (distance < 300) {
-                  opacity = 0.8;  // Very visible for nearby orphans
+                if (distance < 450) {  // Increased from 300 to catch more visible edges
+                  opacity = 0.8;  // Very visible for nearby nodes
                   width = 2.5;    // Much thicker for nearby
                   nearCount++;
-                } else if (distance < 600) {
-                  opacity = 0.8 - (distance - 300) / 300 * 0.6;  // Linear from 0.8 to 0.2
+                } else if (distance < 700) {  // Adjusted medium range
+                  opacity = 0.8 - (distance - 450) / 250 * 0.6;  // Linear from 0.8 to 0.2
                   width = 1;
                   medCount++;
                 } else if (distance < 1000) {
-                  opacity = 0.2 - (distance - 600) / 400 * 0.15;  // Linear from 0.2 to 0.05
+                  opacity = 0.2 - (distance - 700) / 300 * 0.15;  // Linear from 0.2 to 0.05
                   farCount++;
                 } else {
                   farCount++;
@@ -750,7 +751,7 @@
           
           if (edgeOpacityUpdates.length > 0) {
             edges.update(edgeOpacityUpdates);
-            console.log(`👁️ Adjusted ${edgeOpacityUpdates.length} TH→person edges: ${nearCount} near (<300px, thick), ${medCount} medium (300-600px), ${farCount} far (>600px, thin)`);
+            console.log(`👁️ Adjusted ${edgeOpacityUpdates.length} TH→person edges: ${nearCount} near (<450px, thick), ${medCount} medium (450-700px), ${farCount} far (>700px, thin)`);
             if (nearCount === 0) {
               console.warn(`⚠️ No near edges found! Check orphan positioning (should be radius ~850-900px to be near TH ring at 1000px)`);
             } else {
