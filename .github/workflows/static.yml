@@ -35,14 +35,13 @@ jobs:
       - name: Create deployment directory
         run: |
           mkdir -p _site
-          # Copy only necessary files (exclude Python cache, venv, etc.)
-          rsync -av --exclude='__pycache__' \
-                    --exclude='*.pyc' \
-                    --exclude='venv' \
-                    --exclude='historical/venv' \
-                    --exclude='.git' \
-                    --exclude='.github' \
-                    . _site/
+          # Copy only files needed for GitHub Pages
+          cp index.html _site/
+          cp .nojekyll _site/
+          cp -r ERA_Landscape _site/
+          # Clean up Python artifacts from ERA_Landscape
+          find _site/ERA_Landscape -type d -name '__pycache__' -exec rm -rf {} + 2>/dev/null || true
+          find _site/ERA_Landscape -type f -name '*.pyc' -delete 2>/dev/null || true
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
