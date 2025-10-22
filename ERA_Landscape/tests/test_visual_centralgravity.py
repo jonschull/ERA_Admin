@@ -34,7 +34,10 @@ def test_visual_central_gravity():
         # Measure spread
         spread_baseline = page.evaluate("""() => {
             const positions = window.network.getPositions();
-            const coords = Object.values(positions);
+            // Only measure mobile nodes (exclude fixed Town Halls)
+            const mobileNodes = window.__graph.nodes.get().filter(n => !n.id.startsWith('event::Town Hall'));
+            const mobileIds = mobileNodes.map(n => n.id);
+            const coords = mobileIds.map(id => positions[id]).filter(p => p);
             const xs = coords.map(p => p.x);
             const ys = coords.map(p => p.y);
             const minX = Math.min(...xs);
@@ -58,17 +61,23 @@ def test_visual_central_gravity():
         page.evaluate("document.getElementById('centralGravity').dispatchEvent(new Event('input'))")
         time.sleep(0.5)
         
+        # Check what value was actually set
+        actual_cg = page.evaluate("window.network.physics.options.barnesHut.centralGravity")
+        print(f"   Confirmed centralGravity set to: {actual_cg}")
+        
         page.click("#applyPhysics")
         
         # Let physics pull nodes toward center
-        print("   Waiting for physics to pull nodes together (8 seconds)...")
-        time.sleep(8)
+        print("   Waiting for physics to pull nodes together (15 seconds)...")
+        time.sleep(15)
         
         page.screenshot(path=f"{screenshot_dir}/gravity_2_tight_0.6.png")
         
         spread_tight = page.evaluate("""() => {
             const positions = window.network.getPositions();
-            const coords = Object.values(positions);
+            const mobileNodes = window.__graph.nodes.get().filter(n => !n.id.startsWith('event::Town Hall'));
+            const mobileIds = mobileNodes.map(n => n.id);
+            const coords = mobileIds.map(id => positions[id]).filter(p => p);
             const xs = coords.map(p => p.x);
             const ys = coords.map(p => p.y);
             return Math.sqrt((Math.max(...xs) - Math.min(...xs))**2 + (Math.max(...ys) - Math.min(...ys))**2);
@@ -95,7 +104,9 @@ def test_visual_central_gravity():
         
         spread_loose = page.evaluate("""() => {
             const positions = window.network.getPositions();
-            const coords = Object.values(positions);
+            const mobileNodes = window.__graph.nodes.get().filter(n => !n.id.startsWith('event::Town Hall'));
+            const mobileIds = mobileNodes.map(n => n.id);
+            const coords = mobileIds.map(id => positions[id]).filter(p => p);
             const xs = coords.map(p => p.x);
             const ys = coords.map(p => p.y);
             return Math.sqrt((Math.max(...xs) - Math.min(...xs))**2 + (Math.max(...ys) - Math.min(...ys))**2);

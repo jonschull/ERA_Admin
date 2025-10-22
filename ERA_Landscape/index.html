@@ -968,22 +968,25 @@
         }
       });
       
-      // Recalculate edge lengths based on new parameters
-      const connectionCount = {};
-      edges.get().forEach(edge => {
-        connectionCount[edge.from] = (connectionCount[edge.from] || 0) + 1;
-        connectionCount[edge.to] = (connectionCount[edge.to] || 0) + 1;
-      });
-      
-      const edgeUpdates = edges.get().map(edge => {
-        const targetDegree = connectionCount[edge.to] || 1;
-        const length = Math.min(physicsConfig.springLength + (targetDegree * physicsConfig.edgeMultiplier), physicsConfig.maxEdgeLength);
-        return {
-          ...edge,
-          length: length
-        };
-      });
-      edges.update(edgeUpdates);
+      // Only recalculate edge lengths if springLength or edgeMultiplier changed
+      // (avoid triggering layout disruption on centralGravity-only changes)
+      if (fromSlider) {
+        const connectionCount = {};
+        edges.get().forEach(edge => {
+          connectionCount[edge.from] = (connectionCount[edge.from] || 0) + 1;
+          connectionCount[edge.to] = (connectionCount[edge.to] || 0) + 1;
+        });
+        
+        const edgeUpdates = edges.get().map(edge => {
+          const targetDegree = connectionCount[edge.to] || 1;
+          const length = Math.min(physicsConfig.springLength + (targetDegree * physicsConfig.edgeMultiplier), physicsConfig.maxEdgeLength);
+          return {
+            ...edge,
+            length: length
+          };
+        });
+        edges.update(edgeUpdates);
+      }
       
       // No stabilization - let physics naturally settle with high damping
       
