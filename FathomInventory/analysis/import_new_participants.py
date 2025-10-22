@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 """
-Import NEW participants from CSV to database (incremental import)
-Skips already-imported participants based on (name, source_call_url) combination
+Import NEW participants from CSV to database (FIXED for UNIQUE constraint)
+
+CHANGED: Now handles the UNIQUE constraint on participant names
+- If person already exists: UPDATE to append new source_call_url
+- If person is new: INSERT new record
+
+This prevents UNIQUE constraint errors while preserving attendance history.
 """
 import csv
 import sqlite3
@@ -9,11 +14,15 @@ import sqlite3
 DB_FILE = '../fathom_emails.db'
 CSV_FILE = 'participants.csv'
 
-def get_existing_participants(conn):
-    """Get set of existing (name, source_url) tuples"""
+def get_existing_participant_by_name(conn, name):
+    """Check if participant with this name (case-insensitive) already exists"""
     cursor = conn.cursor()
-    cursor.execute("SELECT name, source_call_url FROM participants")
-    return set((row[0], row[1]) for row in cursor.fetchall())
+    cursor.execute("""
+        SELECT id, source_call_url 
+        FROM participants 
+        WHERE LOWER(TRIM(name)) = LOWER(TRIM(?))
+    """, (name,))
+    return cursor.fetchone()
 
 def get_call_hyperlink(conn, source_url):
     """Find matching call hyperlink"""
@@ -36,14 +45,10 @@ def get_call_hyperlink(conn, source_url):
     return None
 
 def import_new_participants():
-    """Import only NEW participants"""
+    """Import participants with UNIQUE constraint awareness"""
     
     print("🔌 Connecting to database...")
     conn = sqlite3.connect(DB_FILE)
-    
-    print("📖 Reading existing participants from database...")
-    existing = get_existing_participants(conn)
-    print(f"   Found {len(existing)} existing participant records")
     
     print("📖 Reading participants from CSV...")
     with open(CSV_FILE, 'r', encoding='utf-8') as f:
@@ -51,70 +56,85 @@ def import_new_participants():
         all_participants = list(reader)
     print(f"   Found {len(all_participants)} total records in CSV")
     
-    # Filter to NEW participants only
-    new_participants = []
-    for p in all_participants:
-        key = (p['Name'], p['Source_Call_URL'])
-        if key not in existing:
-            new_participants.append(p)
-    
-    print(f"\n📊 New participants to import: {len(new_participants)}")
-    
-    if len(new_participants) == 0:
-        print("✅ No new participants - database is up to date!")
-        conn.close()
-        return 0, 0
-    
     cursor = conn.cursor()
-    imported = 0
-    linked = 0
+    inserted = 0
+    updated = 0
+    skipped = 0
     
-    print("💾 Importing new participants...")
-    for i, p in enumerate(new_participants, 1):
-        call_hyperlink = get_call_hyperlink(conn, p['Source_Call_URL'])
-        if call_hyperlink:
-            linked += 1
+    print("💾 Processing participants...")
+    for i, p in enumerate(all_participants, 1):
+        name = p['Name']
+        source_url = p['Source_Call_URL']
         
-        cursor.execute("""
-            INSERT INTO participants (
-                name, location, affiliation,
-                collaborating_people, collaborating_organizations,
-                source_call_url, source_call_title,
+        # Check if person already exists (by name, not name+url combo)
+        existing = get_existing_participant_by_name(conn, name)
+        
+        if existing:
+            existing_id, existing_urls = existing
+            
+            # Check if this specific meeting URL already recorded
+            if source_url in existing_urls:
+                skipped += 1
+                continue
+            
+            # Append new meeting URL to existing record
+            new_urls = existing_urls + ', ' + source_url
+            cursor.execute("""
+                UPDATE participants
+                SET source_call_url = ?,
+                    analyzed_at = CURRENT_TIMESTAMP
+                WHERE id = ?
+            """, (new_urls, existing_id))
+            
+            updated += 1
+            print(f"  ✓ Updated '{name}' with new meeting")
+            
+        else:
+            # New person - insert
+            call_hyperlink = get_call_hyperlink(conn, source_url)
+            
+            cursor.execute("""
+                INSERT INTO participants (
+                    name, location, affiliation,
+                    collaborating_people, collaborating_organizations,
+                    source_call_url, source_call_title,
+                    call_hyperlink
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                name,
+                p['Location'],
+                p['Affiliation'],
+                p['Collaborating_People'],
+                p['Collaborating_Organizations'],
+                source_url,
+                p['Source_Call_Title'],
                 call_hyperlink
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        """, (
-            p['Name'],
-            p['Location'],
-            p['Affiliation'],
-            p['Collaborating_People'],
-            p['Collaborating_Organizations'],
-            p['Source_Call_URL'],
-            p['Source_Call_Title'],
-            call_hyperlink
-        ))
-        
-        imported += 1
+            ))
+            
+            inserted += 1
         
         if i % 50 == 0:
-            print(f"  Progress: {i}/{len(new_participants)}")
+            print(f"  Progress: {i}/{len(all_participants)}")
             conn.commit()
     
     conn.commit()
     
-    print(f"\n✅ Imported {imported} new participant records")
-    print(f"🔗 Linked {linked} to calls table ({linked/imported*100:.1f}%)")
+    print(f"\n✅ Import complete:")
+    print(f"   Inserted: {inserted} new people")
+    print(f"   Updated: {updated} existing people with new meetings")
+    print(f"   Skipped: {skipped} (already recorded)")
     
     # Final count
     cursor.execute("SELECT COUNT(*) FROM participants")
     total = cursor.fetchone()[0]
-    print(f"📊 Total participants in database: {total}")
+    print(f"📊 Total unique participants in database: {total}")
     
     conn.close()
-    return imported, linked
+    return inserted, updated, skipped
 
 if __name__ == '__main__':
     try:
-        imported, linked = import_new_participants()
+        inserted, updated, skipped = import_new_participants()
         print(f"\n{'='*60}")
         print(f"✅ IMPORT COMPLETE")
         print(f"{'='*60}")
