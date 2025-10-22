@@ -4,8 +4,15 @@ Execute Phase 4B-2 actions from CSV decisions + probe results.
 
 Actions:
 - MERGE: Update Fathom email to match Airtable person
+  * UNIQUE constraint aware: Deletes duplicate variant if target already exists
+  * Otherwise updates name to target
 - DROP: Delete from Fathom database  
 - ADD: Add to Airtable automatically
+
+IMPORTANT: Database has UNIQUE constraint on participants.name (added PR #17)
+This affects merge logic - see execute_merge() function for details.
+
+See EXECUTION_WORKFLOW.md for full documentation.
 """
 
 import sqlite3

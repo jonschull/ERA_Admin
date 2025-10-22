@@ -1,7 +1,17 @@
 #!/usr/bin/env python3
 """
-Generate Phase 4B-2 approval table with Gmail research for 25 test people.
+Generate Phase 4B-2 approval table with Gmail research for 50 people.
 Enhanced version with embedded Gmail insights and learned mappings from previous rounds.
+
+Features:
+- Auto-fills decisions from learned mappings (phone numbers, drops, name variants)
+- Shows green badges (🔁) for auto-filled entries with reason
+- Integrates Gmail research for context
+- Fuzzy matches against Airtable people
+- Exports to CSV with all decisions
+
+Note: Emoji badges in HTML are automatically stripped during CSV processing.
+See LEARNED_MAPPINGS_SYSTEM.md for auto-fill details.
 """
 
 import json
