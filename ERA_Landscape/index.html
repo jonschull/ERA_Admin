@@ -1184,8 +1184,20 @@
     });
     nodes.update(updates);
     
-    // Force vis.js to redraw with new node sizes
+    // Update vis.js scaling range based on nodeSize multiplier
+    // This ensures visual size changes are proportional to slider
     if (window.network) {
+      const baseMin = 12;
+      const baseMax = 60;
+      window.network.setOptions({
+        nodes: {
+          scaling: {
+            min: baseMin * networkConfig.nodeSize,
+            max: baseMax * networkConfig.nodeSize
+          }
+        }
+      });
+      // Trigger redraw after options change
       window.network.redraw();
     }
     
