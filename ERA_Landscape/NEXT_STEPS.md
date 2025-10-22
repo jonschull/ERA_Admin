@@ -55,8 +55,9 @@
 
 ## Current Status
 
-**Repository**: https://github.com/jonschull/ERA_Landscape_Static  
-**Live Site**: https://jonschull.github.io/ERA_Landscape_Static/  
+**Repository**: https://github.com/jonschull/ERA_Admin (ERA_Landscape/ component)  
+**Live Site**: https://jonschull.github.io/ERA_Admin/ERA_Landscape/  
+**Historical**: https://github.com/jonschull/ERA_Landscape_Static (archived)  
 **Status**: ✅ Production Ready
 
 **Key Metrics:**
@@ -183,8 +184,8 @@ Sign In → OAuth → Edit Graph → Save → Write to Sheet
 **Location**: `/Users/admin/Library/CloudStorage/Dropbox-EcoRestorationAllianceLLC/Jon Schull/CascadeProjects/ClimateWeek`
 
 ### ERA_Landscape_Static (This Project)
-**Repository**: https://github.com/jonschull/ERA_Landscape_Static  
-**Live Site**: https://jonschull.github.io/ERA_Landscape_Static/  
+**Repository**: https://github.com/jonschull/ERA_Admin (ERA_Landscape/ component)  
+**Live Site**: https://jonschull.github.io/ERA_Admin/ERA_Landscape/  
 **Purpose**: Production viewer with direct Sheet integration
 
 **Use for:**

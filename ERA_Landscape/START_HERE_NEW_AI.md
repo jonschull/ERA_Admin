@@ -76,8 +76,9 @@ Present status WITHOUT being asked:
 
 **✅ PRODUCTION DEPLOYED & FULLY FUNCTIONAL**
 
-**Live Site:** https://jonschull.github.io/ERA_Landscape_Static/
-**Repository:** https://github.com/jonschull/ERA_Landscape_Static
+**Live Site:** https://jonschull.github.io/ERA_Admin/ERA_Landscape/
+**Repository:** https://github.com/jonschull/ERA_Admin (ERA_Landscape/ component)
+**Historical:** https://github.com/jonschull/ERA_Landscape_Static (archived)
 
 **All Core Features Complete:**
 - ✅ Google Sheets API integration (read/write)

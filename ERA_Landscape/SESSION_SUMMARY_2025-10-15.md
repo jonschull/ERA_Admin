@@ -45,8 +45,9 @@
 
 ## Current Production Status
 
-**Live Site**: https://jonschull.github.io/ERA_Landscape_Static/  
-**Repository**: https://github.com/jonschull/ERA_Landscape_Static  
+**Live Site**: https://jonschull.github.io/ERA_Admin/ERA_Landscape/  
+**Repository**: https://github.com/jonschull/ERA_Admin (ERA_Landscape/ component)  
+**Historical**: https://github.com/jonschull/ERA_Landscape_Static (archived)  
 **Deployment**: Auto-deploys from main branch (GitHub Pages)
 
 **All Features Working**:
@@ -216,8 +217,8 @@ See **SHEET_ANALYSIS_V2.md** for detailed design:
    - Test locally with HTTP server
    - Create PR for all changes
 
-**Live Site**: https://jonschull.github.io/ERA_Landscape_Static/  
-**Repository**: https://github.com/jonschull/ERA_Landscape_Static  
+**Live Site**: https://jonschull.github.io/ERA_Admin/ERA_Landscape/  
+**Repository**: https://github.com/jonschull/ERA_Admin (ERA_Landscape/ component)  
 **Google Sheet**: https://docs.google.com/spreadsheets/d/1cR5X2xFSGffivfsMjyHDDeDJQv6R0kQpVUJsEJ2_1yY/edit
 
 ---

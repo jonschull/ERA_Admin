@@ -1,6 +1,8 @@
 # ERA Landscape - Static Viewer
 
-**Live Demo**: https://jonschull.github.io/ERA_Landscape_Static/
+**Live Demo**: https://jonschull.github.io/ERA_Admin/ERA_Landscape/
+
+**Historical repo (archived)**: https://github.com/jonschull/ERA_Landscape_Static
 
 Interactive graph visualization for the climate/restoration landscape. Pure HTML/JavaScript, no server required.
 
@@ -27,8 +29,8 @@ A **standalone HTML file** (20KB) that:
 
 ```bash
 # Clone the repo
-git clone https://github.com/jonschull/ERA_Landscape_Static.git
-cd ERA_Landscape_Static
+git clone https://github.com/jonschull/ERA_Admin.git
+cd ERA_Admin/ERA_Landscape
 
 # Start local server
 python3 -m http.server 8000
@@ -43,7 +45,7 @@ open http://localhost:8000
 
 Already configured! Merge PRs to main and GitHub Pages auto-deploys.
 
-**URL**: https://jonschull.github.io/ERA_Landscape_Static/
+**URL**: https://jonschull.github.io/ERA_Admin/ERA_Landscape/
 
 **Important**: Use branch-based workflow (see DEVELOPMENT.md)
 
@@ -215,7 +217,7 @@ git push origin feat/my-change
 gh api repos/jonschull/ERA_Landscape_Static/pages/builds/latest | jq -r '.status'
 
 # 7. Verify live site
-open https://jonschull.github.io/ERA_Landscape_Static/
+open https://jonschull.github.io/ERA_Admin/ERA_Landscape/
 ```
 
 **Settings → Pages:**
@@ -281,7 +283,7 @@ Works on any static host:
 
 ## Related Project
 
-This project was extracted from [ERA_ClimateWeek](https://github.com/jonschull/ERA_ClimateWeek), which is a Python-based data processing pipeline with Flask server.
+This project was extracted from [ERA_ClimateWeek](https://github.com/jonschull/ERA_ClimateWeek) and is now part of the ERA_Admin monorepo as a self-contained component.
 
 **When to use each:**
 
@@ -319,6 +321,7 @@ MIT License - See parent project for details.
 
 ## Contact
 
-**Repository**: https://github.com/jonschull/ERA_Landscape_Static  
+**Repository**: https://github.com/jonschull/ERA_Admin (ERA_Landscape/ component)  
+**Historical repo**: https://github.com/jonschull/ERA_Landscape_Static (archived)  
 **Main Project**: https://github.com/jonschull/ERA_ClimateWeek  
 **Developer**: Jon Schull
