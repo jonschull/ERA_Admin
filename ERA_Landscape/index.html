@@ -691,21 +691,30 @@
         console.log(`🎯 Fixed ${townHalls.length} Town Halls in circular ring at periphery`);
         
         // Adjust TH edge opacity based on distance after a delay (let layout settle)
+        console.log(`⏲️ Setting up setTimeout for edge adjustment in 4 seconds...`);
         setTimeout(() => {
+          console.log(`⏰ setTimeout fired after 4 seconds - starting edge distance adjustment`);
           const allEdges = edges.get();
           const edgeOpacityUpdates = [];
+          let nearCount = 0, medCount = 0, farCount = 0;
+          
+          console.log(`🔍 Checking ${allEdges.length} edges for TH→person connections...`);
+          let thEdgeCount = 0;
           
           allEdges.forEach(edge => {
             if (edge.isTownHallEdge && edge.relationship !== 'follows') {
+              thEdgeCount++;
               // Only adjust TH→person edges, not TH→TH (follows) edges
-              const fromNode = nodes.get(edge.from);
-              const toNode = nodes.get(edge.to);
+              // Get positions from network canvas, not from nodes DataSet
+              try {
+                const fromPos = window.network.getPositions([edge.from])[edge.from];
+                const toPos = window.network.getPositions([edge.to])[edge.to];
               
-              if (fromNode && toNode && fromNode.x !== undefined && toNode.x !== undefined) {
-                // Calculate distance
-                const dx = fromNode.x - toNode.x;
-                const dy = fromNode.y - toNode.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (fromPos && toPos && fromPos.x !== undefined && toPos.x !== undefined) {
+                  // Calculate distance
+                  const dx = fromPos.x - toPos.x;
+                  const dy = fromPos.y - toPos.y;
+                  const distance = Math.sqrt(dx * dx + dy * dy);
                 
                 // Map distance to opacity: 0-300px = 0.8 (orphans), 300-600px fade to 0.2, 600+ = 0.05
                 let opacity = 0.05;
@@ -713,46 +722,64 @@
                 if (distance < 300) {
                   opacity = 0.8;  // Very visible for nearby orphans
                   width = 2.5;    // Much thicker for nearby
+                  nearCount++;
                 } else if (distance < 600) {
                   opacity = 0.8 - (distance - 300) / 300 * 0.6;  // Linear from 0.8 to 0.2
                   width = 1;
+                  medCount++;
                 } else if (distance < 1000) {
                   opacity = 0.2 - (distance - 600) / 400 * 0.15;  // Linear from 0.2 to 0.05
+                  farCount++;
+                } else {
+                  farCount++;
                 }
                 
-                edgeOpacityUpdates.push({
-                  id: edge.id,
-                  color: { color: '#999999', opacity: opacity },
-                  width: width
-                });
+                  edgeOpacityUpdates.push({
+                    id: edge.id,
+                    color: { color: '#999999', opacity: opacity },
+                    width: width
+                  });
+                }
+              } catch (err) {
+                // Skip this edge if position unavailable
               }
             }
           });
           
+          console.log(`🔍 Found ${thEdgeCount} TH→person edges (excluding follows), ${edgeOpacityUpdates.length} with position data`);
+          
           if (edgeOpacityUpdates.length > 0) {
             edges.update(edgeOpacityUpdates);
-            console.log(`👁️ Adjusted ${edgeOpacityUpdates.length} TH→person edge opacities by distance`);
+            console.log(`👁️ Adjusted ${edgeOpacityUpdates.length} TH→person edges: ${nearCount} near (<300px, thick), ${medCount} medium (300-600px), ${farCount} far (>600px, thin)`);
+            if (nearCount === 0) {
+              console.warn(`⚠️ No near edges found! Check orphan positioning (should be radius ~850-900px to be near TH ring at 1000px)`);
+            } else {
+              console.log(`✅ ${nearCount} thick grey edges should be visible near TH ring`);
+            }
           }
+          // Set flag for test automation
+          window.__edgeAdjustmentComplete = true;
         }, 4000);  // Wait 4 seconds for layout to fully settle
       }
       
-      // Position orphan nodes (no connections) near center to prevent drift
+      // Position orphan nodes (no connections) near TH ring to create visible connections
       const orphans = nodesPayload.filter(node => !connectionCount[node.id] && !node.id.startsWith('event::Town Hall'));
       if (orphans.length > 0) {
         const orphanUpdates = orphans.map((node, idx) => {
-          // Arrange orphans in a small circle near center (radius 150px)
+          // Arrange orphans in inner ring (radius 850px) to be near TH ring (radius 1000px)
+          // This creates ~150px distance = thick visible edges
           const angle = (idx / orphans.length) * 2 * Math.PI;
-          const radius = 150;
+          const radius = 850;  // Changed from 150 to 850 to be near TH ring
           return {
             ...node,
             x: Math.cos(angle) * radius,
             y: Math.sin(angle) * radius,
-            fixed: { x: false, y: false },  // Can move but start near center
+            fixed: { x: false, y: false },  // Can move but start near TH ring
             physics: true
           };
         });
         nodes.update(orphanUpdates);
-        console.log(`📌 Positioned ${orphans.length} orphan nodes near center`);
+        console.log(`📌 Positioned ${orphans.length} orphan nodes in inner ring (radius 850px, near TH ring at 1000px)`);
       }
       
       console.log(`📊 Scaled nodes by connections (min: ${Math.min(...Object.values(connectionCount))}, max: ${Math.max(...Object.values(connectionCount))})`);
