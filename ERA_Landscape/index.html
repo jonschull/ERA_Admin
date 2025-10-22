@@ -705,10 +705,10 @@
       const thPositions = {};  // Store positions for distance calculation
       if (townHalls.length > 0) {
         const thUpdates = townHalls.map((node, idx) => {
-          // Arrange Town Halls in 270° arc (3/4 circle) starting at noon, ending at 9 o'clock
-          // Start at top (noon = -π/2), span 270° (1.5π), leaving gap at bottom-right
+          // Arrange Town Halls in 300° arc starting at noon, ending at 8 o'clock
+          // Start at top (noon = -π/2), span 300° (5π/3), leaving 60° gap at bottom-right
           const startAngle = -Math.PI / 2;  // Noon (top)
-          const arcSpan = 1.5 * Math.PI;     // 270 degrees
+          const arcSpan = (5 / 3) * Math.PI;     // 300 degrees
           const angle = startAngle + (idx / townHalls.length) * arcSpan;
           const radius = 1000;
           const x = Math.cos(angle) * radius;
