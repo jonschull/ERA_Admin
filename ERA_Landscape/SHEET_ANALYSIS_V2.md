@@ -1,3 +1,5 @@
+# ERA_Landscape/SHEET_ANALYSIS_V2.md
+
 # Google Sheet Analysis & User Tracking Design (v2)
 
 **Date**: October 15, 2025  
@@ -387,4 +389,3 @@ if (node._source === 'personal') {
 **Estimated Time**: 12-18 hours total (Phases 1+2)
 
 **Next Step**: Your approval to proceed with Phase 1?
-

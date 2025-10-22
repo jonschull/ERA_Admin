@@ -1,3 +1,5 @@
+# ERA_Landscape/NETWORK_ARCHITECTURE.md
+
 # Network Visualization Architecture
 
 **Purpose:** Technical documentation of ERA Landscape's network graph implementation  
