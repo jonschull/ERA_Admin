@@ -104,25 +104,27 @@ def fuzzy_check_airtable(person_name, threshold=80):
     if best_score >= threshold:
         return True, best_match, int(best_score), 'full_name'
     
-    # STRATEGY 2: Word-by-word fallback (for "Moses GFCCA" cases)
-    # Only use for FULL WORD matches, not substrings
+    # STRATEGY 2: Word-by-word fallback (for single names only)
+    # Only use if input appears to be single name (not "Fred Hornaday")
+    search_words = [w for w in parts if len(w) > 2]
+    use_word_matching = len(search_words) == 1  # Only for single names
+    
     word_matches = []
-    for word in parts:
-        if len(word) <= 3:  # Skip very short words (was 2, now 3)
-            continue
-        
-        word_lower = word.lower()
-        
+    if use_word_matching:
+        for word in search_words:
+            word_lower = word.lower()
+            for airtable_name, at_person in airtable_people.items():
+                name_words = [w.lower() for w in airtable_name.split()]
+                if word_lower in name_words:
                     word_matches.append({
                         'name': airtable_name,
                         'word': word,
-                        'score': 100  # Exact word match
+                        'score': 100
                     })
-    
+        
         # Use word match only if 100% word match exists AND full name score is poor
         if word_matches:
             best_word = max(word_matches, key=lambda x: x['score'])
-            # Only use word match if it's 100% AND full name score is low
             if best_word['score'] == 100 and best_score < 70:
                 return True, best_word['name'], best_word['score'], f"word:'{best_word['word']}'"
     
