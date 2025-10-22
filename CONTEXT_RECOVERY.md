@@ -81,7 +81,7 @@
 
 **What's Working:**
 - ✅ **Airtable exports operational** - 630 people (+58 from Phase 4B-2), 17 TH attendance columns
-- ✅ **Landscape deployed** - https://jonschull.github.io/ERA_Landscape_Static/
+- ✅ **Landscape deployed** - https://jonschull.github.io/ERA_Admin/ERA_Landscape/
 - ✅ **Fathom automation running** - Daily at 3 AM, 1,953 participants tracked
 - ✅ **Phase 4B-1 complete** - 364 participants enriched via fuzzy matching (Oct 19)
 - ✅ **Phase 4B-2: 87% complete** - 409 participants validated via collaborative review (Oct 20)
@@ -136,7 +136,7 @@
 **ERA Landscape (Visualization):**
 - Location: Google Sheet ID: 1cR5X2xFSGffivfsMjyHDDeDJQv6R0kQpVUJsEJ2_1yY
 - Content: 350+ nodes (organizations, people, projects)
-- Live Site: https://jonschull.github.io/ERA_Landscape_Static/
+- Live Site: https://jonschull.github.io/ERA_Admin/ERA_Landscape/
 - Technology: Static HTML/JS, OAuth editing enabled
 
 **Validation & Enrichment Data:**
@@ -225,7 +225,7 @@ sqlite3 /Users/admin/ERA_Admin/FathomInventory/fathom_emails.db \
 # Should show 1,953+ (grows with each meeting analyzed)
 
 # Check landscape
-open https://jonschull.github.io/ERA_Landscape_Static/
+open https://jonschull.github.io/ERA_Admin/ERA_Landscape/
 # Should load interactive graph
 ```
 
@@ -398,7 +398,7 @@ ERA_Admin/
 
 - Integration strategy: ERA_ECOSYSTEM_PLAN.md
 - Airtable details: airtable/README.md
-- Landscape details: ERA_Landscape_Static/README.md
+- Landscape details: ERA_Landscape/README.md, NETWORK_ARCHITECTURE.md
 - Fathom details: FathomInventory/README.md
 - AI workflow: [AI_HANDOFF_GUIDE.md](AI_HANDOFF_GUIDE.md)
 

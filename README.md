@@ -20,11 +20,11 @@ ERA Admin is the **integration hub** for connecting four separate ERA data syste
    - Automated participant extraction from Fathom summaries
    - Daily automation at 3 AM
 
-4. **ERA Landscape** - Network visualization (350+ nodes)
+4. **ERA Landscape** - Network visualization (350+ organizations/people/projects)
    - Interactive network graph of ERA ecosystem
-   - Live at: https://jonschull.github.io/ERA_Landscape_Static/
+   - Live at: https://jonschull.github.io/ERA_Admin/ERA_Landscape/
    - Organizations, people, projects + relationships
-   - Static HTML/JS, GitHub Pages deployment
+   - Core component under ERA_Admin
 
 **Goal:** Connect these systems to create a unified view of the ERA community.
 
@@ -149,14 +149,14 @@ ERA Landscape (visualization)
 - AI Workflow: integration_scripts/AI_WORKFLOW_GUIDE.md
 - Progress: integration_scripts/PHASE4B2_PROGRESS_REPORT.md
 
-**[ERA_Landscape/](../ERA_Landscape/)** - Network visualization
-- Purpose: Interactive graph of ERA ecosystem
+**ERA_Landscape** (core component)
+- Purpose: Interactive network visualization
 - Content: 350+ organizations, people, projects + relationships
-- Technology: Static HTML/JS, Google Sheets data source
-- Live: https://jonschull.github.io/ERA_Landscape_Static/
-- Status: ✅ Operational (GitHub Pages deployment)
-- Read: [ERA_Landscape/README.md](ERA_Landscape/README.md)
-- Schema: LANDSCAPE_SHEET_SCHEMA.md
+- Technology: Static HTML/JS, Google Sheets data source, vis.js
+- Live: https://jonschull.github.io/ERA_Admin/ERA_Landscape/
+- Location: `ERA_Landscape/` directory
+- Read: ERA_Landscape/README.md, NETWORK_ARCHITECTURE.md, VISION.md
+- Special: 65 fixed Town Hall nodes at periphery
 
 #### Quick Start
 
@@ -168,7 +168,7 @@ python export_people.py
 # Exports 630 people to people_export.csv
 
 # View landscape
-open https://jonschull.github.io/ERA_Landscape_Static/
+open https://jonschull.github.io/ERA_Admin/ERA_Landscape/
 ```
 
 **Run integration (Phase 4B-2):**

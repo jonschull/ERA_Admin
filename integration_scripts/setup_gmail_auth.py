@@ -14,8 +14,11 @@ SCRIPT_DIR = Path(__file__).parent
 TOKEN_FILE = SCRIPT_DIR / "token_jschull.json"
 CREDENTIALS_FILE = SCRIPT_DIR / "credentials.json"
 
-# Gmail API scopes (read-only)
-SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
+# Gmail API scopes (read-only) + Google Sheets (read/write for Landscape export)
+SCOPES = [
+    'https://www.googleapis.com/auth/gmail.readonly',
+    'https://www.googleapis.com/auth/spreadsheets'
+]
 
 
 def setup_gmail_authentication():
@@ -27,7 +30,9 @@ def setup_gmail_authentication():
     print("GMAIL AUTHENTICATION SETUP")
     print("=" * 80)
     print()
-    print("This will authenticate jschull@gmail.com for research purposes.")
+    print("This will authenticate jschull@gmail.com for:")
+    print("  - Gmail research (read-only)")
+    print("  - Google Sheets access (for Landscape export)")
     print("A browser window will open - please log in with jschull@gmail.com")
     print()
     
@@ -64,6 +69,7 @@ def setup_gmail_authentication():
             print("Browser will open - please:")
             print("  1. Select jschull@gmail.com account")
             print("  2. Allow access to Gmail (read-only)")
+            print("  3. Allow access to Google Sheets (for Landscape export)")
             print()
             input("Press ENTER to open browser...")
             
@@ -96,7 +102,9 @@ def setup_gmail_authentication():
         print(f"Email: {profile['emailAddress']}")
         print(f"Messages: {profile.get('messagesTotal', 'N/A')}")
         print()
-        print("You can now use gmail_research.py to search this account.")
+        print("You can now use:")
+        print("  - gmail_research.py to search this account")
+        print("  - export_to_landscape_prototype.py to export to Landscape")
         return True
     
     except Exception as e:

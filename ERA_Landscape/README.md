@@ -1,6 +1,8 @@
 # ERA Landscape - Static Viewer
 
-**Live Demo**: https://jonschull.github.io/ERA_Landscape_Static/
+**Live Demo**: https://jonschull.github.io/ERA_Admin/ERA_Landscape/
+
+**Historical repo (archived)**: https://github.com/jonschull/ERA_Landscape_Static
 
 Interactive graph visualization for the climate/restoration landscape. Pure HTML/JavaScript, no server required.
 
@@ -27,8 +29,8 @@ A **standalone HTML file** (20KB) that:
 
 ```bash
 # Clone the repo
-git clone https://github.com/jonschull/ERA_Landscape_Static.git
-cd ERA_Landscape_Static
+git clone https://github.com/jonschull/ERA_Admin.git
+cd ERA_Admin/ERA_Landscape
 
 # Start local server
 python3 -m http.server 8000
@@ -43,7 +45,7 @@ open http://localhost:8000
 
 Already configured! Merge PRs to main and GitHub Pages auto-deploys.
 
-**URL**: https://jonschull.github.io/ERA_Landscape_Static/
+**URL**: https://jonschull.github.io/ERA_Admin/ERA_Landscape/
 
 **Important**: Use branch-based workflow (see DEVELOPMENT.md)
 
@@ -86,16 +88,31 @@ User can save edits back to Sheet
 
 ---
 
+## Documentation
+
+**For Users:**
+- [README.md](README.md) - This file (quick start, deployment)
+- [KNOWN_ISSUES.md](KNOWN_ISSUES.md) - Current bugs and workarounds
+
+**For Developers:**
+- [NETWORK_ARCHITECTURE.md](NETWORK_ARCHITECTURE.md) - **Technical deep-dive:** Town Hall treatment, physics engine, node sizing, slider controls
+- [DEVELOPMENT.md](DEVELOPMENT.md) - Development workflow and testing
+- [AI_HANDOFF_GUIDE.md](AI_HANDOFF_GUIDE.md) - Context for AI assistants
+
 ## Files
 
 ```
 ERA_Landscape_Static/
-├── index.html          # Main HTML file (edit this!)
-├── graph.js            # JavaScript logic
-├── README.md           # This file
-├── DEVELOPMENT.md      # Development guide
-└── tests/              # Test scripts
-    └── test_load.py    # Playwright test
+├── index.html                   # Main HTML file (UI, modals, event handlers)
+├── graph.js                     # vis.js initialization and options
+├── README.md                    # This file (quick start)
+├── NETWORK_ARCHITECTURE.md      # Technical documentation (NEW!)
+├── DEVELOPMENT.md               # Development workflow
+├── KNOWN_ISSUES.md              # Bug tracking
+└── tests/                       # Test scripts
+    ├── test_load.py             # Basic load test
+    ├── test_visual_nodesize.py  # Screenshot validation
+    └── test_visual_centralgravity.py  # Screenshot validation
 ```
 
 ---
@@ -200,7 +217,7 @@ git push origin feat/my-change
 gh api repos/jonschull/ERA_Landscape_Static/pages/builds/latest | jq -r '.status'
 
 # 7. Verify live site
-open https://jonschull.github.io/ERA_Landscape_Static/
+open https://jonschull.github.io/ERA_Admin/ERA_Landscape/
 ```
 
 **Settings → Pages:**
@@ -231,19 +248,29 @@ Works on any static host:
 
 ### Current
 - ✅ Auto-loads fresh data from Google Sheets on page init
-- ✅ Auto-fit graph after data loads (2 second delay for physics)
+- ✅ Auto-fit graph after data loads
 - ✅ Interactive graph (drag, zoom, pan)
-- ✅ Node scaling by connection count (1-17 connections = 12-60px)
+- ✅ **Town Hall Integration** (65 events in fixed peripheral ring)
+  - Grey edges with distance-based fading
+  - See [NETWORK_ARCHITECTURE.md](NETWORK_ARCHITECTURE.md) for details
+- ✅ **Network Settings Modal** (🌐 button)
+  - Node Scaling (constant ↔ logarithmic)
+  - Node Size (0.2-3.0x multiplier)
+  - Edge Fading & Thickness
+- ✅ **Physics Settings Modal** (⚙️ button)
+  - Central Gravity, Node Spacing, Edge Springs
+  - Real-time layout adjustment
+  - ⚠️ Central Gravity has inverted behavior (see KNOWN_ISSUES.md)
+- ✅ Node scaling by connection count with visual tests
 - ✅ Quick Editor (add/remove connections)
-  - ✅ Enter key triggers Add/Update
-  - ✅ Yellow border highlights matching nodes
-  - ✅ Both From and To fields highlighted simultaneously
+  - Enter key triggers Add/Update
+  - Yellow border highlights matching nodes
 - ✅ Search filtering
 - ✅ Hide/show nodes
 - ✅ Save changes to Google Sheets (with sign-in)
-- ✅ Re-Load button (re-fetch from Sheets with guardrail for unsaved changes)
-- ✅ Color-coded by type (person=blue, org=teal, project=purple)
-- ✅ Type parsed from ID prefix (person::, org::, project::)
+- ✅ Re-Load button (re-fetch from Sheets with guardrail)
+- ✅ Color-coded by type (person=blue, org=teal, project=purple, event=grey)
+- ✅ Type parsed from ID prefix (person::, org::, project::, event::)
 - ✅ Hover tooltips on all buttons
 
 ### Planned
@@ -256,7 +283,7 @@ Works on any static host:
 
 ## Related Project
 
-This project was extracted from [ERA_ClimateWeek](https://github.com/jonschull/ERA_ClimateWeek), which is a Python-based data processing pipeline with Flask server.
+This project was extracted from [ERA_ClimateWeek](https://github.com/jonschull/ERA_ClimateWeek) and is now part of the ERA_Admin monorepo as a self-contained component.
 
 **When to use each:**
 
@@ -294,6 +321,7 @@ MIT License - See parent project for details.
 
 ## Contact
 
-**Repository**: https://github.com/jonschull/ERA_Landscape_Static  
+**Repository**: https://github.com/jonschull/ERA_Admin (ERA_Landscape/ component)  
+**Historical repo**: https://github.com/jonschull/ERA_Landscape_Static (archived)  
 **Main Project**: https://github.com/jonschull/ERA_ClimateWeek  
 **Developer**: Jon Schull

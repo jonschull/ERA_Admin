@@ -61,7 +61,8 @@ Humans read README, then get distracted or forget context. **Your job:** Help th
 - When to read: Working on specific component
 - airtable/README.md - Airtable exports, cross-correlation
 - FathomInventory/README.md - Automation system
-- ERA_Landscape_Static/README.md - Visualization deployment
+- ERA_Landscape/README.md - Network visualization component
+- ERA_Landscape/NETWORK_ARCHITECTURE.md - Technical deep-dive (Town Hall treatment, physics, node sizing)
 
 *Level 3: Component Details*
 - When to read: Debugging or enhancing component internals
@@ -175,7 +176,7 @@ Humans read README, then get distracted or forget context. **Your job:** Help th
 1. Identify which component is failing
    ├─> Airtable export? Read airtable/README.md
    ├─> Fathom automation? Read FathomInventory/README.md
-   └─> Landscape visualization? Read ERA_Landscape_Static/README.md
+   └─> Landscape visualization? Read ERA_Landscape/README.md
 
 2. Read component's CONTEXT_RECOVERY.md (if exists)
    └─> Understand component's current state
@@ -317,7 +318,7 @@ ERA Admin coordinates integration between **four independent components**:
 1. Google Docs Agendas - Manual meeting notes (ground truth)
 2. Airtable - Membership database (self-contained in `airtable/`)
 3. FathomInventory - Automated analysis (self-contained)
-4. ERA Landscape - Visualization (self-contained in `ERA_Landscape_Static/`)
+4. ERA Landscape - Visualization (self-contained in `ERA_Landscape/`)
 
 **Key Principle:** You should **NOT** need to understand all component internals to work at the integration level.
 

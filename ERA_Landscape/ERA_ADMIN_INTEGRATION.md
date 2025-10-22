@@ -1,7 +1,26 @@
 # ERA_Landscape Integration with ERA_Admin
 
-**Date:** October 21, 2025  
-**Status:** Integrated as component
+**⚠️ HISTORICAL DOCUMENT**
+
+**Created:** October 21, 2025  
+**Status:** Archived (Oct 22, 2025)  
+**Current Status:** ERA_Landscape is now fully consolidated as a core component of ERA_Admin
+
+**Why Preserved:**  
+This document describes the integration process when ERA_Landscape was first brought under the ERA_Admin umbrella from its independent repository (jonschull/ERA_Landscape_Static). It's preserved for historical context and as a reference for future component consolidations.
+
+**For Current Architecture:**  
+See [README.md](README.md) and [NETWORK_ARCHITECTURE.md](NETWORK_ARCHITECTURE.md)
+
+---
+
+## Historical Context (October 2025)
+
+This document was written during the initial integration phase when ERA_Landscape maintained both:
+- Development copy in ERA_Admin (for integration work)
+- Upstream repo at jonschull/ERA_Landscape_Static (for deployment)
+
+As of **October 22, 2025**, ERA_Landscape is fully consolidated into ERA_Admin with no separate upstream repo.
 
 ---
 
@@ -11,7 +30,8 @@ ERA_Landscape is now a **component within ERA_Admin**, integrated into the unifi
 
 **Previous Location:** `/Users/admin/Library/CloudStorage/Dropbox-EcoRestorationAllianceLLC/Jon Schull/CascadeProjects/ERA_Landscape_Static`  
 **Current Location:** `/Users/admin/ERA_Admin/ERA_Landscape/`  
-**Upstream Repo:** https://github.com/jonschull/ERA_Landscape_Static
+**Previous Upstream Repo:** https://github.com/jonschull/ERA_Landscape_Static (now archived)  
+**Current Repo:** https://github.com/jonschull/ERA_Admin
 
 ---
 
