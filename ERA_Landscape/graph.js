@@ -979,14 +979,30 @@
       // If both empty, clear all filters
       if(!fromQuery && !toQuery){
         const allNodes = nodes.get();
+        const updates = [];
         allNodes.forEach(n => {
-          const updates = {id: n.id, physics: true, fixed: false};
-          if(n.originalColor){
-            updates.color = n.originalColor;
-            updates.opacity = 1;
+          // Preserve Town Hall fixed positioning
+          const isTownHall = n.id.startsWith('event::Town Hall');
+          const update = {id: n.id};
+          
+          if(isTownHall){
+            // Town Halls stay fixed at periphery
+            update.physics = false;
+            update.fixed = {x: true, y: true};
+          } else {
+            // Regular nodes restore physics
+            update.physics = true;
+            update.fixed = false;
           }
-          nodes.update(updates);
+          
+          if(n.originalColor){
+            update.color = n.originalColor;
+            update.opacity = 1;
+          }
+          updates.push(update);
         });
+        // Batch update for performance
+        nodes.update(updates);
         return;
       }
       
