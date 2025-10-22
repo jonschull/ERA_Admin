@@ -693,70 +693,9 @@
         // Adjust TH edge opacity based on distance after a delay (let layout settle)
         console.log(`⏲️ Setting up setTimeout for edge adjustment in 4 seconds...`);
         setTimeout(() => {
-          console.log(`⏰ setTimeout fired after 4 seconds - starting edge distance adjustment`);
-          const allEdges = edges.get();
-          const edgeOpacityUpdates = [];
-          let nearCount = 0, medCount = 0, farCount = 0;
-          
-          console.log(`🔍 Checking ${allEdges.length} edges for TH→person connections...`);
-          let thEdgeCount = 0;
-          
-          allEdges.forEach(edge => {
-            if (edge.isTownHallEdge && edge.relationship !== 'follows') {
-              thEdgeCount++;
-              // Only adjust TH→person edges, not TH→TH (follows) edges
-              // Get positions from network canvas, not from nodes DataSet
-              try {
-                const fromPos = window.network.getPositions([edge.from])[edge.from];
-                const toPos = window.network.getPositions([edge.to])[edge.to];
-              
-                if (fromPos && toPos && fromPos.x !== undefined && toPos.x !== undefined) {
-                  // Calculate distance
-                  const dx = fromPos.x - toPos.x;
-                  const dy = fromPos.y - toPos.y;
-                  const distance = Math.sqrt(dx * dx + dy * dy);
-                
-                // Map distance to opacity - INCREASED threshold from 300 to 450px for "near"
-                // Many visible connections are in 300-450px range
-                let opacity = 0.05;
-                let width = 0.5;
-                if (distance < 450) {  // Increased from 300 to catch more visible edges
-                  opacity = 0.8;  // Very visible for nearby nodes
-                  width = 2.5;    // Much thicker for nearby
-                  nearCount++;
-                } else if (distance < 700) {  // Adjusted medium range
-                  opacity = 0.8 - (distance - 450) / 250 * 0.6;  // Linear from 0.8 to 0.2
-                  width = 1;
-                  medCount++;
-                } else if (distance < 1000) {
-                  opacity = 0.2 - (distance - 700) / 300 * 0.15;  // Linear from 0.2 to 0.05
-                  farCount++;
-                } else {
-                  farCount++;
-                }
-                
-                  edgeOpacityUpdates.push({
-                    id: edge.id,
-                    color: { color: '#999999', opacity: opacity },
-                    width: width
-                  });
-                }
-              } catch (err) {
-                // Skip this edge if position unavailable
-              }
-            }
-          });
-          
-          console.log(`🔍 Found ${thEdgeCount} TH→person edges (excluding follows), ${edgeOpacityUpdates.length} with position data`);
-          
-          if (edgeOpacityUpdates.length > 0) {
-            edges.update(edgeOpacityUpdates);
-            console.log(`👁️ Adjusted ${edgeOpacityUpdates.length} TH→person edges: ${nearCount} near (<450px, thick), ${medCount} medium (450-700px), ${farCount} far (>700px, thin)`);
-            if (nearCount === 0) {
-              console.warn(`⚠️ No near edges found! Check orphan positioning (should be radius ~850-900px to be near TH ring at 1000px)`);
-            } else {
-              console.log(`✅ ${nearCount} thick grey edges should be visible near TH ring`);
-            }
+          console.log(`⏰ setTimeout fired after 4 seconds - calling adjustTHEdges()`);
+          if (typeof window.adjustTHEdges === 'function') {
+            window.adjustTHEdges();
           }
           // Set flag for test automation
           window.__edgeAdjustmentComplete = true;
@@ -1088,6 +1027,64 @@
     updateValuePosition();
   });
   
+  // Extract TH edge adjustment as reusable function
+  window.adjustTHEdges = function() {
+    const allEdges = edges.get();
+    const edgeOpacityUpdates = [];
+    let nearCount = 0, medCount = 0, farCount = 0;
+    
+    allEdges.forEach(edge => {
+      if (edge.isTownHallEdge && edge.relationship !== 'follows') {
+        try {
+          const fromPos = window.network.getPositions([edge.from])[edge.from];
+          const toPos = window.network.getPositions([edge.to])[edge.to];
+        
+          if (fromPos && toPos && fromPos.x !== undefined && toPos.x !== undefined) {
+            const dx = fromPos.x - toPos.x;
+            const dy = fromPos.y - toPos.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            let baseOpacity = 0.05;
+            let baseWidth = 0.5;
+            if (distance < 450) {
+              baseOpacity = 0.8;
+              baseWidth = 2.5;
+              nearCount++;
+            } else if (distance < 700) {
+              baseOpacity = 0.8 - (distance - 450) / 250 * 0.6;
+              baseWidth = 1;
+              medCount++;
+            } else if (distance < 1000) {
+              baseOpacity = 0.2 - (distance - 700) / 300 * 0.15;
+              farCount++;
+            } else {
+              farCount++;
+            }
+            
+            // Apply fading and thickness from Network settings
+            const fadeFactor = networkConfig.edgeFading;
+            const opacity = baseOpacity * (1 - fadeFactor * 0.5);
+            const thicknessFactor = networkConfig.edgeThickness;
+            const width = baseWidth * (1 + thicknessFactor * 0.5);
+            
+            edgeOpacityUpdates.push({
+              id: edge.id,
+              color: { color: '#999999', opacity: opacity },
+              width: width
+            });
+          }
+        } catch (err) {
+          // Skip if position unavailable
+        }
+      }
+    });
+    
+    if (edgeOpacityUpdates.length > 0) {
+      edges.update(edgeOpacityUpdates);
+      console.log(`👁️ Adjusted ${edgeOpacityUpdates.length} TH→person edges: ${nearCount} near, ${medCount} medium, ${farCount} far (fade=${networkConfig.edgeFading}, thickness=${networkConfig.edgeThickness})`);
+    }
+  };
+  
   function applyNetworkSettings() {
     networkConfig.scalingIntensity = parseFloat(document.getElementById('scalingIntensity').value);
     networkConfig.edgeFading = parseFloat(document.getElementById('edgeFading').value);
@@ -1111,17 +1108,14 @@
       const type = parseTypeFromId(node.id);
       
       if (type === 'event') {
-        // Events always scale minimally
         return {
           ...node,
           value: Math.min(connections * 0.3, 10)
         };
       }
       
-      // Apply scaling intensity: 0 = no scaling (constant), 1 = logarithmic
-      const constantScale = 10;  // Base size for all nodes
+      const constantScale = 10;
       const logScale = Math.log(connections + 1);
-      // Blend from constant (at 0) to logarithmic (at 1)
       const blendedScale = constantScale + (logScale - constantScale) * networkConfig.scalingIntensity;
       
       return {
@@ -1131,7 +1125,12 @@
     });
     nodes.update(updates);
     
-    console.log(`🌐 Applied network settings: scaling=${networkConfig.scalingIntensity} (log=${Math.log(61)}, linear=60, Jon's value should change)`);
+    // Re-adjust TH edges with new fading/thickness settings
+    if (typeof window.adjustTHEdges === 'function') {
+      window.adjustTHEdges();
+    }
+    
+    console.log(`🌐 Applied network settings: scaling=${networkConfig.scalingIntensity}, fading=${networkConfig.edgeFading}, thickness=${networkConfig.edgeThickness}`);
   }
   
   document.getElementById('applyNetwork').onclick = () => {
