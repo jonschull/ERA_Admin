@@ -340,23 +340,19 @@ def main():
     # Show custom comments that need discussion
     if needs_discussion:
         print("\n" + "=" * 80)
-        print("💬 CUSTOM COMMENTS - NEED DISCUSSION")
+        print("💬 ITEMS NEEDING DISCUSSION (will be skipped for now)")
         print("=" * 80)
-        for name, comment, process_this, probe in needs_discussion:
-            print(f"\n• {name}")
-            print(f"  Comment: {comment}")
-            print(f"  ProcessThis: {'YES' if process_this else 'NO'}")
-            print(f"  Probe: {'YES' if probe else 'NO'}")
-            print(f"  ⚠️  Please discuss this case with user before processing")
+        print()
+        for item in needs_discussion:
+            print(f"• {item[0]}")
+            print(f"  Comment: {item[1]}")
+            print(f"  ⚠️  Skipping - needs clarification from Cascade/User")
+            print()
         
-        print("\n" + "=" * 80)
-        print("⏸️  PAUSED - Custom comments detected")
         print("=" * 80)
-        print("\nPlease review the custom comments above and:")
-        print("1. Clarify the intended action")
-        print("2. Either handle manually or update comment to standard format")
-        print("3. Re-run this script after resolving")
-        return  # Exit - don't process until discussed
+        print("⏭️  CONTINUING - Processing clear items, skipping unclear ones")
+        print("=" * 80)
+        print()  
     
     # Combine
     all_merges = csv_merges + [(name, target) for name, target in probe_merges]
