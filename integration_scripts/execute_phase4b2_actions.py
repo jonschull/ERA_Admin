@@ -145,8 +145,13 @@ def execute_merge(conn, fathom_name, target_name):
                 if added:
                     update_fathom_validated(added, conn)
                     print(f"   ✅ Added '{target_name}' to Airtable - proceeding with merge")
-                    # Reload airtable_people to include new person
-                    airtable_people[target_name] = {'name': target_name}
+                    # Reload airtable_people to include new person with full structure
+                    airtable_people[target_name] = {
+                        'name': target_name,
+                        'email': None,
+                        'era_member': True,
+                        'notes': 'Auto-added as merge target'
+                    }
                 else:
                     print(f"   ⚠️  Could not add '{target_name}' - skipping merge")
                     return 'needs_discussion'
