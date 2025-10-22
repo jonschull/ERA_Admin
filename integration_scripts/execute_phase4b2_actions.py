@@ -99,7 +99,7 @@ def execute_merge(conn, fathom_name, target_name):
     # Find target in Airtable
     if target_name not in airtable_people:
         print(f"   ⚠️  Target '{target_name}' not in Airtable - skipping")
-        return False
+        return 'skipped_target'  # Special return value
     
     target = airtable_people[target_name]
     cursor = conn.cursor()
@@ -318,15 +318,19 @@ def main():
             print("\n" + "=" * 80)
             print("🔀 EXECUTING MERGES")
             print("=" * 80)
-            merge_count = 0
+            merged_count = 0
+            skipped_targets = []  # Track targets not in Airtable
             for item in all_merges:
                 if len(item) == 2:
                     fathom_name, target = item
                 else:
                     fathom_name, target, _ = item
-                if execute_merge(conn, fathom_name, target):
-                    merge_count += 1
-            print(f"\n✅ Merged: {merge_count}/{len(all_merges)}")
+                result = execute_merge(conn, fathom_name, target)
+                if result == True:
+                    merged_count += 1
+                elif result == 'skipped_target':
+                    skipped_targets.append(target)
+            print(f"\n✅ Merged: {merged_count}/{len(all_merges)}")
         
         # Execute drops
         if all_drops:
@@ -369,6 +373,40 @@ def main():
             # Update Fathom database to mark as validated
             if added:
                 update_fathom_validated(added, conn)
+        
+        # Auto-add skipped merge targets to prevent them from coming back
+        if skipped_targets:
+            print("\n" + "=" * 80)
+            print("➕ AUTO-ADDING SKIPPED MERGE TARGETS")
+            print("=" * 80)
+            print(f"\n📝 Found {len(skipped_targets)} targets not in Airtable")
+            print("   Adding them now so they don't come back in next round...\n")
+            
+            # Deduplicate targets
+            unique_targets = list(set(skipped_targets))
+            targets_to_add = []
+            
+            for target in unique_targets:
+                # Skip obviously bad names
+                if len(target) < 3 or target in ['Ana', 'Ed', 'Huling']:
+                    print(f"   ⏭️  Skipping incomplete name: '{target}'")
+                    continue
+                
+                targets_to_add.append({
+                    'name': target,
+                    'is_member': True,  # Assume member if they were merge targets
+                    'notes': 'Auto-added from skipped merge target'
+                })
+            
+            if targets_to_add:
+                try:
+                    added, skipped = add_people_to_airtable(targets_to_add, conn)
+                    if added:
+                        update_fathom_validated(added, conn)
+                        print(f"\n✅ Auto-added {len(added)} people to prevent recurrence")
+                except Exception as e:
+                    print(f"\n⚠️  Auto-add failed: {e}")
+                    print("   These will need manual addition")
         
     except Exception as e:
         conn.rollback()
