@@ -1,0 +1,74 @@
+# Known Issues - ERA Landscape
+
+## Active Issues
+
+None currently!
+
+---
+
+## Recently Resolved
+
+### 1. ✅ RESOLVED: Nodes Not Settling (Oct 21, 2025)
+**Status:** Fixed - nodes settle naturally within 5-10 seconds  
+**Symptom:** Nodes continue to move/wiggle indefinitely, never stabilizing  
+
+**Root Cause Analysis:**
+- Stabilization was being disabled during slider adjustments
+- Low damping (0.09) wasn't stopping motion effectively
+- Low minVelocity (0.1) allowed tiny movements to continue indefinitely
+- Stabilization was being re-disabled on every slider change
+
+**Fix Applied:**
+- Increased damping: 0.09 → 0.15 (stops motion faster)
+- Increased minVelocity: 0.1 → 0.75 (stops tiny movements)
+- Added flag to track when actively adjusting vs initial load
+- Only disable stabilization during active slider adjustment
+- Force stabilization on Done button with explicit trigger
+- Increased timeout from 500ms → 800ms before re-enabling
+
+**Additional Fix (Oct 21, 7:44pm):**
+- Removed Settle button (was freezing nodes and preventing dragging)
+- Changed strategy: NO stabilization after initial load
+- Increased minVelocity: 0.75 → 1.5 (stops movements < 1.5 units/frame)
+- Reduced timestep: 0.5 → 0.35 (smoother physics simulation)
+- Increased damping to 0.15 (was 0.09)
+- All stabilization triggers removed - rely purely on physics parameters
+
+**Theory:** High damping + high minVelocity should naturally stop micro-movements without locking nodes
+
+**Final Tuning (Oct 21, 7:47pm):**
+- User confirmed nodes DO settle but too slowly (~15-20 seconds)
+- Increased damping: 0.15 → 0.35 (133% increase = much faster deceleration)
+- Increased minVelocity: 1.5 → 2.5 (67% increase = stops sooner)
+- Goal: Settle within 5-8 seconds
+
+**Status:** Nodes now settle naturally while remaining draggable throughout
+
+---
+
+### ✅ Event Type Added for Town Halls (Oct 21, 2025)
+**Added:** New 'event' node type with hexagon shape, grey color, reduced scaling (30% rate, max 10)
+
+### ✅ Town Hall Linear Chain (Oct 21, 2025)
+**Fixed:** Town Halls now form linear chain (Project → TH 01 → TH 02...) instead of all connecting to umbrella
+
+### ✅ Modal UI Improvements (Oct 21, 2025)
+**Fixed:** 
+- Removed grey overlay from modals (transparent background)
+- Physics controls redesigned with centered labels, endpoint labels (loose/tight, etc.)
+- Values now float and follow slider handles
+
+### ✅ Double-click opens both modal and URL (Oct 21, 2025)
+**Fixed:** Removed duplicate doubleClick handler
+
+### ✅ Orphan nodes drifting too far (Oct 21, 2025)
+**Fixed:** Position orphans in circle near center, increased central gravity to 0.15
+
+### ✅ Curation modal opens on single-click (Oct 21, 2025)
+**Fixed:** Changed to double-click only
+
+### ✅ Physics modal styling (Oct 21, 2025)
+**Fixed:** Made draggable, semi-transparent, narrower (380px)
+
+### ✅ Physics settings not persisted (Oct 21, 2025)
+**Fixed:** Save to localStorage, restore on load
