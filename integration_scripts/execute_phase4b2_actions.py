@@ -180,6 +180,8 @@ def process_csv_decisions(csv_path):
     
     for row in rows:
         fathom_name = row['Fathom_Name']
+        # Strip emoji badges added by HTML generation (🔁 markers)
+        fathom_name = fathom_name.split('🔁')[0].strip()
         comment = row.get('Comments', '').strip()
         process_this = row.get('ProcessThis', '').upper() == 'YES'
         probe = row.get('Probe', '').upper() == 'YES'
