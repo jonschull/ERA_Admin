@@ -254,38 +254,50 @@
     <p style="font-size: 12px; color: #666; margin: 0 0 12px 0;">Adjust visual appearance</p>
     
     <div class="slider-group">
-      <label style="text-align:center; display:block;">Scaling Intensity</label>
+      <label style="text-align:center; display:block;">Node Scaling</label>
       <div style="display:flex; align-items:center; gap:8px;">
-        <span style="font-size:11px; color:#666; width:60px;">logarithmic</span>
+        <span style="font-size:11px; color:#666; width:60px;">constant</span>
         <div style="flex:1; position:relative;">
-          <input type="range" id="scalingIntensity" min="0.3" max="1.0" step="0.05" value="1.0" style="width:100%;">
+          <input type="range" id="scalingIntensity" min="0" max="1.0" step="0.05" value="1.0" style="width:100%;">
           <span class="slider-value-float" id="scalingIntensityVal">1.0</span>
         </div>
-        <span style="font-size:11px; color:#666; width:60px; text-align:right;">linear</span>
+        <span style="font-size:11px; color:#666; width:60px; text-align:right;">logarithmic</span>
+      </div>
+    </div>
+    
+    <div class="slider-group">
+      <label style="text-align:center; display:block;">Node Size</label>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size:11px; color:#666; width:60px;">small</span>
+        <div style="flex:1; position:relative;">
+          <input type="range" id="nodeSize" min="0.5" max="2.0" step="0.1" value="1.0" style="width:100%;">
+          <span class="slider-value-float" id="nodeSizeVal">1.0</span>
+        </div>
+        <span style="font-size:11px; color:#666; width:60px; text-align:right;">large</span>
       </div>
     </div>
     
     <div class="slider-group">
       <label style="text-align:center; display:block;">Edge Fading</label>
       <div style="display:flex; align-items:center; gap:8px;">
-        <span style="font-size:11px; color:#666; width:60px;">none</span>
+        <span style="font-size:11px; color:#666; width:60px;">strong</span>
         <div style="flex:1; position:relative;">
           <input type="range" id="edgeFading" min="0" max="1.0" step="0.1" value="1.0" style="width:100%;">
           <span class="slider-value-float" id="edgeFadingVal">1.0</span>
         </div>
-        <span style="font-size:11px; color:#666; width:60px; text-align:right;">strong</span>
+        <span style="font-size:11px; color:#666; width:60px; text-align:right;">none</span>
       </div>
     </div>
     
     <div class="slider-group">
-      <label style="text-align:center; display:block;">Edge Thickness Tuning</label>
+      <label style="text-align:center; display:block;">Edge Thickness</label>
       <div style="display:flex; align-items:center; gap:8px;">
-        <span style="font-size:11px; color:#666; width:60px;">constant</span>
+        <span style="font-size:11px; color:#666; width:60px;">extreme</span>
         <div style="flex:1; position:relative;">
           <input type="range" id="edgeThickness" min="0" max="2.0" step="0.1" value="1.0" style="width:100%;">
           <span class="slider-value-float" id="edgeThicknessVal">1.0</span>
         </div>
-        <span style="font-size:11px; color:#666; width:60px; text-align:right;">distance-based</span>
+        <span style="font-size:11px; color:#666; width:60px; text-align:right;">subtle</span>
       </div>
     </div>
     
@@ -988,6 +1000,7 @@
   // Network settings configuration
   let networkConfig = {
     scalingIntensity: parseFloat(localStorage.getItem('scalingIntensity') || '1.0'),
+    nodeSize: parseFloat(localStorage.getItem('nodeSize') || '1.0'),
     edgeFading: parseFloat(localStorage.getItem('edgeFading') || '1.0'),
     edgeThickness: parseFloat(localStorage.getItem('edgeThickness') || '1.0')
   };
@@ -995,10 +1008,12 @@
   // Open network modal
   document.getElementById('networkBtn').onclick = () => {
     document.getElementById('scalingIntensity').value = networkConfig.scalingIntensity;
+    document.getElementById('nodeSize').value = networkConfig.nodeSize;
     document.getElementById('edgeFading').value = networkConfig.edgeFading;
     document.getElementById('edgeThickness').value = networkConfig.edgeThickness;
     
     document.getElementById('scalingIntensityVal').textContent = networkConfig.scalingIntensity;
+    document.getElementById('nodeSizeVal').textContent = networkConfig.nodeSize;
     document.getElementById('edgeFadingVal').textContent = networkConfig.edgeFading;
     document.getElementById('edgeThicknessVal').textContent = networkConfig.edgeThickness;
     
@@ -1006,7 +1021,7 @@
   };
   
   // Network slider handlers
-  ['scalingIntensity', 'edgeFading', 'edgeThickness'].forEach(id => {
+  ['scalingIntensity', 'nodeSize', 'edgeFading', 'edgeThickness'].forEach(id => {
     const slider = document.getElementById(id);
     const valueSpan = document.getElementById(id + 'Val');
     
@@ -1087,11 +1102,13 @@
   
   function applyNetworkSettings() {
     networkConfig.scalingIntensity = parseFloat(document.getElementById('scalingIntensity').value);
+    networkConfig.nodeSize = parseFloat(document.getElementById('nodeSize').value);
     networkConfig.edgeFading = parseFloat(document.getElementById('edgeFading').value);
     networkConfig.edgeThickness = parseFloat(document.getElementById('edgeThickness').value);
     
     // Save to localStorage
     localStorage.setItem('scalingIntensity', networkConfig.scalingIntensity);
+    localStorage.setItem('nodeSize', networkConfig.nodeSize);
     localStorage.setItem('edgeFading', networkConfig.edgeFading);
     localStorage.setItem('edgeThickness', networkConfig.edgeThickness);
     
@@ -1118,9 +1135,12 @@
       const logScale = Math.log(connections + 1);
       const blendedScale = constantScale + (logScale - constantScale) * networkConfig.scalingIntensity;
       
+      // Apply overall node size multiplier
+      const finalValue = blendedScale * networkConfig.nodeSize;
+      
       return {
         ...node,
-        value: blendedScale
+        value: finalValue
       };
     });
     nodes.update(updates);
@@ -1130,7 +1150,7 @@
       window.adjustTHEdges();
     }
     
-    console.log(`🌐 Applied network settings: scaling=${networkConfig.scalingIntensity}, fading=${networkConfig.edgeFading}, thickness=${networkConfig.edgeThickness}`);
+    console.log(`🌐 Applied network settings: scaling=${networkConfig.scalingIntensity}, size=${networkConfig.nodeSize}, fading=${networkConfig.edgeFading}, thickness=${networkConfig.edgeThickness}`);
   }
   
   document.getElementById('applyNetwork').onclick = () => {
@@ -1138,11 +1158,13 @@
   };
   
   document.getElementById('resetNetwork').onclick = () => {
-    networkConfig = { scalingIntensity: 1.0, edgeFading: 1.0, edgeThickness: 1.0 };
+    networkConfig = { scalingIntensity: 1.0, nodeSize: 1.0, edgeFading: 1.0, edgeThickness: 1.0 };
     document.getElementById('scalingIntensity').value = 1.0;
+    document.getElementById('nodeSize').value = 1.0;
     document.getElementById('edgeFading').value = 1.0;
     document.getElementById('edgeThickness').value = 1.0;
     document.getElementById('scalingIntensityVal').textContent = '1.0';
+    document.getElementById('nodeSizeVal').textContent = '1.0';
     document.getElementById('edgeFadingVal').textContent = '1.0';
     document.getElementById('edgeThicknessVal').textContent = '1.0';
     applyNetworkSettings();
