@@ -586,8 +586,10 @@
         const isTownHallEdge = e.source.startsWith('event::Town Hall') || e.target.startsWith('event::Town Hall');
         // Hide "attended" and "follows" labels
         const label = (e.relationship === 'attended' || e.relationship === 'follows') ? '' : (e.relationship || '');
-        // Add arrows to "follows" edges
-        const arrows = (e.relationship === 'follows') ? { to: { enabled: true, scaleFactor: 0.5 } } : undefined;
+        // Add arrows to "follows" edges - make them straight and thicker
+        const arrows = (e.relationship === 'follows') ? { to: { enabled: true, scaleFactor: 0.8 } } : undefined;
+        const smooth = (e.relationship === 'follows') ? false : true;  // Straight arrows for Town Hall sequence
+        const width = (e.relationship === 'follows') ? 3 : (isTownHallEdge ? 0.5 : 1);  // Thicker for follows
         
         return {
           from: e.source,
@@ -600,9 +602,10 @@
           created_at: e.created_at || '',
           updated_at: e.updated_at || '',
           arrows: arrows,
+          smooth: smooth,
           // Town Hall edges: grey, medium opacity (will vary by distance after positioning)
           color: isTownHallEdge ? { color: '#999999', opacity: 0.5 } : undefined,
-          width: isTownHallEdge ? 0.5 : 1,
+          width: width,
           isTownHallEdge: isTownHallEdge  // Flag for later adjustment
         };
       });
@@ -702,8 +705,11 @@
       const thPositions = {};  // Store positions for distance calculation
       if (townHalls.length > 0) {
         const thUpdates = townHalls.map((node, idx) => {
-          // Arrange Town Halls in a large circle (radius 1000px)
-          const angle = (idx / townHalls.length) * 2 * Math.PI;
+          // Arrange Town Halls in 270° arc (3/4 circle) starting at noon, ending at 9 o'clock
+          // Start at top (noon = -π/2), span 270° (1.5π), leaving gap at bottom-right
+          const startAngle = -Math.PI / 2;  // Noon (top)
+          const arcSpan = 1.5 * Math.PI;     // 270 degrees
+          const angle = startAngle + (idx / townHalls.length) * arcSpan;
           const radius = 1000;
           const x = Math.cos(angle) * radius;
           const y = Math.sin(angle) * radius;
