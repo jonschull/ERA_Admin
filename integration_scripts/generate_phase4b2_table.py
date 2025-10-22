@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Generate Phase 4B-2 approval table with Gmail research for 25 test people.
-Enhanced version with embedded Gmail insights.
+Enhanced version with embedded Gmail insights and learned mappings from previous rounds.
 """
 
 import json
@@ -16,6 +16,18 @@ OUTPUT_FILE = SCRIPT_DIR / f"phase4b2_TEST_APPROVALS_{datetime.now().strftime('%
 # Load participant data
 with open('/tmp/phase4b2_test_data.json', 'r') as f:
     participants = json.load(f)
+
+# Load learned mappings from previous rounds
+LEARNED_MAPPINGS_FILE = SCRIPT_DIR / 'phase4b2_learned_mappings.json'
+learned_mappings = {'phone_mappings': {}, 'device_mappings': {}, 'name_corrections': {}, 'org_to_person': {}, 'drop_patterns': []}
+if LEARNED_MAPPINGS_FILE.exists():
+    with open(LEARNED_MAPPINGS_FILE, 'r') as f:
+        learned_mappings = json.load(f)
+    print(f"✅ Loaded learned mappings: {learned_mappings['metadata']['total_phone_mappings']} phone, "
+          f"{learned_mappings['metadata']['total_drop_patterns']} drop, "
+          f"{learned_mappings['metadata']['total_org_mappings']} org, "
+          f"{learned_mappings['metadata']['total_name_corrections']} name corrections")
+    print()
 
 # Load Airtable data to check if people are already there
 import csv
@@ -225,10 +237,58 @@ def categorize(name):
     return 'full_name'
 
 
+# Check learned mappings
+def check_learned_mapping(name):
+    """Check if we have a learned mapping for this name from previous rounds.
+    Returns: (has_mapping, decision, reason)
+    """
+    phone_mappings = learned_mappings.get('phone_mappings', {})
+    device_mappings = learned_mappings.get('device_mappings', {})
+    org_to_person = learned_mappings.get('org_to_person', {})
+    name_corrections = learned_mappings.get('name_corrections', {})
+    drop_patterns = learned_mappings.get('drop_patterns', [])
+    
+    # Check drop patterns (exact match)
+    if name in drop_patterns:
+        return True, 'drop', f'🔁 Previously dropped in earlier round'
+    
+    # Check phone mappings
+    if name in phone_mappings:
+        target = phone_mappings[name]
+        return True, f'merge with: {target}', f'🔁 Phone number resolved in earlier round'
+    
+    # Check device mappings
+    if name in device_mappings:
+        target = device_mappings[name]
+        return True, f'merge with: {target}', f'🔁 Device name resolved in earlier round'
+    
+    # Check org mappings
+    if name in org_to_person:
+        target = org_to_person[name]
+        return True, f'merge with: {target}', f'🔁 Organization mapping from earlier round'
+    
+    # Check name corrections (only clean ones - not instructions)
+    if name in name_corrections:
+        target = name_corrections[name]
+        # Filter out instructions/comments
+        if not any(word in target.lower() for word in ['add', 'era', 'member', 'organization', 'airtable', 'examine', 'gmail', 'link', 'should']):
+            # Check if it's a simple name (2-3 words, no extra text)
+            words = target.split()
+            if 1 <= len(words) <= 3 and all(w[0].isupper() or w.lower() in ['de', 'van', 'von', 'da'] for w in words if w):
+                return True, f'merge with: {target}', f'🔁 Name variant resolved in earlier round'
+    
+    return False, '', ''
+
+
 # Suggest action
 def suggest_action(name, category, gmail_result, airtable_match):
     """Suggest likely action based on category, Gmail, and Airtable results."""
     in_airtable, matched_name, score, method = airtable_match
+    
+    # Check learned mappings first
+    has_learned, learned_decision, learned_reason = check_learned_mapping(name)
+    if has_learned:
+        return learned_decision  # Use learned decision
     
     if category == 'organization':
         return 'drop'
@@ -263,6 +323,12 @@ print()
 print("Running Gmail research on 25 people...")
 for i, p in enumerate(participants, 1):
     print(f"  {i}/25: {p['name']}")
+    
+    # Check learned mappings first
+    has_learned, learned_decision, learned_reason = check_learned_mapping(p['name'])
+    p['has_learned_mapping'] = has_learned
+    p['learned_reason'] = learned_reason
+    
     affiliation = p.get('affiliation', None)
     p['gmail'] = get_gmail_results(p['name'], affiliation)
     p['category'] = categorize(p['name'])
@@ -274,21 +340,24 @@ for i, p in enumerate(participants, 1):
     p['airtable_score'] = score
     p['airtable_method'] = method  # 'full_name' or 'word:Moses'
     
-    # Determine if we should auto-check "Process This" (confidence >80%)
-    p['should_process'] = score >= 80 if in_airtable else False  # Only auto-process high confidence
+    # Determine if we should auto-check "Process This"
+    # Auto-check if: learned mapping OR high confidence Airtable match
+    p['should_process'] = has_learned or (score >= 80 if in_airtable else False)
     
     # Determine if we should auto-check "Probe" (needs investigation)
+    # DON'T probe if we have a learned mapping (already decided)
     p['should_probe'] = False
-    if not in_airtable:
-        # Not found in Airtable - needs probing if found in Gmail or ambiguous name
-        if p['gmail']['found'] or p['category'] == 'single_name':
+    if not has_learned:
+        if not in_airtable:
+            # Not found in Airtable - needs probing if found in Gmail or ambiguous name
+            if p['gmail']['found'] or p['category'] == 'single_name':
+                p['should_probe'] = True
+            # Also probe if has special chars (org names, URLs, etc)
+            if any(char in p['name'] for char in [',', '.', '(', '/', 'www', 'Locations:']):
+                p['should_probe'] = True
+        elif in_airtable and score < 90:
+            # Low-ish confidence match - might want to probe
             p['should_probe'] = True
-        # Also probe if has special chars (org names, URLs, etc)
-        if any(char in p['name'] for char in [',', '.', '(', '/', 'www', 'Locations:']):
-            p['should_probe'] = True
-    elif in_airtable and score < 90:
-        # Low-ish confidence match - might want to probe
-        p['should_probe'] = True
     
     p['suggested_action'] = suggest_action(p['name'], p['category'], p['gmail'], (in_airtable, matched_name, score, method))
 
@@ -619,9 +688,14 @@ for p in sorted(participants, key=lambda x: (x['category'], -x['record_count']))
     
     row_class = f"category-{p['category']}"
     
+    # Show learned mapping reason if available
+    learned_badge = ''
+    if p.get('has_learned_mapping'):
+        learned_badge = f"<br><span style='background:#4CAF50;color:white;padding:2px 6px;border-radius:3px;font-size:10px;'>{p.get('learned_reason', 'Auto-filled')}</span>"
+    
     html += f'''
             <tr class="{row_class}" data-category="{p['category']}">
-                <td><strong>{p['name']}</strong></td>
+                <td><strong>{p['name']}</strong>{learned_badge}</td>
                 <td>{video_links}</td>
                 <td>{p['record_count']}</td>
                 <td>{p['category'].replace('_', ' ').title()}</td>
