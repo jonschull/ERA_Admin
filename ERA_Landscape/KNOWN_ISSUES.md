@@ -6,6 +6,27 @@ None currently!
 
 ---
 
+## Recently Added (Oct 21, 2025)
+
+### ✅ Town Hall Network Visualization Complete
+**Added:** Town Hall integration with Network settings panel  
+**Features:**
+- 65 Town Halls positioned in circular ring at periphery (radius 1000px)
+- Grey edges with distance-based thickness/opacity
+  - <450px: Thick (2.5 width), 80% opacity
+  - 450-700px: Medium thickness, fading
+  - >700px: Thin (0.5 width), nearly invisible
+- Network settings panel with 3 sliders:
+  - Scaling Intensity: 0 (constant) → 1 (logarithmic)
+  - Edge Fading: 0 (no fade) → 1 (50% reduction)
+  - Edge Thickness: 0 (base) → 2 (2x multiplier)
+- Settings persist to localStorage
+- Initial zoom: scale 0.8 for better overview
+
+**Tests:** 3 Playwright tests created, all passing
+
+---
+
 ## Recently Resolved
 
 ### 1. ✅ RESOLVED: Nodes Not Settling (Oct 21, 2025)
