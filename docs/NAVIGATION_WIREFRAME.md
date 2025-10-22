@@ -73,8 +73,9 @@ ERA Admin is the **integration hub** for connecting four separate ERA data syste
 
 4. **ERA Landscape** - Network visualization (350+ organizations/people/projects)
    - Interactive network graph of ERA ecosystem
-   - Live at: https://jonschull.github.io/ERA_Landscape_Static/
+   - Live at: https://jonschull.github.io/ERA_Admin/ERA_Landscape/
    - Organizations, people, projects + relationships
+   - Core component under ERA_Admin
 
 **Goal:** Connect these systems to create a unified view of the ERA community.
 
@@ -199,13 +200,14 @@ ERA Landscape (visualization)
 - AI Workflow: integration_scripts/AI_WORKFLOW_GUIDE.md
 - Progress: integration_scripts/PHASE4B2_PROGRESS_REPORT.md
 
-**ERA_Landscape_Static** (sibling project)
+**ERA_Landscape** (core component)
 - Purpose: Interactive network visualization
 - Content: 350+ organizations, people, projects + relationships
-- Technology: Static HTML/JS, Google Sheets data source
-- Live: https://jonschull.github.io/ERA_Landscape_Static/
-- Git: https://github.com/jonschull/ERA_Landscape_Static
-- Read: ERA_Landscape_Static/README.md, VISION.md
+- Technology: Static HTML/JS, Google Sheets data source, vis.js
+- Live: https://jonschull.github.io/ERA_Admin/ERA_Landscape/
+- Location: `ERA_Landscape/` directory
+- Read: ERA_Landscape/README.md, NETWORK_ARCHITECTURE.md, VISION.md
+- Special: 65 fixed Town Hall nodes at periphery
 
 #### Quick Start
 
@@ -217,7 +219,7 @@ python export_people.py
 # Exports 630 people to people_export.csv
 
 # View landscape
-open https://jonschull.github.io/ERA_Landscape_Static/
+open https://jonschull.github.io/ERA_Admin/ERA_Landscape/
 ```
 
 **Run integration (Phase 4B-2):**
@@ -377,7 +379,7 @@ python3 -m venv /Users/admin/ERA_Admin_venv
 
 **What's Working:**
 - ✅ **Airtable exports operational** - 630 people (+58 from Phase 4B-2), 17 TH attendance columns
-- ✅ **Landscape deployed** - https://jonschull.github.io/ERA_Landscape_Static/
+- ✅ **Landscape deployed** - https://jonschull.github.io/ERA_Admin/ERA_Landscape/
 - ✅ **Fathom automation running** - Daily at 3 AM, 1,953 participants tracked
 - ✅ **Phase 4B-1 complete** - 364 participants enriched via fuzzy matching (Oct 19)
 - ✅ **Phase 4B-2: 87% complete** - 409 participants validated via collaborative review (Oct 20)
@@ -432,7 +434,7 @@ python3 -m venv /Users/admin/ERA_Admin_venv
 **ERA Landscape (Visualization):**
 - Location: Google Sheet ID: 1cR5X2xFSGffivfsMjyHDDeDJQv6R0kQpVUJsEJ2_1yY
 - Content: 350+ nodes (organizations, people, projects)
-- Live Site: https://jonschull.github.io/ERA_Landscape_Static/
+- Live Site: https://jonschull.github.io/ERA_Admin/ERA_Landscape/
 - Technology: Static HTML/JS, OAuth editing enabled
 
 **Validation & Enrichment Data:**
@@ -521,7 +523,7 @@ sqlite3 /Users/admin/ERA_Admin/FathomInventory/fathom_emails.db \
 # Should show 1,953+ (grows with each meeting analyzed)
 
 # Check landscape
-open https://jonschull.github.io/ERA_Landscape_Static/
+open https://jonschull.github.io/ERA_Admin/ERA_Landscape/
 # Should load interactive graph
 ```
 
@@ -694,7 +696,7 @@ ERA_Admin/
 
 - Integration strategy: ERA_ECOSYSTEM_PLAN.md
 - Airtable details: airtable/README.md
-- Landscape details: ERA_Landscape_Static/README.md
+- Landscape details: ERA_Landscape/README.md, NETWORK_ARCHITECTURE.md
 - Fathom details: FathomInventory/README.md
 - AI workflow: [AI_HANDOFF_GUIDE.md](#file-ai_handoff_guidemd)
 
@@ -767,7 +769,8 @@ Humans read README, then get distracted or forget context. **Your job:** Help th
 - When to read: Working on specific component
 - airtable/README.md - Airtable exports, cross-correlation
 - FathomInventory/README.md - Automation system
-- ERA_Landscape_Static/README.md - Visualization deployment
+- ERA_Landscape/README.md - Network visualization component
+- ERA_Landscape/NETWORK_ARCHITECTURE.md - Technical deep-dive (Town Hall treatment, physics, node sizing)
 
 *Level 3: Component Details*
 - When to read: Debugging or enhancing component internals
@@ -881,7 +884,7 @@ Humans read README, then get distracted or forget context. **Your job:** Help th
 1. Identify which component is failing
    ├─> Airtable export? Read airtable/README.md
    ├─> Fathom automation? Read FathomInventory/README.md
-   └─> Landscape visualization? Read ERA_Landscape_Static/README.md
+   └─> Landscape visualization? Read ERA_Landscape/README.md
 
 2. Read component's CONTEXT_RECOVERY.md (if exists)
    └─> Understand component's current state
@@ -1023,7 +1026,7 @@ ERA Admin coordinates integration between **four independent components**:
 1. Google Docs Agendas - Manual meeting notes (ground truth)
 2. Airtable - Membership database (self-contained in `airtable/`)
 3. FathomInventory - Automated analysis (self-contained)
-4. ERA Landscape - Visualization (self-contained in `ERA_Landscape_Static/`)
+4. ERA Landscape - Visualization (self-contained in `ERA_Landscape/`)
 
 **Key Principle:** You should **NOT** need to understand all component internals to work at the integration level.
 
@@ -1361,7 +1364,7 @@ The content below in Section 4 contains all the principles. They are organized i
 - `airtable/` - Manual membership tracking
 - `FathomInventory/` - Automated meeting analysis
 - `integration_scripts/` - Cross-component workflows
-- `ERA_Landscape_Static/` - Network visualization
+- `ERA_Landscape/` - Network visualization (Town Halls, interactive graph)
 
 **Principle:** You should NOT need to understand all component internals to work at integration level.
 
