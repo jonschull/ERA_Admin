@@ -113,30 +113,18 @@ def fuzzy_check_airtable(person_name, threshold=80):
         
         word_lower = word.lower()
         
-        for at_person in airtable_people:
-            # Split Airtable name into words
-            at_words = [w.lower() for w in at_person['name'].split()]
-            
-            # Check if search word matches ANY FULL WORD in Airtable name
-            for at_word in at_words:
-                # Use ratio (not partial_ratio) for full word match
-                word_score = fuzz.ratio(word_lower, at_word)
-                
-                if word_score >= 90:  # High confidence FULL word match
                     word_matches.append({
+                        'name': airtable_name,
                         'word': word,
-                        'name': at_person['name'],
-                        'score': word_score,
-                        'matched_word': at_word
+                        'score': 100  # Exact word match
                     })
-                    break  # Only count once per Airtable person
     
-    # Return best word match ONLY if significantly better than full name
-    if word_matches:
-        best_word = max(word_matches, key=lambda x: x['score'])
-        # Only use word match if it's 100% AND full name score is low
-        if best_word['score'] == 100 and best_score < 70:
-            return True, best_word['name'], best_word['score'], f"word:'{best_word['word']}'"
+        # Use word match only if 100% word match exists AND full name score is poor
+        if word_matches:
+            best_word = max(word_matches, key=lambda x: x['score'])
+            # Only use word match if it's 100% AND full name score is low
+            if best_word['score'] == 100 and best_score < 70:
+                return True, best_word['name'], best_word['score'], f"word:'{best_word['word']}'"
     
     # Return full name result even if below threshold
     return best_score >= threshold, best_match, int(best_score), 'full_name' if best_match else None
