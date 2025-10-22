@@ -113,8 +113,29 @@ def execute_merge(conn, fathom_name, target_name):
             print(f"   🔧 Auto-correcting typo: '{target_name}' → '{best_match}' ({best_score}%)")
             target_name = best_match
         else:
-            print(f"   ⚠️  Target '{target_name}' not in Airtable - skipping")
-            return 'skipped_target'  # Special return value
+            # No match found - ADD the person to Airtable automatically
+            print(f"   ➕ Target '{target_name}' not in Airtable - adding them now...")
+            from add_to_airtable import add_people_to_airtable, update_fathom_validated
+            
+            people_to_add = [{
+                'name': target_name,
+                'is_member': True,  # Assume member if user wants to merge with them
+                'notes': 'Auto-added as merge target'
+            }]
+            
+            try:
+                added, skipped = add_people_to_airtable(people_to_add, conn)
+                if added:
+                    update_fathom_validated(added, conn)
+                    print(f"   ✅ Added '{target_name}' to Airtable - proceeding with merge")
+                    # Reload airtable_people to include new person
+                    airtable_people[target_name] = {'name': target_name}
+                else:
+                    print(f"   ⚠️  Could not add '{target_name}' - skipping merge")
+                    return 'skipped_target'
+            except Exception as e:
+                print(f"   ❌ Error adding '{target_name}': {e}")
+                return 'skipped_target'
     
     target = airtable_people[target_name]
     cursor = conn.cursor()
