@@ -296,14 +296,14 @@ def suggest_action(name, category, gmail_result, airtable_match):
     if category == 'phone':
         return 'drop'
     if category == 'duplicate':
-        # If matched in Airtable, use that full name (not truncated base name)
-        if in_airtable and matched_name:
+        # If matched in Airtable with HIGH confidence, use that full name
+        if in_airtable and matched_name and score >= 90:
             return f'merge with: {matched_name}'
         # Otherwise extract base name
         base_name = name.split(',')[0].split('(')[0].strip()
-        # Don't suggest incomplete single names - use Airtable match if available
-        if len(base_name.split()) == 1 and matched_name:
-            return f'merge with: {matched_name}'  # Even if low confidence
+        # Don't suggest incomplete single names - flag for research instead
+        if len(base_name.split()) == 1:
+            return 'research - incomplete name (single word)'
         return f'merge with: {base_name}'
     if category == 'single_name':
         if in_airtable:
