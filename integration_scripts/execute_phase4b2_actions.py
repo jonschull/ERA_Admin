@@ -184,6 +184,10 @@ def process_csv_decisions(csv_path):
         process_this = row.get('ProcessThis', '').upper() == 'YES'
         probe = row.get('Probe', '').upper() == 'YES'
         
+        # If there's a comment, treat as probe checked (user wants attention)
+        if comment:
+            probe = True
+        
         # Check if comment is custom (not auto-generated)
         is_custom_comment = (comment and 
                             not comment.startswith('merge with:') and
