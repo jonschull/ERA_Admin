@@ -380,16 +380,34 @@ def main():
             print("➕ AUTO-ADDING SKIPPED MERGE TARGETS")
             print("=" * 80)
             print(f"\n📝 Found {len(skipped_targets)} targets not in Airtable")
-            print("   Adding them now so they don't come back in next round...\n")
+            print("   Checking for typos/near-duplicates before adding...\n")
             
             # Deduplicate targets
             unique_targets = list(set(skipped_targets))
             targets_to_add = []
+            near_duplicates = []
             
             for target in unique_targets:
                 # Skip obviously bad names
                 if len(target) < 3 or target in ['Ana', 'Ed', 'Huling']:
                     print(f"   ⏭️  Skipping incomplete name: '{target}'")
+                    continue
+                
+                # Check for near-duplicates (might be typos)
+                from fuzzywuzzy import fuzz
+                best_match = None
+                best_score = 0
+                
+                for existing_name in airtable_people.keys():
+                    score = fuzz.ratio(target.lower(), existing_name.lower())
+                    if score > best_score:
+                        best_score = score
+                        best_match = existing_name
+                
+                # If >85% similar, probably a typo - don't auto-add
+                if best_score > 85:
+                    print(f"   ⚠️  '{target}' looks like typo of '{best_match}' ({best_score}%) - skipping")
+                    near_duplicates.append((target, best_match, best_score))
                     continue
                 
                 targets_to_add.append({
@@ -407,6 +425,12 @@ def main():
                 except Exception as e:
                     print(f"\n⚠️  Auto-add failed: {e}")
                     print("   These will need manual addition")
+            
+            if near_duplicates:
+                print(f"\n⚠️  NEAR-DUPLICATES DETECTED (not auto-added):")
+                for target, match, score in near_duplicates:
+                    print(f"   • '{target}' → '{match}' ({score}%)")
+                print("\n   Please review these manually - may be typos!")
         
     except Exception as e:
         conn.rollback()
