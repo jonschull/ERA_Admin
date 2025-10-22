@@ -305,7 +305,10 @@ def suggest_action(name, category, gmail_result, airtable_match):
     if category == 'phone':
         return 'drop'
     if category == 'duplicate':
-        # Extract base name
+        # If matched in Airtable, use that full name (not truncated base name)
+        if in_airtable and matched_name:
+            return f'merge with: {matched_name}'
+        # Otherwise extract base name
         base_name = name.split(',')[0].split('(')[0].strip()
         return f'merge with: {base_name}'
     if category == 'single_name':
