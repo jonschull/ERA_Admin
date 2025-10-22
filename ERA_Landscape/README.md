@@ -86,16 +86,31 @@ User can save edits back to Sheet
 
 ---
 
+## Documentation
+
+**For Users:**
+- [README.md](README.md) - This file (quick start, deployment)
+- [KNOWN_ISSUES.md](KNOWN_ISSUES.md) - Current bugs and workarounds
+
+**For Developers:**
+- [NETWORK_ARCHITECTURE.md](NETWORK_ARCHITECTURE.md) - **Technical deep-dive:** Town Hall treatment, physics engine, node sizing, slider controls
+- [DEVELOPMENT.md](DEVELOPMENT.md) - Development workflow and testing
+- [AI_HANDOFF_GUIDE.md](AI_HANDOFF_GUIDE.md) - Context for AI assistants
+
 ## Files
 
 ```
 ERA_Landscape_Static/
-├── index.html          # Main HTML file (edit this!)
-├── graph.js            # JavaScript logic
-├── README.md           # This file
-├── DEVELOPMENT.md      # Development guide
-└── tests/              # Test scripts
-    └── test_load.py    # Playwright test
+├── index.html                   # Main HTML file (UI, modals, event handlers)
+├── graph.js                     # vis.js initialization and options
+├── README.md                    # This file (quick start)
+├── NETWORK_ARCHITECTURE.md      # Technical documentation (NEW!)
+├── DEVELOPMENT.md               # Development workflow
+├── KNOWN_ISSUES.md              # Bug tracking
+└── tests/                       # Test scripts
+    ├── test_load.py             # Basic load test
+    ├── test_visual_nodesize.py  # Screenshot validation
+    └── test_visual_centralgravity.py  # Screenshot validation
 ```
 
 ---
@@ -231,19 +246,29 @@ Works on any static host:
 
 ### Current
 - ✅ Auto-loads fresh data from Google Sheets on page init
-- ✅ Auto-fit graph after data loads (2 second delay for physics)
+- ✅ Auto-fit graph after data loads
 - ✅ Interactive graph (drag, zoom, pan)
-- ✅ Node scaling by connection count (1-17 connections = 12-60px)
+- ✅ **Town Hall Integration** (65 events in fixed peripheral ring)
+  - Grey edges with distance-based fading
+  - See [NETWORK_ARCHITECTURE.md](NETWORK_ARCHITECTURE.md) for details
+- ✅ **Network Settings Modal** (🌐 button)
+  - Node Scaling (constant ↔ logarithmic)
+  - Node Size (0.2-3.0x multiplier)
+  - Edge Fading & Thickness
+- ✅ **Physics Settings Modal** (⚙️ button)
+  - Central Gravity, Node Spacing, Edge Springs
+  - Real-time layout adjustment
+  - ⚠️ Central Gravity has inverted behavior (see KNOWN_ISSUES.md)
+- ✅ Node scaling by connection count with visual tests
 - ✅ Quick Editor (add/remove connections)
-  - ✅ Enter key triggers Add/Update
-  - ✅ Yellow border highlights matching nodes
-  - ✅ Both From and To fields highlighted simultaneously
+  - Enter key triggers Add/Update
+  - Yellow border highlights matching nodes
 - ✅ Search filtering
 - ✅ Hide/show nodes
 - ✅ Save changes to Google Sheets (with sign-in)
-- ✅ Re-Load button (re-fetch from Sheets with guardrail for unsaved changes)
-- ✅ Color-coded by type (person=blue, org=teal, project=purple)
-- ✅ Type parsed from ID prefix (person::, org::, project::)
+- ✅ Re-Load button (re-fetch from Sheets with guardrail)
+- ✅ Color-coded by type (person=blue, org=teal, project=purple, event=grey)
+- ✅ Type parsed from ID prefix (person::, org::, project::, event::)
 - ✅ Hover tooltips on all buttons
 
 ### Planned

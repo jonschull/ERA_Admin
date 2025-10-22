@@ -1,10 +1,60 @@
 # Known Issues - ERA Landscape
 
+**See also:** [NETWORK_ARCHITECTURE.md](NETWORK_ARCHITECTURE.md) for technical details
+
 ## Active Issues
 
-None currently!
+### ❌ Central Gravity Slider Inverted Behavior (Oct 22, 2025)
+**Status:** Broken - produces opposite of expected behavior  
+**Symptom:** Higher central gravity spreads nodes MORE instead of pulling them tighter
+
+**Evidence:** Visual test `test_visual_centralgravity.py`
+- Baseline (0.4): 5704px spread
+- Tight (0.6): 6829px spread ❌ (should be < baseline)
+- Loose (0.05): 7699px spread ✅ (correctly larger)
+
+**Hypothesis:** 65 fixed Town Halls at periphery (`physics: false`) interfere with barnesHut centralGravity calculations
+
+**Workaround:** Use Node Spacing slider instead to control layout density
+
+**Planned Fix:** Investigate centrality-based spreading system (variable spring length by distance from center) - see NETWORK_ARCHITECTURE.md "Future Work"
 
 ---
+
+## Recently Resolved (Oct 22, 2025)
+
+### ✅ RESOLVED: Node Size Slider Not Working Visually (Oct 21-22, 2025)
+**Status:** Fixed - nodes now resize visually when slider moves  
+**Symptom:** Node Size slider changed JavaScript `value` but nodes didn't change size on screen
+
+**Root Cause:** vis.js requires BOTH:
+1. Update node `value` properties
+2. Update `scaling.min/max` range
+3. Call `network.redraw()`
+
+**Fix Applied:**
+```javascript
+// Update vis.js scaling range based on nodeSize multiplier
+window.network.setOptions({
+  nodes: {
+    scaling: {
+      min: baseMin * networkConfig.nodeSize,
+      max: baseMax * networkConfig.nodeSize
+    }
+  }
+});
+window.network.redraw();
+```
+
+**Validation:** Screenshot test `test_visual_nodesize.py` confirms 4x visual size difference ✅
+
+### ✅ RESOLVED: Slider Ranges Too Narrow (Oct 22, 2025)
+**Status:** Fixed - all sliders now have wider ranges with defaults in middle
+
+**Changes:**
+- Network Settings: All ranges expanded (Node Size 0.5-2.0 → 0.2-3.0, etc.)
+- Physics Settings: Ranges expanded, defaults moved to middle (Central Gravity 0.15 → 0.4)
+- Provides "elbow room" for experimentation
 
 ## Recently Added (Oct 21, 2025)
 
