@@ -1184,6 +1184,11 @@
     });
     nodes.update(updates);
     
+    // Force vis.js to redraw with new node sizes
+    if (window.network) {
+      window.network.redraw();
+    }
+    
     // Re-adjust TH edges with new fading/thickness settings
     if (typeof window.adjustTHEdges === 'function') {
       window.adjustTHEdges();
