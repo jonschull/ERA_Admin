@@ -1,3 +1,5 @@
+# ERA_Landscape/AI_HANDOFF_GUIDE.md
+
 # AI Assistant Handoff Guide
 **For AI assistants picking up ERA_Landscape_Static**
 

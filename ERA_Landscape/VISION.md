@@ -1,3 +1,5 @@
+# ERA_Landscape/VISION.md
+
 # Long-Term Vision: Collaborative Network Mapping
 
 **Date**: October 13, 2025  
