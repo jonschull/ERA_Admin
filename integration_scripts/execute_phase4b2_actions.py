@@ -113,7 +113,24 @@ def execute_merge(conn, fathom_name, target_name):
             print(f"   🔧 Auto-correcting typo: '{target_name}' → '{best_match}' ({best_score}%)")
             target_name = best_match
         else:
-            # No match found - ADD the person to Airtable automatically
+            # No match found - check if it's safe to auto-add
+            # Only auto-add if it looks like a valid person name (2+ words, not org-like)
+            words = target_name.split()
+            org_keywords = ['llc', 'inc', 'foundation', 'partners', 'group', 'alliance', 
+                           'coalition', 'network', 'collective', 'project', 'organization',
+                           'earth', 'global', 'international', 'institute']
+            
+            is_single_word = len(words) == 1
+            looks_like_org = any(keyword in target_name.lower() for keyword in org_keywords)
+            
+            if is_single_word or looks_like_org:
+                # Don't auto-add - needs human review
+                print(f"   ⚠️  Target '{target_name}' not in Airtable")
+                print(f"      ⚠️  Looks like incomplete name or organization - needs review")
+                print(f"      → Skipping merge - will flag for discussion")
+                return 'needs_discussion'
+            
+            # Looks like valid person name - safe to auto-add
             print(f"   ➕ Target '{target_name}' not in Airtable - adding them now...")
             from add_to_airtable import add_people_to_airtable, update_fathom_validated
             
@@ -132,10 +149,10 @@ def execute_merge(conn, fathom_name, target_name):
                     airtable_people[target_name] = {'name': target_name}
                 else:
                     print(f"   ⚠️  Could not add '{target_name}' - skipping merge")
-                    return 'skipped_target'
+                    return 'needs_discussion'
             except Exception as e:
                 print(f"   ❌ Error adding '{target_name}': {e}")
-                return 'skipped_target'
+                return 'needs_discussion'
     
     target = airtable_people[target_name]
     cursor = conn.cursor()
