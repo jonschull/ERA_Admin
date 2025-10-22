@@ -12,6 +12,45 @@
   2. Arrange follow-up contact
   3. Confirm ERA membership intent
 
+### Cassandra Kiki Ami
+- **Date Added:** 2025-10-22
+- **Source:** Phase 4B-2 Round 10
+- **Action:** Add to Airtable as new member
+- **Status:** 🔴 Pending
+- **Location:** Pacific Northwest, Cascadia Bioregion
+- **Notes:** Airtable addition failed due to field mismatch error
+
+### Consolata Gitau
+- **Date Added:** 2025-10-22
+- **Source:** Phase 4B-2 Round 10
+- **Action:** Add to Airtable as member
+- **Status:** 🔴 Pending
+- **Location:** Kenya
+- **Notes:** Airtable addition failed due to field mismatch error
+
+### Cory Albers
+- **Date Added:** 2025-10-22
+- **Source:** Phase 4B-2 Round 10
+- **Action:** Add to Airtable as member
+- **Status:** 🔴 Pending
+- **Notes:** Airtable addition failed due to field mismatch error
+
+### Daisy Bett
+- **Date Added:** 2025-10-22
+- **Source:** Phase 4B-2 Round 10
+- **Action:** Add to Airtable as new member (ERA Africa)
+- **Status:** 🔴 Pending
+- **Location:** Kenya
+- **Notes:** Airtable addition failed due to field mismatch error
+
+### Daphne Amory
+- **Date Added:** 2025-10-22
+- **Source:** Phase 4B-2 Round 10
+- **Action:** Add to Airtable as member
+- **Status:** 🔴 Pending
+- **Location:** California
+- **Notes:** Airtable addition failed due to field mismatch error
+
 ---
 
 ## Completed Actions
