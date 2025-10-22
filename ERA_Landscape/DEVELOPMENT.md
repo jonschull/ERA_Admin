@@ -400,7 +400,8 @@ gh api repos/jonschull/ERA_Landscape_Static/pages -X POST \
 
 ## Relationship to ERA_ClimateWeek
 
-**Parent Project**: [ERA_ClimateWeek](https://github.com/jonschull/ERA_ClimateWeek)
+**Parent Project**: [ERA_Admin](https://github.com/jonschull/ERA_Admin)  
+**Related**: [ERA_ClimateWeek](https://github.com/jonschull/ERA_ClimateWeek)
 
 **What it does:**
 - Python data processing pipeline

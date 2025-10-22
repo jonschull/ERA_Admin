@@ -13,13 +13,14 @@
   .legend .dot { display:inline-block; width:12px; height:12px; border-radius:50%; background:#888; margin-right:6px; vertical-align:middle; }
   .legend .box { display:inline-block; width:12px; height:12px; background:#aaa; margin-right:6px; vertical-align:middle; }
   .legend .tri { display:inline-block; width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-bottom:12px solid #ce93d8; margin-right:6px; vertical-align:middle; }
+  .legend .hex { display:inline-block; width:10px; height:10px; background:#999; clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%); margin-right:6px; vertical-align:middle; }
   #loading { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(255,255,255,0.92); display:flex; align-items:center; justify-content:center; z-index: 9999; font-family: sans-serif; }
   #loading .panel { text-align:center; color:#333; }
   #loading .title { font-size: 20px; font-weight: 600; margin-bottom: 6px; }
   #loading .sub { font-size: 13px; color:#666; }
   #toolbar { position: fixed; top: 10px; left: 10px; background: rgba(255,255,255,0.9); padding: 8px 12px; border-radius: 10px; font-family: sans-serif; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; }
   #toolbar button { margin-right: 6px; }
-  #curationModal { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.35); display:none; align-items:flex-end; justify-content:flex-start; z-index: 2000; padding: 20px; pointer-events: none; }
+  #curationModal { position: fixed; top:0; left:0; right:0; bottom:0; background: transparent; display:none; align-items:flex-end; justify-content:flex-start; z-index: 2000; padding: 20px; pointer-events: none; }
   #curationPanel { width: 720px; max-width: 95vw; max-height: 85vh; overflow: auto; background: rgba(255,255,255,0.90); border-radius: 10px; padding: 14px; box-shadow: 0 4px 18px rgba(0,0,0,0.25); font-family: sans-serif; pointer-events: auto; }
   #curationPanel h3 { margin: 0 0 6px 0; }
   #curationList { margin-top: 8px; }
@@ -27,6 +28,29 @@
   #toast { position: fixed; bottom: 16px; right: 16px; background: rgba(0,0,0,0.8); color:#fff; padding:8px 12px; border-radius:8px; display:none; z-index:3000; font-family: sans-serif; }
   #curationHandle { user-select:none; cursor: move; background: rgba(0,0,0,0.08); border-radius: 8px; padding: 6px 8px; margin: 0 0 8px; font-size: 12px; color:#444; }
   #curationUrl { font-size: 12px; color:#3366cc; margin: 4px 0 8px; }
+  #physicsModal { position: fixed; top:0; left:0; right:0; bottom:0; background: transparent; display:none; align-items:center; justify-content:center; z-index: 2500; pointer-events: none; }
+  #networkModal { position: fixed; top:0; left:0; right:0; bottom:0; background: transparent; display:none; align-items:center; justify-content:center; z-index: 2500; pointer-events: none; }
+  #physicsPanel { width: 380px; max-width: 90vw; background: rgba(255,255,255,0.75); border-radius: 10px; padding: 14px; box-shadow: 0 4px 18px rgba(0,0,0,0.25); font-family: sans-serif; pointer-events: auto; backdrop-filter: blur(8px); }
+  #physicsHandle { user-select:none; cursor: move; background: rgba(0,0,0,0.08); border-radius: 8px; padding: 6px 8px; margin: 0 0 8px; font-size: 12px; color:#444; }
+  #networkPanel { width: 420px; max-width: 90vw; background: rgba(255,255,255,0.75); border-radius: 10px; padding: 14px; box-shadow: 0 4px 18px rgba(0,0,0,0.25); font-family: sans-serif; pointer-events: auto; backdrop-filter: blur(8px); }
+  #networkHandle { user-select:none; cursor: move; background: rgba(0,0,0,0.08); border-radius: 8px; padding: 6px 8px; margin: 0 0 8px; font-size: 12px; color:#444; }
+  #physicsPanel h3 { margin: 0 0 16px 0; }
+  .slider-group { margin: 12px 0; }
+  .slider-group label { display: block; margin-bottom: 4px; font-size: 14px; font-weight: 500; }
+  .slider-group input[type="range"] { width: 100%; }
+  .slider-value { float: right; color: #666; font-size: 13px; }
+  .slider-value-float { 
+    position: absolute; 
+    top: -24px; 
+    background: #333; 
+    color: white; 
+    padding: 2px 6px; 
+    border-radius: 3px; 
+    font-size: 11px; 
+    pointer-events: none;
+    white-space: nowrap;
+    transform: translateX(-50%);
+  }
 </style>
 <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 <!-- Google Sheets API -->
@@ -42,6 +66,8 @@
   <span id="unsavedBadge" style="display:none; margin-left:6px; color:#c00; font-weight:600;">• unsaved edit</span>
   
   <button id="refreshBtn" style="margin-left:8px;" title="Reload data from Google Sheet (discards unsaved edits)">↻ Re-Load</button>
+  <button id="physicsBtn" style="margin-left:8px;" title="Adjust physics parameters">⚙️ Physics</button>
+  <button id="networkBtn" style="margin-left:8px;" title="Adjust network settings">🌐 Network</button>
   <button id="signInBtn" onclick="handleSignIn()" style="margin-left:8px;" title="Sign in with Google to enable editing">🔐 Sign In</button>
 </div>
 <div id="toolbar" style="position: fixed; top: 80px; left: 10px; background: rgba(255,255,255,0.9); padding: 8px 12px; border-radius: 10px; font-family: sans-serif; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000;">
@@ -84,6 +110,7 @@
 <div class="legend">
   <div><span class="dot" style="background:#6aa7ff"></span> Person</div>
   <div><span class="tri"></span> Project</div>
+  <div><span class="hex"></span> Event</div>
   <div><span class="box" style="background:#a8dadc"></span> Organization</div>
 </div>
 <div id="curationModal">
@@ -136,6 +163,150 @@
   </div>
 </div>
 <div id="toast"></div>
+<div id="physicsModal">
+  <div id="physicsPanel">
+    <div id="physicsHandle">Drag here to reposition</div>
+    <h3 style="margin: 0 0 6px 0;">⚙️ Physics Settings</h3>
+    <p style="font-size: 12px; color: #666; margin: 0 0 12px 0;">Adjust network layout in real-time</p>
+    
+    <div class="slider-group">
+      <label style="text-align:center; display:block;">Central Gravity</label>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size:11px; color:#666; width:40px;">loose</span>
+        <div style="flex:1; position:relative;">
+          <input type="range" id="centralGravity" min="0" max="1.0" step="0.05" value="0.4" style="width:100%;">
+          <span class="slider-value-float" id="centralGravityVal">0.4</span>
+        </div>
+        <span style="font-size:11px; color:#666; width:40px; text-align:right;">tight</span>
+      </div>
+    </div>
+    
+    <div class="slider-group">
+      <label style="text-align:center; display:block;">Node Spacing</label>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size:11px; color:#666; width:40px;">short</span>
+        <div style="flex:1; position:relative;">
+          <input type="range" id="springLength" min="50" max="400" step="10" value="175" style="width:100%;">
+          <span class="slider-value-float" id="springLengthVal">175</span>
+        </div>
+        <span style="font-size:11px; color:#666; width:40px; text-align:right;">long</span>
+      </div>
+    </div>
+    
+    <div class="slider-group">
+      <label style="text-align:center; display:block;">Edge Springs</label>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size:11px; color:#666; width:40px;">loose</span>
+        <div style="flex:1; position:relative;">
+          <input type="range" id="springConstant" min="0.001" max="0.15" step="0.005" value="0.04" style="width:100%;">
+          <span class="slider-value-float" id="springConstantVal">0.04</span>
+        </div>
+        <span style="font-size:11px; color:#666; width:40px; text-align:right;">tight</span>
+      </div>
+    </div>
+    
+    <div class="slider-group">
+      <label style="text-align:center; display:block;">Avoid Overlap</label>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size:11px; color:#666; width:40px;">weak</span>
+        <div style="flex:1; position:relative;">
+          <input type="range" id="avoidOverlap" min="0" max="1" step="0.05" value="0.2" style="width:100%;">
+          <span class="slider-value-float" id="avoidOverlapVal">0.2</span>
+        </div>
+        <span style="font-size:11px; color:#666; width:40px; text-align:right;">strong</span>
+      </div>
+    </div>
+    
+    <div class="slider-group">
+      <label style="text-align:center; display:block;">Edge Length Multiplier</label>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size:11px; color:#666; width:40px;">low</span>
+        <div style="flex:1; position:relative;">
+          <input type="range" id="edgeMultiplier" min="0" max="30" step="1" value="10" style="width:100%;">
+          <span class="slider-value-float" id="edgeMultiplierVal">10</span>
+        </div>
+        <span style="font-size:11px; color:#666; width:40px; text-align:right;">high</span>
+      </div>
+    </div>
+    
+    <div class="slider-group">
+      <label style="text-align:center; display:block;">Edge Length Max</label>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size:11px; color:#666; width:40px;">low</span>
+        <div style="flex:1; position:relative;">
+          <input type="range" id="maxEdgeLength" min="100" max="500" step="10" value="250" style="width:100%;">
+          <span class="slider-value-float" id="maxEdgeLengthVal">250</span>
+        </div>
+        <span style="font-size:11px; color:#666; width:40px; text-align:right;">high</span>
+      </div>
+    </div>
+    
+    <div style="margin-top: 20px; display: flex; gap: 8px;">
+      <button id="resetPhysics" style="flex: 1; padding: 8px;">Reset to Defaults</button>
+      <button id="applyPhysics" style="flex: 1; padding: 8px; font-weight: 600; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">Done</button>
+    </div>
+  </div>
+</div>
+<div id="networkModal">
+  <div id="networkPanel">
+    <div id="networkHandle">Drag here to reposition</div>
+    <h3 style="margin: 0 0 6px 0;">🌐 Network Settings</h3>
+    <p style="font-size: 12px; color: #666; margin: 0 0 12px 0;">Adjust visual appearance</p>
+    
+    <div class="slider-group">
+      <label style="text-align:center; display:block;">Node Scaling</label>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size:11px; color:#666; width:60px;">constant</span>
+        <div style="flex:1; position:relative;">
+          <input type="range" id="scalingIntensity" min="0" max="2.0" step="0.1" value="1.0" style="width:100%;">
+          <span class="slider-value-float" id="scalingIntensityVal">1.0</span>
+        </div>
+        <span style="font-size:11px; color:#666; width:60px; text-align:right;">logarithmic</span>
+      </div>
+    </div>
+    
+    <div class="slider-group">
+      <label style="text-align:center; display:block;">Node Size</label>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size:11px; color:#666; width:60px;">small</span>
+        <div style="flex:1; position:relative;">
+          <input type="range" id="nodeSize" min="0.2" max="3.0" step="0.1" value="1.0" style="width:100%;">
+          <span class="slider-value-float" id="nodeSizeVal">1.0</span>
+        </div>
+        <span style="font-size:11px; color:#666; width:60px; text-align:right;">large</span>
+      </div>
+    </div>
+    
+    <div class="slider-group">
+      <label style="text-align:center; display:block;">Edge Fading</label>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size:11px; color:#666; width:60px;">strong</span>
+        <div style="flex:1; position:relative;">
+          <input type="range" id="edgeFading" min="0" max="2.0" step="0.1" value="1.0" style="width:100%;">
+          <span class="slider-value-float" id="edgeFadingVal">1.0</span>
+        </div>
+        <span style="font-size:11px; color:#666; width:60px; text-align:right;">none</span>
+      </div>
+    </div>
+    
+    <div class="slider-group">
+      <label style="text-align:center; display:block;">Edge Thickness</label>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size:11px; color:#666; width:60px;">extreme</span>
+        <div style="flex:1; position:relative;">
+          <input type="range" id="edgeThickness" min="0" max="3.0" step="0.1" value="1.0" style="width:100%;">
+          <span class="slider-value-float" id="edgeThicknessVal">1.0</span>
+        </div>
+        <span style="font-size:11px; color:#666; width:60px; text-align:right;">subtle</span>
+      </div>
+    </div>
+    
+    <div style="margin-top: 20px; display: flex; gap: 8px;">
+      <button id="resetNetwork" style="flex: 1; padding: 8px;">Reset to Defaults</button>
+      <button id="applyNetwork" style="flex: 1; padding: 8px; font-weight: 600; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">Done</button>
+    </div>
+  </div>
+</div>
 <script>
   // ========== Google Sheets API Configuration & Functions ==========
   
@@ -160,12 +331,13 @@
     if (!id) return 'organization';
     if (id.startsWith('person::')) return 'person';
     if (id.startsWith('project::')) return 'project';
+    if (id.startsWith('event::')) return 'event';
     return 'organization';
   }
   
   /**
    * Get visual properties (color, shape) for a node type
-   * @param {string} type - Node type: 'person', 'project', or 'organization'
+   * @param {string} type - Node type: 'person', 'project', 'organization', or 'event'
    * @returns {Object} {color: {background, border}, shape}
    */
   function getNodeVisuals(type) {
@@ -178,6 +350,11 @@
       return {
         color: {background: '#ce93d8', border: '#ba68c8'},
         shape: 'triangle'
+      };
+    } else if (type === 'event') {
+      return {
+        color: {background: '#999999', border: '#666666'},
+        shape: 'hexagon'
       };
     } else {
       return {
@@ -371,40 +548,59 @@
       
       console.log(`✅ Loaded ${nodesData.length} nodes, ${edgesData.length} edges from Sheets`);
       
-      const nodesPayload = nodesData.map(n => {
-        // Parse type from ID prefix (Sheet's type column is unreliable)
-        const type = parseTypeFromId(n.id);
-        const visuals = getNodeVisuals(type);
-        
-        return {
-          id: n.id,
-          label: n.label,
-          title: n.label,
-          group: type,
-          type: type,
-          shape: visuals.shape,
-          color: visuals.color,
-          url: n.url || '',
-          notes: n.notes || '',
-          member: n.member || '',
-          origin: n.origin || '',
-          hidden: n.hidden === 'true' || n.hidden === true,
-          created_at: n.created_at || '',
-          updated_at: n.updated_at || ''
-        };
+      const nodesPayload = nodesData.map((n, idx) => {
+        try {
+          // Parse type from ID prefix (Sheet's type column is unreliable)
+          const type = parseTypeFromId(n.id);
+          const visuals = getNodeVisuals(type);
+          
+          return {
+            id: n.id,
+            label: n.label,
+            title: n.label,
+            group: type,
+            type: type,
+            shape: visuals.shape,
+            color: visuals.color,
+            url: n.url || '',
+            notes: n.notes || '',
+            member: n.member || '',
+            origin: n.origin || '',
+            hidden: n.hidden === 'true' || n.hidden === true,
+            created_at: n.created_at || '',
+            updated_at: n.updated_at || ''
+          };
+        } catch (err) {
+          console.error(`Error processing node at index ${idx}:`, n, err);
+          throw err;
+        }
       });
       
-      const edgesPayload = edgesData.map(e => ({
-        from: e.source,
-        to: e.target,
-        label: e.relationship || '',
-        relationship: e.relationship || '',
-        role: e.role || '',
-        url: e.url || '',
-        notes: e.notes || '',
-        created_at: e.created_at || '',
-        updated_at: e.updated_at || ''
-      }));
+      const edgesPayload = edgesData.map(e => {
+        // Check if edge connects to Town Hall event
+        const isTownHallEdge = e.source.startsWith('event::Town Hall') || e.target.startsWith('event::Town Hall');
+        // Hide "attended" and "follows" labels
+        const label = (e.relationship === 'attended' || e.relationship === 'follows') ? '' : (e.relationship || '');
+        // Add arrows to "follows" edges
+        const arrows = (e.relationship === 'follows') ? { to: { enabled: true, scaleFactor: 0.5 } } : undefined;
+        
+        return {
+          from: e.source,
+          to: e.target,
+          label: label,
+          relationship: e.relationship || '',
+          role: e.role || '',
+          url: e.url || '',
+          notes: e.notes || '',
+          created_at: e.created_at || '',
+          updated_at: e.updated_at || '',
+          arrows: arrows,
+          // Town Hall edges: grey, medium opacity (will vary by distance after positioning)
+          color: isTownHallEdge ? { color: '#999999', opacity: 0.5 } : undefined,
+          width: isTownHallEdge ? 0.5 : 1,
+          isTownHallEdge: isTownHallEdge  // Flag for later adjustment
+        };
+      });
       
       // Auto-heal: Create missing nodes referenced by edges
       const nodeIds = new Set(nodesPayload.map(n => n.id));
@@ -448,21 +644,110 @@
       nodes.add(nodesPayload);
       edges.add(edgesPayload);
       
-      // Scale nodes by connection count
+      // Scale nodes by connection count (but weight TH connections much less)
       const connectionCount = {};
       edgesPayload.forEach(edge => {
-        connectionCount[edge.from] = (connectionCount[edge.from] || 0) + 1;
-        connectionCount[edge.to] = (connectionCount[edge.to] || 0) + 1;
+        // Town Hall connections count as 0.1 instead of 1 (reduce their impact on node size)
+        const weight = edge.isTownHallEdge ? 0.1 : 1;
+        connectionCount[edge.from] = (connectionCount[edge.from] || 0) + weight;
+        connectionCount[edge.to] = (connectionCount[edge.to] || 0) + weight;
       });
       
       // Update nodes with scaling value while preserving all other properties
-      const updates = nodesPayload.map(node => ({
-        ...node,  // Keep all existing properties including color
-        value: connectionCount[node.id] || 1  // Add scaling value
-      }));
+      // Apply same formula as applyNetworkSettings() for consistency
+      const updates = nodesPayload.map(node => {
+        const connections = connectionCount[node.id] || 1;
+        const type = parseTypeFromId(node.id);
+        
+        let finalValue;
+        if (type === 'event') {
+          // Events scale minimally, with nodeSize multiplier
+          finalValue = Math.min(connections * 0.3, 10) * (typeof networkConfig !== 'undefined' ? networkConfig.nodeSize : 1.0);
+        } else {
+          // Regular nodes: apply scaling intensity formula
+          const constantScale = 10;
+          const logScale = Math.log(connections + 1);
+          const intensity = (typeof networkConfig !== 'undefined' ? networkConfig.scalingIntensity : 1.0);
+          const blendedScale = constantScale + (logScale - constantScale) * intensity;
+          finalValue = blendedScale * (typeof networkConfig !== 'undefined' ? networkConfig.nodeSize : 1.0);
+        }
+        
+        return {
+          ...node,
+          value: finalValue
+        };
+      });
       nodes.update(updates);
       
+      // Set variable edge length based on target node degree
+      // Higher degree nodes get longer edges = weaker attraction
+      const edgeUpdates = edgesPayload.map(edge => {
+        const targetDegree = connectionCount[edge.to] || 1;
+        // Base length 120, +10 for each connection up to max 300
+        const length = Math.min(120 + (targetDegree * 10), 300);
+        return {
+          ...edge,
+          length: length
+        };
+      });
+      edges.update(edgeUpdates);
+      
+      // Position Town Hall events in a fixed circle at periphery
+      const townHalls = nodesPayload.filter(node => node.id.startsWith('event::Town Hall'));
+      const thPositions = {};  // Store positions for distance calculation
+      if (townHalls.length > 0) {
+        const thUpdates = townHalls.map((node, idx) => {
+          // Arrange Town Halls in a large circle (radius 1000px)
+          const angle = (idx / townHalls.length) * 2 * Math.PI;
+          const radius = 1000;
+          const x = Math.cos(angle) * radius;
+          const y = Math.sin(angle) * radius;
+          thPositions[node.id] = { x, y };
+          return {
+            ...node,
+            x: x,
+            y: y,
+            fixed: { x: true, y: true },  // Fixed position
+            physics: false  // Don't move
+          };
+        });
+        nodes.update(thUpdates);
+        console.log(`🎯 Fixed ${townHalls.length} Town Halls in circular ring at periphery`);
+        
+        // Adjust TH edge opacity based on distance after a delay (let layout settle)
+        console.log(`⏲️ Setting up setTimeout for edge adjustment in 4 seconds...`);
+        setTimeout(() => {
+          console.log(`⏰ setTimeout fired after 4 seconds - calling adjustTHEdges()`);
+          if (typeof window.adjustTHEdges === 'function') {
+            window.adjustTHEdges();
+          }
+          // Set flag for test automation
+          window.__edgeAdjustmentComplete = true;
+        }, 4000);  // Wait 4 seconds for layout to fully settle
+      }
+      
+      // Position orphan nodes (no connections) near TH ring to create visible connections
+      const orphans = nodesPayload.filter(node => !connectionCount[node.id] && !node.id.startsWith('event::Town Hall'));
+      if (orphans.length > 0) {
+        const orphanUpdates = orphans.map((node, idx) => {
+          // Arrange orphans in inner ring (radius 850px) to be near TH ring (radius 1000px)
+          // This creates ~150px distance = thick visible edges
+          const angle = (idx / orphans.length) * 2 * Math.PI;
+          const radius = 850;  // Changed from 150 to 850 to be near TH ring
+          return {
+            ...node,
+            x: Math.cos(angle) * radius,
+            y: Math.sin(angle) * radius,
+            fixed: { x: false, y: false },  // Can move but start near TH ring
+            physics: true
+          };
+        });
+        nodes.update(orphanUpdates);
+        console.log(`📌 Positioned ${orphans.length} orphan nodes in inner ring (radius 850px, near TH ring at 1000px)`);
+      }
+      
       console.log(`📊 Scaled nodes by connections (min: ${Math.min(...Object.values(connectionCount))}, max: ${Math.max(...Object.values(connectionCount))})`);
+      console.log(`🔗 Set variable edge lengths (high-degree nodes get longer edges)`);
       
       showToast('✅ Loaded from Sheets');
       hideLoading();
@@ -470,6 +755,11 @@
       
     } catch (error) {
       console.error('Error loading from Sheets:', error);
+      console.error('Error details:', {
+        message: error?.message,
+        stack: error?.stack,
+        name: error?.name
+      });
       showToast('❌ Failed to load from Sheets');
       hideLoading();
       return null;
@@ -547,6 +837,452 @@
   const edges = new vis.DataSet([]);
   const candidatesByOrgId = {};
   const existingPartnersByOrgId = {"org::Test Person A": ["Test Person B"]};
+  
+  // ========== Physics Controls ==========
+  // Load saved settings from localStorage or use defaults
+  let physicsConfig = {
+    centralGravity: 0.4,
+    springLength: 175,
+    springConstant: 0.04,
+    avoidOverlap: 0.2,
+    edgeMultiplier: 10,
+    maxEdgeLength: 300
+  };
+  
+  // Try to load saved settings
+  try {
+    const saved = localStorage.getItem('era_physics_settings');
+    if (saved) {
+      physicsConfig = JSON.parse(saved);
+      console.log('📦 Loaded saved physics settings:', physicsConfig);
+    }
+  } catch (e) {
+    console.warn('Could not load saved physics settings:', e);
+  }
+  
+  // Store original edge data
+  let originalEdges = [];
+  
+  // Open physics modal and sync sliders with saved config
+  document.getElementById('physicsBtn').onclick = () => {
+    // Update sliders to match saved config
+    document.getElementById('centralGravity').value = physicsConfig.centralGravity;
+    document.getElementById('springLength').value = physicsConfig.springLength;
+    document.getElementById('springConstant').value = physicsConfig.springConstant;
+    document.getElementById('avoidOverlap').value = physicsConfig.avoidOverlap;
+    document.getElementById('edgeMultiplier').value = physicsConfig.edgeMultiplier;
+    document.getElementById('maxEdgeLength').value = physicsConfig.maxEdgeLength;
+    
+    // Update value displays
+    document.getElementById('centralGravityVal').textContent = physicsConfig.centralGravity;
+    document.getElementById('springLengthVal').textContent = physicsConfig.springLength;
+    document.getElementById('springConstantVal').textContent = physicsConfig.springConstant;
+    document.getElementById('avoidOverlapVal').textContent = physicsConfig.avoidOverlap;
+    document.getElementById('edgeMultiplierVal').textContent = physicsConfig.edgeMultiplier;
+    document.getElementById('maxEdgeLengthVal').textContent = physicsConfig.maxEdgeLength;
+    
+    document.getElementById('physicsModal').style.display = 'flex';
+    
+    // Recalculate value positions now that modal is visible
+    setTimeout(() => {
+      ['centralGravity', 'springLength', 'springConstant', 'avoidOverlap', 'edgeMultiplier', 'maxEdgeLength'].forEach(id => {
+        const slider = document.getElementById(id);
+        const valueSpan = document.getElementById(id + 'Val');
+        const percent = (slider.value - slider.min) / (slider.max - slider.min);
+        const sliderWidth = slider.offsetWidth;
+        const thumbWidth = 20;
+        const position = percent * (sliderWidth - thumbWidth) + thumbWidth/2;
+        valueSpan.style.left = position + 'px';
+      });
+    }, 0);
+  };
+  
+  
+  // Update slider value displays and apply changes in real-time
+  ['centralGravity', 'springLength', 'springConstant', 'avoidOverlap', 'edgeMultiplier', 'maxEdgeLength'].forEach(id => {
+    const slider = document.getElementById(id);
+    const valueSpan = document.getElementById(id + 'Val');
+    
+    function updateValuePosition() {
+      // Calculate position based on slider value
+      const percent = (slider.value - slider.min) / (slider.max - slider.min);
+      const sliderWidth = slider.offsetWidth;
+      const thumbWidth = 20; // approximate thumb width
+      const position = percent * (sliderWidth - thumbWidth) + thumbWidth/2;
+      valueSpan.style.left = position + 'px';
+      valueSpan.textContent = slider.value;
+    }
+    
+    slider.oninput = () => {
+      updateValuePosition();
+      // Apply changes immediately, mark as from slider
+      applyPhysicsSettings(true);
+    };
+    
+    // Initial position
+    updateValuePosition();
+  });
+  
+  // Apply physics changes (extracted as function for reuse)
+  let stabilizationTimeout;
+  let isAdjustingPhysics = false;
+  
+  function applyPhysicsSettings(fromSlider = false) {
+    // Read values
+    physicsConfig.centralGravity = parseFloat(document.getElementById('centralGravity').value);
+    physicsConfig.springLength = parseFloat(document.getElementById('springLength').value);
+    physicsConfig.springConstant = parseFloat(document.getElementById('springConstant').value);
+    physicsConfig.avoidOverlap = parseFloat(document.getElementById('avoidOverlap').value);
+    physicsConfig.edgeMultiplier = parseFloat(document.getElementById('edgeMultiplier').value);
+    physicsConfig.maxEdgeLength = parseFloat(document.getElementById('maxEdgeLength').value);
+    
+    // Save to localStorage
+    localStorage.setItem('centralGravity', physicsConfig.centralGravity);
+    localStorage.setItem('springLength', physicsConfig.springLength);
+    localStorage.setItem('springConstant', physicsConfig.springConstant);
+    localStorage.setItem('avoidOverlap', physicsConfig.avoidOverlap);
+    localStorage.setItem('edgeMultiplier', physicsConfig.edgeMultiplier);
+    localStorage.setItem('maxEdgeLength', physicsConfig.maxEdgeLength);
+    
+    // Apply physics settings
+    if (window.network) {
+      isAdjustingPhysics = fromSlider;
+      
+      window.network.setOptions({
+        physics: {
+          enabled: true,  // Ensure physics stays enabled
+          barnesHut: {
+            gravitationalConstant: -2000,
+            centralGravity: physicsConfig.centralGravity,
+            springLength: physicsConfig.springLength,
+            springConstant: physicsConfig.springConstant,
+            damping: 0.35,  // Keep high damping for faster settling
+            avoidOverlap: physicsConfig.avoidOverlap
+          },
+          maxVelocity: 50,
+          minVelocity: 2.5,  // Keep higher threshold for faster stopping
+          solver: 'barnesHut',
+          timestep: 0.35,   // Keep reduced timestep for smoother settling
+          adaptiveTimestep: true,
+          stabilization: false  // Never lock nodes - always keep draggable
+        }
+      });
+      
+      // Only recalculate edge lengths if springLength or edgeMultiplier changed
+      // (avoid triggering layout disruption on centralGravity-only changes)
+      if (fromSlider) {
+        const connectionCount = {};
+        edges.get().forEach(edge => {
+          connectionCount[edge.from] = (connectionCount[edge.from] || 0) + 1;
+          connectionCount[edge.to] = (connectionCount[edge.to] || 0) + 1;
+        });
+        
+        const edgeUpdates = edges.get().map(edge => {
+          const targetDegree = connectionCount[edge.to] || 1;
+          const length = Math.min(physicsConfig.springLength + (targetDegree * physicsConfig.edgeMultiplier), physicsConfig.maxEdgeLength);
+          return {
+            ...edge,
+            length: length
+          };
+        });
+        edges.update(edgeUpdates);
+      }
+      
+      // No stabilization - let physics naturally settle with high damping
+      
+      console.log('⚙️ Physics updated:', physicsConfig, 'fromSlider:', fromSlider);
+    }
+  }
+  
+  // Done button closes modal
+  document.getElementById('applyPhysics').onclick = () => {
+    document.getElementById('physicsModal').style.display = 'none';
+    clearTimeout(stabilizationTimeout);
+    isAdjustingPhysics = false;
+    showToast('⚙️ Physics saved');
+  };
+  
+  // Reset to defaults
+  document.getElementById('resetPhysics').onclick = () => {
+    document.getElementById('centralGravity').value = 0.4;
+    document.getElementById('springLength').value = 175;
+    document.getElementById('springConstant').value = 0.04;
+    document.getElementById('avoidOverlap').value = 0.2;
+    document.getElementById('edgeMultiplier').value = 10;
+    document.getElementById('maxEdgeLength').value = 300;
+    
+    // Update displays
+    document.getElementById('centralGravityVal').textContent = '0.4';
+    document.getElementById('springLengthVal').textContent = '175';
+    document.getElementById('springConstantVal').textContent = '0.04';
+    document.getElementById('avoidOverlapVal').textContent = '0.2';
+    document.getElementById('edgeMultiplierVal').textContent = '10';
+    document.getElementById('maxEdgeLengthVal').textContent = '300';
+    
+    // Apply defaults immediately
+    applyPhysicsSettings();
+  };
+  
+  // ========== Network Settings Controls ==========
+  
+  // Network settings configuration
+  let networkConfig = {
+    scalingIntensity: parseFloat(localStorage.getItem('scalingIntensity') || '1.0'),
+    nodeSize: parseFloat(localStorage.getItem('nodeSize') || '1.0'),
+    edgeFading: parseFloat(localStorage.getItem('edgeFading') || '1.0'),
+    edgeThickness: parseFloat(localStorage.getItem('edgeThickness') || '1.0')
+  };
+  
+  // Open network modal
+  document.getElementById('networkBtn').onclick = () => {
+    document.getElementById('scalingIntensity').value = networkConfig.scalingIntensity;
+    document.getElementById('nodeSize').value = networkConfig.nodeSize;
+    document.getElementById('edgeFading').value = networkConfig.edgeFading;
+    document.getElementById('edgeThickness').value = networkConfig.edgeThickness;
+    
+    document.getElementById('scalingIntensityVal').textContent = networkConfig.scalingIntensity;
+    document.getElementById('nodeSizeVal').textContent = networkConfig.nodeSize;
+    document.getElementById('edgeFadingVal').textContent = networkConfig.edgeFading;
+    document.getElementById('edgeThicknessVal').textContent = networkConfig.edgeThickness;
+    
+    document.getElementById('networkModal').style.display = 'flex';
+    
+    // Recalculate value positions now that modal is visible
+    setTimeout(() => {
+      ['scalingIntensity', 'nodeSize', 'edgeFading', 'edgeThickness'].forEach(id => {
+        const slider = document.getElementById(id);
+        const valueSpan = document.getElementById(id + 'Val');
+        const percent = (slider.value - slider.min) / (slider.max - slider.min);
+        const sliderWidth = slider.offsetWidth;
+        const thumbWidth = 20;
+        const position = percent * (sliderWidth - thumbWidth) + thumbWidth/2;
+        valueSpan.style.left = position + 'px';
+      });
+    }, 0);
+  };
+  
+  // Network slider handlers
+  ['scalingIntensity', 'nodeSize', 'edgeFading', 'edgeThickness'].forEach(id => {
+    const slider = document.getElementById(id);
+    const valueSpan = document.getElementById(id + 'Val');
+    
+    function updateValuePosition() {
+      const percent = (slider.value - slider.min) / (slider.max - slider.min);
+      const sliderWidth = slider.offsetWidth;
+      const thumbWidth = 20;
+      const position = percent * (sliderWidth - thumbWidth) + thumbWidth/2;
+      valueSpan.style.left = position + 'px';
+      valueSpan.textContent = slider.value;
+    }
+    
+    slider.oninput = () => {
+      updateValuePosition();
+      applyNetworkSettings();
+    };
+    
+    updateValuePosition();
+  });
+  
+  // Extract TH edge adjustment as reusable function
+  window.adjustTHEdges = function() {
+    const allEdges = edges.get();
+    const edgeOpacityUpdates = [];
+    let nearCount = 0, medCount = 0, farCount = 0;
+    
+    allEdges.forEach(edge => {
+      if (edge.isTownHallEdge && edge.relationship !== 'follows') {
+        try {
+          const fromPos = window.network.getPositions([edge.from])[edge.from];
+          const toPos = window.network.getPositions([edge.to])[edge.to];
+        
+          if (fromPos && toPos && fromPos.x !== undefined && toPos.x !== undefined) {
+            const dx = fromPos.x - toPos.x;
+            const dy = fromPos.y - toPos.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            let baseOpacity = 0.05;
+            let baseWidth = 0.5;
+            if (distance < 450) {
+              baseOpacity = 0.8;
+              baseWidth = 2.5;
+              nearCount++;
+            } else if (distance < 700) {
+              baseOpacity = 0.8 - (distance - 450) / 250 * 0.6;
+              baseWidth = 1;
+              medCount++;
+            } else if (distance < 1000) {
+              baseOpacity = 0.2 - (distance - 700) / 300 * 0.15;
+              farCount++;
+            } else {
+              farCount++;
+            }
+            
+            // Apply fading and thickness from Network settings
+            const fadeFactor = networkConfig.edgeFading;
+            const opacity = baseOpacity * (1 - fadeFactor * 0.5);
+            const thicknessFactor = networkConfig.edgeThickness;
+            const width = baseWidth * (1 + thicknessFactor * 0.5);
+            
+            edgeOpacityUpdates.push({
+              id: edge.id,
+              color: { color: '#999999', opacity: opacity },
+              width: width
+            });
+          }
+        } catch (err) {
+          // Skip if position unavailable
+        }
+      }
+    });
+    
+    if (edgeOpacityUpdates.length > 0) {
+      edges.update(edgeOpacityUpdates);
+      console.log(`👁️ Adjusted ${edgeOpacityUpdates.length} TH→person edges: ${nearCount} near, ${medCount} medium, ${farCount} far (fade=${networkConfig.edgeFading}, thickness=${networkConfig.edgeThickness})`);
+    }
+  };
+  
+  function applyNetworkSettings() {
+    networkConfig.scalingIntensity = parseFloat(document.getElementById('scalingIntensity').value);
+    networkConfig.nodeSize = parseFloat(document.getElementById('nodeSize').value);
+    networkConfig.edgeFading = parseFloat(document.getElementById('edgeFading').value);
+    networkConfig.edgeThickness = parseFloat(document.getElementById('edgeThickness').value);
+    
+    // Save to localStorage
+    localStorage.setItem('scalingIntensity', networkConfig.scalingIntensity);
+    localStorage.setItem('nodeSize', networkConfig.nodeSize);
+    localStorage.setItem('edgeFading', networkConfig.edgeFading);
+    localStorage.setItem('edgeThickness', networkConfig.edgeThickness);
+    
+    // Reapply node scaling with new intensity
+    const connectionCount = {};
+    edges.get().forEach(edge => {
+      const weight = edge.isTownHallEdge ? 0.1 : 1;
+      connectionCount[edge.from] = (connectionCount[edge.from] || 0) + weight;
+      connectionCount[edge.to] = (connectionCount[edge.to] || 0) + weight;
+    });
+    
+    const updates = nodes.get().map(node => {
+      const connections = connectionCount[node.id] || 1;
+      const type = parseTypeFromId(node.id);
+      
+      if (type === 'event') {
+        // Events scale minimally, but still respect nodeSize multiplier
+        return {
+          ...node,
+          value: Math.min(connections * 0.3, 10) * networkConfig.nodeSize
+        };
+      }
+      
+      const constantScale = 10;
+      const logScale = Math.log(connections + 1);
+      const blendedScale = constantScale + (logScale - constantScale) * networkConfig.scalingIntensity;
+      
+      // Apply overall node size multiplier
+      const finalValue = blendedScale * networkConfig.nodeSize;
+      
+      return {
+        ...node,
+        value: finalValue
+      };
+    });
+    nodes.update(updates);
+    
+    // Update vis.js scaling range based on nodeSize multiplier
+    // This ensures visual size changes are proportional to slider
+    if (window.network) {
+      const baseMin = 12;
+      const baseMax = 60;
+      window.network.setOptions({
+        nodes: {
+          scaling: {
+            min: baseMin * networkConfig.nodeSize,
+            max: baseMax * networkConfig.nodeSize
+          }
+        }
+      });
+      // Trigger redraw after options change
+      window.network.redraw();
+    }
+    
+    // Re-adjust TH edges with new fading/thickness settings
+    if (typeof window.adjustTHEdges === 'function') {
+      window.adjustTHEdges();
+    }
+    
+    console.log(`🌐 Applied network settings: scaling=${networkConfig.scalingIntensity}, size=${networkConfig.nodeSize}, fading=${networkConfig.edgeFading}, thickness=${networkConfig.edgeThickness}`);
+  }
+  
+  document.getElementById('applyNetwork').onclick = () => {
+    document.getElementById('networkModal').style.display = 'none';
+  };
+  
+  document.getElementById('resetNetwork').onclick = () => {
+    networkConfig = { scalingIntensity: 1.0, nodeSize: 1.0, edgeFading: 1.0, edgeThickness: 1.0 };
+    document.getElementById('scalingIntensity').value = 1.0;
+    document.getElementById('nodeSize').value = 1.0;
+    document.getElementById('edgeFading').value = 1.0;
+    document.getElementById('edgeThickness').value = 1.0;
+    document.getElementById('scalingIntensityVal').textContent = '1.0';
+    document.getElementById('nodeSizeVal').textContent = '1.0';
+    document.getElementById('edgeFadingVal').textContent = '1.0';
+    document.getElementById('edgeThicknessVal').textContent = '1.0';
+    applyNetworkSettings();
+  };
+  
+  // Refresh button reloads data
+  document.getElementById('refreshBtn').onclick = async () => {
+    loadDataFromSheets();
+  };
+  
+  // Make physics modal draggable
+  (function(){
+    const panel = document.getElementById('physicsPanel');
+    let drag = false; let sx=0, sy=0, ox=0, oy=0;
+    const handle = document.getElementById('physicsHandle');
+    handle.addEventListener('mousedown', (e)=>{ 
+      drag=true; 
+      sx=e.clientX; 
+      sy=e.clientY; 
+      const r=panel.getBoundingClientRect(); 
+      ox=r.left; 
+      oy=r.top; 
+      panel.style.position='fixed'; 
+      e.preventDefault(); 
+    });
+    window.addEventListener('mousemove', (e)=>{ 
+      if(!drag) return; 
+      const dx=e.clientX-sx; 
+      const dy=e.clientY-sy; 
+      panel.style.left=(ox+dx)+"px"; 
+      panel.style.top=(oy+dy)+"px"; 
+    });
+    window.addEventListener('mouseup', ()=>{ drag=false; });
+  })();
+  
+  // Make network modal draggable
+  (function(){
+    const panel = document.getElementById('networkPanel');
+    let drag = false; let sx=0, sy=0, ox=0, oy=0;
+    const handle = document.getElementById('networkHandle');
+    handle.addEventListener('mousedown', (e)=>{ 
+      drag=true; 
+      sx=e.clientX; 
+      sy=e.clientY; 
+      const r=panel.getBoundingClientRect(); 
+      ox=r.left; 
+      oy=r.top; 
+      panel.style.position='fixed'; 
+      e.preventDefault(); 
+    });
+    window.addEventListener('mousemove', (e)=>{ 
+      if(!drag) return; 
+      const dx=e.clientX-sx; 
+      const dy=e.clientY-sy; 
+      panel.style.left=(ox+dx)+"px"; 
+      panel.style.top=(oy+dy)+"px"; 
+    });
+    window.addEventListener('mouseup', ()=>{ drag=false; });
+  })();
 </script>
 <script src="./graph.js"></script>
 </body>

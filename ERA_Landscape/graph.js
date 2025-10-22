@@ -2,7 +2,25 @@
   const data = { nodes, edges };
   const options = {
     autoResize: true,
-    physics: { stabilization: { enabled: true, iterations: 1000 } },
+    physics: {
+      barnesHut: {
+        gravitationalConstant: -2000,
+        centralGravity: 0.15,  // Balanced to prevent orphan drift
+        springLength: 120,     // Increased from default 95 - more spacing
+        springConstant: 0.02,  // Reduced from default 0.04 - weaker attraction
+        damping: 0.35,         // High damping for faster settling
+        avoidOverlap: 0.2      // Prevent node overlap
+      },
+      maxVelocity: 50,
+      minVelocity: 2.5,        // Higher threshold = faster stopping
+      solver: 'barnesHut',
+      timestep: 0.35,          // Smoother settling
+      adaptiveTimestep: true,
+      stabilization: { 
+        enabled: true, 
+        iterations: 1000 
+      }
+    },
     nodes: {
       borderWidth: 1,
       // size is controlled by scaling when 'value' is provided per node
@@ -293,8 +311,8 @@
     currentEdgeId = null;
   };
   
-  // Open modal on click: node or edge
-  network.on('click', params => {
+  // Open modal on double-click: node or edge
+  network.on('doubleClick', params => {
     // Only open edge modal if edge clicked WITHOUT node click
     // (prevents edge modal from opening when clicking near node)
     if (params.edges && params.edges.length > 0 && (!params.nodes || params.nodes.length === 0)) {
@@ -495,17 +513,13 @@
   });
   network.once('stabilizationIterationsDone', function() {
     loading.style.display = 'none';
-    // Turn off further stabilization for snappier interaction
-    network.setOptions({ physics: { stabilization: false } });
-  });
-  network.on('doubleClick', function(params) {
-    if (params.nodes && params.nodes.length > 0) {
-      const id = params.nodes[0];
-      const n = nodes.get(id);
-      if (n && n.url) {
-        window.open(n.url, '_blank');
-      }
-    }
+    // Turn off stabilization - rely on high damping/minVelocity to stop movement
+    network.setOptions({ 
+      physics: { 
+        stabilization: false
+      } 
+    });
+    console.log('✅ Initial stabilization done - nodes now draggable, high damping will naturally stop movement');
   });
   // Make the curation modal draggable by the header
   (function(){
@@ -965,14 +979,30 @@
       // If both empty, clear all filters
       if(!fromQuery && !toQuery){
         const allNodes = nodes.get();
+        const updates = [];
         allNodes.forEach(n => {
-          const updates = {id: n.id, physics: true, fixed: false};
-          if(n.originalColor){
-            updates.color = n.originalColor;
-            updates.opacity = 1;
+          // Preserve Town Hall fixed positioning
+          const isTownHall = n.id.startsWith('event::Town Hall');
+          const update = {id: n.id};
+          
+          if(isTownHall){
+            // Town Halls stay fixed at periphery
+            update.physics = false;
+            update.fixed = {x: true, y: true};
+          } else {
+            // Regular nodes restore physics
+            update.physics = true;
+            update.fixed = false;
           }
-          nodes.update(updates);
+          
+          if(n.originalColor){
+            update.color = n.originalColor;
+            update.opacity = 1;
+          }
+          updates.push(update);
         });
+        // Batch update for performance
+        nodes.update(updates);
         return;
       }
       

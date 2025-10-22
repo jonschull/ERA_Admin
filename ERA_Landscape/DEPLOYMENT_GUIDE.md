@@ -2,8 +2,9 @@
 
 **Quick Links:**
 
-- **Live Site**: https://jonschull.github.io/ERA_Landscape_Static/
-- **Repository**: https://github.com/jonschull/ERA_Landscape_Static
+- **Live Site**: https://jonschull.github.io/ERA_Admin/ERA_Landscape/
+- **Repository**: https://github.com/jonschull/ERA_Admin (ERA_Landscape/ component)
+- **Historical repo**: https://github.com/jonschull/ERA_Landscape_Static (archived)
 - **Google Sheet**: https://docs.google.com/spreadsheets/d/1cR5X2xFSGffivfsMjyHDDeDJQv6R0kQpVUJsEJ2_1yY/edit
 
 ---
@@ -252,10 +253,10 @@ To add Google Analytics:
 
 **Bookmarks:**
 
-- Live Site: https://jonschull.github.io/ERA_Landscape_Static/
-- Repository: https://github.com/jonschull/ERA_Landscape_Static
+- Live Site: https://jonschull.github.io/ERA_Admin/ERA_Landscape/
+- Repository: https://github.com/jonschull/ERA_Admin
 - Google Sheet: https://docs.google.com/spreadsheets/d/1cR5X2xFSGffivfsMjyHDDeDJQv6R0kQpVUJsEJ2_1yY/edit
-- GitHub Pages Settings: https://github.com/jonschull/ERA_Landscape_Static/settings/pages
+- GitHub Pages Settings: https://github.com/jonschull/ERA_Admin/settings/pages
 
 ---
 

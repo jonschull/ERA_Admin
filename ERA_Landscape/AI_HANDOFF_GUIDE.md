@@ -85,7 +85,8 @@ User can save edits back to Sheet
 
 ### Relationship to ERA_ClimateWeek
 
-**Parent Project**: [ERA_ClimateWeek](https://github.com/jonschull/ERA_ClimateWeek)
+**Parent Project**: [ERA_Admin](https://github.com/jonschull/ERA_Admin)  
+**Related**: [ERA_ClimateWeek](https://github.com/jonschull/ERA_ClimateWeek)
 - Python data processing pipeline
 - Imports from CSV, transforms data
 - Writes to Google Sheets

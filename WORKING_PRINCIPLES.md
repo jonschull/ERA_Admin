@@ -102,7 +102,7 @@ The content below in Section 4 contains all the principles. They are organized i
 - `airtable/` - Manual membership tracking
 - `FathomInventory/` - Automated meeting analysis
 - `integration_scripts/` - Cross-component workflows
-- `ERA_Landscape_Static/` - Network visualization
+- `ERA_Landscape/` - Network visualization (Town Halls, interactive graph)
 
 **Principle:** You should NOT need to understand all component internals to work at integration level.
 

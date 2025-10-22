@@ -64,7 +64,7 @@ Create a **movement-wide utility** for collaborative network mapping where:
 
 **Completed:** October 15, 2025
 
-**URL:** https://jonschull.github.io/ERA_Landscape_Static/
+**Live**: https://jonschull.github.io/ERA_Admin/ERA_Landscape/
 
 ---
 
