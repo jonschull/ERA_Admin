@@ -1,3 +1,5 @@
+# ERA_Landscape/START_HERE_NEW_AI.md
+
 # START HERE - New AI Session
 
 **Welcome!** You're picking up ERA_Landscape_Static development.
