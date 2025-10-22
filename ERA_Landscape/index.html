@@ -669,8 +669,8 @@
         
         let finalValue;
         if (type === 'event') {
-          // Events scale minimally, with nodeSize multiplier
-          finalValue = Math.min(connections * 0.3, 10) * (typeof networkConfig !== 'undefined' ? networkConfig.nodeSize : 1.0);
+          // Events scale minimally, with nodeSize multiplier (capped at 4 to keep small)
+          finalValue = Math.min(connections * 0.3, 4) * (typeof networkConfig !== 'undefined' ? networkConfig.nodeSize : 1.0);
         } else {
           // Regular nodes: apply scaling intensity formula
           const constantScale = 10;
@@ -1177,10 +1177,10 @@
       const type = parseTypeFromId(node.id);
       
       if (type === 'event') {
-        // Events scale minimally, but still respect nodeSize multiplier
+        // Events scale minimally, but still respect nodeSize multiplier (capped at 4 to keep small)
         return {
           ...node,
-          value: Math.min(connections * 0.3, 10) * networkConfig.nodeSize
+          value: Math.min(connections * 0.3, 4) * networkConfig.nodeSize
         };
       }
       
