@@ -1151,9 +1151,10 @@
       const type = parseTypeFromId(node.id);
       
       if (type === 'event') {
+        // Events scale minimally, but still respect nodeSize multiplier
         return {
           ...node,
-          value: Math.min(connections * 0.3, 10)
+          value: Math.min(connections * 0.3, 10) * networkConfig.nodeSize
         };
       }
       
