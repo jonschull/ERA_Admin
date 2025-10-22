@@ -21,7 +21,9 @@ from datetime import datetime
 
 # Paths
 SCRIPT_DIR = Path(__file__).parent
-OUTPUT_FILE = SCRIPT_DIR / f"phase4b2_TEST_APPROVALS_{datetime.now().strftime('%Y%m%d_%H%M')}.html"
+# Fix timestamp at script start to avoid minute-boundary issues
+TIMESTAMP = datetime.now().strftime('%Y%m%d_%H%M')
+OUTPUT_FILE = SCRIPT_DIR / f"phase4b2_TEST_APPROVALS_{TIMESTAMP}.html"
 
 # Load participant data
 with open('/tmp/phase4b2_test_data.json', 'r') as f:
@@ -861,7 +863,8 @@ html += '''
 with open(OUTPUT_FILE, 'w') as f:
     f.write(html)
 
-print(f"✅ Generated: {OUTPUT_FILE}")
+print(f"\n✅ Generated: {OUTPUT_FILE}")
+print(f"📁 Filename: phase4b2_TEST_APPROVALS_{TIMESTAMP}.html")
 print()
 print("📖 Next steps:")
 print("  1. Open HTML file in browser")
