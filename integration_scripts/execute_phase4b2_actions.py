@@ -93,8 +93,13 @@ def parse_merge_target(comment):
     return target_mapping.get(target, target)
 
 
-def execute_merge(conn, fathom_name, target_name):
+def execute_merge(conn, fathom_name, target_name, era_africa=False):
     """Merge Fathom participant with Airtable person."""
+    
+    # If ERA Africa flag is set, mark in database
+    if era_africa:
+        cursor = conn.cursor()
+        cursor.execute("UPDATE participants SET era_africa = 1 WHERE name = ?", (fathom_name,))
     
     # Find target in Airtable - check for typos first
     if target_name not in airtable_people:
@@ -273,9 +278,11 @@ def process_csv_decisions(csv_path):
         if not process_this:
             continue
         
-        # Parse action from comment
-        if 'drop' in comment.lower():
-            drops.append((fathom_name, comment))
+        if comment.startswith('merge with:'):
+            target = comment[len('merge with:'):].strip()
+            # Check for ERA Africa in comment
+            era_africa = 'era africa' in comment.lower()
+            merges.append((fathom_name, target, era_africa))
         elif 'merge' in comment.lower():
             target = parse_merge_target(comment)
             if target:
@@ -384,20 +391,6 @@ def main():
         if all_merges:
             print("\n" + "=" * 80)
             print("🔀 EXECUTING MERGES")
-            print("=" * 80)
-            merged_count = 0
-            skipped_targets = []  # Track targets not in Airtable
-            for item in all_merges:
-                if len(item) == 2:
-                    fathom_name, target = item
-                else:
-                    fathom_name, target, _ = item
-                result = execute_merge(conn, fathom_name, target)
-                if result == True:
-                    merged_count += 1
-                elif result == 'skipped_target':
-                    skipped_targets.append(target)
-            print(f"\n✅ Merged: {merged_count}/{len(all_merges)}")
         
         # Execute drops
         if all_drops:
