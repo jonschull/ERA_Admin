@@ -391,6 +391,26 @@ def main():
         if all_merges:
             print("\n" + "=" * 80)
             print("🔀 EXECUTING MERGES")
+            print("=" * 80)
+            merged_count = 0
+            skipped_targets = []  # Track targets not in Airtable
+            for item in all_merges:
+                # Handle both old format (name, target) and new format (name, target, era_africa)
+                if len(item) == 3:
+                    fathom_name, target, era_africa = item
+                elif len(item) == 2:
+                    fathom_name, target = item
+                    era_africa = False
+                else:
+                    fathom_name, target, _ = item
+                    era_africa = False
+                
+                result = execute_merge(conn, fathom_name, target, era_africa)
+                if result == True:
+                    merged_count += 1
+                elif result == 'skipped_target':
+                    skipped_targets.append(target)
+            print(f"\n✅ Merged: {merged_count}/{len(all_merges)}")
         
         # Execute drops
         if all_drops:
