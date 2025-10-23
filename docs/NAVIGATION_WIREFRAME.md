@@ -47,6 +47,109 @@ def test_readmes_reference_parent():
 
 ---
 
+## FILE: .github/PR_CHECKLIST.md
+
+**Path:** `.github/PR_CHECKLIST.md`
+
+# PR Checklist
+
+Quick reference for creating pull requests in ERA_Admin.
+
+## Before You Start
+
+```bash
+# Create feature branch from main
+git checkout main
+git pull
+git checkout -b feature/brief-description
+```
+
+## During Development
+
+- Edit files normally
+- Commit to your feature branch
+- **If you edit NAVIGATION_WIREFRAME.md:** Run `./docs/update_docs.sh` to regenerate
+
+## Before Push
+
+The pre-push hook automatically checks:
+- ✓ Not on main branch
+- ✓ Docs in sync (if wireframe edited, production docs regenerated)
+- ✓ Navigation integrity passes
+
+## Create PR
+
+```bash
+git push origin feature/your-branch
+gh pr create
+```
+
+GitHub will show a checklist in the PR description.
+
+## After Merge
+
+```bash
+git checkout main
+git pull
+git branch -d feature/your-branch  # cleanup
+```
+
+## When Blocked
+
+**"Can't commit to main"**
+→ You're on main. Create feature branch: `git checkout -b feature/name`
+
+**"Docs out of sync"**
+→ Run `./docs/update_docs.sh` to regenerate from wireframe
+
+**"Navigation test failed"**
+→ Run `python3 docs/test_navigation.py` for details
+
+**"Pre-push hook not installed"**
+→ See WORKING_PRINCIPLES.md "Enforcement: Branch Protection"
+
+---
+
+📖 **Full details:** [WORKING_PRINCIPLES.md](../WORKING_PRINCIPLES.md)  
+🏗️ **Architecture:** [README.md](../README.md)  
+🔄 **Current state:** [CONTEXT_RECOVERY.md](../CONTEXT_RECOVERY.md)
+
+---
+
+## FILE: .github/pull_request_template.md
+
+**Path:** `.github/pull_request_template.md`
+
+## Description
+
+<!-- Brief description of what this PR does -->
+
+## Pre-Push Verification
+
+<!-- These are checked by pre-push hook - should already pass -->
+
+- [ ] On feature branch (not main)
+- [ ] Documentation synced (if NAVIGATION_WIREFRAME edited, ran `./docs/update_docs.sh`)
+- [ ] Navigation integrity passes (`python3 docs/test_navigation.py`)
+
+## Type of Change
+
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Documentation update
+- [ ] Refactoring
+- [ ] Other (please describe):
+
+## Testing
+
+<!-- How was this tested? -->
+
+---
+
+📖 **First time contributing?** See [PR Checklist](.github/PR_CHECKLIST.md)
+
+---
+
 ## FILE: README.md
 
 **Path:** `README.md`
