@@ -47,6 +47,109 @@ def test_readmes_reference_parent():
 
 ---
 
+## FILE: .github/PR_CHECKLIST.md
+
+**Path:** `.github/PR_CHECKLIST.md`
+
+# PR Checklist
+
+Quick reference for creating pull requests in ERA_Admin.
+
+## Before You Start
+
+```bash
+# Create feature branch from main
+git checkout main
+git pull
+git checkout -b feature/brief-description
+```
+
+## During Development
+
+- Edit files normally
+- Commit to your feature branch
+- **If you edit NAVIGATION_WIREFRAME.md:** Run `./docs/update_docs.sh` to regenerate
+
+## Before Push
+
+The pre-push hook automatically checks:
+- ✓ Not on main branch
+- ✓ Docs in sync (if wireframe edited, production docs regenerated)
+- ✓ Navigation integrity passes
+
+## Create PR
+
+```bash
+git push origin feature/your-branch
+gh pr create
+```
+
+GitHub will show a checklist in the PR description.
+
+## After Merge
+
+```bash
+git checkout main
+git pull
+git branch -d feature/your-branch  # cleanup
+```
+
+## When Blocked
+
+**"Can't commit to main"**
+→ You're on main. Create feature branch: `git checkout -b feature/name`
+
+**"Docs out of sync"**
+→ Run `./docs/update_docs.sh` to regenerate from wireframe
+
+**"Navigation test failed"**
+→ Run `python3 docs/test_navigation.py` for details
+
+**"Pre-push hook not installed"**
+→ See WORKING_PRINCIPLES.md "Enforcement: Branch Protection"
+
+---
+
+📖 **Full details:** [WORKING_PRINCIPLES.md](../WORKING_PRINCIPLES.md)  
+🏗️ **Architecture:** [README.md](../README.md)  
+🔄 **Current state:** [CONTEXT_RECOVERY.md](../CONTEXT_RECOVERY.md)
+
+---
+
+## FILE: .github/pull_request_template.md
+
+**Path:** `.github/pull_request_template.md`
+
+## Description
+
+<!-- Brief description of what this PR does -->
+
+## Pre-Push Verification
+
+<!-- These are checked by pre-push hook - should already pass -->
+
+- [ ] On feature branch (not main)
+- [ ] Documentation synced (if NAVIGATION_WIREFRAME edited, ran `./docs/update_docs.sh`)
+- [ ] Navigation integrity passes (`python3 docs/test_navigation.py`)
+
+## Type of Change
+
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Documentation update
+- [ ] Refactoring
+- [ ] Other (please describe):
+
+## Testing
+
+<!-- How was this tested? -->
+
+---
+
+📖 **First time contributing?** See [PR Checklist](.github/PR_CHECKLIST.md)
+
+---
+
 ## FILE: README.md
 
 **Path:** `README.md`
@@ -386,12 +489,18 @@ python3 -m venv /Users/admin/ERA_Admin_venv
 
 **Recent Completions:**
 
-*Oct 18, 2025:*
-- ✅ Configuration Centralization (See CONFIGURATION_CENTRALIZATION_PLAN.md)
-  - Migration to `/Users/admin/ERA_Admin/`
-  - Centralized config in `era_config.py`
-  - Bug fix: run_all.sh Step 3 exit issue
-  - Automation schedule changed to 3 AM
+*Oct 22, 2025:*
+- ✅ Phase 4B-2 Rounds 9-13 complete (5 rounds, ~250 people processed)
+- ✅ Town Hall agenda integration system (PR #18)
+- ✅ ERA Africa field implementation (PR #18)
+- ✅ Auto-add/auto-correct system for merge targets
+- ✅ Branch protection enforcement (local + remote, PR #19)
+- Database: 535 total, 340 enriched (87%), 195 remaining
+
+*Oct 20, 2025:*
+- ✅ Participant deduplication system (PR #17)
+- Batch processing to identify and merge duplicate participants
+- 71 duplicates found and merged in Fathom database
 
 *Oct 19, 2025:*
 - ✅ Phase 4B-1: Automated Fuzzy Matching
@@ -399,12 +508,12 @@ python3 -m venv /Users/admin/ERA_Admin_venv
   - 188 AI-misspelled names corrected
   - 351 members identified, 64 donors
 
-*Oct 20, 2025:*
-- ✅ Phase 4B-2: Collaborative Human-AI Review (8 rounds)
-  - 409 participants validated
-  - 58 new people added to Airtable (+10% growth)
-  - Production-ready workflow established
-  - See: `integration_scripts/PHASE4B2_PROGRESS_REPORT.md`
+*Oct 18, 2025:*
+- ✅ Configuration Centralization (See CONFIGURATION_CENTRALIZATION_PLAN.md)
+  - Migration to `/Users/admin/ERA_Admin/`
+  - Centralized config in `era_config.py`
+  - Bug fix: run_all.sh Step 3 exit issue
+  - Automation schedule changed to 3 AM
 
 **Available Next Steps:**
 - 🎯 Phase 4B-2 Completion - Process remaining 255 participants (~5 more rounds)
@@ -1456,11 +1565,38 @@ The content below in Section 4 contains all the principles. They are organized i
 - Check before commit: `git status`, look for sensitive files
 - Use `.gitignore` patterns for generated files
 
-**Enforcement: Branch Protection**
+**Enforcement: Branch Protection (Two Layers)**
 
-Documentation alone is insufficient. Use GitHub branch protection to technically enforce PR protocol:
+Documentation alone is insufficient. Enforce PR protocol at both local and remote:
 
-*Setup (one-time):*
+*Layer 1: Local Pre-Commit Hook (blocks commits before they happen)*
+
+After cloning, install the pre-commit hook:
+```bash
+cat > .git/hooks/pre-commit << 'EOF'
+#!/bin/bash
+branch=$(git symbolic-ref HEAD 2>/dev/null | sed 's!refs/heads/!!')
+if [ "$branch" = "main" ]; then
+    cat << 'MSG'
+❌ ERROR: Direct commits to 'main' branch are not allowed
+
+✅ Proper workflow:
+   1. Create feature branch: git checkout -b feature/description
+   2. Make commits on that branch
+   3. Create PR: gh pr create
+   4. After merge: git checkout main && git pull
+
+See WORKING_PRINCIPLES.md Section 4 (Git & PR Practices)
+MSG
+    exit 1
+fi
+EOF
+chmod +x .git/hooks/pre-commit
+```
+
+*Layer 2: GitHub Branch Protection (blocks pushes)*
+
+Setup (one-time):
 ```bash
 # Via GitHub CLI:
 gh api repos/OWNER/REPO/branches/main/protection -X PUT --input - << 'EOF'
@@ -1482,7 +1618,7 @@ EOF
 4. Check: "Include administrators" (enforces for everyone)
 5. Set required approvals to 0 (for solo work)
 
-*Result:* Direct commits to main become technically impossible.
+*Result:* Direct commits to main blocked locally; pushes blocked remotely.
 
 **Living Documents**
 
