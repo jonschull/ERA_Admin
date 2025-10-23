@@ -709,10 +709,9 @@ for p in sorted(participants, key=lambda x: (x['category'], -x['record_count']))
                 <td>{video_links}</td>
                 <td>{p['record_count']}</td>
                 <td>{p['category'].replace('_', ' ').title()}</td>
-                <td style="text-align:center; font-size:11px">{airtable_display}</td>
+                <td style="text-align:center; font-size:11px">{p['in_airtable'] and '✅' or '❌'}</td>
                 <td>
-                    <span class="{gmail_class}">{gmail_text}</span><br>
-                    <small style="color:#888">{gmail_snippet}</small>
+                    <span class="{gmail_class}">{gmail_info}</span>
                 </td>
                 <td>
                     <textarea rows="2">{p['suggested_action']}</textarea>
