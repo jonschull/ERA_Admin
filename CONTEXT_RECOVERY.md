@@ -93,13 +93,6 @@
   - Migration to `/Users/admin/ERA_Admin/`
   - Centralized config in `era_config.py`
   - Bug fix: run_all.sh Step 3 exit issue
-  - Automation schedule changed to 3 AM
-
-*Oct 19, 2025:*
-- ✅ Phase 4B-1: Automated Fuzzy Matching
-  - 364 participants enriched
-  - 188 AI-misspelled names corrected
-  - 351 members identified, 64 donors
 
 *Oct 20, 2025:*
 - ✅ Phase 4B-2: Collaborative Human-AI Review (8 rounds)
@@ -107,6 +100,19 @@
   - 58 new people added to Airtable (+10% growth)
   - Production-ready workflow established
   - See: `integration_scripts/PHASE4B2_PROGRESS_REPORT.md`
+
+*Oct 19, 2025:*
+- ✅ Phase 4B-1: Automated Fuzzy Matching
+  - 364 participants enriched
+  - 188 AI-misspelled names corrected
+  - 351 members identified, 64 donors
+
+*Oct 18, 2025:*
+- ✅ Configuration Centralization (See CONFIGURATION_CENTRALIZATION_PLAN.md)
+  - Migration to `/Users/admin/ERA_Admin/`
+  - Centralized config in `era_config.py`
+  - Bug fix: run_all.sh Step 3 exit issue
+  - Automation schedule changed to 3 AM
 
 **Available Next Steps:**
 - 🎯 Phase 4B-2 Completion - Process remaining 255 participants (~5 more rounds)
