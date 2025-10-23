@@ -739,6 +739,7 @@ for p in sorted(participants, key=lambda x: (x['category'], -x['record_count']))
                 <td style="text-align:center; font-size:11px">{p['in_airtable'] and '✅' or '❌'}</td>
                 <td>
                     <span class="{gmail_class}">{gmail_info}</span>
+                    {"<br>🏛️ " + ", ".join([th['date'] for th in p.get('town_hall', [])[:3]]) if p.get('town_hall') else ""}
                 </td>
                 <td>
                     <textarea rows="2">{p['suggested_action']}</textarea>
