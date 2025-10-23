@@ -18,6 +18,7 @@ import json
 import subprocess
 from pathlib import Path
 from datetime import datetime
+from town_hall_search import TownHallSearch
 
 # Paths
 SCRIPT_DIR = Path(__file__).parent
