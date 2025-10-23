@@ -393,18 +393,12 @@ python3 -m venv /Users/admin/ERA_Admin_venv
   - Bug fix: run_all.sh Step 3 exit issue
   - Automation schedule changed to 3 AM
 
-*Oct 19, 2025:*
-- ✅ Phase 4B-1: Automated Fuzzy Matching
-  - 364 participants enriched
-  - 188 AI-misspelled names corrected
-  - 351 members identified, 64 donors
-
-*Oct 20, 2025:*
-- ✅ Phase 4B-2: Collaborative Human-AI Review (8 rounds)
-  - 409 participants validated
-  - 58 new people added to Airtable (+10% growth)
-  - Production-ready workflow established
-  - See: `integration_scripts/PHASE4B2_PROGRESS_REPORT.md`
+**Oct 20, 2025:**
+- ✅ Participant deduplication system (PR #17)
+- Batch processing to identify and merge duplicate participants
+- 71 duplicates found and merged in Fathom database (+10% growth)
+- Production-ready workflow established
+- See: `integration_scripts/PHASE4B2_PROGRESS_REPORT.md`
 
 **Available Next Steps:**
 - 🎯 Phase 4B-2 Completion - Process remaining 255 participants (~5 more rounds)
@@ -1456,11 +1450,38 @@ The content below in Section 4 contains all the principles. They are organized i
 - Check before commit: `git status`, look for sensitive files
 - Use `.gitignore` patterns for generated files
 
-**Enforcement: Branch Protection**
+**Enforcement: Branch Protection (Two Layers)**
 
-Documentation alone is insufficient. Use GitHub branch protection to technically enforce PR protocol:
+Documentation alone is insufficient. Enforce PR protocol at both local and remote:
 
-*Setup (one-time):*
+*Layer 1: Local Pre-Commit Hook (blocks commits before they happen)*
+
+After cloning, install the pre-commit hook:
+```bash
+cat > .git/hooks/pre-commit << 'EOF'
+#!/bin/bash
+branch=$(git symbolic-ref HEAD 2>/dev/null | sed 's!refs/heads/!!')
+if [ "$branch" = "main" ]; then
+    cat << 'MSG'
+❌ ERROR: Direct commits to 'main' branch are not allowed
+
+✅ Proper workflow:
+   1. Create feature branch: git checkout -b feature/description
+   2. Make commits on that branch
+   3. Create PR: gh pr create
+   4. After merge: git checkout main && git pull
+
+See WORKING_PRINCIPLES.md Section 4 (Git & PR Practices)
+MSG
+    exit 1
+fi
+EOF
+chmod +x .git/hooks/pre-commit
+```
+
+*Layer 2: GitHub Branch Protection (blocks pushes)*
+
+Setup (one-time):
 ```bash
 # Via GitHub CLI:
 gh api repos/OWNER/REPO/branches/main/protection -X PUT --input - << 'EOF'
@@ -1482,7 +1503,7 @@ EOF
 4. Check: "Include administrators" (enforces for everyone)
 5. Set required approvals to 0 (for solo work)
 
-*Result:* Direct commits to main become technically impossible.
+*Result:* Direct commits to main blocked locally; pushes blocked remotely.
 
 **Living Documents**
 
