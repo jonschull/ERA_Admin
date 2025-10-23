@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 4B-2: Test Batch Approval (25 People)</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 15px;
+            background: #f5f5f5;
+            font-size: 13px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .instructions {
+            background: #e8f4f8;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin-bottom: 20px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-box {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .controls {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        
+        button:hover {
+            background: #2980b9;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background: #34495e;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            position: sticky;
+            top: 0;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        th:hover {
+            background: #2c3e50;
+        }
+        
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 40px;
+        }
+        
+        .video-link {
+            color: #3498db;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+        
+        .video-link:hover {
+            text-decoration: underline;
+        }
+        
+        .category-org { background-color: #fee; }
+        .category-phone { background-color: #fdd; }
+        .category-duplicate { background-color: #ffe; }
+        .category-single_name { background-color: #eff; }
+        .category-full_name { background-color: #efe; }
+        
+        .gmail-found { color: #27ae60; font-weight: bold; }
+        .gmail-not-found { color: #95a5a6; }
+        
+        .suggestion {
+            font-size: 12px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📋 Phase 4B-2: Test Batch Approval (25 People)</h1>
+        <p><strong>Generated:</strong> 2025-10-22 18:58:19</p>
+        <p><strong>Purpose:</strong> Review unenriched Fathom participants by cross-checking against Gmail research insights and airtable data.</p>
+    </div>
+    
+    <div class="instructions">
+        <h3>📖 Instructions</h3>
+        <ol>
+            <li><strong>Review each person:</strong> Check videos (🎥), Gmail results (📧), and category</li>
+            <li><strong>Use suggestions:</strong> Pre-filled comments based on auto-categorization</li>
+            <li><strong>Update comments:</strong> Edit to add your decisions:
+                <ul>
+                    <li><code>drop</code> - Delete from Fathom (organization/junk)</li>
+                    <li><code>merge with: Name</code> - Consolidate with existing person</li>
+                    <li><code>add to airtable</code> - Real person, create Airtable entry</li>
+                    <li><code>ignore</code> - Not ERA-related</li>
+                </ul>
+            </li>
+            <li><strong>Check/uncheck boxes:</strong> ✓ = process this action, ✗ = skip for now</li>
+            <li><strong>Export when done:</strong> Click "📥 Export to CSV" button</li>
+        </ol>
+    </div>
+    
+    <div class="stats">
+        <div class="stat-box">
+            <div class="stat-value">50</div>
+            <div class="stat-label">Total People</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Found in Gmail</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-value">1</div>
+            <div class="stat-label">Likely Delete</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-value">12</div>
+            <div class="stat-label">Likely Merge</div>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <button onclick="exportToCSV()">📥 Export to CSV</button>
+        <button onclick="checkAll()">✓ Check All</button>
+        <button onclick="uncheckAll()">✗ Uncheck All</button>
+        <button onclick="filterCategory('all')">Show All</button>
+        <button onclick="filterCategory('organization')">Organizations</button>
+        <button onclick="filterCategory('duplicate')">Duplicates</button>
+        <button onclick="filterCategory('full_name')">Full Names</button>
+    </div>
+    
+    <table id="approvalTable">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">Fathom Name</th>
+                <th onclick="sortTable(1)">Videos</th>
+                <th onclick="sortTable(2)">Records</th>
+                <th onclick="sortTable(3)">Category</th>
+                <th onclick="sortTable(4)">In Airtable</th>
+                <th onclick="sortTable(5)">Gmail</th>
+                <th onclick="sortTable(6)">Comments</th>
+                <th onclick="sortTable(7)">Process This</th>
+                <th onclick="sortTable(8)">Probe</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr class="category-duplicate" data-category="duplicate">
+                <td><strong>Grant Holton, MoreTreesNow.eco</strong><br><span style='background:#4CAF50;color:white;padding:2px 6px;border-radius:3px;font-size:10px;'>🔁 Name variant resolved in earlier round</span></td>
+                <td><a href="https://fathom.video/calls/72259603" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Duplicate</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Grant%20Holton%2C%20MoreTreesNow%20eco' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Grant Holton, MoreTreesNow eco</small>
+                </td>
+                <td>
+                    <textarea rows="2">merge with: Grant Holton</textarea>
+                    <div class="suggestion">Suggestion: merge with: Grant Holton</div>
+                </td>
+                <td><input type="checkbox" checked></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-duplicate" data-category="duplicate">
+                <td><strong>Grupo Ecológico Sierra Gorda I.A.P. (3)</strong></td>
+                <td><a href="https://fathom.video/calls/99648620" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Duplicate</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Grupo%20Ecol%C3%B3gico%20Sierra%20Gorda%20I%20A%20P%20%20%283%29' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Grupo Ecológico Sierra Gorda I A P  (3)</small>
+                </td>
+                <td>
+                    <textarea rows="2">merge with: Grupo Ecológico Sierra Gorda I.A.P.</textarea>
+                    <div class="suggestion">Suggestion: merge with: Grupo Ecológico Sierra Gorda I.A.P.</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-duplicate" data-category="duplicate">
+                <td><strong>Gwyn (3)</strong></td>
+                <td><a href="https://fathom.video/calls/19658807" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Duplicate</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Gwyn%20%283%29' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Gwyn (3)</small>
+                </td>
+                <td>
+                    <textarea rows="2">research - incomplete name (single word)</textarea>
+                    <div class="suggestion">Suggestion: research - incomplete name (single word)</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-duplicate" data-category="duplicate">
+                <td><strong>Gwyn (5)</strong></td>
+                <td><a href="https://fathom.video/calls/19658807" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Duplicate</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Gwyn%20%285%29' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Gwyn (5)</small>
+                </td>
+                <td>
+                    <textarea rows="2">research - incomplete name (single word)</textarea>
+                    <div class="suggestion">Suggestion: research - incomplete name (single word)</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-duplicate" data-category="duplicate">
+                <td><strong>Gwynant's iPhone (3)</strong></td>
+                <td><a href="https://fathom.video/calls/19658807" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Duplicate</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Gwynant%27s%20iPhone%20%283%29' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Gwynant's iPhone (3)</small>
+                </td>
+                <td>
+                    <textarea rows="2">merge with: Gwynant's iPhone</textarea>
+                    <div class="suggestion">Suggestion: merge with: Gwynant's iPhone</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-duplicate" data-category="duplicate">
+                <td><strong>Hannah Apricot (3)</strong></td>
+                <td><a href="https://fathom.video/calls/184059712" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Duplicate</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Hannah%20Apricot%20%283%29' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Hannah Apricot (3)</small>
+                </td>
+                <td>
+                    <textarea rows="2">merge with: Hannah Apricot</textarea>
+                    <div class="suggestion">Suggestion: merge with: Hannah Apricot</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-duplicate" data-category="duplicate">
+                <td><strong>Ilarion (3)</strong></td>
+                <td><a href="https://fathom.video/calls/210832274" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Duplicate</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Ilarion%20%283%29' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Ilarion (3)</small>
+                </td>
+                <td>
+                    <textarea rows="2">research - incomplete name (single word)</textarea>
+                    <div class="suggestion">Suggestion: research - incomplete name (single word)</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-duplicate" data-category="duplicate">
+                <td><strong>Ir Marius (3)</strong></td>
+                <td><a href="https://fathom.video/calls/201817513" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Duplicate</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Ir%20Marius%20%283%29' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Ir Marius (3)</small>
+                </td>
+                <td>
+                    <textarea rows="2">merge with: Ir Marius</textarea>
+                    <div class="suggestion">Suggestion: merge with: Ir Marius</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-duplicate" data-category="duplicate">
+                <td><strong>Jan Dietrick & Ron Whitehurst, BugFarm, Ventura, CA</strong></td>
+                <td><a href="https://fathom.video/calls/58214677" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Duplicate</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Jan%20Dietrick%20%26%20Ron%20Whitehurst%2C%20BugFarm%2C%20Ventura%2C%20CA' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Jan Dietrick & Ron Whitehurst, BugFarm, Ventura, CA</small>
+                </td>
+                <td>
+                    <textarea rows="2">merge with: Jan Dietrick & Ron Whitehurst</textarea>
+                    <div class="suggestion">Suggestion: merge with: Jan Dietrick & Ron Whitehurst</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-duplicate" data-category="duplicate">
+                <td><strong>Jan Dietrick, W Ventura</strong></td>
+                <td><a href="https://fathom.video/calls/35256954" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Duplicate</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Jan%20Dietrick%2C%20W%20Ventura' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Jan Dietrick, W Ventura</small>
+                </td>
+                <td>
+                    <textarea rows="2">merge with: Jan Dietrick</textarea>
+                    <div class="suggestion">Suggestion: merge with: Jan Dietrick</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-duplicate" data-category="duplicate">
+                <td><strong>Joe James (3)</strong></td>
+                <td><a href="https://fathom.video/calls/237177484" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Duplicate</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Joe%20James%20%283%29' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Joe James (3)</small>
+                </td>
+                <td>
+                    <textarea rows="2">merge with: Joe James</textarea>
+                    <div class="suggestion">Suggestion: merge with: Joe James</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-duplicate" data-category="duplicate">
+                <td><strong>John Dennis Liu (3)</strong></td>
+                <td><a href="https://fathom.video/calls/257059280" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Duplicate</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/John%20Dennis%20Liu%20%283%29' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: John Dennis Liu (3)</small>
+                </td>
+                <td>
+                    <textarea rows="2">merge with: John Dennis Liu</textarea>
+                    <div class="suggestion">Suggestion: merge with: John Dennis Liu</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>For the Oceans</strong></td>
+                <td><a href="https://fathom.video/calls/324278211" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/For%20the%20Oceans' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: For the Oceans</small>
+                </td>
+                <td>
+                    <textarea rows="2">likely not ERA-related</textarea>
+                    <div class="suggestion">Suggestion: likely not ERA-related</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Gonzalo Raineri</strong></td>
+                <td><a href="https://fathom.video/calls/398113563" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Gonzalo%20Raineri' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Gonzalo Raineri</small>
+                </td>
+                <td>
+                    <textarea rows="2">likely not ERA-related</textarea>
+                    <div class="suggestion">Suggestion: likely not ERA-related</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Graham Boyd - Evolutesix</strong></td>
+                <td><a href="https://fathom.video/calls/289548672" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Graham%20Boyd%20%20%20Evolutesix' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Graham Boyd   Evolutesix</small>
+                </td>
+                <td>
+                    <textarea rows="2">likely not ERA-related</textarea>
+                    <div class="suggestion">Suggestion: likely not ERA-related</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Gwynant's iPhone</strong></td>
+                <td><a href="https://fathom.video/calls/19658807" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Gwynant%27s%20iPhone' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Gwynant's iPhone</small>
+                </td>
+                <td>
+                    <textarea rows="2">likely not ERA-related</textarea>
+                    <div class="suggestion">Suggestion: likely not ERA-related</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Hamaad Khan</strong></td>
+                <td><a href="https://fathom.video/calls/37233550" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Hamaad%20Khan' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Hamaad Khan</small>
+                </td>
+                <td>
+                    <textarea rows="2">likely not ERA-related</textarea>
+                    <div class="suggestion">Suggestion: likely not ERA-related</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Hannah Apricot</strong></td>
+                <td><a href="https://fathom.video/calls/184059712" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Hannah%20Apricot' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Hannah Apricot</small>
+                </td>
+                <td>
+                    <textarea rows="2">likely not ERA-related</textarea>
+                    <div class="suggestion">Suggestion: likely not ERA-related</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Harry Meltzer</strong></td>
+                <td><a href="https://fathom.video/calls/285313489" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Harry%20Meltzer' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Harry Meltzer</small>
+                </td>
+                <td>
+                    <textarea rows="2">likely not ERA-related</textarea>
+                    <div class="suggestion">Suggestion: likely not ERA-related</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Hart Hagen</strong></td>
+                <td><a href="https://fathom.video/calls/61229267" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">✅ Hart Hagan<br><small>(86%)</small></td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Hart%20Hagen' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Hart Hagen</small>
+                </td>
+                <td>
+                    <textarea rows="2">merge with: Hart Hagan</textarea>
+                    <div class="suggestion">Suggestion: merge with: Hart Hagan</div>
+                </td>
+                <td><input type="checkbox" checked></td>
+                <td><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Henry Carroll</strong></td>
+                <td><a href="https://fathom.video/calls/50542167" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Henry%20Carroll' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Henry Carroll</small>
+                </td>
+                <td>
+                    <textarea rows="2">likely not ERA-related</textarea>
+                    <div class="suggestion">Suggestion: likely not ERA-related</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Heraclio Herrera</strong></td>
+                <td><a href="https://fathom.video/calls/134439153" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Heraclio%20Herrera' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Heraclio Herrera</small>
+                </td>
+                <td>
+                    <textarea rows="2">likely not ERA-related</textarea>
+                    <div class="suggestion">Suggestion: likely not ERA-related</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Hilary Hart</strong></td>
+                <td><a href="https://fathom.video/calls/398520581" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Hilary%20Hart' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Hilary Hart</small>
+                </td>
+                <td>
+                    <textarea rows="2">likely not ERA-related</textarea>
+                    <div class="suggestion">Suggestion: likely not ERA-related</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Ian Roy</strong></td>
+                <td><a href="https://fathom.video/calls/22057776" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Ian%20Roy' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Ian Roy</small>
+                </td>
+                <td>
+                    <textarea rows="2">likely not ERA-related</textarea>
+                    <div class="suggestion">Suggestion: likely not ERA-related</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Ir Marius</strong><br><span style='background:#4CAF50;color:white;padding:2px 6px;border-radius:3px;font-size:10px;'>🔁 Name variant resolved in earlier round</span></td>
+                <td><a href="https://fathom.video/calls/253037687, https://fathom.video/calls/201817513, https://fathom.video/calls/193558243, https://fathom.video/calls/99648620, https://fathom.video/calls/76758727" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">✅ Marius Iragi<br><small>(100% via word:'Marius')</small></td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Ir%20Marius' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Ir Marius</small>
+                </td>
+                <td>
+                    <textarea rows="2">merge with: Marius Iragi</textarea>
+                    <div class="suggestion">Suggestion: merge with: Marius Iragi</div>
+                </td>
+                <td><input type="checkbox" checked></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Ir Marius Z</strong></td>
+                <td><a href="https://fathom.video/calls/408247629" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">✅ Marius Iragi<br><small>(100% via word:'Marius')</small></td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Ir%20Marius%20Z' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Ir Marius Z</small>
+                </td>
+                <td>
+                    <textarea rows="2">merge with: Marius Iragi</textarea>
+                    <div class="suggestion">Suggestion: merge with: Marius Iragi</div>
+                </td>
+                <td><input type="checkbox" checked></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Ivey Bostrom</strong></td>
+                <td><a href="https://fathom.video/calls/70421193" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Ivey%20Bostrom' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Ivey Bostrom</small>
+                </td>
+                <td>
+                    <textarea rows="2">likely not ERA-related</textarea>
+                    <div class="suggestion">Suggestion: likely not ERA-related</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Jake Fairbanks Kelley</strong><br><span style='background:#4CAF50;color:white;padding:2px 6px;border-radius:3px;font-size:10px;'>🔁 Name variant resolved in earlier round</span></td>
+                <td><a href="https://fathom.video/calls/158031766, https://fathom.video/calls/89695534, https://fathom.video/calls/76758727, https://fathom.video/calls/72259603, https://fathom.video/calls/58214677, https://fathom.video/calls/56449118, https://fathom.video/calls/45127445, https://fathom.video/calls/37381089, https://fathom.video/calls/35256954, https://fathom.video/calls/30719412, https://fathom.video/calls/23790707, https://fathom.video/calls/20977039" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">✅ Jake Kelley<br><small>(100%)</small></td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Jake%20Fairbanks%20Kelley' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Jake Fairbanks Kelley</small>
+                </td>
+                <td>
+                    <textarea rows="2">merge with: Jake Kelley</textarea>
+                    <div class="suggestion">Suggestion: merge with: Jake Kelley</div>
+                </td>
+                <td><input type="checkbox" checked></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Jan Dietrick & Ron Whitehurst</strong></td>
+                <td><a href="https://fathom.video/calls/28854293" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Jan%20Dietrick%20%26%20Ron%20Whitehurst' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Jan Dietrick & Ron Whitehurst</small>
+                </td>
+                <td>
+                    <textarea rows="2">likely not ERA-related</textarea>
+                    <div class="suggestion">Suggestion: likely not ERA-related</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Jason Tothy</strong></td>
+                <td><a href="https://fathom.video/calls/22057776" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Jason%20Tothy' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Jason Tothy</small>
+                </td>
+                <td>
+                    <textarea rows="2">likely not ERA-related</textarea>
+                    <div class="suggestion">Suggestion: likely not ERA-related</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Jean-Christophe Voyer</strong></td>
+                <td><a href="https://fathom.video/calls/391891927" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Jean%20Christophe%20Voyer' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Jean Christophe Voyer</small>
+                </td>
+                <td>
+                    <textarea rows="2">likely not ERA-related</textarea>
+                    <div class="suggestion">Suggestion: likely not ERA-related</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Jennifer Koster</strong></td>
+                <td><a href="https://fathom.video/calls/36971619" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Jennifer%20Koster' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Jennifer Koster</small>
+                </td>
+                <td>
+                    <textarea rows="2">likely not ERA-related</textarea>
+                    <div class="suggestion">Suggestion: likely not ERA-related</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Jeremiah Agnew</strong></td>
+                <td><a href="https://fathom.video/calls/165893831" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Jeremiah%20Agnew' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Jeremiah Agnew</small>
+                </td>
+                <td>
+                    <textarea rows="2">likely not ERA-related</textarea>
+                    <div class="suggestion">Suggestion: likely not ERA-related</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Jeremy - Open Forest Protocol</strong></td>
+                <td><a href="https://fathom.video/calls/289548672" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Jeremy%20%20%20Open%20Forest%20Protocol' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Jeremy   Open Forest Protocol</small>
+                </td>
+                <td>
+                    <textarea rows="2">likely not ERA-related</textarea>
+                    <div class="suggestion">Suggestion: likely not ERA-related</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Jeremy Simon</strong></td>
+                <td><a href="https://fathom.video/calls/61933149" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Jeremy%20Simon' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Jeremy Simon</small>
+                </td>
+                <td>
+                    <textarea rows="2">likely not ERA-related</textarea>
+                    <div class="suggestion">Suggestion: likely not ERA-related</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Jessica Parfrey</strong></td>
+                <td><a href="https://fathom.video/calls/19927691" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">✅ Jessica Alvaraez Parfrey<br><small>(100%)</small></td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Jessica%20Parfrey' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Jessica Parfrey</small>
+                </td>
+                <td>
+                    <textarea rows="2">merge with: Jessica Alvaraez Parfrey</textarea>
+                    <div class="suggestion">Suggestion: merge with: Jessica Alvaraez Parfrey</div>
+                </td>
+                <td><input type="checkbox" checked></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>Jme Conway</strong><br><span style='background:#4CAF50;color:white;padding:2px 6px;border-radius:3px;font-size:10px;'>🔁 Name variant resolved in earlier round</span></td>
+                <td><a href="https://fathom.video/calls/209204233, https://fathom.video/calls/200959970, https://fathom.video/calls/189386729, https://fathom.video/calls/181365987, https://fathom.video/calls/165893831" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">✅ Jamie Conway<br><small>(90%)</small></td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Jme%20Conway' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Jme Conway</small>
+                </td>
+                <td>
+                    <textarea rows="2">merge with: Jamie Conway</textarea>
+                    <div class="suggestion">Suggestion: merge with: Jamie Conway</div>
+                </td>
+                <td><input type="checkbox" checked></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-full_name" data-category="full_name">
+                <td><strong>John Dennis Liu</strong><br><span style='background:#4CAF50;color:white;padding:2px 6px;border-radius:3px;font-size:10px;'>🔁 Name variant resolved in earlier round</span></td>
+                <td><a href="https://fathom.video/calls/257059280, https://fathom.video/calls/256981859" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Full Name</td>
+                <td style="text-align:center; font-size:11px">✅ John D. Liu<br><small>(100%)</small></td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/John%20Dennis%20Liu' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: John Dennis Liu</small>
+                </td>
+                <td>
+                    <textarea rows="2">merge with: John D. Liu</textarea>
+                    <div class="suggestion">Suggestion: merge with: John D. Liu</div>
+                </td>
+                <td><input type="checkbox" checked></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-organization" data-category="organization">
+                <td><strong>Global Earth Repair</strong></td>
+                <td><a href="https://fathom.video/calls/308230203, https://fathom.video/calls/242890812, https://fathom.video/calls/233189775, https://fathom.video/calls/214375292, https://fathom.video/calls/201817513, https://fathom.video/calls/193558243, https://fathom.video/calls/324278211, https://fathom.video/calls/267833235, https://fathom.video/calls/257059280, https://fathom.video/calls/237177484, https://fathom.video/calls/218283603, https://fathom.video/calls/209204233, https://fathom.video/calls/189386729, https://fathom.video/calls/181365987, https://fathom.video/calls/165893831, https://fathom.video/calls/35256954, https://fathom.video/calls/30719412, https://fathom.video/calls/279187793, https://fathom.video/calls/226162234" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Organization</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Global%20Earth%20Repair' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Global Earth Repair</small>
+                </td>
+                <td>
+                    <textarea rows="2">drop</textarea>
+                    <div class="suggestion">Suggestion: drop</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-single_name" data-category="single_name">
+                <td><strong>Angelique</strong></td>
+                <td><a href="https://fathom.video/calls/25304891" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Single Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Angelique' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Angelique</small>
+                </td>
+                <td>
+                    <textarea rows="2">research - not in Gmail</textarea>
+                    <div class="suggestion">Suggestion: research - not in Gmail</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-single_name" data-category="single_name">
+                <td><strong>Belizey</strong><br><span style='background:#4CAF50;color:white;padding:2px 6px;border-radius:3px;font-size:10px;'>🔁 Name variant resolved in earlier round</span></td>
+                <td><a href="https://fathom.video/calls/165893831" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Single Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Belizey' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Belizey</small>
+                </td>
+                <td>
+                    <textarea rows="2">merge with: Kalombo Mbilizi</textarea>
+                    <div class="suggestion">Suggestion: merge with: Kalombo Mbilizi</div>
+                </td>
+                <td><input type="checkbox" checked></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-single_name" data-category="single_name">
+                <td><strong>Gerardo</strong></td>
+                <td><a href="https://fathom.video/calls/165893831" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Single Name</td>
+                <td style="text-align:center; font-size:11px">✅ Gerardo Martinez<br><small>(100% via word:'Gerardo')</small></td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Gerardo' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Gerardo</small>
+                </td>
+                <td>
+                    <textarea rows="2">merge with: Gerardo Martinez</textarea>
+                    <div class="suggestion">Suggestion: merge with: Gerardo Martinez</div>
+                </td>
+                <td><input type="checkbox" checked></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-single_name" data-category="single_name">
+                <td><strong>Ghaleeb</strong></td>
+                <td><a href="https://fathom.video/calls/261619987" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Single Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Ghaleeb' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Ghaleeb</small>
+                </td>
+                <td>
+                    <textarea rows="2">research - not in Gmail</textarea>
+                    <div class="suggestion">Suggestion: research - not in Gmail</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-single_name" data-category="single_name">
+                <td><strong>Gwen</strong></td>
+                <td><a href="https://fathom.video/calls/363653758" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Single Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Gwen' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Gwen</small>
+                </td>
+                <td>
+                    <textarea rows="2">research - not in Gmail</textarea>
+                    <div class="suggestion">Suggestion: research - not in Gmail</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-single_name" data-category="single_name">
+                <td><strong>Hadziqah</strong></td>
+                <td><a href="https://fathom.video/calls/110559424" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Single Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Hadziqah' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Hadziqah</small>
+                </td>
+                <td>
+                    <textarea rows="2">research - not in Gmail</textarea>
+                    <div class="suggestion">Suggestion: research - not in Gmail</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-single_name" data-category="single_name">
+                <td><strong>Indy</strong></td>
+                <td><a href="https://fathom.video/calls/189386729" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Single Name</td>
+                <td style="text-align:center; font-size:11px">✅ Indy Singh<br><small>(100% via word:'Indy')</small></td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Indy' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Indy</small>
+                </td>
+                <td>
+                    <textarea rows="2">merge with: Indy Singh</textarea>
+                    <div class="suggestion">Suggestion: merge with: Indy Singh</div>
+                </td>
+                <td><input type="checkbox" checked></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-single_name" data-category="single_name">
+                <td><strong>JP</strong></td>
+                <td><a href="https://fathom.video/calls/121641973" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Single Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/JP' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: JP</small>
+                </td>
+                <td>
+                    <textarea rows="2">research - not in Gmail</textarea>
+                    <div class="suggestion">Suggestion: research - not in Gmail</div>
+                </td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-single_name" data-category="single_name">
+                <td><strong>JS</strong><br><span style='background:#4CAF50;color:white;padding:2px 6px;border-radius:3px;font-size:10px;'>🔁 Name variant resolved in earlier round</span></td>
+                <td><a href="https://fathom.video/calls/39937391" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Single Name</td>
+                <td style="text-align:center; font-size:11px">❌</td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/JS' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: JS</small>
+                </td>
+                <td>
+                    <textarea rows="2">merge with: Joshua Shephard</textarea>
+                    <div class="suggestion">Suggestion: merge with: Joshua Shephard</div>
+                </td>
+                <td><input type="checkbox" checked></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-single_name" data-category="single_name">
+                <td><strong>Jeremiah</strong></td>
+                <td><a href="https://fathom.video/calls/165893831" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Single Name</td>
+                <td style="text-align:center; font-size:11px">✅ Jeremiah Liebowitz<br><small>(100% via word:'Jeremiah')</small></td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Jeremiah' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Jeremiah</small>
+                </td>
+                <td>
+                    <textarea rows="2">merge with: Jeremiah Liebowitz</textarea>
+                    <div class="suggestion">Suggestion: merge with: Jeremiah Liebowitz</div>
+                </td>
+                <td><input type="checkbox" checked></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+            <tr class="category-single_name" data-category="single_name">
+                <td><strong>Jimmy</strong></td>
+                <td><a href="https://fathom.video/calls/58214677" target="_blank" class="video-link">🎥</a></td>
+                <td>1</td>
+                <td>Single Name</td>
+                <td style="text-align:center; font-size:11px">✅ Jimmy Pryor<br><small>(100% via word:'Jimmy')</small></td>
+                <td>
+                    <span class="gmail-not-found"><a href='https://mail.google.com/mail/u/0/#search/Jimmy' target='_blank'>📧 Emails</a></span><br>
+                    <small style="color:#888">Query: Jimmy</small>
+                </td>
+                <td>
+                    <textarea rows="2">merge with: Jimmy Pryor</textarea>
+                    <div class="suggestion">Suggestion: merge with: Jimmy Pryor</div>
+                </td>
+                <td><input type="checkbox" checked></td>
+                <td><input type="checkbox"></td>
+            </tr>
+
+        </tbody>
+    </table>
+    
+    <script>
+        function sortTable(column) {
+            const table = document.getElementById('approvalTable');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            rows.sort((a, b) => {
+                let aVal = a.cells[column].textContent.trim();
+                let bVal = b.cells[column].textContent.trim();
+                
+                // Try numeric sort
+                if (!isNaN(aVal) && !isNaN(bVal)) {
+                    return parseFloat(bVal) - parseFloat(aVal);
+                }
+                
+                return aVal.localeCompare(bVal);
+            });
+            
+            rows.forEach(row => tbody.appendChild(row));
+        }
+        
+        function filterCategory(category) {
+            const rows = document.querySelectorAll('#approvalTable tbody tr');
+            rows.forEach(row => {
+                if (category === 'all' || row.dataset.category === category) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+        
+        function checkAll() {
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = true);
+        }
+        
+        function uncheckAll() {
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+        }
+        
+        function exportToCSV() {
+            const rows = document.querySelectorAll('#approvalTable tbody tr');
+            const csvData = [];
+            
+            // Header
+            csvData.push(['Fathom_Name', 'Videos_Count', 'Records', 'Category', 'In_Airtable', 'Gmail_Count', 'Gmail_Snippet', 'Comments', 'ProcessThis', 'Probe']);
+            
+            // Data rows
+            rows.forEach(row => {
+                try {
+                    const cells = row.cells;
+                    if (cells.length < 9) {
+                        console.error('Row has insufficient cells:', cells.length);
+                        return;
+                    }
+                    
+                    const name = cells[0].textContent.trim();
+                    const videoCount = cells[1].querySelectorAll('.video-link').length;
+                    const records = cells[2].textContent.trim();
+                    const category = cells[3].textContent.trim();
+                    const inAirtable = cells[4].textContent.trim();
+                    
+                    const gmailSpan = cells[5].querySelector('span');
+                    const gmailSmall = cells[5].querySelector('small');
+                    const gmailText = gmailSpan ? gmailSpan.textContent.trim() : '';
+                    const gmailSnippet = gmailSmall ? gmailSmall.textContent.trim() : '';
+                    
+                    const textarea = cells[6].querySelector('textarea');
+                    const comments = textarea ? textarea.value : '';
+                    
+                    const processInput = cells[7].querySelector('input');
+                    const probeInput = cells[8].querySelector('input');
+                    const processThis = processInput && processInput.checked ? 'YES' : 'NO';
+                    const probe = probeInput && probeInput.checked ? 'YES' : 'NO';
+                    
+                    csvData.push([name, videoCount, records, category, inAirtable, gmailText, gmailSnippet, comments, processThis, probe]);
+                } catch (e) {
+                    console.error('Error processing row:', e);
+                }
+            });
+            
+            // Convert to CSV string
+            const csvString = csvData.map(row => 
+                row.map(cell => '"' + String(cell).replace(/"/g, '""') + '"').join(',')
+            ).join('\n');
+            
+            // Download
+            const blob = new Blob([csvString], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            const timestamp = new Date().toISOString().slice(0,19).replace(/[-:T]/g, '').substring(0,14);
+            const filename = `phase4b2_approvals_${timestamp}.csv`;
+            a.download = filename;
+            a.click();
+            window.URL.revokeObjectURL(url);
+            
+            // Show file path and copy to clipboard
+            const filePath = `/Users/admin/Downloads/${filename}`;
+            const fileUrl = `file://${filePath}`;
+            
+            // Display on page
+            const pathDiv = document.createElement('div');
+            pathDiv.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#4CAF50;color:white;padding:20px;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,0.3);z-index:10000;max-width:80%;';
+            pathDiv.innerHTML = `
+                <strong>✅ CSV Exported!</strong><br>
+                <div style="margin-top:10px;font-family:monospace;background:rgba(0,0,0,0.2);padding:10px;border-radius:4px;font-size:12px;word-break:break-all;">
+                    ${filePath}
+                </div>
+                <div style="margin-top:10px;font-size:12px;">
+                    📋 File path copied to clipboard!<br>
+                    <small style="opacity:0.8;">Note: If file exists, macOS may add (1), (2), etc.</small>
+                </div>
+            `;
+            document.body.appendChild(pathDiv);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => pathDiv.remove(), 5000);
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(filePath).then(() => {
+                console.log('File path copied to clipboard:', filePath);
+            }).catch(err => {
+                console.error('Failed to copy to clipboard:', err);
+                // Fallback: show alert with path
+                alert('CSV exported to:\n' + filePath + '\n\n(Could not auto-copy to clipboard)');
+            });
+        }
+    </script>
+</body>
+</html>

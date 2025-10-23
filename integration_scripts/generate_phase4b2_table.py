@@ -376,6 +376,33 @@ print(f"✅ Gmail research complete")
 print(f"✅ Checked against {len(airtable_people)} Airtable people with fuzzy matching")
 print()
 
+# Run Town Hall agenda search
+print("Running Town Hall agenda search...")
+try:
+    th_search = TownHallSearch()
+    town_hall_found = 0
+    for p in participants:
+        name = p['name']
+        recent_agendas = th_search.get_recent_agendas(count=20)
+        found_in = []
+        for agenda in recent_agendas:
+            try:
+                if th_search.search_agenda_text_for_name(agenda['id'], name):
+                    found_in.append({'date': agenda['date'], 'name': agenda['name'], 'link': agenda['link']})
+                    if len(found_in) >= 3:
+                        break
+            except Exception:
+                continue
+        p['town_hall'] = found_in
+        if found_in:
+            town_hall_found += 1
+    print(f"✅ Town Hall search complete (found {town_hall_found} matches)")
+except Exception as e:
+    print(f"⚠️ Town Hall search error: {e}")
+    for p in participants:
+        p['town_hall'] = []
+print()
+
 # Generate analysis report
 print("=" * 80)
 print("📊 AUTOMATIC ANALYSIS REPORT")
@@ -829,21 +856,6 @@ html += '''
             
             // Display on page
             const pathDiv = document.createElement('div');
-            pathDiv.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#4CAF50;color:white;padding:20px;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,0.3);z-index:10000;max-width:80%;';
-            pathDiv.innerHTML = `
-                <strong>✅ CSV Exported!</strong><br>
-                <div style="margin-top:10px;font-family:monospace;background:rgba(0,0,0,0.2);padding:10px;border-radius:4px;font-size:12px;word-break:break-all;">
-                    ${filePath}
-                </div>
-                <div style="margin-top:10px;font-size:12px;">
-                    📋 File path copied to clipboard!<br>
-                    <small style="opacity:0.8;">Note: If file exists, macOS may add (1), (2), etc.</small>
-                </div>
-            `;
-            document.body.appendChild(pathDiv);
-            
-            // Auto-remove after 5 seconds
-            setTimeout(() => pathDiv.remove(), 5000);
             
             // Copy to clipboard
             navigator.clipboard.writeText(filePath).then(() => {
