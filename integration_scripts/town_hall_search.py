@@ -1,0 +1,149 @@
+#!/usr/bin/env python3
+"""
+Town Hall Agenda Search System
+
+Searches Town Hall agendas from Google Drive for participant names
+to help identify people in Fathom recordings.
+"""
+
+import json
+import re
+from google.oauth2.credentials import Credentials
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaIoBaseDownload
+import io
+
+class TownHallSearch:
+    def __init__(self):
+        # Load credentials
+        self.creds = Credentials.from_authorized_user_file('token_jschull_drive.json')
+        self.service = build('drive', 'v3', credentials=self.creds)
+        
+        # Load agenda index
+        with open('town_hall_agenda_index.json', 'r') as f:
+            self.agenda_index = json.load(f)
+    
+    def search_agendas_for_name(self, name, max_results=5):
+        """
+        Search Town Hall agendas for a person's name.
+        Returns list of agendas where name appears.
+        """
+        results = []
+        search_name = name.lower()
+        
+        # Try different name variations
+        name_parts = search_name.split()
+        search_terms = [search_name]
+        
+        if len(name_parts) >= 2:
+            # Try first + last name
+            search_terms.append(f"{name_parts[0]} {name_parts[-1]}")
+            # Try just last name
+            search_terms.append(name_parts[-1])
+        
+        for agenda in self.agenda_index:
+            # For now, we can't search document content without downloading
+            # But we can check if name is in the title or notes field
+            if any(term in agenda['name'].lower() for term in search_terms):
+                results.append(agenda)
+                if len(results) >= max_results:
+                    break
+        
+        return results
+    
+    def get_agenda_by_date(self, date_str):
+        """
+        Get agenda for a specific date (YYYY-MM-DD format).
+        Returns agenda info or None if not found.
+        """
+        for agenda in self.agenda_index:
+            if agenda['date'] == date_str:
+                return agenda
+        return None
+    
+    def get_recent_agendas(self, count=10):
+        """
+        Get the most recent Town Hall agendas.
+        """
+        return self.agenda_index[:count]
+    
+    def download_agenda_text(self, agenda_id):
+        """
+        Download and extract text from a Google Doc agenda.
+        Returns text content or None if error.
+        """
+        try:
+            # Export as plain text
+            request = self.service.files().export_media(
+                fileId=agenda_id,
+                mimeType='text/plain'
+            )
+            
+            fh = io.BytesIO()
+            downloader = MediaIoBaseDownload(fh, request)
+            done = False
+            
+            while not done:
+                status, done = downloader.next_chunk()
+            
+            text = fh.getvalue().decode('utf-8')
+            return text
+        except Exception as e:
+            print(f"Error downloading agenda {agenda_id}: {e}")
+            return None
+    
+    def search_agenda_text_for_name(self, agenda_id, name):
+        """
+        Download agenda and search for name in text.
+        Returns True if found, False otherwise.
+        """
+        text = self.download_agenda_text(agenda_id)
+        if not text:
+            return False
+        
+        # Search for name (case insensitive)
+        return name.lower() in text.lower()
+
+
+def search_for_participant(name):
+    """
+    Helper function: Search Town Hall agendas for a participant name.
+    Returns formatted results for display.
+    """
+    searcher = TownHallSearch()
+    
+    # Get recent agendas (within last 2 years)
+    recent_agendas = searcher.get_recent_agendas(count=20)
+    
+    results = []
+    for agenda in recent_agendas:
+        # Download and search each agenda
+        if searcher.search_agenda_text_for_name(agenda['id'], name):
+            results.append({
+                'date': agenda['date'],
+                'name': agenda['name'],
+                'link': agenda['link']
+            })
+    
+    return results
+
+
+if __name__ == '__main__':
+    import sys
+    
+    if len(sys.argv) < 2:
+        print("Usage: python town_hall_search.py <name>")
+        sys.exit(1)
+    
+    name = ' '.join(sys.argv[1:])
+    print(f"🔍 Searching Town Hall agendas for: {name}\n")
+    
+    results = search_for_participant(name)
+    
+    if results:
+        print(f"✅ Found {len(results)} agendas mentioning '{name}':\n")
+        for r in results:
+            print(f"  • {r['date']}: {r['name']}")
+            print(f"    {r['link']}\n")
+    else:
+        print(f"❌ No agendas found mentioning '{name}'")
