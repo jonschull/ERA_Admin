@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate phase4b2_test_data.json from database with next 25 unenriched people.
+Generate phase4b2_test_data.json from database with next 50 unenriched people.
 """
 
 import sqlite3
@@ -12,7 +12,7 @@ DB_PATH = Path(__file__).parent.parent / "FathomInventory" / "fathom_emails.db"
 conn = sqlite3.connect(DB_PATH)
 cursor = conn.cursor()
 
-# Get top 25 unenriched people with their videos and affiliations
+# Get top 50 unenriched people with their videos and affiliations
 cursor.execute("""
     SELECT 
         name,
@@ -47,16 +47,16 @@ for name, url, title, affiliation in cursor.fetchall():
             'title': title or 'Untitled'
         })
 
-# Sort by record count and take top 25
+# Sort by record count and take top 50
 sorted_people = sorted(people_data.values(), key=lambda x: (-x['record_count'], x['name']))
-top_25 = sorted_people[:25]
+top_50 = sorted_people[:50]
 
 # Save to file
 with open('/tmp/phase4b2_test_data.json', 'w') as f:
-    json.dump(top_25, f, indent=2)
+    json.dump(top_50, f, indent=2)
 
-print(f"✅ Generated batch data for {len(top_25)} people")
-for i, p in enumerate(top_25, 1):
+print(f"✅ Generated batch data for {len(top_50)} people")
+for i, p in enumerate(top_50, 1):
     print(f"{i:2}. {p['name']} ({p['record_count']} records, {len(p['videos'])} videos)")
 
 conn.close()

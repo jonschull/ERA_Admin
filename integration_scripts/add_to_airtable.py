@@ -196,11 +196,18 @@ def add_people_to_airtable(people_to_add, conn):
     
     # Write updated CSV
     if added:
+        # Filter out any fields not in fieldnames from all rows
+        filtered_rows = []
+        for row in existing_rows:
+            filtered_row = {k: v for k, v in row.items() if k in fieldnames}
+            filtered_rows.append(filtered_row)
+        
         with open(AIRTABLE_CSV, 'w', encoding='utf-8', newline='') as f:
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
-            writer.writerows(existing_rows)
+            writer.writerows(filtered_rows)
         
+    if added:
         print(f"\n✅ Added {len(added)} people to Airtable CSV")
         print(f"📄 Updated: {AIRTABLE_CSV}")
     else:

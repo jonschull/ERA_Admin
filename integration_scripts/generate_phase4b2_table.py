@@ -1,21 +1,46 @@
 #!/usr/bin/env python3
 """
-Generate Phase 4B-2 approval table with Gmail research for 25 test people.
-Enhanced version with embedded Gmail insights.
+Generate Phase 4B-2 approval table with Gmail research for 50 people.
+Enhanced version with embedded Gmail insights and learned mappings from previous rounds.
+
+Features:
+- Auto-fills decisions from learned mappings (phone numbers, drops, name variants)
+- Shows green badges (🔁) for auto-filled entries with reason
+- Integrates Gmail research for context
+- Fuzzy matches against Airtable people
+- Exports to CSV with all decisions
+
+Note: Emoji badges in HTML are automatically stripped during CSV processing.
+See LEARNED_MAPPINGS_SYSTEM.md for auto-fill details.
 """
 
 import json
 import subprocess
 from pathlib import Path
 from datetime import datetime
+from town_hall_search import TownHallSearch
 
 # Paths
 SCRIPT_DIR = Path(__file__).parent
-OUTPUT_FILE = SCRIPT_DIR / f"phase4b2_TEST_APPROVALS_{datetime.now().strftime('%Y%m%d_%H%M')}.html"
+# Fix timestamp at script start to avoid minute-boundary issues
+TIMESTAMP = datetime.now().strftime('%Y%m%d_%H%M')
+OUTPUT_FILE = SCRIPT_DIR / f"phase4b2_TEST_APPROVALS_{TIMESTAMP}.html"
 
 # Load participant data
 with open('/tmp/phase4b2_test_data.json', 'r') as f:
     participants = json.load(f)
+
+# Load learned mappings from previous rounds
+LEARNED_MAPPINGS_FILE = SCRIPT_DIR / 'phase4b2_learned_mappings.json'
+learned_mappings = {'phone_mappings': {}, 'device_mappings': {}, 'name_corrections': {}, 'org_to_person': {}, 'drop_patterns': []}
+if LEARNED_MAPPINGS_FILE.exists():
+    with open(LEARNED_MAPPINGS_FILE, 'r') as f:
+        learned_mappings = json.load(f)
+    print(f"✅ Loaded learned mappings: {learned_mappings['metadata']['total_phone_mappings']} phone, "
+          f"{learned_mappings['metadata']['total_drop_patterns']} drop, "
+          f"{learned_mappings['metadata']['total_org_mappings']} org, "
+          f"{learned_mappings['metadata']['total_name_corrections']} name corrections")
+    print()
 
 # Load Airtable data to check if people are already there
 import csv
@@ -82,39 +107,30 @@ def fuzzy_check_airtable(person_name, threshold=80):
     if best_score >= threshold:
         return True, best_match, int(best_score), 'full_name'
     
-    # STRATEGY 2: Word-by-word fallback (for "Moses GFCCA" cases)
-    # Only use for FULL WORD matches, not substrings
-    word_matches = []
-    for word in parts:
-        if len(word) <= 3:  # Skip very short words (was 2, now 3)
-            continue
-        
-        word_lower = word.lower()
-        
-        for at_person in airtable_people:
-            # Split Airtable name into words
-            at_words = [w.lower() for w in at_person['name'].split()]
-            
-            # Check if search word matches ANY FULL WORD in Airtable name
-            for at_word in at_words:
-                # Use ratio (not partial_ratio) for full word match
-                word_score = fuzz.ratio(word_lower, at_word)
-                
-                if word_score >= 90:  # High confidence FULL word match
-                    word_matches.append({
-                        'word': word,
-                        'name': at_person['name'],
-                        'score': word_score,
-                        'matched_word': at_word
-                    })
-                    break  # Only count once per Airtable person
+    # STRATEGY 2: Word-by-word fallback (for single names only)
+    # Only use if input appears to be single name (not "Fred Hornaday")
+    search_words = [w for w in parts if len(w) > 2]
+    use_word_matching = len(search_words) == 1  # Only for single names
     
-    # Return best word match ONLY if significantly better than full name
-    if word_matches:
-        best_word = max(word_matches, key=lambda x: x['score'])
-        # Only use word match if it's 100% AND full name score is low
-        if best_word['score'] == 100 and best_score < 70:
-            return True, best_word['name'], best_word['score'], f"word:'{best_word['word']}'"
+    word_matches = []
+    if use_word_matching:
+        for word in search_words:
+            word_lower = word.lower()
+            for at_person in airtable_people:
+                airtable_name = at_person['name']
+                name_words = [w.lower() for w in airtable_name.split()]
+                if word_lower in name_words:
+                    word_matches.append({
+                        'name': airtable_name,
+                        'word': word,
+                        'score': 100
+                    })
+        
+        # Use word match only if 100% word match exists AND full name score is poor
+        if word_matches:
+            best_word = max(word_matches, key=lambda x: x['score'])
+            if best_word['score'] == 100 and best_score < 70:
+                return True, best_word['name'], best_word['score'], f"word:'{best_word['word']}'"
     
     # Return full name result even if below threshold
     return best_score >= threshold, best_match, int(best_score), 'full_name' if best_match else None
@@ -225,18 +241,72 @@ def categorize(name):
     return 'full_name'
 
 
+# Check learned mappings
+def check_learned_mapping(name):
+    """Check if we have a learned mapping for this name from previous rounds.
+    Returns: (has_mapping, decision, reason)
+    """
+    phone_mappings = learned_mappings.get('phone_mappings', {})
+    device_mappings = learned_mappings.get('device_mappings', {})
+    org_to_person = learned_mappings.get('org_to_person', {})
+    name_corrections = learned_mappings.get('name_corrections', {})
+    drop_patterns = learned_mappings.get('drop_patterns', [])
+    
+    # Check drop patterns (exact match)
+    if name in drop_patterns:
+        return True, 'drop', f'🔁 Previously dropped in earlier round'
+    
+    # Check phone mappings
+    if name in phone_mappings:
+        target = phone_mappings[name]
+        return True, f'merge with: {target}', f'🔁 Phone number resolved in earlier round'
+    
+    # Check device mappings
+    if name in device_mappings:
+        target = device_mappings[name]
+        return True, f'merge with: {target}', f'🔁 Device name resolved in earlier round'
+    
+    # Check org mappings
+    if name in org_to_person:
+        target = org_to_person[name]
+        return True, f'merge with: {target}', f'🔁 Organization mapping from earlier round'
+    
+    # Check name corrections (only clean ones - not instructions)
+    if name in name_corrections:
+        target = name_corrections[name]
+        # Filter out instructions/comments
+        if not any(word in target.lower() for word in ['add', 'era', 'member', 'organization', 'airtable', 'examine', 'gmail', 'link', 'should']):
+            # Check if it's a simple name (2-3 words, no extra text)
+            words = target.split()
+            if 1 <= len(words) <= 3 and all(w[0].isupper() or w.lower() in ['de', 'van', 'von', 'da'] for w in words if w):
+                return True, f'merge with: {target}', f'🔁 Name variant resolved in earlier round'
+    
+    return False, '', ''
+
+
 # Suggest action
 def suggest_action(name, category, gmail_result, airtable_match):
     """Suggest likely action based on category, Gmail, and Airtable results."""
     in_airtable, matched_name, score, method = airtable_match
+    
+    # Check learned mappings first
+    has_learned, learned_decision, learned_reason = check_learned_mapping(name)
+    if has_learned:
+        return learned_decision  # Use learned decision
     
     if category == 'organization':
         return 'drop'
     if category == 'phone':
         return 'drop'
     if category == 'duplicate':
-        # Extract base name
+        # If matched in Airtable with HIGH confidence, use that full name
+        if in_airtable and matched_name and score >= 90:
+            return f'merge with: {matched_name}'
+        # Otherwise extract base name
         base_name = name.split(',')[0].split('(')[0].strip()
+        # Don't suggest incomplete single names - flag for research instead
+        if len(base_name.split()) == 1:
+            return 'research - incomplete name (single word)'
         return f'merge with: {base_name}'
     if category == 'single_name':
         if in_airtable:
@@ -263,6 +333,12 @@ print()
 print("Running Gmail research on 25 people...")
 for i, p in enumerate(participants, 1):
     print(f"  {i}/25: {p['name']}")
+    
+    # Check learned mappings first
+    has_learned, learned_decision, learned_reason = check_learned_mapping(p['name'])
+    p['has_learned_mapping'] = has_learned
+    p['learned_reason'] = learned_reason
+    
     affiliation = p.get('affiliation', None)
     p['gmail'] = get_gmail_results(p['name'], affiliation)
     p['category'] = categorize(p['name'])
@@ -274,27 +350,57 @@ for i, p in enumerate(participants, 1):
     p['airtable_score'] = score
     p['airtable_method'] = method  # 'full_name' or 'word:Moses'
     
-    # Determine if we should auto-check "Process This" (confidence >80%)
-    p['should_process'] = score >= 80 if in_airtable else False  # Only auto-process high confidence
+    # Determine if we should auto-check "Process This"
+    # Auto-check if: learned mapping OR high confidence Airtable match
+    p['should_process'] = has_learned or (score >= 80 if in_airtable else False)
     
     # Determine if we should auto-check "Probe" (needs investigation)
+    # DON'T probe if we have a learned mapping (already decided)
     p['should_probe'] = False
-    if not in_airtable:
-        # Not found in Airtable - needs probing if found in Gmail or ambiguous name
-        if p['gmail']['found'] or p['category'] == 'single_name':
+    if not has_learned:
+        if not in_airtable:
+            # Not found in Airtable - needs probing if found in Gmail or ambiguous name
+            if p['gmail']['found'] or p['category'] == 'single_name':
+                p['should_probe'] = True
+            # Also probe if has special chars (org names, URLs, etc)
+            if any(char in p['name'] for char in [',', '.', '(', '/', 'www', 'Locations:']):
+                p['should_probe'] = True
+        elif in_airtable and score < 90:
+            # Low-ish confidence match - might want to probe
             p['should_probe'] = True
-        # Also probe if has special chars (org names, URLs, etc)
-        if any(char in p['name'] for char in [',', '.', '(', '/', 'www', 'Locations:']):
-            p['should_probe'] = True
-    elif in_airtable and score < 90:
-        # Low-ish confidence match - might want to probe
-        p['should_probe'] = True
     
     p['suggested_action'] = suggest_action(p['name'], p['category'], p['gmail'], (in_airtable, matched_name, score, method))
 
 print()
 print(f"✅ Gmail research complete")
 print(f"✅ Checked against {len(airtable_people)} Airtable people with fuzzy matching")
+print()
+
+# Run Town Hall agenda search
+print("Running Town Hall agenda search...")
+try:
+    th_search = TownHallSearch()
+    town_hall_found = 0
+    for p in participants:
+        name = p['name']
+        recent_agendas = th_search.get_recent_agendas(count=20)
+        found_in = []
+        for agenda in recent_agendas:
+            try:
+                if th_search.search_agenda_text_for_name(agenda['id'], name):
+                    found_in.append({'date': agenda['date'], 'name': agenda['name'], 'link': agenda['link']})
+                    if len(found_in) >= 3:
+                        break
+            except Exception:
+                continue
+        p['town_hall'] = found_in
+        if found_in:
+            town_hall_found += 1
+    print(f"✅ Town Hall search complete (found {town_hall_found} matches)")
+except Exception as e:
+    print(f"⚠️ Town Hall search error: {e}")
+    for p in participants:
+        p['town_hall'] = []
 print()
 
 # Generate analysis report
@@ -619,16 +725,21 @@ for p in sorted(participants, key=lambda x: (x['category'], -x['record_count']))
     
     row_class = f"category-{p['category']}"
     
+    # Show learned mapping reason if available
+    learned_badge = ''
+    if p.get('has_learned_mapping'):
+        learned_badge = f"<br><span style='background:#4CAF50;color:white;padding:2px 6px;border-radius:3px;font-size:10px;'>{p.get('learned_reason', 'Auto-filled')}</span>"
+    
     html += f'''
             <tr class="{row_class}" data-category="{p['category']}">
-                <td><strong>{p['name']}</strong></td>
+                <td><strong>{p['name']}</strong>{learned_badge}</td>
                 <td>{video_links}</td>
                 <td>{p['record_count']}</td>
                 <td>{p['category'].replace('_', ' ').title()}</td>
-                <td style="text-align:center; font-size:11px">{airtable_display}</td>
+                <td style="text-align:center; font-size:11px">{p['in_airtable'] and '✅' or '❌'}</td>
                 <td>
-                    <span class="{gmail_class}">{gmail_text}</span><br>
-                    <small style="color:#888">{gmail_snippet}</small>
+                    <span class="{gmail_class}">{gmail_info}</span>
+                    {"<br>🏛️ " + ", ".join([th['date'] for th in p.get('town_hall', [])[:3]]) if p.get('town_hall') else ""}
                 </td>
                 <td>
                     <textarea rows="2">{p['suggested_action']}</textarea>
@@ -746,21 +857,6 @@ html += '''
             
             // Display on page
             const pathDiv = document.createElement('div');
-            pathDiv.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#4CAF50;color:white;padding:20px;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,0.3);z-index:10000;max-width:80%;';
-            pathDiv.innerHTML = `
-                <strong>✅ CSV Exported!</strong><br>
-                <div style="margin-top:10px;font-family:monospace;background:rgba(0,0,0,0.2);padding:10px;border-radius:4px;font-size:12px;word-break:break-all;">
-                    ${filePath}
-                </div>
-                <div style="margin-top:10px;font-size:12px;">
-                    📋 File path copied to clipboard!<br>
-                    <small style="opacity:0.8;">Note: If file exists, macOS may add (1), (2), etc.</small>
-                </div>
-            `;
-            document.body.appendChild(pathDiv);
-            
-            // Auto-remove after 5 seconds
-            setTimeout(() => pathDiv.remove(), 5000);
             
             // Copy to clipboard
             navigator.clipboard.writeText(filePath).then(() => {
@@ -780,7 +876,8 @@ html += '''
 with open(OUTPUT_FILE, 'w') as f:
     f.write(html)
 
-print(f"✅ Generated: {OUTPUT_FILE}")
+print(f"\n✅ Generated: {OUTPUT_FILE}")
+print(f"📁 Filename: phase4b2_TEST_APPROVALS_{TIMESTAMP}.html")
 print()
 print("📖 Next steps:")
 print("  1. Open HTML file in browser")
