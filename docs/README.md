@@ -165,6 +165,59 @@ gh pr merge --squash --delete-branch
 python3 docs/archive_and_replace.py  # Creates backup, replaces all
 ```
 
+#### Documentation PR Review Guide
+
+**Beyond mechanical checks, verify:**
+
+**1. Veridicality - Content matches reality:**
+- Obsolete instructions removed or marked historical
+- File references point to actual locations (especially archive/)
+- "Current work" reflects actual current work
+- Completed phases not described as ongoing
+- Instructions match current system state
+- Dates are current
+
+**2. Validation - Generated docs are correct:**
+- Read key generated files (README.md, component READMEs)
+- Confirm wireframe edits propagated correctly
+- Check no deletions of important content (`git diff --stat`)
+- Verify key sections updated (Quick Start, Recent Completions, metrics)
+- Test navigation integrity (`python3 docs/test_navigation.py`)
+
+**3. Consistency - Updates are thorough:**
+- All instances updated (not just some)
+- Cross-references updated
+- Metrics match database/system reality
+- Archive references correct
+- New components properly integrated
+
+**Common mistakes to catch:**
+- ❌ Updated numbers but left obsolete workflow instructions
+- ❌ Moved files but didn't update references to them
+- ❌ Marked phase complete but left "how to resume" instructions
+- ❌ Added new component but didn't list in root README
+- ❌ Regenerated but didn't verify output correctness
+
+**Example checks:**
+```bash
+# Check for old status markers
+grep -r "87%" README.md CONTEXT_RECOVERY.md
+
+# Verify file moves reflected in docs
+grep "generate_phase4b2_table.py" integration_scripts/README.md
+# Should show: archive/experimental/generate_phase4b2_table.py
+
+# Check generated docs are recent
+stat -f %Sm README.md docs/NAVIGATION_WIREFRAME.md
+# README.md should be >= wireframe timestamp
+
+# Verify key content propagated
+grep "Phase 5T.*Ready" README.md
+grep "459.*validated" CONTEXT_RECOVERY.md
+```
+
+**Validation discipline:** Don't just trust the script worked. Read the output.
+
 #### Adding New Documents
 
 **Template for new document in wireframe:**
