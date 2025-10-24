@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<title>Batch 5 - Canonical Pipeline</title>
+<style>
+body {font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 100%; margin: 0; padding: 20px; background: #f5f5f7; font-size: 14px;}
+h1 {color: #1d1d1f; margin-bottom: 10px;}
+.banner {background: #d1f4e0; border-left: 4px solid #34c759; padding: 15px; margin: 20px 0; border-radius: 8px;}
+table {width: 100%; border-collapse: collapse; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden;}
+th {background: #1d1d1f; color: white; padding: 14px; text-align: left; font-weight: 600; position: sticky; top: 0; z-index: 10;}
+td {padding: 12px; border-bottom: 1px solid #e5e5e7;}
+tr:hover {background: #f9f9f9;}
+.confidence-HIGH {background: #d1f4e0; color: #1e6f3e; padding: 6px 12px; border-radius: 6px; font-weight: 600; font-size: 12px;}
+.confidence-MEDIUM {background: #fff9e6; color: #8c7100; padding: 6px 12px; border-radius: 6px; font-weight: 600; font-size: 12px;}
+.confidence-NEEDS_REVIEW {background: #fff9e6; color: #8c7100; padding: 6px 12px; border-radius: 6px; font-weight: 600; font-size: 12px;}
+.confidence-NEEDS_CLAUDE_REVIEW {background: #fff9e6; color: #8c7100; padding: 6px 12px; border-radius: 6px; font-weight: 600; font-size: 12px;}
+.evidence-link {color: #007aff; text-decoration: none; margin-right: 8px; font-size: 16px;}
+.evidence-link:hover {text-decoration: underline;}
+input[type="checkbox"] {width: 20px; height: 20px; cursor: pointer;}
+textarea {width: 100%; padding: 8px; border: 1px solid #d1d1d6; border-radius: 6px; font-family: inherit; font-size: 13px; min-height: 60px; resize: vertical;}
+button {background: #007aff; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; margin: 15px 0;}
+button:hover {background: #0051d5;}
+.decision-box {background: #f5f5f7; padding: 10px; border-radius: 6px; margin-bottom: 8px; font-weight: 600;}
+</style>
+</head>
+<body>
+<h1>🔒 Batch 5 - Canonical Pipeline (Proper Tool)</h1>
+<div class="banner">
+<strong>✅ Generated with generate_claude_html_report_v2.py structure</strong><br>
+• Number suffix stripping before fuzzy matching<br>
+• Filtered 59 already-processed items<br>
+• Claude intelligent review applied<br>
+• Working CSV export (from v2 template)
+</div>
+<p><strong>15 participants</strong> | HIGH confidence: 11 | Need review: 0</p>
+<button onclick="exportToCSV()">📥 Export to CSV</button>
+<table>
+<thead>
+<tr>
+<th style="width: 240px;">Recommendation</th>
+<th style="width: 200px;">Name</th>
+<th style="width: 80px;">Confidence</th>
+<th>Reasoning</th>
+<th style="width: 120px;">Evidence</th>
+<th style="width: 220px;">Your Feedback</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<div class="decision-box">merge with: Jan Dietrick</div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label>
+</td>
+<td><strong>Jan Dietrick, W Ventura</strong></td>
+<td><span class="confidence-HIGH">HIGH</span></td>
+<td>Found in past CSV</td>
+<td style="font-size: 11px; line-height: 1.6;">
+<a href="https://fathom.video/calls/35256954" target="_blank" class="evidence-link" title="Fathom recording">🎥</a><br>
+<a href="https://mail.google.com/mail/u/0/#search/Jan+Dietrick,+W+Ventura" target="_blank" class="evidence-link" title="Gmail search">📧</a><br>
+<a href="https://docs.google.com/document/d/1VrIAxVLiO3kCOFGo9QBinsIQIB6BkkAB_x9pNZMC2PE/edit" target="_blank" class="evidence-link" title="Town Hall 2023-08-30">📅2023-08-30</a>
+</td>
+<td><textarea class="feedback-text" placeholder="Add notes or corrections..."></textarea></td>
+</tr>
+<tr>
+<td>
+<div class="decision-box">merge with: Nawi Flores</div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label>
+</td>
+<td><strong>Nkwi Flores</strong></td>
+<td><span class="confidence-HIGH">HIGH</span></td>
+<td>90% fuzzy match (typo)</td>
+<td style="font-size: 11px; line-height: 1.6;">
+<a href="https://fathom.video/calls/143656774" target="_blank" class="evidence-link" title="Fathom recording">🎥</a><br>
+<a href="https://mail.google.com/mail/u/0/#search/Nkwi+Flores" target="_blank" class="evidence-link" title="Gmail search">📧</a><br>
+<a href="https://docs.google.com/document/d/1swExF0S8bVDe6gMA7-_AgYt2VUFdLZRPOHb4heNGE4I/edit" target="_blank" class="evidence-link" title="Town Hall 2024-09-04">📅2024-09-04</a>
+</td>
+<td><textarea class="feedback-text" placeholder="Add notes or corrections..."></textarea></td>
+</tr>
+<tr>
+<td>
+<div class="decision-box">drop</div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label>
+</td>
+<td><strong>Orbis Expeditions</strong></td>
+<td><span class="confidence-HIGH">HIGH</span></td>
+<td>Organization name, not a person</td>
+<td style="font-size: 11px; line-height: 1.6;">
+<a href="https://fathom.video/calls/226162234" target="_blank" class="evidence-link" title="Fathom recording">🎥</a><br>
+<a href="https://mail.google.com/mail/u/0/#search/Orbis+Expeditions" target="_blank" class="evidence-link" title="Gmail search">📧</a><br>
+<a href="https://docs.google.com/document/d/1xTDSD5_oAzUs9xeTCRhoqHKyUP5b_6APKfJh_Pd5AQ4/edit" target="_blank" class="evidence-link" title="Town Hall 2025-02-05">📅2025-02-05</a>
+</td>
+<td><textarea class="feedback-text" placeholder="Add notes or corrections..."></textarea></td>
+</tr>
+<tr>
+<td>
+<div class="decision-box">add to airtable</div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label>
+</td>
+<td><strong>Ousmane Aly Pame</strong></td>
+<td><span class="confidence-HIGH">HIGH</span></td>
+<td>Full name, Town Hall participant</td>
+<td style="font-size: 11px; line-height: 1.6;">
+<a href="https://fathom.video/calls/181365987" target="_blank" class="evidence-link" title="Fathom recording">🎥</a><br>
+<a href="https://mail.google.com/mail/u/0/#search/Ousmane+Aly+Pame" target="_blank" class="evidence-link" title="Gmail search">📧</a><br>
+<a href="https://docs.google.com/document/d/1VJgwCIflPLoaiqQjCc1mlAGW8pz9UYHxAApW95r1E8c/edit" target="_blank" class="evidence-link" title="Town Hall 2024-11-13">📅2024-11-13</a>
+</td>
+<td><textarea class="feedback-text" placeholder="Add notes or corrections..."></textarea></td>
+</tr>
+<tr>
+<td>
+<div class="decision-box">add to airtable</div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label>
+</td>
+<td><strong>Oya Sherrills</strong></td>
+<td><span class="confidence-HIGH">HIGH</span></td>
+<td>In Fathom title "Professor Livian and Oya"</td>
+<td style="font-size: 11px; line-height: 1.6;">
+<a href="https://fathom.video/calls/22584038" target="_blank" class="evidence-link" title="Fathom recording">🎥</a><br>
+<a href="https://mail.google.com/mail/u/0/#search/Oya+Sherrills" target="_blank" class="evidence-link" title="Gmail search">📧</a><br>
+<span style="color:#999">—</span>
+</td>
+<td><textarea class="feedback-text" placeholder="Add notes or corrections..."></textarea></td>
+</tr>
+<tr>
+<td>
+<div class="decision-box">add to airtable</div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label>
+</td>
+<td><strong>Penny Heiple</strong></td>
+<td><span class="confidence-HIGH">HIGH</span></td>
+<td>Meeting with Joe Brewer per Fathom title</td>
+<td style="font-size: 11px; line-height: 1.6;">
+<a href="https://fathom.video/calls/167272842" target="_blank" class="evidence-link" title="Fathom recording">🎥</a><br>
+<a href="https://mail.google.com/mail/u/0/#search/Penny+Heiple" target="_blank" class="evidence-link" title="Gmail search">📧</a><br>
+<span style="color:#999">—</span>
+</td>
+<td><textarea class="feedback-text" placeholder="Add notes or corrections..."></textarea></td>
+</tr>
+<tr>
+<td>
+<div class="decision-box">merge with: Peter Paap</div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label>
+</td>
+<td><strong>Peter Paap (3)</strong></td>
+<td><span class="confidence-HIGH">HIGH</span></td>
+<td>Found in Airtable (base name match)</td>
+<td style="font-size: 11px; line-height: 1.6;">
+<a href="https://fathom.video/calls/165893831" target="_blank" class="evidence-link" title="Fathom recording">🎥</a><br>
+<a href="https://mail.google.com/mail/u/0/#search/Peter+Paap+(3)" target="_blank" class="evidence-link" title="Gmail search">📧</a><br>
+<a href="https://docs.google.com/document/d/1VsMMGZjsgWBxK4SqBkIk9hH0yRSJzpODbdkfA9QQL5k/edit" target="_blank" class="evidence-link" title="Town Hall 2024-10-16">📅2024-10-16</a>
+</td>
+<td><textarea class="feedback-text" placeholder="Add notes or corrections..."></textarea></td>
+</tr>
+<tr>
+<td>
+<div class="decision-box">merge with: Philip Bogdonoff</div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label>
+</td>
+<td><strong>Phillip Bogdonoff</strong></td>
+<td><span class="confidence-HIGH">HIGH</span></td>
+<td>96% fuzzy match (typo)</td>
+<td style="font-size: 11px; line-height: 1.6;">
+<a href="https://fathom.video/calls/200959970" target="_blank" class="evidence-link" title="Fathom recording">🎥</a><br>
+<a href="https://mail.google.com/mail/u/0/#search/Phillip+Bogdonoff" target="_blank" class="evidence-link" title="Gmail search">📧</a><br>
+<a href="https://docs.google.com/document/d/1OUYmgr8C_T-KopvScy5D5FbPc8yFk-VjVQDa1OnR1nw/edit" target="_blank" class="evidence-link" title="Town Hall 2024-12-18">📅2024-12-18</a>
+</td>
+<td><textarea class="feedback-text" placeholder="Add notes or corrections..."></textarea></td>
+</tr>
+<tr>
+<td>
+<div class="decision-box">merge with: Phoebe Barnard</div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label>
+</td>
+<td><strong>Phoebe Barnard (3)</strong></td>
+<td><span class="confidence-HIGH">HIGH</span></td>
+<td>Found in Airtable (base name match)</td>
+<td style="font-size: 11px; line-height: 1.6;">
+<a href="https://fathom.video/calls/218283603" target="_blank" class="evidence-link" title="Fathom recording">🎥</a><br>
+<a href="https://mail.google.com/mail/u/0/#search/Phoebe+Barnard+(3)" target="_blank" class="evidence-link" title="Gmail search">📧</a><br>
+<a href="https://docs.google.com/document/d/1zJ3LrcQ4-6y-HYic2cwcuIIpB7Vqfx_dyuH_fsJopgQ/edit" target="_blank" class="evidence-link" title="Town Hall 2025-01-22">📅2025-01-22</a>
+</td>
+<td><textarea class="feedback-text" placeholder="Add notes or corrections..."></textarea></td>
+</tr>
+<tr>
+<td>
+<div class="decision-box">merge with: pynotic</div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label>
+</td>
+<td><strong>pynotic (Alex)</strong></td>
+<td><span class="confidence-HIGH">HIGH</span></td>
+<td>Variant of username with real name</td>
+<td style="font-size: 11px; line-height: 1.6;">
+<a href="https://fathom.video/calls/110559424" target="_blank" class="evidence-link" title="Fathom recording">🎥</a><br>
+<a href="https://mail.google.com/mail/u/0/#search/pynotic+(Alex)" target="_blank" class="evidence-link" title="Gmail search">📧</a><br>
+<a href="https://docs.google.com/document/d/1fsbcEFGixzZTrGMGowJjy90VFPQKNPHlZBcfd51fM5s/edit" target="_blank" class="evidence-link" title="Town Hall 2024-06-19">📅2024-06-19</a>
+</td>
+<td><textarea class="feedback-text" placeholder="Add notes or corrections..."></textarea></td>
+</tr>
+<tr>
+<td>
+<div class="decision-box">merge with: Rama</div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label>
+</td>
+<td><strong>Rama (3)</strong></td>
+<td><span class="confidence-HIGH">HIGH</span></td>
+<td>Number variant + ERA Africa context</td>
+<td style="font-size: 11px; line-height: 1.6;">
+<a href="https://fathom.video/calls/253037687" target="_blank" class="evidence-link" title="Fathom recording">🎥</a><br>
+<a href="https://mail.google.com/mail/u/0/#search/Rama+(3)" target="_blank" class="evidence-link" title="Gmail search">📧</a><br>
+<span style="color:#999">—</span>
+</td>
+<td><textarea class="feedback-text" placeholder="Add notes or corrections..."></textarea></td>
+</tr>
+<tr>
+<td>
+<div class="decision-box">add to airtable as Pedro Becoña</div>
+<label><input type="checkbox" class="approve-checkbox"> Approve</label>
+</td>
+<td><strong>pbeco</strong></td>
+<td><span class="confidence-MEDIUM">MEDIUM</span></td>
+<td>Username pattern (pbeco = Pedro Becoña per context)</td>
+<td style="font-size: 11px; line-height: 1.6;">
+<a href="https://fathom.video/calls/30719412" target="_blank" class="evidence-link" title="Fathom recording">🎥</a><br>
+<a href="https://mail.google.com/mail/u/0/#search/pbeco" target="_blank" class="evidence-link" title="Gmail search">📧</a><br>
+<a href="https://docs.google.com/document/d/1D23YmLcgMacAPNqlcnA5QnROvfLj6VUvKfhhFPY3-Bw/edit" target="_blank" class="evidence-link" title="Town Hall 2023-08-02">📅2023-08-02</a>
+</td>
+<td><textarea class="feedback-text" placeholder="Add notes or corrections..."></textarea></td>
+</tr>
+<tr>
+<td>
+<div class="decision-box">add to airtable (Town Hall participant)</div>
+<label><input type="checkbox" class="approve-checkbox"> Approve</label>
+</td>
+<td><strong>pedro</strong></td>
+<td><span class="confidence-MEDIUM">MEDIUM</span></td>
+<td>In Town Hall meetings, single name</td>
+<td style="font-size: 11px; line-height: 1.6;">
+<a href="https://fathom.video/calls/289548672" target="_blank" class="evidence-link" title="Fathom recording">🎥</a><br>
+<a href="https://mail.google.com/mail/u/0/#search/pedro" target="_blank" class="evidence-link" title="Gmail search">📧</a><br>
+<a href="https://docs.google.com/document/d/1YIuNweYopFKxFHbfDkaGrhvQcxn_dmActdsyUrEnMSc/edit" target="_blank" class="evidence-link" title="Town Hall 2025-04-30">📅2025-04-30</a>
+</td>
+<td><textarea class="feedback-text" placeholder="Add notes or corrections..."></textarea></td>
+</tr>
+<tr>
+<td>
+<div class="decision-box">add to airtable (check first name)</div>
+<label><input type="checkbox" class="approve-checkbox"> Approve</label>
+</td>
+<td><strong>Professor Oliva</strong></td>
+<td><span class="confidence-MEDIUM">MEDIUM</span></td>
+<td>In Fathom title, likely presenter</td>
+<td style="font-size: 11px; line-height: 1.6;">
+<a href="https://fathom.video/calls/22584038" target="_blank" class="evidence-link" title="Fathom recording">🎥</a><br>
+<a href="https://mail.google.com/mail/u/0/#search/Professor+Oliva" target="_blank" class="evidence-link" title="Gmail search">📧</a><br>
+<span style="color:#999">—</span>
+</td>
+<td><textarea class="feedback-text" placeholder="Add notes or corrections..."></textarea></td>
+</tr>
+<tr>
+<td>
+<div class="decision-box">add to airtable as Alex (pynotic)</div>
+<label><input type="checkbox" class="approve-checkbox"> Approve</label>
+</td>
+<td><strong>pynotic</strong></td>
+<td><span class="confidence-MEDIUM">MEDIUM</span></td>
+<td>Username, see variant "pynotic (Alex)"</td>
+<td style="font-size: 11px; line-height: 1.6;">
+<a href="https://fathom.video/calls/104999059" target="_blank" class="evidence-link" title="Fathom recording">🎥</a><br>
+<a href="https://mail.google.com/mail/u/0/#search/pynotic" target="_blank" class="evidence-link" title="Gmail search">📧</a><br>
+<a href="https://docs.google.com/document/d/1biIkRlJFyTzhR1-UWY9Co58vhIuBFN5Spy3YolEPdnI/edit" target="_blank" class="evidence-link" title="Town Hall 2024-06-05">📅2024-06-05</a>
+</td>
+<td><textarea class="feedback-text" placeholder="Add notes or corrections..."></textarea></td>
+</tr>
+</tbody>
+</table>
+
+<script>
+function exportToCSV() {
+    const rows = document.querySelectorAll('tbody tr');
+    let csv = ['Name,Decision,Confidence,Reason,Approve,Feedback,ProcessThis'];
+    
+    rows.forEach(row => {
+        const cells = row.querySelectorAll('td');
+        const checkbox = cells[0].querySelector('input[type="checkbox"]');
+        const decision = cells[0].querySelector('.decision-box').textContent.trim();
+        const name = cells[1].textContent.trim();
+        const confidence = cells[2].textContent.trim();
+        const reason = cells[3].textContent.trim().replace(/"/g, '""');
+        const approve = checkbox.checked ? 'YES' : 'NO';
+        const feedback = cells[5].querySelector('textarea').value.trim().replace(/"/g, '""');
+        
+        csv.push(`"${name}","${decision}","${confidence}","${reason}","${approve}","${feedback}","${approve}"`);
+    });
+    
+    const blob = new Blob([csv.join('\n')], {type: 'text/csv;charset=utf-8;'});
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'batch5_canonical_' + new Date().toISOString().slice(0, 10) + '.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Copy path to clipboard
+    const downloadPath = '/Users/admin/Downloads/' + link.getAttribute('download');
+    navigator.clipboard.writeText(downloadPath).then(() => {
+        alert('✅ CSV exported successfully!\n\n📋 Download path copied to clipboard:\n' + downloadPath);
+    });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 4B-2: Test Batch Approval (25 People)</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 15px;
+            background: #f5f5f5;
+            font-size: 13px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .instructions {
+            background: #e8f4f8;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin-bottom: 20px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-box {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .controls {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        
+        button:hover {
+            background: #2980b9;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background: #34495e;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            position: sticky;
+            top: 0;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        th:hover {
+            background: #2c3e50;
+        }
+        
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 40px;
+        }
+        
+        .video-link {
+            color: #3498db;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+        
+        .video-link:hover {
+            text-decoration: underline;
+        }
+        
+        .category-org { background-color: #fee; }
+        .category-phone { background-color: #fdd; }
+        .category-duplicate { background-color: #ffe; }
+        .category-single_name { background-color: #eff; }
+        .category-full_name { background-color: #efe; }
+        
+        .gmail-found { color: #27ae60; font-weight: bold; }
+        .gmail-not-found { color: #95a5a6; }
+        
+        .suggestion {
+            font-size: 12px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📋 Phase 4B-2: Test Batch Approval (25 People)</h1>
+        <p><strong>Generated:</strong> 2025-10-23 12:58:56</p>
+        <p><strong>Purpose:</strong> Review unenriched Fathom participants by cross-checking against Gmail research insights and airtable data.</p>
+    </div>
+    
+    <div class="instructions">
+        <h3>📖 Instructions</h3>
+        <ol>
+            <li><strong>Review each person:</strong> Check videos (🎥), Gmail results (📧), and category</li>
+            <li><strong>Use suggestions:</strong> Pre-filled comments based on auto-categorization</li>
+            <li><strong>Update comments:</strong> Edit to add your decisions:
+                <ul>
+                    <li><code>drop</code> - Delete from Fathom (organization/junk)</li>
+                    <li><code>merge with: Name</code> - Consolidate with existing person</li>
+                    <li><code>add to airtable</code> - Real person, create Airtable entry</li>
+                    <li><code>ignore</code> - Not ERA-related</li>
+                </ul>
+            </li>
+            <li><strong>Check/uncheck boxes:</strong> ✓ = process this action, ✗ = skip for now</li>
+            <li><strong>Export when done:</strong> Click "📥 Export to CSV" button</li>
+        </ol>
+    </div>
+    
+    <div class="stats">
+        <div class="stat-box">
+            <div class="stat-value">50</div>
+            <div class="stat-label">Total People</div>
+        </div>
+        <div class="stat-box" style="background: #d4edda;">
+            <div class="stat-value" style="color: #28a745;">20</div>
+            <div class="stat-label">✅ High Confidence</div>
+        </div>
+        <div class="stat-box" style="background: #fff3cd;">
+            <div class="stat-value" style="color: #ffc107;">23</div>
+            <div class="stat-label">🤔 Need AI Review</div>
+        </div>
+        <div class="stat-box" style="background: #f8d7da;">
+            <div class="stat-value" style="color: #dc3545;">7</div>
+            <div class="stat-label">⚠️ Low Confidence</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-value">38</div>
+            <div class="stat-label">In Town Hall</div>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <button onclick="exportToCSV()">📥 Export to CSV</button>
+        <button onclick="checkAll()">✓ Check All</button>
+        <button onclick="uncheckAll()">✗ Uncheck All</button>
+        <button onclick="filterCategory('all')">Show All</button>
+        <button onclick="filterCategory('organization')">Organizations</button>
+        <button onclick="filterCategory('duplicate')">Duplicates</button>
+        <button onclick="filterCategory('full_name')">Full Names</button>
+    </div>
+    
+    <table id="approvalTable">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">Fathom Name</th>
+                <th onclick="sortTable(1)">AI Recommendation</th>
+                <th onclick="sortTable(2)">Town Hall</th>
+                <th onclick="sortTable(3)">Videos</th>
+                <th onclick="sortTable(4)">Category</th>
+                <th onclick="sortTable(5)">In Airtable</th>
+                <th onclick="sortTable(6)">Gmail</th>
+                <th onclick="sortTable(7)">Comments</th>
+                <th onclick="sortTable(8)">Process This</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr class="category-duplicate">
+                <td><strong>Jon Schull (Enabling The Future)</strong></td>
+                <td style="background: #fff3cd; padding: 8px;">
+                    <strong>🤔 unclear</strong><br>
+                    <small style="color: #666;">NEEDS AI REVIEW</small><br>
+                    <small style="color: #888; font-style: italic;">Found in 5 Town Hall | Limited additional context</small>
+                </td>
+                <td style="font-size: 12px;"><strong>5 meetings</strong><br><small>• 2025-04-30: ...and save the date for next mini workshop, 9AM Pacific on ...<br>• 2025-03-19: ...The Big Map](https://experience.arcgis.com/experience/40d...</small></td>
+                <td><a href="https://fathom.video/calls/331536869" target="_blank" class="video-link">🎥</a></td>
+                <td>duplicate</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Jon%20Schull%20%28Enabling%20The%20Future%29' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Jon Schull (Enabling The Future)</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-duplicate">
+                <td><strong>Jon Schull, EcoRestoration Alliance</strong></td>
+                <td style="background: #d4edda; padding: 8px;">
+                    <strong>🔁 merge with: Jon Schull</strong><br>
+                    <small style="color: #666;">HIGH CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">🔁 Name variant resolved in earlier round</small>
+                </td>
+                <td style="font-size: 12px;"><strong>5 meetings</strong><br><small>• 2025-04-30: ...10:08:41 From **Jon Schull, EcoRestoration Alliance** to ...<br>• 2025-02-19: ...it's during sxsw  
+	  
+15:23:14 From **Jon Schull, EcoRes...</small></td>
+                <td><a href="https://fathom.video/calls/408247629, https://fathom.video/calls/319553577" target="_blank" class="video-link">🎥</a></td>
+                <td>duplicate</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Jon%20Schull%2C%20EcoRestoration%20Alliance' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Jon Schull, EcoRestoration Alliance</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes...">🔁 Name variant resolved in earlier round</textarea></td>
+                <td style="text-align: center;"><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-duplicate">
+                <td><strong>Jon Schull, EcoRestoration Alliance (2)</strong></td>
+                <td style="background: #fff3cd; padding: 8px;">
+                    <strong>🤔 unclear</strong><br>
+                    <small style="color: #666;">NEEDS AI REVIEW</small><br>
+                    <small style="color: #888; font-style: italic;">Found in 5 Town Hall | Limited additional context</small>
+                </td>
+                <td style="font-size: 12px;"><strong>5 meetings</strong><br><small>• 2025-09-03: ...OCquw4uOh+hNMYEXYUeqM90h6/1fuxd9yJs9fYgKZQdqz4TrWVx6KlOwu...<br>• 2025-06-25: ...tixLHlMTxSMIvoJQeAL3tiSptV22J6KglPTcFnVFmvyvm74rYCREzg8aa...</small></td>
+                <td><a href="https://fathom.video/calls/408247629" target="_blank" class="video-link">🎥</a></td>
+                <td>duplicate</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Jon%20Schull%2C%20EcoRestoration%20Alliance%20%282%29' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Jon Schull, EcoRestoration Alliance (2)</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-duplicate">
+                <td><strong>Jon Schull, EcoRestoration Alliance (7)</strong></td>
+                <td style="background: #d4edda; padding: 8px;">
+                    <strong>🔁 merge with: Jon Schull</strong><br>
+                    <small style="color: #666;">HIGH CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">🔁 Organization mapping from earlier round</small>
+                </td>
+                <td style="font-size: 12px;"><strong>5 meetings</strong><br><small>• 2025-09-03: ...Who's going, what's happening?  
+  [https://www.climatewe...<br>• 2025-06-25: ...PDDo1u37gAlf1hxlfhbFp/**7**/rof/N3+q+1TkvvCwu8TPD989GN1TY...</small></td>
+                <td><a href="https://fathom.video/calls/319553577" target="_blank" class="video-link">🎥</a></td>
+                <td>duplicate</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Jon%20Schull%2C%20EcoRestoration%20Alliance%20%287%29' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Jon Schull, EcoRestoration Alliance (7)</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes...">🔁 Organization mapping from earlier round</textarea></td>
+                <td style="text-align: center;"><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-duplicate">
+                <td><strong>Josean's iPhone (11)</strong></td>
+                <td style="background: #fff3cd; padding: 8px;">
+                    <strong>🤔 unclear</strong><br>
+                    <small style="color: #666;">NEEDS AI REVIEW</small><br>
+                    <small style="color: #888; font-style: italic;">Found in 5 Town Hall | Limited additional context</small>
+                </td>
+                <td style="font-size: 12px;"><strong>5 meetings</strong><br><small>• 2025-09-03: ...M7dmOkuxeToweQn5aLMP9oTI4M4fyhEfjS9xfmF4aTQ/twevQgvV4s6ot...<br>• 2025-05-28: ...GAFp3ZUcH6PlPa/nisjjbw43syrU628MdfBzcNS6v8e3jvZy/sn+/hAGv...</small></td>
+                <td><a href="https://fathom.video/calls/242890812" target="_blank" class="video-link">🎥</a></td>
+                <td>duplicate</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Josean%27s%20iPhone%20%2811%29' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Josean's iPhone (11)</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-duplicate">
+                <td><strong>Joshua Laizer (4)</strong></td>
+                <td style="background: #fff3cd; padding: 8px;">
+                    <strong>🤔 unclear</strong><br>
+                    <small style="color: #666;">NEEDS AI REVIEW</small><br>
+                    <small style="color: #888; font-style: italic;">Found in 5 Town Hall | Limited additional context</small>
+                </td>
+                <td style="font-size: 12px;"><strong>5 meetings</strong><br><small>• 2025-09-03: ...yBeqUZx9SqUkPJLG6CpWI7S6pUIjUrGhClzMXLMZNg5uiMmIQUJCgaHuZ...<br>• 2025-06-25: ...y7kfL9m5sPP+kfbb+9dvn1c0e1qkb/PVLzYFLs+rCNnOBovPBZeXVm1as...</small></td>
+                <td><a href="https://fathom.video/calls/319553577" target="_blank" class="video-link">🎥</a></td>
+                <td>duplicate</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Joshua%20Laizer%20%284%29' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Joshua Laizer (4)</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-duplicate">
+                <td><strong>Joshua Laizer (7)</strong></td>
+                <td style="background: #fff3cd; padding: 8px;">
+                    <strong>🤔 unclear</strong><br>
+                    <small style="color: #666;">NEEDS AI REVIEW</small><br>
+                    <small style="color: #888; font-style: italic;">Found in 5 Town Hall | Limited additional context</small>
+                </td>
+                <td style="font-size: 12px;"><strong>5 meetings</strong><br><small>• 2025-09-03: ...Who's going, what's happening?  
+  [https://www.climatewe...<br>• 2025-06-25: ...PDDo1u37gAlf1hxlfhbFp/**7**/rof/N3+q+1TkvvCwu8TPD989GN1TY...</small></td>
+                <td><a href="https://fathom.video/calls/319553577" target="_blank" class="video-link">🎥</a></td>
+                <td>duplicate</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Joshua%20Laizer%20%287%29' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Joshua Laizer (7)</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-duplicate">
+                <td><strong>Justin Ritchie (3)</strong></td>
+                <td style="background: #fff3cd; padding: 8px;">
+                    <strong>🤔 unclear</strong><br>
+                    <small style="color: #666;">NEEDS AI REVIEW</small><br>
+                    <small style="color: #888; font-style: italic;">Found in 5 Town Hall | Limited additional context</small>
+                </td>
+                <td style="font-size: 12px;"><strong>5 meetings</strong><br><small>• 2025-09-17: **EcoRestoration Alliance Town Hall Meeting**  
+**Wednesday,...<br>• 2025-09-03: ...z/**3**+O9j3+Exz++gO27FmFpRznWbWnDqv6pWLSiEY1zClHclIjcmli...</small></td>
+                <td><a href="https://fathom.video/calls/37381089" target="_blank" class="video-link">🎥</a></td>
+                <td>duplicate</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Justin%20Ritchie%20%283%29' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Justin Ritchie (3)</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-duplicate">
+                <td><strong>Kaluki Paul Mutuku (2)</strong></td>
+                <td style="background: #fff3cd; padding: 8px;">
+                    <strong>🤔 unclear</strong><br>
+                    <small style="color: #666;">NEEDS AI REVIEW</small><br>
+                    <small style="color: #888; font-style: italic;">Found in 5 Town Hall | Limited additional context</small>
+                </td>
+                <td style="font-size: 12px;"><strong>5 meetings</strong><br><small>• 2025-09-03: ...OCquw4uOh+hNMYEXYUeqM90h6/1fuxd9yJs9fYgKZQdqz4TrWVx6KlOwu...<br>• 2025-06-25: ...tixLHlMTxSMIvoJQeAL3tiSptV22J6KglPTcFnVFmvyvm74rYCREzg8aa...</small></td>
+                <td><a href="https://fathom.video/calls/319553577" target="_blank" class="video-link">🎥</a></td>
+                <td>duplicate</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Kaluki%20Paul%20Mutuku%20%282%29' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Kaluki Paul Mutuku (2)</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-duplicate">
+                <td><strong>Kaluki Paul Mutuku (4)</strong></td>
+                <td style="background: #fff3cd; padding: 8px;">
+                    <strong>🤔 unclear</strong><br>
+                    <small style="color: #666;">NEEDS AI REVIEW</small><br>
+                    <small style="color: #888; font-style: italic;">Found in 5 Town Hall | Limited additional context</small>
+                </td>
+                <td style="font-size: 12px;"><strong>5 meetings</strong><br><small>• 2025-09-03: ...yBeqUZx9SqUkPJLG6CpWI7S6pUIjUrGhClzMXLMZNg5uiMmIQUJCgaHuZ...<br>• 2025-06-25: ...y7kfL9m5sPP+kfbb+9dvn1c0e1qkb/PVLzYFLs+rCNnOBovPBZeXVm1as...</small></td>
+                <td><a href="https://fathom.video/calls/319553577" target="_blank" class="video-link">🎥</a></td>
+                <td>duplicate</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Kaluki%20Paul%20Mutuku%20%284%29' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Kaluki Paul Mutuku (4)</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-duplicate">
+                <td><strong>Kathryn Alexander, MA</strong></td>
+                <td style="background: #fff3cd; padding: 8px;">
+                    <strong>🤔 unclear</strong><br>
+                    <small style="color: #666;">NEEDS AI REVIEW</small><br>
+                    <small style="color: #888; font-style: italic;">Found in 1 Town Hall | Limited additional context</small>
+                </td>
+                <td style="font-size: 12px;"><strong>1 meetings</strong><br><small>• 2024-12-11: ...Colleen@rainbirdut.com**  
+**21:16:17 From Mark Haubner t...</small></td>
+                <td><a href="https://fathom.video/calls/218283603" target="_blank" class="video-link">🎥</a></td>
+                <td>duplicate</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Kathryn%20Alexander%2C%20MA' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Kathryn Alexander, MA</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-duplicate">
+                <td><strong>Katrina Jeffries (5)</strong></td>
+                <td style="background: #d4edda; padding: 8px;">
+                    <strong>🔁 merge with: Katrina Jeffries</strong><br>
+                    <small style="color: #666;">HIGH CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">🔁 Organization mapping from earlier round</small>
+                </td>
+                <td style="font-size: 12px;"><strong>5 meetings</strong><br><small>• 2025-09-03: ...sKkMw7TvM00UoyJnGG3bWcLUyh4OFKcwN9cQztIgGyCXsIBTgMF8BDwto...<br>• 2025-06-25: ...wUJ+R8FS35JP3kuNT2v4NdRr2Ah1hdqYD7f/Pr589YtXsITDWvx+FF3+E...</small></td>
+                <td><a href="https://fathom.video/calls/58214677" target="_blank" class="video-link">🎥</a></td>
+                <td>duplicate</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Katrina%20Jeffries%20%285%29' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Katrina Jeffries (5)</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes...">🔁 Organization mapping from earlier round</textarea></td>
+                <td style="text-align: center;"><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-duplicate">
+                <td><strong>Lastborn's Galaxy A11 (3)</strong></td>
+                <td style="background: #fff3cd; padding: 8px;">
+                    <strong>🤔 likely merge with Ilarion (3)</strong><br>
+                    <small style="color: #666;">NEEDS AI REVIEW</small><br>
+                    <small style="color: #888; font-style: italic;">Found in 5 Town Hall | Possible match: Ilarion (3) (82%)</small>
+                </td>
+                <td style="font-size: 12px;"><strong>5 meetings</strong><br><small>• 2025-09-17: **EcoRestoration Alliance Town Hall Meeting**  
+**Wednesday,...<br>• 2025-09-03: ...z/**3**+O9j3+Exz++gO27FmFpRznWbWnDqv6pWLSiEY1zClHclIjcmli...</small></td>
+                <td><a href="https://fathom.video/calls/104999059" target="_blank" class="video-link">🎥</a></td>
+                <td>duplicate</td>
+                <td>✅ Ilarion (3)<br><small>(82%)</small></td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Lastborn%27s%20Galaxy%20A11%20%283%29' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Lastborn's Galaxy A11 (3)</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Jeremy - Open Forest Protocol</strong></td>
+                <td style="background: #fff3cd; padding: 8px;">
+                    <strong>🤔 unclear</strong><br>
+                    <small style="color: #666;">NEEDS AI REVIEW</small><br>
+                    <small style="color: #888; font-style: italic;">Found in 1 Town Hall | Limited additional context</small>
+                </td>
+                <td style="font-size: 12px;"><strong>1 meetings</strong><br><small>• 2025-04-30: ...we are looking for collaborators and partners to grow and...</small></td>
+                <td><a href="https://fathom.video/calls/289548672" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Jeremy%20%20%20Open%20Forest%20Protocol' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Jeremy   Open Forest Protocol</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>John K Carroll</strong></td>
+                <td style="background: #f8d7da; padding: 8px;">
+                    <strong>⚠️ drop</strong><br>
+                    <small style="color: #666;">LOW CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">No Town Hall, Gmail, or Airtable matches</small>
+                </td>
+                <td style="font-size: 12px;">—</td>
+                <td><a href="https://fathom.video/calls/50542167" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/John%20K%20Carroll' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: John K Carroll</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>John's iPhone</strong></td>
+                <td style="background: #fff3cd; padding: 8px;">
+                    <strong>🤔 unclear</strong><br>
+                    <small style="color: #666;">NEEDS AI REVIEW</small><br>
+                    <small style="color: #888; font-style: italic;">Found in 1 Town Hall | Limited additional context</small>
+                </td>
+                <td style="font-size: 12px;"><strong>1 meetings</strong><br><small>• 2023-08-16: ...Thank you all, I will leave at 5pm, wonderful to experien...</small></td>
+                <td><a href="https://fathom.video/calls/223525279, https://fathom.video/calls/189386729" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/John%27s%20iPhone' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: John's iPhone</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Josean's iPhone</strong></td>
+                <td style="background: #fff3cd; padding: 8px;">
+                    <strong>🤔 unclear</strong><br>
+                    <small style="color: #666;">NEEDS AI REVIEW</small><br>
+                    <small style="color: #888; font-style: italic;">Found in 1 Town Hall | Limited additional context</small>
+                </td>
+                <td style="font-size: 12px;"><strong>1 meetings</strong><br><small>• 2023-08-16: ...Thank you all, I will leave at 5pm, wonderful to experien...</small></td>
+                <td><a href="https://fathom.video/calls/242890812" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Josean%27s%20iPhone' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Josean's iPhone</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Joseph Manning</strong></td>
+                <td style="background: #f8d7da; padding: 8px;">
+                    <strong>⚠️ drop</strong><br>
+                    <small style="color: #666;">LOW CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">No Town Hall, Gmail, or Airtable matches</small>
+                </td>
+                <td style="font-size: 12px;">—</td>
+                <td><a href="https://fathom.video/calls/85761700" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Joseph%20Manning' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Joseph Manning</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Joshua Konkankoh</strong></td>
+                <td style="background: #d4edda; padding: 8px;">
+                    <strong>🔁 merge with: Konkankoh Joshua</strong><br>
+                    <small style="color: #666;">HIGH CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">🔁 Name variant resolved in earlier round</small>
+                </td>
+                <td style="font-size: 12px;"><strong>2 meetings</strong><br><small>• 2024-05-22: ...Olowosile, Alex Carlin, David Ross, Aude Péronne, Cindy E...<br>• 2024-03-14: ...Solar albedo reduction in cities.  
+* **Joshua Konkankoh*...</small></td>
+                <td><a href="https://fathom.video/calls/99648620, https://fathom.video/calls/76758727" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Joshua%20Konkankoh' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Joshua Konkankoh</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes...">🔁 Name variant resolved in earlier round</textarea></td>
+                <td style="text-align: center;"><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Joshua Laizer</strong></td>
+                <td style="background: #d4edda; padding: 8px;">
+                    <strong>🔁 merge with: Konkankoh Joshua</strong><br>
+                    <small style="color: #666;">HIGH CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">🔁 Name variant resolved in earlier round</small>
+                </td>
+                <td style="font-size: 12px;">—</td>
+                <td><a href="https://fathom.video/calls/319553577, https://fathom.video/calls/285134478, https://fathom.video/calls/242890812, https://fathom.video/calls/223525279, https://fathom.video/calls/214375292" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>✅ Joshua Laizer<br><small>(100%)</small></td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Joshua%20Laizer' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Joshua Laizer</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes...">🔁 Name variant resolved in earlier round</textarea></td>
+                <td style="text-align: center;"><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Joshua Price</strong></td>
+                <td style="background: #fff3cd; padding: 8px;">
+                    <strong>🤔 unclear</strong><br>
+                    <small style="color: #666;">NEEDS AI REVIEW</small><br>
+                    <small style="color: #888; font-style: italic;">Found in 1 Town Hall | Limited additional context</small>
+                </td>
+                <td style="font-size: 12px;"><strong>1 meetings</strong><br><small>• 2023-03-29: ...Where resources get scarce, their **price** goes up. We d...</small></td>
+                <td><a href="https://fathom.video/calls/168082460" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Joshua%20Price' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Joshua Price</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Joshua Shepard</strong></td>
+                <td style="background: #d4edda; padding: 8px;">
+                    <strong>🔁 merge with: Joshua Sheppard</strong><br>
+                    <small style="color: #666;">HIGH CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">🔁 Name variant resolved in earlier round</small>
+                </td>
+                <td style="font-size: 12px;">—</td>
+                <td><a href="https://fathom.video/calls/28854293" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>✅ Joshua Sheppard<br><small>(95%)</small></td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Joshua%20Shepard' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Joshua Shepard</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes...">🔁 Name variant resolved in earlier round</textarea></td>
+                <td style="text-align: center;"><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Juan José Pimento</strong></td>
+                <td style="background: #d4edda; padding: 8px;">
+                    <strong>✅ merge with: Juan Pimento</strong><br>
+                    <small style="color: #666;">HIGH CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">Perfect name match (100%) | Also in 1 Town Hall</small>
+                </td>
+                <td style="font-size: 12px;"><strong>1 meetings</strong><br><small>• 2023-11-08: ...16:23:16 From **Juan José Pimento** To Everyone:  
+	Thank...</small></td>
+                <td><a href="https://fathom.video/calls/48059317" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>✅ Juan Pimento<br><small>(100%)</small></td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Juan%20Jos%C3%A9%20Pimento' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Juan José Pimento</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Juan from Panama</strong></td>
+                <td style="background: #fff3cd; padding: 8px;">
+                    <strong>🤔 unclear</strong><br>
+                    <small style="color: #666;">NEEDS AI REVIEW</small><br>
+                    <small style="color: #888; font-style: italic;">Found in 1 Town Hall | Limited additional context</small>
+                </td>
+                <td style="font-size: 12px;"><strong>1 meetings</strong><br><small>• 2023-11-08: ...16:18:14 From **Juan from Panama** To Everyone:  
+	Dear E...</small></td>
+                <td><a href="https://fathom.video/calls/48059317, https://fathom.video/calls/42536046" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Juan%20from%20Panama' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Juan from Panama</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Judith D. Schwartz</strong></td>
+                <td style="background: #d4edda; padding: 8px;">
+                    <strong>✅ merge with: Judith Schwartz</strong><br>
+                    <small style="color: #666;">HIGH CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">In 2 Town Hall meetings | Strong Airtable match (100%)</small>
+                </td>
+                <td style="font-size: 12px;"><strong>2 meetings</strong><br><small>• 2025-01-08: ...biofi.earth/about) ; [https://www.hylo.com/groups/biofi](...<br>• 2023-08-16: ...Time is tight and there may be questions…  
+16:18:39 From...</small></td>
+                <td><a href="https://fathom.video/calls/209204233" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>✅ Judith Schwartz<br><small>(100%)</small></td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Judith%20D%20%20Schwartz' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Judith D  Schwartz</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Judith Rosen</strong></td>
+                <td style="background: #f8d7da; padding: 8px;">
+                    <strong>⚠️ drop</strong><br>
+                    <small style="color: #666;">LOW CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">No Town Hall, Gmail, or Airtable matches</small>
+                </td>
+                <td style="font-size: 12px;">—</td>
+                <td><a href="https://fathom.video/calls/213588452" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Judith%20Rosen' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Judith Rosen</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Justin R-Söndergaard</strong></td>
+                <td style="background: #fff3cd; padding: 8px;">
+                    <strong>🤔 likely merge with Justin Roborg-Sondergaard</strong><br>
+                    <small style="color: #666;">NEEDS AI REVIEW</small><br>
+                    <small style="color: #888; font-style: italic;">Good Airtable match (83%): Justin Roborg-Sondergaard</small>
+                </td>
+                <td style="font-size: 12px;">—</td>
+                <td><a href="https://fathom.video/calls/56449118" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>✅ Justin Roborg-Sondergaard<br><small>(83%)</small></td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Justin%20R%20S%C3%B6ndergaard' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Justin R Söndergaard</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Justin Ritchie</strong></td>
+                <td style="background: #d4edda; padding: 8px;">
+                    <strong>✅ merge with: Justin Ritchie</strong><br>
+                    <small style="color: #666;">HIGH CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">Perfect name match (100%) | Also in 1 Town Hall</small>
+                </td>
+                <td style="font-size: 12px;"><strong>1 meetings</strong><br><small>• 2023-09-13: ...Member Updates and Introductions***
+
+* [***Maria Ehrnströ...</small></td>
+                <td><a href="https://fathom.video/calls/37381089" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>✅ Justin Ritchie<br><small>(100%)</small></td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Justin%20Ritchie' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Justin Ritchie</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Kaitlin Sullivan</strong></td>
+                <td style="background: #f8d7da; padding: 8px;">
+                    <strong>⚠️ drop</strong><br>
+                    <small style="color: #666;">LOW CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">No Town Hall, Gmail, or Airtable matches</small>
+                </td>
+                <td style="font-size: 12px;">—</td>
+                <td><a href="https://fathom.video/calls/192879914" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Kaitlin%20Sullivan' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Kaitlin Sullivan</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Kaluki Paul Mutuku</strong></td>
+                <td style="background: #d4edda; padding: 8px;">
+                    <strong>✅ merge with: Kaluki Paul Mutuku</strong><br>
+                    <small style="color: #666;">HIGH CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">Perfect name match (100%)</small>
+                </td>
+                <td style="font-size: 12px;">—</td>
+                <td><a href="https://fathom.video/calls/263417891" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>✅ Kaluki Paul Mutuku<br><small>(100%)</small></td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Kaluki%20Paul%20Mutuku' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Kaluki Paul Mutuku</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Katharine King</strong></td>
+                <td style="background: #fff3cd; padding: 8px;">
+                    <strong>🤔 unclear</strong><br>
+                    <small style="color: #666;">NEEDS AI REVIEW</small><br>
+                    <small style="color: #888; font-style: italic;">Found in 2 Town Hall | Limited additional context</small>
+                </td>
+                <td style="font-size: 12px;"><strong>2 meetings</strong><br><small>• 2023-05-24: ...Imagine if the **King** James bible had translated to man...<br>• 2023-01-18: ...Maya Dutta, Caroline Petruzzi McHale, Paula Phipps  
+---
+...</small></td>
+                <td><a href="https://fathom.video/calls/151504382" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Katharine%20King' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Katharine King</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Kathia Burillo</strong></td>
+                <td style="background: #f8d7da; padding: 8px;">
+                    <strong>⚠️ drop</strong><br>
+                    <small style="color: #666;">LOW CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">No Town Hall, Gmail, or Airtable matches</small>
+                </td>
+                <td style="font-size: 12px;">—</td>
+                <td><a href="https://fathom.video/calls/168111809" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Kathia%20Burillo' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Kathia Burillo</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Kathleen Groppe</strong></td>
+                <td style="background: #fff3cd; padding: 8px;">
+                    <strong>🤔 unclear</strong><br>
+                    <small style="color: #666;">NEEDS AI REVIEW</small><br>
+                    <small style="color: #888; font-style: italic;">Found in 1 Town Hall | Limited additional context</small>
+                </td>
+                <td style="font-size: 12px;"><strong>1 meetings</strong><br><small>• 2024-07-31: ...https://form.jotform.com/222647520358154  
+22:04:59 From ...</small></td>
+                <td><a href="https://fathom.video/calls/127857495" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Kathleen%20Groppe' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Kathleen Groppe</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Kevin A.</strong></td>
+                <td style="background: #d4edda; padding: 8px;">
+                    <strong>✅ merge with: Kevin A.</strong><br>
+                    <small style="color: #666;">HIGH CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">In 5 Town Hall meetings | Strong Airtable match (100%)</small>
+                </td>
+                <td style="font-size: 12px;"><strong>5 meetings</strong><br><small>• 2025-09-17: ...If no concerns or objections are raised within **a** week...<br>• 2025-09-03: ...If no concerns or objections are raised within **a** week...</small></td>
+                <td><a href="https://fathom.video/calls/120266996" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>✅ Kevin A.<br><small>(100%)</small></td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Kevin%20A%20' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Kevin A </small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Kevin Li</strong></td>
+                <td style="background: #d4edda; padding: 8px;">
+                    <strong>✅ merge with: Kevin Li</strong><br>
+                    <small style="color: #666;">HIGH CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">In 5 Town Hall meetings | Strong Airtable match (100%)</small>
+                </td>
+                <td style="font-size: 12px;"><strong>5 meetings</strong><br><small>• 2025-09-03: ...5IneilEocByKXP8a+JQ4425LSgLOqiRNQgS0CWhgzLwpaahkGtog15nXo...<br>• 2025-05-28: ...9NUrgc+P8Mt3n+Bvf/oKf//5a/z1xy80Ivrly3tyDJrlN1sri6Sr+OhJC...</small></td>
+                <td><a href="https://fathom.video/calls/120266996" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>✅ Kevin Li<br><small>(100%)</small></td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Kevin%20Li' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Kevin Li</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Kim Chapple</strong></td>
+                <td style="background: #d4edda; padding: 8px;">
+                    <strong>✅ merge with: Kimberly Chapple</strong><br>
+                    <small style="color: #666;">HIGH CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">Perfect name match (100%) | Also in 1 Town Hall</small>
+                </td>
+                <td style="font-size: 12px;"><strong>1 meetings</strong><br><small>• 2023-11-08: ...And joyfully  
+16:58:42 From **kim chapple** \- great lak...</small></td>
+                <td><a href="https://fathom.video/calls/48059317" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>✅ Kimberly Chapple<br><small>(100%)</small></td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Kim%20Chapple' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Kim Chapple</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Kinari Webb</strong></td>
+                <td style="background: #f8d7da; padding: 8px;">
+                    <strong>⚠️ drop</strong><br>
+                    <small style="color: #666;">LOW CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">No Town Hall, Gmail, or Airtable matches</small>
+                </td>
+                <td style="font-size: 12px;">—</td>
+                <td><a href="https://fathom.video/calls/48300403" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Kinari%20Webb' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Kinari Webb</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Kwaxala / Pete</strong></td>
+                <td style="background: #fff3cd; padding: 8px;">
+                    <strong>🤔 unclear</strong><br>
+                    <small style="color: #666;">NEEDS AI REVIEW</small><br>
+                    <small style="color: #888; font-style: italic;">Found in 1 Town Hall | Limited additional context</small>
+                </td>
+                <td style="font-size: 12px;"><strong>1 meetings</strong><br><small>• 2025-08-06: ...If any concerns or objections are raised, the board will ...</small></td>
+                <td><a href="https://fathom.video/calls/373972665" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Kwaxala%20/%20Pete' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Kwaxala / Pete</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Larry Kopald</strong></td>
+                <td style="background: #fff3cd; padding: 8px;">
+                    <strong>🤔 unclear</strong><br>
+                    <small style="color: #666;">NEEDS AI REVIEW</small><br>
+                    <small style="color: #888; font-style: italic;">Found in 1 Town Hall | Limited additional context</small>
+                </td>
+                <td style="font-size: 12px;"><strong>1 meetings</strong><br><small>• 2024-06-05: ...What’s your actual name?
+
+   15:03:07 From Jon Schull, Ec...</small></td>
+                <td><a href="https://fathom.video/calls/104999059" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Larry%20Kopald' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Larry Kopald</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Lastborn's Galaxy A11</strong></td>
+                <td style="background: #fff3cd; padding: 8px;">
+                    <strong>🤔 unclear</strong><br>
+                    <small style="color: #666;">NEEDS AI REVIEW</small><br>
+                    <small style="color: #888; font-style: italic;">Found in 1 Town Hall | Limited additional context</small>
+                </td>
+                <td style="font-size: 12px;"><strong>1 meetings</strong><br><small>• 2024-06-05: ...15:03:01 From Jon Schull, EcoRestoration Alliance to **La...</small></td>
+                <td><a href="https://fathom.video/calls/104999059" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Lastborn%27s%20Galaxy%20A11' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Lastborn's Galaxy A11</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Lee G</strong></td>
+                <td style="background: #d4edda; padding: 8px;">
+                    <strong>🔁 merge with: Lee Golpariani</strong><br>
+                    <small style="color: #666;">HIGH CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">🔁 Name variant resolved in earlier round</small>
+                </td>
+                <td style="font-size: 12px;"><strong>1 meetings</strong><br><small>• 2023-05-24: ...The Education Fund  
+	https://www.educationfund.org/what-...</small></td>
+                <td><a href="https://fathom.video/calls/39937391, https://fathom.video/calls/22368500" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Lee%20G' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Lee G</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes...">🔁 Name variant resolved in earlier round</textarea></td>
+                <td style="text-align: center;"><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-full_name">
+                <td><strong>Leonard IYAMUREME</strong></td>
+                <td style="background: #d4edda; padding: 8px;">
+                    <strong>🔁 merge with: Leonard Iyamuremye</strong><br>
+                    <small style="color: #666;">HIGH CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">🔁 Name variant resolved in earlier round</small>
+                </td>
+                <td style="font-size: 12px;"><strong>5 meetings</strong><br><small>• 2025-02-05: ...org/donate)
+
+**Participants:**   
+Jon Schull, Philip Bogd...<br>• 2025-01-08: ...Bogdonoff, Mike Lynn, Kyle Lawson, Michael Pilarski (Glob...</small></td>
+                <td><a href="https://fathom.video/calls/319553577, https://fathom.video/calls/308230203, https://fathom.video/calls/285085815, https://fathom.video/calls/263417891, https://fathom.video/calls/253037687, https://fathom.video/calls/242890812, https://fathom.video/calls/233189775, https://fathom.video/calls/223525279, https://fathom.video/calls/214375292, https://fathom.video/calls/205793805, https://fathom.video/calls/201817513, https://fathom.video/calls/193558243, https://fathom.video/calls/324278211, https://fathom.video/calls/301421112, https://fathom.video/calls/267833235, https://fathom.video/calls/257059280, https://fathom.video/calls/209204233, https://fathom.video/calls/200959970, https://fathom.video/calls/181365987, https://fathom.video/calls/174035176, https://fathom.video/calls/226162234" target="_blank" class="video-link">🎥</a></td>
+                <td>full_name</td>
+                <td>✅ Leonard Iyamuremye<br><small>(96%)</small></td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Leonard%20IYAMUREME' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Leonard IYAMUREME</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes...">🔁 Name variant resolved in earlier round</textarea></td>
+                <td style="text-align: center;"><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-single_name">
+                <td><strong>Belizey</strong></td>
+                <td style="background: #d4edda; padding: 8px;">
+                    <strong>🔁 merge with: Kalombo Mbilizi</strong><br>
+                    <small style="color: #666;">HIGH CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">🔁 Name variant resolved in earlier round</small>
+                </td>
+                <td style="font-size: 12px;">—</td>
+                <td><a href="https://fathom.video/calls/165893831" target="_blank" class="video-link">🎥</a></td>
+                <td>single_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Belizey' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Belizey</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes...">🔁 Name variant resolved in earlier round</textarea></td>
+                <td style="text-align: center;"><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-single_name">
+                <td><strong>JP</strong></td>
+                <td style="background: #fff3cd; padding: 8px;">
+                    <strong>🤔 unclear</strong><br>
+                    <small style="color: #666;">NEEDS AI REVIEW</small><br>
+                    <small style="color: #888; font-style: italic;">Found in 5 Town Hall | Limited additional context</small>
+                </td>
+                <td style="font-size: 12px;"><strong>5 meetings</strong><br><small>• 2025-09-03: ...jIWRh6w4vmMx7e7nD3dIWbuzNcXJ36haG9oy1s9bLQZvs2WNuwMLSAJae...<br>• 2025-05-28: ...BJKB8Fnmp9B6dwVCzB0/DADUo0aHcRz4qxFs7D9wHYciTiGFetXYuDIQX...</small></td>
+                <td><a href="https://fathom.video/calls/121641973" target="_blank" class="video-link">🎥</a></td>
+                <td>single_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/JP' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: JP</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-single_name">
+                <td><strong>Jules</strong></td>
+                <td style="background: #f8d7da; padding: 8px;">
+                    <strong>⚠️ drop</strong><br>
+                    <small style="color: #666;">LOW CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">No Town Hall, Gmail, or Airtable matches</small>
+                </td>
+                <td style="font-size: 12px;">—</td>
+                <td><a href="https://fathom.video/calls/220163703" target="_blank" class="video-link">🎥</a></td>
+                <td>single_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Jules' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Jules</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-single_name">
+                <td><strong>Julia</strong></td>
+                <td style="background: #d4edda; padding: 8px;">
+                    <strong>🔁 drop</strong><br>
+                    <small style="color: #666;">HIGH CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">🔁 Previously dropped in earlier round</small>
+                </td>
+                <td style="font-size: 12px;"><strong>2 meetings</strong><br><small>• 2024-09-04: ...Jon, Philip, Ananda, Maya, Fred, Didi Pershouse, Nkwi Flo...<br>• 2023-03-29: ...I have just interviewed **Julia** Barnes about that. She'...</small></td>
+                <td><a href="https://fathom.video/calls/143656774" target="_blank" class="video-link">🎥</a></td>
+                <td>single_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Julia' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Julia</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes...">🔁 Previously dropped in earlier round</textarea></td>
+                <td style="text-align: center;"><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-single_name">
+                <td><strong>KALOMBO-MBILIZI</strong></td>
+                <td style="background: #d4edda; padding: 8px;">
+                    <strong>🔁 merge with: Kalombo Mbilizi</strong><br>
+                    <small style="color: #666;">HIGH CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">🔁 Name variant resolved in earlier round</small>
+                </td>
+                <td style="font-size: 12px;"><strong>3 meetings</strong><br><small>• 2024-08-21: ...intelligence-dna/?utm_source=New+Atlas+Subscribers&utm_ca...<br>• 2024-03-14: ...18:00:37 From **KALOMBO MBILIZI** to Jon Schull, EcoResto...</small></td>
+                <td><a href="https://fathom.video/calls/136973840" target="_blank" class="video-link">🎥</a></td>
+                <td>single_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/KALOMBO%20MBILIZI' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: KALOMBO MBILIZI</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes...">🔁 Name variant resolved in earlier round</textarea></td>
+                <td style="text-align: center;"><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-single_name">
+                <td><strong>Karim</strong></td>
+                <td style="background: #fff3cd; padding: 8px;">
+                    <strong>🤔 unclear</strong><br>
+                    <small style="color: #666;">NEEDS AI REVIEW</small><br>
+                    <small style="color: #888; font-style: italic;">Found in 3 Town Hall | Limited additional context</small>
+                </td>
+                <td style="font-size: 12px;"><strong>3 meetings</strong><br><small>• 2025-01-08: ...Anekha Goyal, Nancy Lee Wood, Donna Nelham, Sean Petterso...<br>• 2024-05-22: ...I would suggest the at the next meeting we invite my part...</small></td>
+                <td><a href="https://fathom.video/calls/274249468, https://fathom.video/calls/253037687, https://fathom.video/calls/214451149, https://fathom.video/calls/201817513, https://fathom.video/calls/209204233" target="_blank" class="video-link">🎥</a></td>
+                <td>single_name</td>
+                <td>❌</td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Karim' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Karim</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes..."></textarea></td>
+                <td style="text-align: center;"><input type="checkbox" ></td>
+            </tr>
+
+            <tr class="category-single_name">
+                <td><strong>Kethia</strong></td>
+                <td style="background: #d4edda; padding: 8px;">
+                    <strong>🔁 merge with: Kethia Calixte</strong><br>
+                    <small style="color: #666;">HIGH CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">🔁 Name variant resolved in earlier round</small>
+                </td>
+                <td style="font-size: 12px;"><strong>1 meetings</strong><br><small>• 2024-03-14: ...These solutions need to be brought at the same time
+
+18:3...</small></td>
+                <td><a href="https://fathom.video/calls/76758727" target="_blank" class="video-link">🎥</a></td>
+                <td>single_name</td>
+                <td>✅ Kethia Calixte<br><small>(100% via word:'Kethia')</small></td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Kethia' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Kethia</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes...">🔁 Name variant resolved in earlier round</textarea></td>
+                <td style="text-align: center;"><input type="checkbox" checked></td>
+            </tr>
+
+            <tr class="category-single_name">
+                <td><strong>Leonard</strong></td>
+                <td style="background: #d4edda; padding: 8px;">
+                    <strong>🔁 merge with: Leonard Iyamuremye</strong><br>
+                    <small style="color: #666;">HIGH CONFIDENCE</small><br>
+                    <small style="color: #888; font-style: italic;">🔁 Name variant resolved in earlier round</small>
+                </td>
+                <td style="font-size: 12px;"><strong>5 meetings</strong><br><small>• 2025-09-17: ...Totimeh, Folonrunsho Dayo, **Leonard** Iyamuremye, Milt M...<br>• 2025-06-25: ...Jon Schull, Poulomi Chakravarty, Charles Upton, Johan Myr...</small></td>
+                <td><a href="https://fathom.video/calls/394570977, https://fathom.video/calls/381363934, https://fathom.video/calls/355913725, https://fathom.video/calls/343485589, https://fathom.video/calls/414406098" target="_blank" class="video-link">🎥</a></td>
+                <td>single_name</td>
+                <td>✅ Leonard Iyamuremye<br><small>(100% via word:'Leonard')</small></td>
+                <td class="gmail-not-found">
+                    <span><a href='https://mail.google.com/mail/u/0/#search/Leonard' target='_blank'>📧 Emails</a></span><br>
+                    <small>Query: Leonard</small>
+                </td>
+                <td><textarea rows="2" placeholder="Override or add notes...">🔁 Name variant resolved in earlier round</textarea></td>
+                <td style="text-align: center;"><input type="checkbox" checked></td>
+            </tr>
+
+        </tbody>
+    </table>
+    
+    <script>
+        function sortTable(column) {
+            const table = document.getElementById('approvalTable');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            rows.sort((a, b) => {
+                let aVal = a.cells[column].textContent.trim();
+                let bVal = b.cells[column].textContent.trim();
+                
+                // Try numeric sort
+                if (!isNaN(aVal) && !isNaN(bVal)) {
+                    return parseFloat(bVal) - parseFloat(aVal);
+                }
+                
+                return aVal.localeCompare(bVal);
+            });
+            
+            rows.forEach(row => tbody.appendChild(row));
+        }
+        
+        function filterCategory(category) {
+            const rows = document.querySelectorAll('#approvalTable tbody tr');
+            rows.forEach(row => {
+                if (category === 'all' || row.dataset.category === category) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+        
+        function checkAll() {
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = true);
+        }
+        
+        function uncheckAll() {
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+        }
+        
+        function exportToCSV() {
+            const rows = document.querySelectorAll('#approvalTable tbody tr');
+            const csvData = [];
+            
+            // Header
+            csvData.push(['Fathom_Name', 'AI_Recommendation', 'AI_Confidence', 'AI_Reasoning', 'Town_Hall_Count', 'Videos_Count', 'Records', 'Category', 'In_Airtable', 'Gmail_Count', 'Gmail_Snippet', 'Comments', 'ProcessThis']);
+            
+            // Data rows
+            rows.forEach(row => {
+                try {
+                    const cells = row.cells;
+                    if (cells.length < 9) {
+                        console.error('Row has insufficient cells:', cells.length);
+                        return;
+                    }
+                    
+                    const name = cells[0].textContent.trim();
+                    
+                    // AI Recommendation (cell 1)
+                    const aiCell = cells[1];
+                    const aiStrongs = aiCell.querySelectorAll('strong');
+                    const aiSmalls = aiCell.querySelectorAll('small');
+                    const aiAction = aiStrongs[0] ? aiStrongs[0].textContent.trim() : '';
+                    const aiConfidence = aiSmalls[0] ? aiSmalls[0].textContent.trim() : '';
+                    const aiReasoning = aiSmalls[1] ? aiSmalls[1].textContent.trim() : '';
+                    
+                    // Town Hall (cell 2)
+                    const thCell = cells[2];
+                    const thStrong = thCell.querySelector('strong');
+                    const thCount = thStrong ? thStrong.textContent.trim() : '0';
+                    
+                    const videoCount = cells[3].querySelectorAll('.video-link').length;
+                    const category = cells[4].textContent.trim();
+                    const inAirtable = cells[5].textContent.trim();
+                    
+                    const gmailSpan = cells[6].querySelector('span');
+                    const gmailSmall = cells[6].querySelector('small');
+                    const gmailText = gmailSpan ? gmailSpan.textContent.trim() : '';
+                    const gmailSnippet = gmailSmall ? gmailSmall.textContent.trim() : '';
+                    
+                    const textarea = cells[7].querySelector('textarea');
+                    const comments = textarea ? textarea.value : '';
+                    
+                    const processInput = cells[8].querySelector('input');
+                    const processThis = processInput && processInput.checked ? 'YES' : 'NO';
+                    
+                    csvData.push([name, aiAction, aiConfidence, aiReasoning, thCount, videoCount, videoCount, category, inAirtable, gmailText, gmailSnippet, comments, processThis]);
+                } catch (e) {
+                    console.error('Error processing row:', e);
+                }
+            });
+            
+            // Convert to CSV string
+            const csvString = csvData.map(row => 
+                row.map(cell => '"' + String(cell).replace(/"/g, '""') + '"').join(',')
+            ).join('\n');
+            
+            // Download
+            const blob = new Blob([csvString], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            const timestamp = new Date().toISOString().slice(0,19).replace(/[-:T]/g, '').substring(0,14);
+            const filename = `phase4b2_approvals_${timestamp}.csv`;
+            a.download = filename;
+            a.click();
+            window.URL.revokeObjectURL(url);
+            
+            // Show file path and copy to clipboard
+            const filePath = `/Users/admin/Downloads/${filename}`;
+            const fileUrl = `file://${filePath}`;
+            
+            // Display on page
+            const pathDiv = document.createElement('div');
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(filePath).then(() => {
+                console.log('File path copied to clipboard:', filePath);
+            }).catch(err => {
+                console.error('Failed to copy to clipboard:', err);
+                // Fallback: show alert with path
+                alert('CSV exported to:\n' + filePath + '\n\n(Could not auto-copy to clipboard)');
+            });
+        }
+    </script>
+</body>
+</html>

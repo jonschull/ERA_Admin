@@ -1,0 +1,106 @@
+Name,Decision,Confidence,Reason,Approve,Feedback,ProcessThis
+admin,drop,HIGH,System account,YES,,YES
+"Agri-Tech Producers LLC, Joe James",add to airtable as Joe James,HIGH,Extract person from org suffix (PAST_LEARNINGS),YES,,YES
+Angelique,merge with: Angelique Garcia,HIGH,From PAST_LEARNINGS.md,YES,,YES
+Dawn Carroll-Nish,add to airtable as Dawn Carroll-Nish,HIGH,Full name,YES,,YES
+Dr. Sanmi Olowosile (3),merge with: Sanmi Olowosile,HIGH,"Number variant, strip ""Dr."" prefix",YES,,YES
+e-NABLE Events,drop,HIGH,Organization account (repeated),YES,,YES
+e-NABLE Events (3),drop,HIGH,Organization account (repeated),YES,,YES
+"Frederic Jennings, www.bio4climate.org",merge with: Fred Jennings,HIGH,"Name variant (Frederic = Fred), strip URL",YES,,YES
+Geoffrey Kwala (3),merge with: Geoffrey Kwala,HIGH,Number variant,YES,,YES
+Geoffrey Kwala (5),merge with: Geoffrey Kwala,HIGH,Number variant,YES,,YES
+Global Earth Repair,merge with: Michael Pilarski,HIGH,Organization → person (PAST_LEARNINGS Batch 5),YES,,YES
+Graham Boyd - Evolutesix,"add to airtable as Graham Boyd, org: Evolutesix",HIGH,"Extract person, keep org context",YES,,YES
+"Grant Holton, MoreTreesNow.eco","add to airtable as Grant Holton, org: MoreTreesNow.eco",HIGH,"Extract person, keep org context",YES,,YES
+Grupo Ecológico Sierra Gorda I.A.P. (3),drop,HIGH,Organization account,NO,[We Sierra Gorda history],NO
+Hart Hagen,add to airtable as Hart Hagen,HIGH,Full name,YES,,YES
+Indy Rishi Singh,merge with: Indy Singh,HIGH,Full name variant,YES,,YES
+Ir Marius,merge with: Marius Iragi Ziganara,HIGH,Name variant from PAST_LEARNINGS,YES,,YES
+Ir Marius (3),merge with: Marius Iragi Ziganara,HIGH,Name variant from PAST_LEARNINGS,YES,,YES
+Ir Marius Z,merge with: Marius Iragi Ziganara,HIGH,Name variant from PAST_LEARNINGS,YES,,YES
+Jake Fairbanks Kelley,add to airtable as Jake Fairbanks Kelley,HIGH,Full name,YES,,YES
+Jeremy Simon,add to airtable as Jeremy Simon,HIGH,Full name,YES,,YES
+jim Bledsoe Napa California,add to airtable as Jim Bledsoe,HIGH,Full name with location,YES,,YES
+John Dennis Liu,merge with: John Dennis Liu,HIGH,Found in Airtable,YES,,YES
+John Dennis Liu (3),merge with: John Dennis Liu,HIGH,Found in Airtable,YES,,YES
+Joshua Laizer,add to airtable as Joshua Laizer,HIGH,Full name,YES,,YES
+Joshua Shepard,add to airtable as Joshua Shepard,HIGH,From PAST_LEARNINGS (JS),YES,,YES
+Judith Rosen,add to airtable as Judith Rosen,HIGH,Full name,YES,,YES
+KALOMBO-MBILIZI,merge with: Kalombo Mbilizi,HIGH,"Name variant (hyphenated, all caps)",YES,,YES
+Kathia Burillo,add to airtable as Kathia Burillo,HIGH,Full name,YES,,YES
+kPm5Xu,drop,HIGH,Random string/system artifact,NO,I think we did this one in teh past,NO
+Leticia Bernardes - explorer.land by OpenForests,merge with: Leticia Bernardes,HIGH,Strip org suffix (explorer.land),YES,,YES
+Maria Ehrnström-Fuentes,add to airtable as Maria Ehrnström-Fuentes,HIGH,Full name,YES,,YES
+MARIUS IRAGI (4),merge with: Marius Iragi Ziganara,HIGH,Number variant,YES,,YES
+mbilizi Kalombo (2),merge with: Kalombo Mbilizi,HIGH,Name reversal variant (PAST_LEARNINGS),YES,,YES
+mbilizi Kalombo (3),merge with: Kalombo Mbilizi,HIGH,Name reversal variant (PAST_LEARNINGS),YES,,YES
+melissamcgaughey,add to airtable as Melissa McGaughey,HIGH,Username pattern,YES,,YES
+Mike Lynn,add to airtable as Mike Lynn,HIGH,"Full name, merge variants",YES,,YES
+Mike Lynn (2),add to airtable as Mike Lynn,HIGH,"Full name, merge variants",YES,,YES
+MOHAMMED ALKHALID,add to airtable as Mohammed Alkhalid,HIGH,Full name (fix caps),YES,,YES
+"Monifa Maat The Healthy Motivator""""",add to airtable as Monifa Maat,HIGH,"Extract person, ignore tagline",YES,,YES
+Mr. Kipilangat Kaura -TAWI (5),merge with: Kipilangat Kaura,HIGH,Strip Mr. and -TAWI (from Batch 7),YES,,YES
+Mtokani Saleh (5),merge with: Mtokani Saleh,HIGH,Number variants (from Batch 7),YES,,YES
+Mtokani Saleh (6),merge with: Mtokani Saleh,HIGH,Number variants (from Batch 7),YES,,YES
+Mtokani Saleh (9),merge with: Mtokani Saleh,HIGH,Number variants (from Batch 7),YES,,YES
+Neal Spackman,add to airtable as Neal Spackman,HIGH,Full name,YES,,YES
+Nima Schei,add to airtable as Nima Schei,HIGH,Full name,YES,,YES
+Paolo Nardi,add to airtable as Paolo Nardi,HIGH,Full name,YES,,YES
+Paulo de Carvalho,add to airtable as Paulo de Carvalho,HIGH,Full name,YES,,YES
+Paulo Magalhães,add to airtable as Paulo Magalhães,HIGH,Full name,YES,,YES
+Peter Gubbels Groundswell-West Africa,"add to airtable as Peter Gubbels, org: Groundswell-West Africa",HIGH,"Extract person, keep org, merge variants",YES,,YES
+Peter Gubbels Groundswell-West Africa (5),"add to airtable as Peter Gubbels, org: Groundswell-West Africa",HIGH,"Extract person, keep org, merge variants",YES,,YES
+"Philip Bogdonoff, Bio4Climate.org",merge with: Philip Bogdonoff,HIGH,Strip org suffix (Bio4Climate.org),YES,,YES
+Rama (5),drop,HIGH,User indicated drop (from Batch 7),YES,,YES
+Rob De Laet (4),merge with: Rob de Laet,HIGH,"Number variants, fix capitalization",YES,,YES
+Rob De Laet (7),merge with: Rob de Laet,HIGH,"Number variants, fix capitalization",YES,,YES
+"Rob Lewis, northwest Washington, Salish Sea",merge with: Rob Lewis,HIGH,Location suffix (from Batch 9),YES,,YES
+Rochelle,merge with: Rochelle Bell,HIGH,From PAST_LEARNINGS (MC Planning),YES,,YES
+Russ Speer (2),merge with: Russ Speer,HIGH,Number variants,YES,,YES
+Russ Speer (3),merge with: Russ Speer,HIGH,Number variants,YES,,YES
+Russ Speer (9),merge with: Russ Speer,HIGH,Number variants,YES,,YES
+Samuel Ombeni,merge with: Samuel Obeni,HIGH,Name variant (Ombeni vs Obeni),YES,,YES
+SteveApfelbaum,add to airtable as Steve Apfelbaum,HIGH,Username pattern,YES,,YES
+Verónica Giraldo,add to airtable as Verónica Giraldo,HIGH,Full name,YES,,YES
+Victoria Zelin & Jonathan Cloud,merge with: Victoria Zelin Cloud,HIGH,"Name variants (with Cloud, with & Jonathan Cloud, hyphenated)",YES,,YES
+Victoria Zelin-Cloud,merge with: Victoria Zelin Cloud,HIGH,"Name variants (with Cloud, with & Jonathan Cloud, hyphenated)",YES,,YES
+William Wildcat,add to airtable as William Wildcat,HIGH,Full name,YES,,YES
+Yuri Herzfeld,merge with: Iuri Herzfled,HIGH,"Name variant (Yuri/Iuri), merge with existing Airtable entry per user feedback",YES,"Iuri Herzfeld
+exists",YES
+Charles,ask user - may be Charles Shore,NEEDS_USER_INPUT,"Single name, possibly Charles Shore",NO,,NO
+craig,ask user for full name,NEEDS_USER_INPUT,Single lowercase name,NO,,NO
+Ed,ask user for full name,NEEDS_USER_INPUT,Single name,NO,,NO
+Geoffrey Kwala,ask user - check if in Airtable,NEEDS_USER_INPUT,Base name for variants,NO,,NO
+George,ask user - base name for variants,NEEDS_USER_INPUT,Multiple George variants exist,NO,,NO
+George (5),ask user - multiple George variants,NEEDS_USER_INPUT,Need to identify which George,NO,,NO
+George (Yogi Karwa),ask user - multiple George variants,NEEDS_USER_INPUT,Need to identify which George,NO,,NO
+George K.,ask user - multiple George variants,NEEDS_USER_INPUT,Need to identify which George,NO,,NO
+George Karwani-Tanzania,ask user - multiple George variants,NEEDS_USER_INPUT,Need to identify which George,NO,,NO
+Gerardo,ask user - possibly Gerardo Martinez (GALA),NEEDS_USER_INPUT,"Single name, likely from GALA",NO,,NO
+Indy,ask user - Indy Singh or Indy Boyle-Rhymes?,NEEDS_USER_INPUT,Multiple Indy matches in PAST_LEARNINGS,NO,,NO
+"Jan Dietrick & Ron Whitehurst, BugFarm, Ventura, CA",ask user - two people in one name,NEEDS_USER_INPUT,Jan Dietrick & Ron Whitehurst need separation,NO,,NO
+Jeremiah,ask user - possibly Jeremiah Agnew,NEEDS_USER_INPUT,"Single name, may be Jeremiah Agnew",NO,,NO
+jim,ask user - possibly Jim Bledsoe,NEEDS_USER_INPUT,Single name variant,NO,,NO
+Jimmy,ask user for full name,NEEDS_USER_INPUT,Single name,NO,,NO
+Jme Conway,ask user - possibly James Conway variant,NEEDS_USER_INPUT,Unusual spelling,NO,,NO
+John's iPhone,ask user - device names need owner identification,NEEDS_USER_INPUT,Device names,NO,,NO
+Josean's iPhone,ask user - device names need owner identification,NEEDS_USER_INPUT,Device names,NO,,NO
+Josean's iPhone (11),ask user - device names need owner identification,NEEDS_USER_INPUT,Device names,NO,,NO
+JP,ask user - initials need full name,NEEDS_USER_INPUT,Initials only,NO,,NO
+Leonard IYAMUREME (10),ask user - check if in Airtable,NEEDS_USER_INPUT,Number variants,NO,,NO
+Leonard IYAMUREME (3),ask user - check if in Airtable,NEEDS_USER_INPUT,Number variants,NO,,NO
+Leonce,ask user for full name,NEEDS_USER_INPUT,Single name,NO,,NO
+Leonce (2),ask user for full name,NEEDS_USER_INPUT,Single name,NO,,NO
+Mark,ask user - too common for single name,NEEDS_USER_INPUT,Common single name,NO,,NO
+MUTASA BRIAN (2),ask user - check if in Airtable,NEEDS_USER_INPUT,Number variants,NO,,NO
+MUTASA BRIAN (3),ask user - check if in Airtable,NEEDS_USER_INPUT,Number variants,NO,,NO
+Nabil Chaib-draa,ask user - name variants (hyphen difference),NEEDS_USER_INPUT,Chaib-draa vs Chaibdraa - which is correct?,NO,,NO
+Nabil Chaibdraa,ask user - name variants (hyphen difference),NEEDS_USER_INPUT,Chaib-draa vs Chaibdraa - which is correct?,NO,,NO
+Nyaguthii,ask user for full name,NEEDS_USER_INPUT,Single name,NO,,NO
+Patrick,ask user for full name,NEEDS_USER_INPUT,Single name,NO,,NO
+Peter / Erica,ask user - two people in one name,NEEDS_USER_INPUT,Need to separate Peter and Erica,NO,,NO
+Poyom,ask user for full name,NEEDS_USER_INPUT,Single name,NO,,NO
+Rodger,ask user - Rodger Savory variants,NEEDS_USER_INPUT,Check if same person,NO,,NO
+Rodger Savory Esq.,ask user - Rodger Savory variants,NEEDS_USER_INPUT,Check if same person,NO,,NO
+Sandra,ask user for full name,NEEDS_USER_INPUT,Single name,NO,,NO
+sheil001,ask user - username needs full name,NEEDS_USER_INPUT,Username pattern,NO,,NO

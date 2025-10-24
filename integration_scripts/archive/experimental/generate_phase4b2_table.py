@@ -370,37 +370,78 @@ for i, p in enumerate(participants, 1):
             p['should_probe'] = True
     
     p['suggested_action'] = suggest_action(p['name'], p['category'], p['gmail'], (in_airtable, matched_name, score, method))
+    
+    # Initialize town_hall to empty for now (will be filled later)
+    p['town_hall'] = []
 
 print()
 print(f"✅ Gmail research complete")
 print(f"✅ Checked against {len(airtable_people)} Airtable people with fuzzy matching")
 print()
 
-# Run Town Hall agenda search
+# Run Town Hall agenda search (using local database - no API calls)
 print("Running Town Hall agenda search...")
 try:
-    th_search = TownHallSearch()
+    th_search = TownHallSearch(use_local_db=True)  # Use local database
     town_hall_found = 0
     for p in participants:
         name = p['name']
-        recent_agendas = th_search.get_recent_agendas(count=20)
+        # Search local database for this person
+        results = th_search.search_agendas_for_name(name, max_results=5)
         found_in = []
-        for agenda in recent_agendas:
-            try:
-                if th_search.search_agenda_text_for_name(agenda['id'], name):
-                    found_in.append({'date': agenda['date'], 'name': agenda['name'], 'link': agenda['link']})
-                    if len(found_in) >= 3:
-                        break
-            except Exception:
-                continue
+        for result in results:
+            found_in.append({
+                'date': result['date'],
+                'title': result['title'],
+                'snippet': result.get('snippet', '')[:150]  # First 150 chars of context
+            })
         p['town_hall'] = found_in
         if found_in:
             town_hall_found += 1
-    print(f"✅ Town Hall search complete (found {town_hall_found} matches)")
+    print(f"✅ Town Hall search complete (found {town_hall_found} matches in local DB)")
 except Exception as e:
-    print(f"⚠️ Town Hall search error: {e}")
+    print(f"⚠️  Town Hall search failed: {e}")
     for p in participants:
         p['town_hall'] = []
+
+# Generate AI recommendations
+print("\nGenerating AI recommendations...")
+from ai_recommendations import make_ai_recommendation, format_recommendation_for_html
+
+ai_recommendations_count = {'high': 0, 'medium': 0, 'low': 0}
+
+for p in participants:
+    # Skip if already has learned mapping
+    if p.get('has_learned_mapping'):
+        p['ai_recommendation'] = {
+            'action': f"🔁 {p.get('suggested_action', '')}",
+            'confidence': 'HIGH CONFIDENCE',
+            'reasoning': p.get('learned_reason', 'From previous round'),
+            'bg_color': '#d4edda',
+            'raw_recommendation': p.get('suggested_action', '')
+        }
+        ai_recommendations_count['high'] += 1
+        continue
+    
+    # Make AI recommendation
+    recommendation, confidence, reasoning = make_ai_recommendation(
+        name=p['name'],
+        town_hall_results=p['town_hall'],
+        gmail_result=p['gmail'],
+        airtable_match=(p['in_airtable'], p['airtable_match'], p['airtable_score'], p['airtable_method']),
+        category=p['category'],
+        has_learned_mapping=p.get('has_learned_mapping', False),
+        learned_decision=p.get('suggested_action', '') if p.get('has_learned_mapping') else ''
+    )
+    
+    # Format for display
+    p['ai_recommendation'] = format_recommendation_for_html(recommendation, confidence, reasoning)
+    ai_recommendations_count[confidence] += 1
+
+print(f"✅ AI recommendations complete:")
+print(f"   High confidence: {ai_recommendations_count['high']} (auto-recommend)")
+print(f"   Medium confidence: {ai_recommendations_count['medium']} (needs AI review)")
+print(f"   Low confidence: {ai_recommendations_count['low']} (skip or manual)")
 print()
 
 # Generate analysis report
@@ -656,17 +697,21 @@ html = f'''<!DOCTYPE html>
             <div class="stat-value">{len(participants)}</div>
             <div class="stat-label">Total People</div>
         </div>
-        <div class="stat-box">
-            <div class="stat-value">{sum(1 for p in participants if p['gmail']['found'])}</div>
-            <div class="stat-label">Found in Gmail</div>
+        <div class="stat-box" style="background: #d4edda;">
+            <div class="stat-value" style="color: #28a745;">{ai_recommendations_count['high']}</div>
+            <div class="stat-label">✅ High Confidence</div>
+        </div>
+        <div class="stat-box" style="background: #fff3cd;">
+            <div class="stat-value" style="color: #ffc107;">{ai_recommendations_count['medium']}</div>
+            <div class="stat-label">🤔 Need AI Review</div>
+        </div>
+        <div class="stat-box" style="background: #f8d7da;">
+            <div class="stat-value" style="color: #dc3545;">{ai_recommendations_count['low']}</div>
+            <div class="stat-label">⚠️ Low Confidence</div>
         </div>
         <div class="stat-box">
-            <div class="stat-value">{sum(1 for p in participants if p['category'] in ['organization', 'phone'])}</div>
-            <div class="stat-label">Likely Delete</div>
-        </div>
-        <div class="stat-box">
-            <div class="stat-value">{sum(1 for p in participants if p['category'] == 'duplicate')}</div>
-            <div class="stat-label">Likely Merge</div>
+            <div class="stat-value">{sum(1 for p in participants if len(p.get('town_hall', [])) > 0)}</div>
+            <div class="stat-label">In Town Hall</div>
         </div>
     </div>
     
@@ -684,14 +729,14 @@ html = f'''<!DOCTYPE html>
         <thead>
             <tr>
                 <th onclick="sortTable(0)">Fathom Name</th>
-                <th onclick="sortTable(1)">Videos</th>
-                <th onclick="sortTable(2)">Records</th>
-                <th onclick="sortTable(3)">Category</th>
-                <th onclick="sortTable(4)">In Airtable</th>
-                <th onclick="sortTable(5)">Gmail</th>
-                <th onclick="sortTable(6)">Comments</th>
-                <th onclick="sortTable(7)">Process This</th>
-                <th onclick="sortTable(8)">Probe</th>
+                <th onclick="sortTable(1)">AI Recommendation</th>
+                <th onclick="sortTable(2)">Town Hall</th>
+                <th onclick="sortTable(3)">Videos</th>
+                <th onclick="sortTable(4)">Category</th>
+                <th onclick="sortTable(5)">In Airtable</th>
+                <th onclick="sortTable(6)">Gmail</th>
+                <th onclick="sortTable(7)">Comments</th>
+                <th onclick="sortTable(8)">Process This</th>
             </tr>
         </thead>
         <tbody>
@@ -726,27 +771,45 @@ for p in sorted(participants, key=lambda x: (x['category'], -x['record_count']))
     row_class = f"category-{p['category']}"
     
     # Show learned mapping reason if available
-    learned_badge = ''
-    if p.get('has_learned_mapping'):
-        learned_badge = f"<br><span style='background:#4CAF50;color:white;padding:2px 6px;border-radius:3px;font-size:10px;'>{p.get('learned_reason', 'Auto-filled')}</span>"
+    comments_hint = p.get('learned_reason', '') if p.get('has_learned_mapping') else ''
+    
+    # AI Recommendation display
+    ai_rec = p.get('ai_recommendation', {})
+    ai_bg = ai_rec.get('bg_color', '#fff')
+    ai_action = ai_rec.get('action', '')
+    ai_confidence = ai_rec.get('confidence', '')
+    ai_reasoning = ai_rec.get('reasoning', '')
+    
+    # Town Hall display
+    th_count = len(p.get('town_hall', []))
+    if th_count > 0:
+        th_snippets = '<br>'.join([f"• {th['date']}: {th.get('snippet', '')[:60]}..." 
+                                    for th in p['town_hall'][:2]])
+        th_display = f"<strong>{th_count} meetings</strong><br><small>{th_snippets}</small>"
+    else:
+        th_display = '—'
+    
+    # Determine checked state - auto-check high confidence
+    process_checked = 'checked' if ai_rec.get('confidence') == 'HIGH CONFIDENCE' else ''
     
     html += f'''
-            <tr class="{row_class}" data-category="{p['category']}">
-                <td><strong>{p['name']}</strong>{learned_badge}</td>
+            <tr class="{row_class}">
+                <td><strong>{p['name']}</strong></td>
+                <td style="background: {ai_bg}; padding: 8px;">
+                    <strong>{ai_action}</strong><br>
+                    <small style="color: #666;">{ai_confidence}</small><br>
+                    <small style="color: #888; font-style: italic;">{ai_reasoning}</small>
+                </td>
+                <td style="font-size: 12px;">{th_display}</td>
                 <td>{video_links}</td>
-                <td>{p['record_count']}</td>
-                <td>{p['category'].replace('_', ' ').title()}</td>
-                <td style="text-align:center; font-size:11px">{p['in_airtable'] and '✅' or '❌'}</td>
-                <td>
-                    <span class="{gmail_class}">{gmail_info}</span>
-                    {"<br>🏛️ " + ", ".join([th['date'] for th in p.get('town_hall', [])[:3]]) if p.get('town_hall') else ""}
+                <td>{p['category']}</td>
+                <td>{airtable_display}</td>
+                <td class="{gmail_class}">
+                    <span>{gmail_text}</span><br>
+                    <small>{gmail_snippet}</small>
                 </td>
-                <td>
-                    <textarea rows="2">{p['suggested_action']}</textarea>
-                    <div class="suggestion">Suggestion: {p['suggested_action']}</div>
-                </td>
-                <td><input type="checkbox"{' checked' if p['should_process'] else ''}></td>
-                <td><input type="checkbox"{' checked' if p['should_probe'] else ''}></td>
+                <td><textarea rows="2" placeholder="Override or add notes...">{comments_hint}</textarea></td>
+                <td style="text-align: center;"><input type="checkbox" {process_checked}></td>
             </tr>
 '''
 
@@ -799,7 +862,7 @@ html += '''
             const csvData = [];
             
             // Header
-            csvData.push(['Fathom_Name', 'Videos_Count', 'Records', 'Category', 'In_Airtable', 'Gmail_Count', 'Gmail_Snippet', 'Comments', 'ProcessThis', 'Probe']);
+            csvData.push(['Fathom_Name', 'AI_Recommendation', 'AI_Confidence', 'AI_Reasoning', 'Town_Hall_Count', 'Videos_Count', 'Records', 'Category', 'In_Airtable', 'Gmail_Count', 'Gmail_Snippet', 'Comments', 'ProcessThis']);
             
             // Data rows
             rows.forEach(row => {
@@ -811,25 +874,36 @@ html += '''
                     }
                     
                     const name = cells[0].textContent.trim();
-                    const videoCount = cells[1].querySelectorAll('.video-link').length;
-                    const records = cells[2].textContent.trim();
-                    const category = cells[3].textContent.trim();
-                    const inAirtable = cells[4].textContent.trim();
                     
-                    const gmailSpan = cells[5].querySelector('span');
-                    const gmailSmall = cells[5].querySelector('small');
+                    // AI Recommendation (cell 1)
+                    const aiCell = cells[1];
+                    const aiStrongs = aiCell.querySelectorAll('strong');
+                    const aiSmalls = aiCell.querySelectorAll('small');
+                    const aiAction = aiStrongs[0] ? aiStrongs[0].textContent.trim() : '';
+                    const aiConfidence = aiSmalls[0] ? aiSmalls[0].textContent.trim() : '';
+                    const aiReasoning = aiSmalls[1] ? aiSmalls[1].textContent.trim() : '';
+                    
+                    // Town Hall (cell 2)
+                    const thCell = cells[2];
+                    const thStrong = thCell.querySelector('strong');
+                    const thCount = thStrong ? thStrong.textContent.trim() : '0';
+                    
+                    const videoCount = cells[3].querySelectorAll('.video-link').length;
+                    const category = cells[4].textContent.trim();
+                    const inAirtable = cells[5].textContent.trim();
+                    
+                    const gmailSpan = cells[6].querySelector('span');
+                    const gmailSmall = cells[6].querySelector('small');
                     const gmailText = gmailSpan ? gmailSpan.textContent.trim() : '';
                     const gmailSnippet = gmailSmall ? gmailSmall.textContent.trim() : '';
                     
-                    const textarea = cells[6].querySelector('textarea');
+                    const textarea = cells[7].querySelector('textarea');
                     const comments = textarea ? textarea.value : '';
                     
-                    const processInput = cells[7].querySelector('input');
-                    const probeInput = cells[8].querySelector('input');
+                    const processInput = cells[8].querySelector('input');
                     const processThis = processInput && processInput.checked ? 'YES' : 'NO';
-                    const probe = probeInput && probeInput.checked ? 'YES' : 'NO';
                     
-                    csvData.push([name, videoCount, records, category, inAirtable, gmailText, gmailSnippet, comments, processThis, probe]);
+                    csvData.push([name, aiAction, aiConfidence, aiReasoning, thCount, videoCount, videoCount, category, inAirtable, gmailText, gmailSnippet, comments, processThis]);
                 } catch (e) {
                     console.error('Error processing row:', e);
                 }

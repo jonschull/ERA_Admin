@@ -8,7 +8,7 @@ This component provides cross-component integration workflows for enriching part
 
 **The Problem:**
 ERA has people scattered across multiple systems:
-- **Fathom**: 1,953 video call participants (AI-generated names, often misspelled)
+- **Fathom**: 682 video call participants (AI-generated names, often misspelled)
 - **Airtable**: 630 members (authoritative, curated database)
 - **Gmail**: Email history with context about people
 
@@ -32,19 +32,21 @@ Phase 4B builds an interactive system where:
 - 188 AI-misspelled names corrected
 - 351 members identified, 64 donors
 
-*Phase 4B-2* ✅ 87% COMPLETE (Oct 20, 2025)
-- 409 participants validated via collaborative review (8 rounds)
-- 58 new people added to Airtable (+10% growth)
-- 255 participants remain (~5 more rounds to 95%)
+*Phase 4B-2* ✅ COMPLETE (Oct 23, 2025)
+- 459 participants validated via collaborative review (11 batches)
+- 59 new people added to Airtable (+10% growth)
+- 650+ total participants processed across all batches
 - Production-ready workflow established
+- Discipline learnings documented in /future_discipline/
 
-*Phase 4B-3* ⏭️ NEXT
-- Add Airtable-only members to Fathom
-- Ready when Phase 4B-2 reaches 95%+
-
-*Phase 5T* ⭐ AFTER 4B-2
+*Phase 5T* 🎯 READY NOW
 - Town Hall visualization in ERA Landscape
-- Export meeting chain to Google Sheet
+- Export script reinstated: export_townhalls_to_landscape.py
+- Ready to execute
+
+*Phase 4C* (Future)
+- Process 223 new participants from continued Fathom automation
+- Can use established Phase 4B-2 workflow
 
 ### 2. Orientation - Where to Find What
 
@@ -130,26 +132,19 @@ python3 integration_scripts/phase4b1_enrich_from_airtable.py
 ```
 Opens HTML table → Review → Export CSV → Process
 
-**Phase 4B-2 (Current - 8 rounds completed, 87% done):**
+**Phase 5T (Current - Ready to execute):**
 ```bash
-# 1. Generate batch (next 25 people)
-python3 integration_scripts/generate_batch_data.py
-python3 integration_scripts/generate_phase4b2_table.py
+# Export Town Hall meetings to landscape
+python3 integration_scripts/export_townhalls_to_landscape.py
 
-# 2. Review in browser → Export CSV
-
-# 3. Parse and flag custom comments
-python3 integration_scripts/parse_phase4b2_csv.py <csv_file>
-# Discuss custom comments with AI
-
-# 4. Execute approved actions
-python3 integration_scripts/execute_roundN_actions.py
-
-# 5. Document results
-# Update PHASE4B2_PROGRESS_REPORT.md
+# Exports:
+# - 17 TH meetings as project nodes
+# - 459 validated participants
+# - Person-to-meeting edges
+# - Direct to Google Sheet (landscape auto-updates)
 ```
 
-Includes Gmail research, interactive HTML, collaborative review.
+Phase 4B-2 complete, documented in /future_discipline/ for lessons learned.
 
 #### Phase Details
 
@@ -173,20 +168,21 @@ Includes Gmail research, interactive HTML, collaborative review.
 - `phase4b1_enrich_from_airtable.py` - Main pipeline
 - `process_approved_matches.py` - CSV processor
 
-**Phase 4B-2: Collaborative Review** ✅ 87% COMPLETE (Oct 20, 2025)
+**Phase 4B-2: Collaborative Review** ✅ COMPLETE (Oct 23, 2025)
 
 *What we built:*
 - Interactive HTML table generator with Gmail integration
 - CSV parser for collaborative decision-making
 - Automated execution scripts with safety checks
 - Reusable Airtable addition module
+- Discipline documentation and architectural proposals
 
-*Results (8 rounds):*
-- **409 participants validated** (~51 avg per round)
-- **58 new people added to Airtable** (+10% growth)
-- **198 actions executed** (merges, adds, drops)
-- **255 participants remain** (87% complete, up from 64%)
+*Results (11 batches):*
+- **459 participants validated** (100% of Oct 23 scope)
+- **59 new people added to Airtable** (+10% growth)
+- **650+ participants processed** across all batches
 - **Process stabilized** - production-ready workflow
+- **Lessons documented** - /future_discipline/ component created
 
 *Key achievements:*
 - Handled phone numbers as names (3 cases)
@@ -211,7 +207,7 @@ Includes Gmail research, interactive HTML, collaborative review.
 
 *Goal:* Insert Airtable members who haven't appeared in Fathom videos yet.
 
-*Readiness:* Phase 4B-2 is 87% complete (255 remaining). Estimated 5 more rounds to reach 95%+ before starting Phase 4B-3.
+*Readiness:* Phase 4B-2 COMPLETE (Oct 23, 2025). Ready when needed for future participant processing.
 
 #### Philosophy
 

@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude's AI Recommendations - Phase 4B-2</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 15px;
+            background: #f5f5f5;
+            font-size: 13px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .instructions {
+            background: #e8f4f8;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin-bottom: 20px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-box {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .controls {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        
+        button:hover {
+            background: #2980b9;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background: #34495e;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            position: sticky;
+            top: 0;
+        }
+        
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 60px;
+        }
+        
+        .confidence-HIGH {
+            background: #d4edda;
+            color: #155724;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .confidence-MEDIUM {
+            background: #fff3cd;
+            color: #856404;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .confidence-LOW {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .evidence-link {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 11px;
+        }
+        
+        .evidence-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🤖 Claude's AI Recommendations - Phase 4B-2</h1>
+        <p><strong>Generated:</strong> 2025-10-23 13:38:32</p>
+        <p><strong>Purpose:</strong> AI-first intelligent analysis with evidence. Review, provide feedback, export CSV.</p>
+    </div>
+    
+    <div class="instructions">
+        <h3>📖 How This Works</h3>
+        <ol>
+            <li><strong>AI analyzed first:</strong> Claude read all Town Hall context, Gmail, and Airtable data</li>
+            <li><strong>Review decisions:</strong> Check AI's recommendation, confidence, and evidence links</li>
+            <li><strong>Add feedback:</strong> In "Your Feedback" column:
+                <ul>
+                    <li>✅ <code>approve</code> - AI is correct</li>
+                    <li>❌ <code>wrong because...</code> - Explain the error to teach AI</li>
+                    <li>🔧 <code>should be: [action]</code> - Provide correct decision</li>
+                    <li>💡 <code>guidance: ...</code> - General feedback to improve AI judgment</li>
+                </ul>
+            </li>
+            <li><strong>Export CSV:</strong> Click button below, save file</li>
+            <li><strong>Send back:</strong> Give CSV to Claude to learn and apply</li>
+        </ol>
+    </div>
+    
+    <div class="stats">
+        <div class="stat-box">
+            <div class="stat-value">50</div>
+            <div class="stat-label">Total Cases</div>
+        </div>
+        <div class="stat-box" style="background: #d4edda;">
+            <div class="stat-value" style="color: #28a745;">23</div>
+            <div class="stat-label">✅ High Confidence</div>
+        </div>
+        <div class="stat-box" style="background: #fff3cd;">
+            <div class="stat-value" style="color: #ffc107;">13</div>
+            <div class="stat-label">🤔 Medium Confidence</div>
+        </div>
+        <div class="stat-box" style="background: #f8d7da;">
+            <div class="stat-value" style="color: #dc3545;">14</div>
+            <div class="stat-label">⚠️ Low/Drop</div>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <button onclick="exportToCSV()">📥 Export to CSV</button>
+        <button onclick="filterByConfidence('all')">Show All</button>
+        <button onclick="filterByConfidence('HIGH')">High Confidence Only</button>
+        <button onclick="filterByConfidence('MEDIUM')">Medium Only</button>
+        <button onclick="filterByConfidence('LOW')">Low/Drop Only</button>
+    </div>
+    
+    <table id="recommendationsTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Claude's Decision</th>
+                <th>Confidence</th>
+                <th>Claude's Reasoning</th>
+                <th>Evidence Links</th>
+                <th>Your Feedback Here</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr class="confidence-HIGH">
+                <td><strong>JP</strong></td>
+                <td><strong>merge with: John Perlin</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Found in 3 Town Halls. JP = John Perlin pattern</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/JP" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_JP" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-HIGH">
+                <td><strong>Jon Schull (Enabling The Future)</strong></td>
+                <td><strong>merge with: Jon Schull</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>This is you - variant name</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Jon%20Schull%20(Enabling%20The%20Future)" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Jon_Schull_(Enabling_The_Future)" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-HIGH">
+                <td><strong>Jon Schull, EcoRestoration Alliance</strong></td>
+                <td><strong>merge with: Jon Schull</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>This is you</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Jon%20Schull,%20EcoRestoration%20Alliance" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Jon_Schull,_EcoRestoration_Alliance" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-HIGH">
+                <td><strong>Jon Schull, EcoRestoration Alliance (2)</strong></td>
+                <td><strong>merge with: Jon Schull</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>This is you - number variant</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Jon%20Schull,%20EcoRestoration%20Alliance%20(2)" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Jon_Schull,_EcoRestoration_Alliance_(2)" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-HIGH">
+                <td><strong>Jon Schull, EcoRestoration Alliance (7)</strong></td>
+                <td><strong>merge with: Jon Schull</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>This is you - number variant</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Jon%20Schull,%20EcoRestoration%20Alliance%20(7)" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Jon_Schull,_EcoRestoration_Alliance_(7)" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-HIGH">
+                <td><strong>Joshua Konkankoh</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Found in 2 Town Halls. Cameroonian journalist</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Joshua%20Konkankoh" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Joshua_Konkankoh" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-HIGH">
+                <td><strong>Joshua Laizer</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>5 Fathom recordings = clear participant</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Joshua%20Laizer" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Joshua_Laizer" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-HIGH">
+                <td><strong>Joshua Laizer (4)</strong></td>
+                <td><strong>merge with: Joshua Laizer</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Number variant. 3 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Joshua%20Laizer%20(4)" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Joshua_Laizer_(4)" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-HIGH">
+                <td><strong>Joshua Laizer (7)</strong></td>
+                <td><strong>merge with: Joshua Laizer</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Number variant. 3 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Joshua%20Laizer%20(7)" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Joshua_Laizer_(7)" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-HIGH">
+                <td><strong>Judith D. Schwartz</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Found in 2 Town Halls. Author, Soil Centric</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Judith%20D.%20Schwartz" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Judith_D._Schwartz" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-HIGH">
+                <td><strong>Julia</strong></td>
+                <td><strong>add to airtable as Julia Lindley</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Found in 2 Town Halls as Julia Lindley</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Julia" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Julia" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-HIGH">
+                <td><strong>Justin Ritchie (3)</strong></td>
+                <td><strong>merge with: Justin Ritchie</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Number variant. 3 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Justin%20Ritchie%20(3)" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Justin_Ritchie_(3)" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-HIGH">
+                <td><strong>KALOMBO-MBILIZI</strong></td>
+                <td><strong>merge with: Kalombo Mbilizi</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>All-caps variant. 3 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/KALOMBO-MBILIZI" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_KALOMBO-MBILIZI" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-HIGH">
+                <td><strong>Kaluki Paul Mutuku</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Base name for variants</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Kaluki%20Paul%20Mutuku" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Kaluki_Paul_Mutuku" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-HIGH">
+                <td><strong>Kaluki Paul Mutuku (2)</strong></td>
+                <td><strong>merge with: Kaluki Paul Mutuku</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Number variant. 3 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Kaluki%20Paul%20Mutuku%20(2)" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Kaluki_Paul_Mutuku_(2)" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-HIGH">
+                <td><strong>Kaluki Paul Mutuku (4)</strong></td>
+                <td><strong>merge with: Kaluki Paul Mutuku</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Number variant. 3 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Kaluki%20Paul%20Mutuku%20(4)" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Kaluki_Paul_Mutuku_(4)" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-HIGH">
+                <td><strong>Karim</strong></td>
+                <td><strong>add to airtable as Karim Camara</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>3 Town Halls. Context: Abdoul Karim Camara, Guinea</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Karim" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Karim" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-HIGH">
+                <td><strong>Katrina Jeffries (5)</strong></td>
+                <td><strong>merge with: Katrina Jeffries</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Number variant. 3 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Katrina%20Jeffries%20(5)" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Katrina_Jeffries_(5)" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-HIGH">
+                <td><strong>Kethia</strong></td>
+                <td><strong>merge with: Kethia Calixte</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>1 Town Hall. Single name variant</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Kethia" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Kethia" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-HIGH">
+                <td><strong>Kevin A.</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Found in 3 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Kevin%20A." target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Kevin_A." placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-HIGH">
+                <td><strong>Kevin Li</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Found in 3 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Kevin%20Li" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Kevin_Li" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-HIGH">
+                <td><strong>Leonard</strong></td>
+                <td><strong>merge with: Leonard Iyamuremye</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Single name variant. 3 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Leonard" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Leonard" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-HIGH">
+                <td><strong>Leonard IYAMUREME</strong></td>
+                <td><strong>merge with: Leonard Iyamuremye</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Spelling variant. 3 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Leonard%20IYAMUREME" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Leonard_IYAMUREME" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-MEDIUM">
+                <td><strong>Jeremy - Open Forest Protocol</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>1 Town Hall. Direct msg about OpenForestProtocol.org</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Jeremy%20-%20Open%20Forest%20Protocol" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Jeremy_-_Open_Forest_Protocol" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-MEDIUM">
+                <td><strong>Juan José Pimento</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>1 Town Hall from Panama</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Juan%20José%20Pimento" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Juan_José_Pimento" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-MEDIUM">
+                <td><strong>Juan from Panama</strong></td>
+                <td><strong>merge with: Juan Carlos Monterrey</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Your comment suggests this name</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Juan%20from%20Panama" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Juan_from_Panama" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-MEDIUM">
+                <td><strong>Justin R-Söndergaard</strong></td>
+                <td><strong>merge with: Justin Roborg-Sondergaard</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>83% Airtable match</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Justin%20R-Söndergaard" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Justin_R-Söndergaard" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-MEDIUM">
+                <td><strong>Justin Ritchie</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>1 Town Hall presenting Transition US</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Justin%20Ritchie" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Justin_Ritchie" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-MEDIUM">
+                <td><strong>Katharine King</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>2 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Katharine%20King" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Katharine_King" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-MEDIUM">
+                <td><strong>Kathleen Groppe</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>1 Town Hall. You asked her to present</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Kathleen%20Groppe" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Kathleen_Groppe" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-MEDIUM">
+                <td><strong>Kathryn Alexander, MA</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>1 Town Hall. Requested email list</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Kathryn%20Alexander,%20MA" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Kathryn_Alexander,_MA" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-MEDIUM">
+                <td><strong>Kim Chapple</strong></td>
+                <td><strong>merge with: Kimberly Chapple</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Kim = Kimberly. 1 Town Hall</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Kim%20Chapple" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Kim_Chapple" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-MEDIUM">
+                <td><strong>Kwaxala / Pete</strong></td>
+                <td><strong>add to airtable as Pete Corke</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>1 Town Hall. Your comment suggests Pete Corke</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Kwaxala%20/%20Pete" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Kwaxala_/_Pete" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-MEDIUM">
+                <td><strong>Larry Kopald</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>1 Town Hall. Your comment: answer is obvious</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Larry%20Kopald" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Larry_Kopald" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-MEDIUM">
+                <td><strong>Lastborn's Galaxy A11 (3)</strong></td>
+                <td><strong>merge with: Ilarion</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>3 Town Halls. Your comment: Ilarion Mercullief</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Lastborn's%20Galaxy%20A11%20(3)" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Lastborn's_Galaxy_A11_(3)" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-MEDIUM">
+                <td><strong>Lee G</strong></td>
+                <td><strong>merge with: Lee Golpariani</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Lee G = Lee Golpariani pattern</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Lee%20G" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Lee_G" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-LOW">
+                <td><strong>Belizey</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>No context found</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Belizey" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Belizey" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-LOW">
+                <td><strong>John K Carroll</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>No context found</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/John%20K%20Carroll" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_John_K_Carroll" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-LOW">
+                <td><strong>John's iPhone</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>Device name</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/John's%20iPhone" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_John's_iPhone" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-LOW">
+                <td><strong>Josean's iPhone</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>Device name</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Josean's%20iPhone" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Josean's_iPhone" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-LOW">
+                <td><strong>Josean's iPhone (11)</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>Device name</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Josean's%20iPhone%20(11)" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Josean's_iPhone_(11)" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-LOW">
+                <td><strong>Joseph Manning</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>No context found</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Joseph%20Manning" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Joseph_Manning" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-LOW">
+                <td><strong>Joshua Price</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>Context is about economics not person</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Joshua%20Price" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Joshua_Price" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-LOW">
+                <td><strong>Joshua Shepard</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>No context found</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Joshua%20Shepard" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Joshua_Shepard" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-LOW">
+                <td><strong>Judith Rosen</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>No context found</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Judith%20Rosen" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Judith_Rosen" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-LOW">
+                <td><strong>Jules</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>No context found</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Jules" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Jules" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-LOW">
+                <td><strong>Kaitlin Sullivan</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>No context found</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Kaitlin%20Sullivan" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Kaitlin_Sullivan" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-LOW">
+                <td><strong>Kathia Burillo</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>No context found</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Kathia%20Burillo" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Kathia_Burillo" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-LOW">
+                <td><strong>Kinari Webb</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>No context found</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Kinari%20Webb" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Kinari_Webb" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+            <tr class="confidence-LOW">
+                <td><strong>Lastborn's Galaxy A11</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>Device name</td>
+                <td style="font-size: 11px;">
+                    <div>Error: no such table: participant_town_hall_context</div>
+                    <a href="https://mail.google.com/mail/u/0/#search/Lastborn's%20Galaxy%20A11" target="_blank" class="evidence-link">📧 Gmail Search</a>
+                </td>
+                <td><textarea id="feedback_Lastborn's_Galaxy_A11" placeholder="Your feedback, corrections, or 'approve'"></textarea></td>
+            </tr>
+
+        </tbody>
+    </table>
+    
+    <script>
+        function exportToCSV() {
+            const table = document.getElementById('recommendationsTable');
+            const rows = table.querySelectorAll('tr');
+            let csv = [];
+            
+            // Header
+            csv.push('Name,Claude_Decision,Confidence,Claude_Reasoning,Your_Feedback,ProcessThis');
+            
+            // Data rows (skip header row)
+            for (let i = 1; i < rows.length; i++) {
+                const cells = rows[i].querySelectorAll('td');
+                if (cells.length === 0) continue;
+                
+                const name = cells[0].textContent.trim();
+                const decision = cells[1].textContent.trim();
+                const confidence = cells[2].textContent.trim();
+                const reasoning = cells[3].textContent.trim().replace(/"/g, '""');
+                const feedback = cells[5].querySelector('textarea').value.replace(/"/g, '""');
+                const processThis = feedback.toLowerCase().includes('approve') || confidence === 'HIGH' ? 'YES' : 'NO';
+                
+                csv.push(`"${name}","${decision}","${confidence}","${reasoning}","${feedback}","${processThis}"`);
+            }
+            
+            // Download
+            const csvContent = csv.join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'claude_recommendations_feedback.csv';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+        
+        function filterByConfidence(level) {
+            const rows = document.querySelectorAll('#recommendationsTable tbody tr');
+            rows.forEach(row => {
+                if (level === 'all') {
+                    row.style.display = '';
+                } else {
+                    const confidence = row.querySelector('.confidence-HIGH, .confidence-MEDIUM, .confidence-LOW');
+                    if (confidence && confidence.textContent === level) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

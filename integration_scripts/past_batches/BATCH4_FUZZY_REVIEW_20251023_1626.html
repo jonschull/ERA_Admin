@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>Batch 4 - Fuzzy Review</title>
+<style>
+body{font-family:-apple-system;max-width:100%;margin:0;padding:15px;background:#f5f5f5;font-size:13px}
+h1{color:#2c3e50}
+table{width:100%;border-collapse:collapse;background:white}
+th{background:#34495e;color:white;padding:12px;position:sticky;top:0}
+td{padding:10px;border-bottom:1px solid #ecf0f1}
+tr:hover{background:#f8f9fa}
+.confidence-HIGH{background:#d4edda;color:#155724;padding:4px 8px;border-radius:4px}
+.confidence-MEDIUM{background:#fff3cd;color:#856404;padding:4px 8px;border-radius:4px}
+.evidence-link{color:#3498db;margin-right:8px}
+input{width:20px;height:20px}
+textarea{width:100%;padding:6px;border:1px solid #ddd;min-height:50px}
+button{background:#3498db;color:white;border:none;padding:10px 20px;margin:10px 0;cursor:pointer}
+</style></head><body>
+<h1>🧠 Batch 4 - With Fuzzy Review of Past Decisions</h1>
+<p><strong>50 participants</strong> | HIGH: 38 (38 from past) | MEDIUM: 12</p>
+<button onclick="exportToCSV()">📥 Export CSV</button>
+<table><thead><tr><th style="width:200px">Recommendation</th><th>Name</th><th>Conf</th><th>Reasoning</th><th>Evidence</th><th style="width:200px">Feedback</th></tr></thead><tbody><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>drop</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>admin</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/267833235" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/admin" target="_blank" class="evidence-link">📧</a><br><a href="https://docs.google.com/document/d/1cQ4vQDj53uf3h4592pRSo0R9YG_rzM1PcPUZs6nwri0/edit" target="_blank" class="evidence-link">📅 2025-04-02</a></td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: Joe James</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Agri-Tech Producers LLC, Joe James</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/301421112" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Agri-Tech%20Producers%20LLC,%20Joe%20James" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: Angelique Garcia</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Angelique</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/25304891" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Angelique" target="_blank" class="evidence-link">📧</a><br><a href="https://docs.google.com/document/d/1yPop2scqfAURBvXiehVS2OLuQo6c2-O4wjxhSD0yU1I/edit" target="_blank" class="evidence-link">📅 2023-06-21</a></td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: aniqa Locations: Bangladesh</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>aniqa Locations: Bangladesh, Egypt, Sikkim</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/68631695" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/aniqa%20Locations:%20Bangladesh,%20Egypt,%20Sikkim" target="_blank" class="evidence-link">📧</a><br><a href="https://docs.google.com/document/d/1Qpyd2707ILKqHiwM83BnwkP23bzV5RA7doQrD-w9Fwo/edit" target="_blank" class="evidence-link">📅 2024-02-14</a></td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>drop</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Charles</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/200959970, https://fathom.video/calls/189386729, https://fathom.video/calls/121641973" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Charles" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>drop</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>craig</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/110559424" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/craig" target="_blank" class="evidence-link">📧</a><br><a href="https://docs.google.com/document/d/1fsbcEFGixzZTrGMGowJjy90VFPQKNPHlZBcfd51fM5s/edit" target="_blank" class="evidence-link">📅 2024-06-19</a></td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>drop</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Dawn Carroll-Nish</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/218283603" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Dawn%20Carroll-Nish" target="_blank" class="evidence-link">📧</a><br><a href="https://docs.google.com/document/d/1zJ3LrcQ4-6y-HYic2cwcuIIpB7Vqfx_dyuH_fsJopgQ/edit" target="_blank" class="evidence-link">📅 2025-01-22</a></td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: Dr. Sanmi Olowosile</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Dr. Sanmi Olowosile (3)</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/99648620" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Dr.%20Sanmi%20Olowosile%20(3)" target="_blank" class="evidence-link">📧</a><br><a href="https://docs.google.com/document/d/17Glux2fRAYyz59CIjazzcyKofQ8PHXrUITjG8o2-uj0/edit" target="_blank" class="evidence-link">📅 2024-05-22</a></td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>drop</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>e-NABLE Events</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/61933149" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/e-NABLE%20Events" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>drop</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>e-NABLE Events (3)</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/61933149" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/e-NABLE%20Events%20(3)" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>drop</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Ed</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/301421112, https://fathom.video/calls/56449118" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Ed" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: Frederic Jennings</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Frederic Jennings, www.bio4climate.org</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/267833235, https://fathom.video/calls/237177484, https://fathom.video/calls/165893831, https://fathom.video/calls/99648620, https://fathom.video/calls/72259603" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Frederic%20Jennings,%20www.bio4climate.org" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: Geofrey Kwala</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Geoffrey Kwala</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/201817513, https://fathom.video/calls/209204233" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Geoffrey%20Kwala" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: Geoffrey Kwala</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Geoffrey Kwala (3)</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/201817513, https://fathom.video/calls/209204233" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Geoffrey%20Kwala%20(3)" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: George Karwani</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>George</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/394570977" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/George" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: George Karawani</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>George (5)</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/233189775" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/George%20(5)" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: George Karawani</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>George (Yogi Karwa)</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/76758727" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/George%20(Yogi%20Karwa)" target="_blank" class="evidence-link">📧</a><br><a href="https://docs.google.com/document/d/1XbprhLZ9PbmSW1YnLOWTJ6-trvAbSyDuQP74GJTwVBw/edit" target="_blank" class="evidence-link">📅 2024-03-14</a></td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: George Karwani</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>George K.</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/201817513" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/George%20K." target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: George Karwani</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>George Karwani-Tanzania</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/37381089, https://fathom.video/calls/33276578" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/George%20Karwani-Tanzania" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: Gerardo Martinez</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Gerardo</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/165893831" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Gerardo" target="_blank" class="evidence-link">📧</a><br><a href="https://docs.google.com/document/d/1VsMMGZjsgWBxK4SqBkIk9hH0yRSJzpODbdkfA9QQL5k/edit" target="_blank" class="evidence-link">📅 2024-10-16</a></td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: Michael Pilarski</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Global Earth Repair</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/308230203, https://fathom.video/calls/242890812, https://fathom.video/calls/233189775, https://fathom.video/calls/214375292, https://fathom.video/calls/201817513, https://fathom.video/calls/193558243, https://fathom.video/calls/324278211, https://fathom.video/calls/267833235, https://fathom.video/calls/257059280, https://fathom.video/calls/237177484, https://fathom.video/calls/218283603, https://fathom.video/calls/209204233, https://fathom.video/calls/189386729, https://fathom.video/calls/181365987, https://fathom.video/calls/165893831, https://fathom.video/calls/35256954, https://fathom.video/calls/30719412, https://fathom.video/calls/279187793, https://fathom.video/calls/226162234" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Global%20Earth%20Repair" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: Graham Boyd</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Graham Boyd - Evolutesix</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/289548672" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Graham%20Boyd%20-%20Evolutesix" target="_blank" class="evidence-link">📧</a><br><a href="https://docs.google.com/document/d/1YIuNweYopFKxFHbfDkaGrhvQcxn_dmActdsyUrEnMSc/edit" target="_blank" class="evidence-link">📅 2025-04-30</a></td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: Grant Holton</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Grant Holton, MoreTreesNow.eco</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/72259603" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Grant%20Holton,%20MoreTreesNow.eco" target="_blank" class="evidence-link">📧</a><br><a href="https://docs.google.com/document/d/12xr18F5odnlIcv6r_l4zR6U-xYxpreMQ1xQz2_VSfXU/edit" target="_blank" class="evidence-link">📅 2024-02-28</a></td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: Laura Perez Arce</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Grupo Ecológico Sierra Gorda I.A.P. (3)</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/99648620" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Grupo%20Ecológico%20Sierra%20Gorda%20I.A.P.%20(3)" target="_blank" class="evidence-link">📧</a><br><a href="https://docs.google.com/document/d/17Glux2fRAYyz59CIjazzcyKofQ8PHXrUITjG8o2-uj0/edit" target="_blank" class="evidence-link">📅 2024-05-22</a></td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: Hart Hagan</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Hart Hagen</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/61229267" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Hart%20Hagen" target="_blank" class="evidence-link">📧</a><br><a href="https://docs.google.com/document/d/1zKQACyfFmPuHOeGDxG-seXXn1kfpuEjbivLY_iVDRF8/edit" target="_blank" class="evidence-link">📅 2024-01-17</a></td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: Indy Singh</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Indy</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/189386729" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Indy" target="_blank" class="evidence-link">📧</a><br><a href="https://docs.google.com/document/d/1qYWQ0UxE2seSYbUZd5029XqK88pEMuXVn9aoISQe0CY/edit" target="_blank" class="evidence-link">📅 2024-11-27</a></td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: Indy Singh</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Indy Rishi Singh</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/58214677, https://fathom.video/calls/48059317" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Indy%20Rishi%20Singh" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: Marius Iragi</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Ir Marius</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/253037687, https://fathom.video/calls/201817513, https://fathom.video/calls/193558243, https://fathom.video/calls/99648620, https://fathom.video/calls/76758727" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Ir%20Marius" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: Marius Iragi</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Ir Marius (3)</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/201817513" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Ir%20Marius%20(3)" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: Marius Iragi</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Ir Marius Z</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/408247629" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Ir%20Marius%20Z" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: Jake Kelley</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Jake Fairbanks Kelley</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/158031766, https://fathom.video/calls/89695534, https://fathom.video/calls/76758727, https://fathom.video/calls/72259603, https://fathom.video/calls/58214677, https://fathom.video/calls/56449118, https://fathom.video/calls/45127445, https://fathom.video/calls/37381089, https://fathom.video/calls/35256954, https://fathom.video/calls/30719412, https://fathom.video/calls/23790707, https://fathom.video/calls/20977039" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Jake%20Fairbanks%20Kelley" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: Jeremiah Agnew</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Jeremiah</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/165893831" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Jeremiah" target="_blank" class="evidence-link">📧</a><br><a href="https://docs.google.com/document/d/1VsMMGZjsgWBxK4SqBkIk9hH0yRSJzpODbdkfA9QQL5k/edit" target="_blank" class="evidence-link">📅 2024-10-16</a></td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>drop</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Jeremy Simon</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/61933149" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Jeremy%20Simon" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: Jim Bledsoe</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>jim Bledsoe Napa California</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/181361884" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/jim%20Bledsoe%20Napa%20California" target="_blank" class="evidence-link">📧</a><br><a href="https://docs.google.com/document/d/1VJgwCIflPLoaiqQjCc1mlAGW8pz9UYHxAApW95r1E8c/edit" target="_blank" class="evidence-link">📅 2024-11-13</a></td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: Jimmy Pryor</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Jimmy</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/58214677" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Jimmy" target="_blank" class="evidence-link">📧</a><br><a href="https://docs.google.com/document/d/1cc6SylaUAdUkPGUI9k-Es_HcRWaVDrcBA3i4RRf1IVU/edit" target="_blank" class="evidence-link">📅 2024-01-03</a></td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: Jamie Conway</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>Jme Conway</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/209204233, https://fathom.video/calls/200959970, https://fathom.video/calls/189386729, https://fathom.video/calls/181365987, https://fathom.video/calls/165893831" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Jme%20Conway" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>merge with: John D. Liu</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>John Dennis Liu</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/257059280, https://fathom.video/calls/256981859" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/John%20Dennis%20Liu" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>drop</strong></div>
+<label><input type="checkbox" class="approve-checkbox" checked> Approve</label></td>
+<td><strong>John's iPhone</strong></td><td><span class="confidence-HIGH">HIGH</span></td>
+<td>From past decisions (exact match)</td><td style="font-size:11px"><a href="https://fathom.video/calls/223525279, https://fathom.video/calls/189386729" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/John's%20iPhone" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>needs investigation</strong></div>
+<label><input type="checkbox" class="approve-checkbox" > Approve</label></td>
+<td><strong>Geoffrey Kwala (5)</strong></td><td><span class="confidence-MEDIUM">MEDIUM</span></td>
+<td>No past decision, not in Airtable - check evidence</td><td style="font-size:11px"><a href="https://fathom.video/calls/209204233" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Geoffrey%20Kwala%20(5)" target="_blank" class="evidence-link">📧</a><br><a href="https://docs.google.com/document/d/1LD0JMR4krBr8bdOmMp4flsgA74UKo7pHOKaazFe-h4o/edit" target="_blank" class="evidence-link">📅 2025-01-08</a></td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>needs investigation</strong></div>
+<label><input type="checkbox" class="approve-checkbox" > Approve</label></td>
+<td><strong>George Mwai (3)</strong></td><td><span class="confidence-MEDIUM">MEDIUM</span></td>
+<td>No past decision, not in Airtable - check evidence</td><td style="font-size:11px"><a href="https://fathom.video/calls/274249468" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/George%20Mwai%20(3)" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>needs investigation</strong></div>
+<label><input type="checkbox" class="approve-checkbox" > Approve</label></td>
+<td><strong>georgeorbelian</strong></td><td><span class="confidence-MEDIUM">MEDIUM</span></td>
+<td>No past decision, not in Airtable - check evidence</td><td style="font-size:11px"><a href="https://fathom.video/calls/324278211" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/georgeorbelian" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>needs investigation</strong></div>
+<label><input type="checkbox" class="approve-checkbox" > Approve</label></td>
+<td><strong>Hadziqah</strong></td><td><span class="confidence-MEDIUM">MEDIUM</span></td>
+<td>No past decision, not in Airtable - check evidence</td><td style="font-size:11px"><a href="https://fathom.video/calls/110559424" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Hadziqah" target="_blank" class="evidence-link">📧</a><br><a href="https://docs.google.com/document/d/1fsbcEFGixzZTrGMGowJjy90VFPQKNPHlZBcfd51fM5s/edit" target="_blank" class="evidence-link">📅 2024-06-19</a></td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>needs investigation</strong></div>
+<label><input type="checkbox" class="approve-checkbox" > Approve</label></td>
+<td><strong>iPhone</strong></td><td><span class="confidence-MEDIUM">MEDIUM</span></td>
+<td>No past decision, not in Airtable - check evidence</td><td style="font-size:11px"><a href="https://fathom.video/calls/223525279" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/iPhone" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>needs investigation</strong></div>
+<label><input type="checkbox" class="approve-checkbox" > Approve</label></td>
+<td><strong>Jan Dietrick & Ron Whitehurst, BugFarm, Ventura, CA</strong></td><td><span class="confidence-MEDIUM">MEDIUM</span></td>
+<td>No past decision, not in Airtable - check evidence</td><td style="font-size:11px"><a href="https://fathom.video/calls/58214677" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Jan%20Dietrick%20&%20Ron%20Whitehurst,%20BugFarm,%20Ventura,%20CA" target="_blank" class="evidence-link">📧</a><br><a href="https://docs.google.com/document/d/1cc6SylaUAdUkPGUI9k-Es_HcRWaVDrcBA3i4RRf1IVU/edit" target="_blank" class="evidence-link">📅 2024-01-03</a></td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>needs investigation</strong></div>
+<label><input type="checkbox" class="approve-checkbox" > Approve</label></td>
+<td><strong>Jan Dietrick, W Ventura</strong></td><td><span class="confidence-MEDIUM">MEDIUM</span></td>
+<td>No past decision, not in Airtable - check evidence</td><td style="font-size:11px"><a href="https://fathom.video/calls/35256954" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Jan%20Dietrick,%20W%20Ventura" target="_blank" class="evidence-link">📧</a><br><a href="https://docs.google.com/document/d/1VrIAxVLiO3kCOFGo9QBinsIQIB6BkkAB_x9pNZMC2PE/edit" target="_blank" class="evidence-link">📅 2023-08-30</a></td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>needs investigation</strong></div>
+<label><input type="checkbox" class="approve-checkbox" > Approve</label></td>
+<td><strong>jim</strong></td><td><span class="confidence-MEDIUM">MEDIUM</span></td>
+<td>No past decision, not in Airtable - check evidence</td><td style="font-size:11px"><a href="https://fathom.video/calls/30719412, https://fathom.video/calls/22368500" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/jim" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>needs investigation</strong></div>
+<label><input type="checkbox" class="approve-checkbox" > Approve</label></td>
+<td><strong>Joe James (3)</strong></td><td><span class="confidence-MEDIUM">MEDIUM</span></td>
+<td>No past decision, not in Airtable - check evidence</td><td style="font-size:11px"><a href="https://fathom.video/calls/237177484" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/Joe%20James%20(3)" target="_blank" class="evidence-link">📧</a><br><a href="https://docs.google.com/document/d/1GG05aRhKj2HYiAMCVVzkwVfA-nN1HiNNBGK05H2E5GY/edit" target="_blank" class="evidence-link">📅 2025-02-19</a></td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>needs investigation</strong></div>
+<label><input type="checkbox" class="approve-checkbox" > Approve</label></td>
+<td><strong>John Dennis Liu (3)</strong></td><td><span class="confidence-MEDIUM">MEDIUM</span></td>
+<td>No past decision, not in Airtable - check evidence</td><td style="font-size:11px"><a href="https://fathom.video/calls/257059280" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/John%20Dennis%20Liu%20(3)" target="_blank" class="evidence-link">📧</a><br><a href="https://docs.google.com/document/d/1tLxzZq9UndN35MLnapPD7RUFEC6BM-67U8DxsckcK7Y/edit" target="_blank" class="evidence-link">📅 2025-03-19</a></td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>needs investigation</strong></div>
+<label><input type="checkbox" class="approve-checkbox" > Approve</label></td>
+<td><strong>john Magugu (3)</strong></td><td><span class="confidence-MEDIUM">MEDIUM</span></td>
+<td>No past decision, not in Airtable - check evidence</td><td style="font-size:11px"><a href="https://fathom.video/calls/193558243" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/john%20Magugu%20(3)" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr><tr><td><div style="background:#f8f9fa;padding:8px;margin-bottom:8px"><strong>needs investigation</strong></div>
+<label><input type="checkbox" class="approve-checkbox" > Approve</label></td>
+<td><strong>jon</strong></td><td><span class="confidence-MEDIUM">MEDIUM</span></td>
+<td>No past decision, not in Airtable - check evidence</td><td style="font-size:11px"><a href="https://fathom.video/calls/193558243" target="_blank" class="evidence-link">🎥</a><br><a href="https://mail.google.com/mail/u/0/#search/jon" target="_blank" class="evidence-link">📧</a><br>❌</td>
+<td><textarea class="feedback-text"></textarea></td></tr></tbody></table><script>
+function exportToCSV(){const rows=document.querySelectorAll('tbody tr');let csv=['Name,Decision,Confidence,Reason,Approve,Feedback,ProcessThis'];
+rows.forEach(row=>{const cells=row.querySelectorAll('td');const cb=cells[0].querySelector('input');
+const dec=cells[0].querySelector('div').textContent.trim();const name=cells[1].textContent.trim();
+const conf=cells[2].textContent.trim();const reason=cells[3].textContent.trim().replace(/"/g,'""');
+const app=cb.checked?'YES':'NO';const fb=cells[5].querySelector('textarea').value.replace(/"/g,'""');
+csv.push(`"${name}","${dec}","${conf}","${reason}","${app}","${fb}","${app}"`);});
+const blob=new Blob([csv.join('\n')],{type:'text/csv'});const url=window.URL.createObjectURL(blob);
+const a=document.createElement('a');a.href=url;a.download='batch4_'+new Date().toISOString().slice(0,10)+'.csv';
+a.click();window.URL.revokeObjectURL(url);
+navigator.clipboard.writeText('/Users/admin/Downloads/'+a.download).then(()=>{alert('✅ Exported!\n📋 Path copied');});}
+</script></body></html>

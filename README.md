@@ -43,8 +43,8 @@ ERA Landscape (visualization)
 
 **Integration Status:**
 - **Phase 4B-1:** ✅ Automated fuzzy matching (364 enriched)
-- **Phase 4B-2:** 🔄 87% complete - Collaborative review (409 enriched, 8 rounds)
-- **Phase 5T:** Next - Town Hall visualization
+- **Phase 4B-2:** ✅ COMPLETE - 459 participants validated (11 batches, Oct 23, 2025)
+- **Phase 5T:** READY - Town Hall visualization (script reinstated)
 - **Future:** Unified MySQL database (Q1 2026)
 
 ### 2. Orientation - Where to Find What
@@ -129,14 +129,14 @@ ERA Landscape (visualization)
 
 **[FathomInventory/](../FathomInventory/)** - Automated meeting analysis
 - Purpose: AI-powered meeting discovery and participant extraction
-- Records: 1,953 participants (1,698 validated/87%, 255 remaining)
+- Records: 682 participants (459 validated/67%, 223 new/unprocessed)
 - Automation: Daily at 3 AM via launchd
 - Status: ✅ Operational
 - Read: [FathomInventory/README.md](FathomInventory/README.md)
 
 **[airtable/](../airtable/)** - Manual membership tracking
 - Purpose: Membership database, donor tracking, TH attendance
-- Records: 630 people (+58 from Phase 4B-2), 17 TH attendance columns
+- Records: 630 people (+59 from Phase 4B-2), 17 TH attendance columns
 - Scripts: Read-only exports, cross-correlation with Fathom
 - Status: ✅ Operational
 - Read: [airtable/README.md](airtable/README.md)
@@ -144,19 +144,25 @@ ERA Landscape (visualization)
 **[integration_scripts/](../integration_scripts/)** - Cross-component bridges
 - Purpose: Enrich Fathom data with Airtable information
 - Phase 4B-1: ✅ Automated fuzzy matching (364 enriched)
-- Phase 4B-2: 🔄 87% complete - Collaborative review (409 enriched, 8 rounds)
+- Phase 4B-2: ✅ COMPLETE - 459 participants validated (11 batches, Oct 23, 2025)
+- Phase 5T: READY - export_townhalls_to_landscape.py reinstated
 - Read: [integration_scripts/README.md](integration_scripts/README.md)
-- AI Workflow: integration_scripts/AI_WORKFLOW_GUIDE.md
-- Progress: integration_scripts/PHASE4B2_PROGRESS_REPORT.md
 
-**ERA_Landscape** (core component)
-- Purpose: Interactive network visualization
+**[ERA_Landscape/](../ERA_Landscape/)** - Interactive network visualization
+- Purpose: Network graph of ERA ecosystem
 - Content: 350+ organizations, people, projects + relationships
 - Technology: Static HTML/JS, Google Sheets data source, vis.js
 - Live: https://jonschull.github.io/ERA_Admin/ERA_Landscape/
-- Location: `ERA_Landscape/` directory
+- Status: ✅ Operational
 - Read: ERA_Landscape/README.md, NETWORK_ARCHITECTURE.md, VISION.md
 - Special: 65 fixed Town Hall nodes at periphery
+
+**[future_discipline/](../future_discipline/)** 🔬 - Experimental discipline investigations
+- Purpose: Lessons learned from Phase 4B-2, proposed architectures
+- Content: AI discipline failures, drone architecture proposal
+- Status: Experimental / Future Investigation
+- Context: 650+ participants across 11 batches revealed systematic AI discipline challenges
+- Read: [future_discipline/README.md](#file-future_disciplinereadmemd)
 
 #### Quick Start
 
@@ -234,9 +240,9 @@ python3 -m venv /Users/admin/ERA_Admin_venv
 #### Current Metrics
 
 - **Airtable:** 630 people, 324 TH attendance records
-- **Fathom:** 1,953 participants (1,698 validated/87%)
-- **Validation:** 61.5% baseline → 87% enriched
+- **Fathom:** 682 participants (459 validated/67%)
+- **Validation:** 61.5% baseline → 100% Phase 4B-2 scope complete
 - **Landscape:** 350+ nodes
-- **Integration:** Phase 4B-2 at 87%, Phase 5T next
+- **Integration:** Phase 4B-2 ✅ complete, Phase 5T ready
 
 **Back to:** Top of README
