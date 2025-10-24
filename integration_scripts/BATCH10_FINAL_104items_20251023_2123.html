@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<title>Batch 10 - Final 104 Items</title>
+<style>
+body {font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 20px; background: #f5f5f7;}
+h1 {color: #1d1d1f;}
+table {width: 100%; border-collapse: collapse; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1);}
+th {background: #007aff; color: white; padding: 12px; text-align: left; position: sticky; top: 0;}
+td {padding: 10px; border-bottom: 1px solid #e5e5e7;}
+tr:hover {background: #f5f5f7;}
+.HIGH {color: #34c759; font-weight: bold;}
+.MEDIUM {color: #ff9500;}
+.NEEDS_USER_INPUT {color: #ff3b30; font-weight: bold;}
+input[type="checkbox"] {transform: scale(1.2);}
+button {background: #007aff; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; margin: 10px 0;}
+button:hover {background: #0051d5;}
+</style>
+</head>
+<body>
+<h1>🎉 Batch 10 - Final 104 Items</h1>
+<p><strong>Total:</strong> 104 items | 
+<span class="HIGH">HIGH: 67</span> | 
+<span class="MEDIUM">MEDIUM: 12</span> | 
+<span class="NEEDS_USER_INPUT">NEEDS USER INPUT: 25</span></p>
+
+<button onclick="exportToCSV()">📥 Export to CSV</button>
+
+<table id="reviewTable">
+<thead>
+<tr>
+<th>Approve</th>
+<th>Name</th>
+<th>Decision</th>
+<th>Confidence</th>
+<th>Reason</th>
+<th>Feedback</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>admin</strong></td>
+<td>drop</td>
+<td class="HIGH">HIGH</td>
+<td>System account</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Agri-Tech Producers LLC, Joe James</strong></td>
+<td>add to airtable as Joe James</td>
+<td class="HIGH">HIGH</td>
+<td>Extract person from org suffix (PAST_LEARNINGS)</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Angelique</strong></td>
+<td>merge with: Angelique Garcia</td>
+<td class="HIGH">HIGH</td>
+<td>From PAST_LEARNINGS.md</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Charles</strong></td>
+<td>ask user - may be Charles Shore</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Single name, possibly Charles Shore</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>craig</strong></td>
+<td>ask user for full name</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Single lowercase name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Dawn Carroll-Nish</strong></td>
+<td>add to airtable as Dawn Carroll-Nish</td>
+<td class="HIGH">HIGH</td>
+<td>Full name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Dr. Sanmi Olowosile (3)</strong></td>
+<td>merge with: Sanmi Olowosile</td>
+<td class="HIGH">HIGH</td>
+<td>Number variant, strip "Dr." prefix</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>e-NABLE Events</strong></td>
+<td>drop</td>
+<td class="HIGH">HIGH</td>
+<td>Organization account (repeated)</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>e-NABLE Events (3)</strong></td>
+<td>drop</td>
+<td class="HIGH">HIGH</td>
+<td>Organization account (repeated)</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Ed</strong></td>
+<td>ask user for full name</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Single name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Frederic Jennings, www.bio4climate.org</strong></td>
+<td>merge with: Fred Jennings</td>
+<td class="HIGH">HIGH</td>
+<td>Name variant (Frederic = Fred), strip URL</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Geoffrey Kwala</strong></td>
+<td>ask user - check if in Airtable</td>
+<td class="MEDIUM">MEDIUM</td>
+<td>Base name for variants</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Geoffrey Kwala (3)</strong></td>
+<td>merge with: Geoffrey Kwala</td>
+<td class="HIGH">HIGH</td>
+<td>Number variant</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Geoffrey Kwala (5)</strong></td>
+<td>merge with: Geoffrey Kwala</td>
+<td class="HIGH">HIGH</td>
+<td>Number variant</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>George</strong></td>
+<td>ask user - base name for variants</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Multiple George variants exist</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>George (5)</strong></td>
+<td>ask user - multiple George variants</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Need to identify which George</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>George (Yogi Karwa)</strong></td>
+<td>ask user - multiple George variants</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Need to identify which George</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>George K.</strong></td>
+<td>ask user - multiple George variants</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Need to identify which George</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>George Karwani-Tanzania</strong></td>
+<td>ask user - multiple George variants</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Need to identify which George</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Gerardo</strong></td>
+<td>ask user - possibly Gerardo Martinez (GALA)</td>
+<td class="MEDIUM">MEDIUM</td>
+<td>Single name, likely from GALA</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Global Earth Repair</strong></td>
+<td>merge with: Michael Pilarski</td>
+<td class="HIGH">HIGH</td>
+<td>Organization → person (PAST_LEARNINGS Batch 5)</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Graham Boyd - Evolutesix</strong></td>
+<td>add to airtable as Graham Boyd (Evolutesix)</td>
+<td class="HIGH">HIGH</td>
+<td>Extract person, keep org context</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Grant Holton, MoreTreesNow.eco</strong></td>
+<td>add to airtable as Grant Holton (MoreTreesNow.eco)</td>
+<td class="HIGH">HIGH</td>
+<td>Extract person, keep org context</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Grupo Ecológico Sierra Gorda I.A.P. (3)</strong></td>
+<td>drop</td>
+<td class="HIGH">HIGH</td>
+<td>Organization account</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Hart Hagen</strong></td>
+<td>add to airtable as Hart Hagen</td>
+<td class="HIGH">HIGH</td>
+<td>Full name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Indy</strong></td>
+<td>ask user - Indy Singh or Indy Boyle-Rhymes?</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Multiple Indy matches in PAST_LEARNINGS</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Indy Rishi Singh</strong></td>
+<td>merge with: Indy Singh</td>
+<td class="HIGH">HIGH</td>
+<td>Full name variant</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Ir Marius</strong></td>
+<td>merge with: Marius Iragi Ziganara</td>
+<td class="HIGH">HIGH</td>
+<td>Name variant from PAST_LEARNINGS</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Ir Marius (3)</strong></td>
+<td>merge with: Marius Iragi Ziganara</td>
+<td class="HIGH">HIGH</td>
+<td>Name variant from PAST_LEARNINGS</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Ir Marius Z</strong></td>
+<td>merge with: Marius Iragi Ziganara</td>
+<td class="HIGH">HIGH</td>
+<td>Name variant from PAST_LEARNINGS</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Jake Fairbanks Kelley</strong></td>
+<td>add to airtable as Jake Fairbanks Kelley</td>
+<td class="HIGH">HIGH</td>
+<td>Full name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Jan Dietrick & Ron Whitehurst, BugFarm, Ventura, CA</strong></td>
+<td>ask user - two people in one name</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Jan Dietrick & Ron Whitehurst need separation</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Jeremiah</strong></td>
+<td>ask user - possibly Jeremiah Agnew</td>
+<td class="MEDIUM">MEDIUM</td>
+<td>Single name, may be Jeremiah Agnew</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Jeremy Simon</strong></td>
+<td>add to airtable as Jeremy Simon</td>
+<td class="HIGH">HIGH</td>
+<td>Full name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>jim</strong></td>
+<td>ask user - possibly Jim Bledsoe</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Single name variant</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>jim Bledsoe Napa California</strong></td>
+<td>add to airtable as Jim Bledsoe</td>
+<td class="HIGH">HIGH</td>
+<td>Full name with location</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Jimmy</strong></td>
+<td>ask user for full name</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Single name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Jme Conway</strong></td>
+<td>ask user - possibly James Conway variant</td>
+<td class="MEDIUM">MEDIUM</td>
+<td>Unusual spelling</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>John Dennis Liu</strong></td>
+<td>merge with: John Dennis Liu</td>
+<td class="HIGH">HIGH</td>
+<td>Found in Airtable</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>John Dennis Liu (3)</strong></td>
+<td>merge with: John Dennis Liu</td>
+<td class="HIGH">HIGH</td>
+<td>Found in Airtable</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>John's iPhone</strong></td>
+<td>ask user - device names need owner identification</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Device names</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Josean's iPhone</strong></td>
+<td>ask user - device names need owner identification</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Device names</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Josean's iPhone (11)</strong></td>
+<td>ask user - device names need owner identification</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Device names</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Joshua Laizer</strong></td>
+<td>add to airtable as Joshua Laizer</td>
+<td class="HIGH">HIGH</td>
+<td>Full name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Joshua Shepard</strong></td>
+<td>add to airtable as Joshua Shepard</td>
+<td class="HIGH">HIGH</td>
+<td>From PAST_LEARNINGS (JS)</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>JP</strong></td>
+<td>ask user - initials need full name</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Initials only</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Judith Rosen</strong></td>
+<td>add to airtable as Judith Rosen</td>
+<td class="HIGH">HIGH</td>
+<td>Full name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>KALOMBO-MBILIZI</strong></td>
+<td>merge with: Kalombo Mbilizi</td>
+<td class="HIGH">HIGH</td>
+<td>Name variant (hyphenated, all caps)</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Kathia Burillo</strong></td>
+<td>add to airtable as Kathia Burillo</td>
+<td class="HIGH">HIGH</td>
+<td>Full name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>kPm5Xu</strong></td>
+<td>drop</td>
+<td class="HIGH">HIGH</td>
+<td>Random string/system artifact</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Leonard IYAMUREME (10)</strong></td>
+<td>ask user - check if in Airtable</td>
+<td class="MEDIUM">MEDIUM</td>
+<td>Number variants</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Leonard IYAMUREME (3)</strong></td>
+<td>ask user - check if in Airtable</td>
+<td class="MEDIUM">MEDIUM</td>
+<td>Number variants</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Leonce</strong></td>
+<td>ask user for full name</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Single name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Leonce (2)</strong></td>
+<td>ask user for full name</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Single name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Leticia Bernardes - explorer.land by OpenForests</strong></td>
+<td>merge with: Leticia Bernardes</td>
+<td class="HIGH">HIGH</td>
+<td>Strip org suffix (explorer.land)</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Maria Ehrnström-Fuentes</strong></td>
+<td>add to airtable as Maria Ehrnström-Fuentes</td>
+<td class="HIGH">HIGH</td>
+<td>Full name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>MARIUS IRAGI (4)</strong></td>
+<td>merge with: Marius Iragi Ziganara</td>
+<td class="HIGH">HIGH</td>
+<td>Number variant</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Mark</strong></td>
+<td>ask user - too common for single name</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Common single name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>mbilizi Kalombo (2)</strong></td>
+<td>merge with: Kalombo Mbilizi</td>
+<td class="HIGH">HIGH</td>
+<td>Name reversal variant (PAST_LEARNINGS)</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>mbilizi Kalombo (3)</strong></td>
+<td>merge with: Kalombo Mbilizi</td>
+<td class="HIGH">HIGH</td>
+<td>Name reversal variant (PAST_LEARNINGS)</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>melissamcgaughey</strong></td>
+<td>add to airtable as Melissa McGaughey</td>
+<td class="HIGH">HIGH</td>
+<td>Username pattern</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Mike Lynn</strong></td>
+<td>add to airtable as Mike Lynn</td>
+<td class="HIGH">HIGH</td>
+<td>Full name, merge variants</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Mike Lynn (2)</strong></td>
+<td>add to airtable as Mike Lynn</td>
+<td class="HIGH">HIGH</td>
+<td>Full name, merge variants</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>MOHAMMED ALKHALID</strong></td>
+<td>add to airtable as Mohammed Alkhalid</td>
+<td class="HIGH">HIGH</td>
+<td>Full name (fix caps)</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Monifa Maat "The Healthy Motivator"</strong></td>
+<td>add to airtable as Monifa Maat</td>
+<td class="HIGH">HIGH</td>
+<td>Extract person, ignore tagline</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Mr. Kipilangat Kaura -TAWI (5)</strong></td>
+<td>merge with: Kipilangat Kaura</td>
+<td class="HIGH">HIGH</td>
+<td>Strip Mr. and -TAWI (from Batch 7)</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Mtokani Saleh (5)</strong></td>
+<td>merge with: Mtokani Saleh</td>
+<td class="HIGH">HIGH</td>
+<td>Number variants (from Batch 7)</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Mtokani Saleh (6)</strong></td>
+<td>merge with: Mtokani Saleh</td>
+<td class="HIGH">HIGH</td>
+<td>Number variants (from Batch 7)</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Mtokani Saleh (9)</strong></td>
+<td>merge with: Mtokani Saleh</td>
+<td class="HIGH">HIGH</td>
+<td>Number variants (from Batch 7)</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>MUTASA BRIAN (2)</strong></td>
+<td>ask user - check if in Airtable</td>
+<td class="MEDIUM">MEDIUM</td>
+<td>Number variants</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>MUTASA BRIAN (3)</strong></td>
+<td>ask user - check if in Airtable</td>
+<td class="MEDIUM">MEDIUM</td>
+<td>Number variants</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Nabil Chaib-draa</strong></td>
+<td>ask user - name variants (hyphen difference)</td>
+<td class="MEDIUM">MEDIUM</td>
+<td>Chaib-draa vs Chaibdraa - which is correct?</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Nabil Chaibdraa</strong></td>
+<td>ask user - name variants (hyphen difference)</td>
+<td class="MEDIUM">MEDIUM</td>
+<td>Chaib-draa vs Chaibdraa - which is correct?</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Neal Spackman</strong></td>
+<td>add to airtable as Neal Spackman</td>
+<td class="HIGH">HIGH</td>
+<td>Full name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Nima Schei</strong></td>
+<td>add to airtable as Nima Schei</td>
+<td class="HIGH">HIGH</td>
+<td>Full name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Nyaguthii</strong></td>
+<td>ask user for full name</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Single name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Paolo Nardi</strong></td>
+<td>add to airtable as Paolo Nardi</td>
+<td class="HIGH">HIGH</td>
+<td>Full name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Patrick</strong></td>
+<td>ask user for full name</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Single name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Paulo de Carvalho</strong></td>
+<td>add to airtable as Paulo de Carvalho</td>
+<td class="HIGH">HIGH</td>
+<td>Full name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Paulo Magalhães</strong></td>
+<td>add to airtable as Paulo Magalhães</td>
+<td class="HIGH">HIGH</td>
+<td>Full name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Peter / Erica</strong></td>
+<td>ask user - two people in one name</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Need to separate Peter and Erica</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Peter Gubbels Groundswell-West Africa</strong></td>
+<td>add to airtable as Peter Gubbels (Groundswell-West Africa)</td>
+<td class="HIGH">HIGH</td>
+<td>Extract person, keep org, merge variants</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Peter Gubbels Groundswell-West Africa (5)</strong></td>
+<td>add to airtable as Peter Gubbels (Groundswell-West Africa)</td>
+<td class="HIGH">HIGH</td>
+<td>Extract person, keep org, merge variants</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Philip Bogdonoff, Bio4Climate.org</strong></td>
+<td>merge with: Philip Bogdonoff</td>
+<td class="HIGH">HIGH</td>
+<td>Strip org suffix (Bio4Climate.org)</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Poyom</strong></td>
+<td>ask user for full name</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Single name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Rama (5)</strong></td>
+<td>drop</td>
+<td class="HIGH">HIGH</td>
+<td>User indicated drop (from Batch 7)</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Rob De Laet (4)</strong></td>
+<td>merge with: Rob de Laet</td>
+<td class="HIGH">HIGH</td>
+<td>Number variants, fix capitalization</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Rob De Laet (7)</strong></td>
+<td>merge with: Rob de Laet</td>
+<td class="HIGH">HIGH</td>
+<td>Number variants, fix capitalization</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Rob Lewis, northwest Washington, Salish Sea</strong></td>
+<td>merge with: Rob Lewis</td>
+<td class="HIGH">HIGH</td>
+<td>Location suffix (from Batch 9)</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Rochelle</strong></td>
+<td>merge with: Rochelle Bell</td>
+<td class="HIGH">HIGH</td>
+<td>From PAST_LEARNINGS (MC Planning)</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Rodger</strong></td>
+<td>ask user - Rodger Savory variants</td>
+<td class="MEDIUM">MEDIUM</td>
+<td>Check if same person</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Rodger Savory Esq.</strong></td>
+<td>ask user - Rodger Savory variants</td>
+<td class="MEDIUM">MEDIUM</td>
+<td>Check if same person</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Russ Speer (2)</strong></td>
+<td>merge with: Russ Speer</td>
+<td class="HIGH">HIGH</td>
+<td>Number variants</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Russ Speer (3)</strong></td>
+<td>merge with: Russ Speer</td>
+<td class="HIGH">HIGH</td>
+<td>Number variants</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Russ Speer (9)</strong></td>
+<td>merge with: Russ Speer</td>
+<td class="HIGH">HIGH</td>
+<td>Number variants</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Samuel Ombeni</strong></td>
+<td>merge with: Samuel Obeni</td>
+<td class="HIGH">HIGH</td>
+<td>Name variant (Ombeni vs Obeni)</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>Sandra</strong></td>
+<td>ask user for full name</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Single name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" ></td>
+<td><strong>sheil001</strong></td>
+<td>ask user - username needs full name</td>
+<td class="NEEDS_USER_INPUT">NEEDS_USER_INPUT</td>
+<td>Username pattern</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>SteveApfelbaum</strong></td>
+<td>add to airtable as Steve Apfelbaum</td>
+<td class="HIGH">HIGH</td>
+<td>Username pattern</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Verónica Giraldo</strong></td>
+<td>add to airtable as Verónica Giraldo</td>
+<td class="HIGH">HIGH</td>
+<td>Full name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Victoria Zelin & Jonathan Cloud</strong></td>
+<td>merge with: Victoria Zelin Cloud</td>
+<td class="HIGH">HIGH</td>
+<td>Name variants (with Cloud, with & Jonathan Cloud, hyphenated)</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Victoria Zelin-Cloud</strong></td>
+<td>merge with: Victoria Zelin Cloud</td>
+<td class="HIGH">HIGH</td>
+<td>Name variants (with Cloud, with & Jonathan Cloud, hyphenated)</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>William Wildcat</strong></td>
+<td>add to airtable as William Wildcat</td>
+<td class="HIGH">HIGH</td>
+<td>Full name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+<tr>
+<td><input type="checkbox" class="approve" checked></td>
+<td><strong>Yuri Herzfeld</strong></td>
+<td>add to airtable as Yuri Herzfeld</td>
+<td class="HIGH">HIGH</td>
+<td>Full name</td>
+<td><input type="text" class="feedback" placeholder="Comments..." style="width: 100%;"></td>
+</tr>
+</tbody>
+</table>
+
+<script>
+function exportToCSV() {
+    const table = document.getElementById('reviewTable');
+    const rows = table.querySelectorAll('tbody tr');
+    
+    let csv = 'Name,Decision,Confidence,Reason,Approve,Feedback,ProcessThis\n';
+    
+    rows.forEach(row => {
+        const cells = row.querySelectorAll('td');
+        const approve = cells[0].querySelector('input').checked;
+        const name = cells[1].textContent.trim();
+        const decision = cells[2].textContent.trim();
+        const confidence = cells[3].textContent.trim();
+        const reason = cells[4].textContent.trim();
+        const feedback = cells[5].querySelector('input').value;
+        const processThis = approve ? 'YES' : 'NO';
+        
+        csv += `"${name}","${decision}","${confidence}","${reason}","${approve ? 'YES' : 'NO'}","${feedback}","${processThis}"\n`;
+    });
+    
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const timestamp = new Date().toISOString().slice(0,10);
+    a.href = url;
+    a.download = `batch10_final_${timestamp}.csv`;
+    a.click();
+    
+    // Copy path to clipboard
+    const path = `/Users/admin/Downloads/batch10_final_${timestamp}.csv`;
+    navigator.clipboard.writeText(path);
+    alert('CSV exported! Path copied to clipboard:\n' + path);
+}
+</script>
+</body>
+</html>

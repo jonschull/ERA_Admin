@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batch 2 - Claude's AI Recommendations</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 15px;
+            background: #f5f5f5;
+            font-size: 13px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-box {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #3498db;
+        }
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        .controls {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        th {
+            background: #34495e;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            position: sticky;
+            top: 0;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        tr:hover {
+            background: #f8f9fa;
+        }
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        textarea {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 50px;
+        }
+        .confidence-HIGH {
+            background: #d4edda;
+            color: #155724;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .confidence-MEDIUM {
+            background: #fff3cd;
+            color: #856404;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .confidence-LOW {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .evidence-link {
+            color: #3498db;
+            text-decoration: none;
+        }
+        .evidence-link:hover {
+            text-decoration: underline;
+        }
+        .in-airtable {
+            color: #28a745;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🤖 Batch 2 - Claude's AI Recommendations</h1>
+        <p><strong>Generated:</strong> 2025-10-23 14:34:36</p>
+        <p><strong>Purpose:</strong> 50 new participants analyzed with past learnings applied</p>
+    </div>
+    
+    <div class="stats">
+        <div class="stat-box">
+            <div class="stat-value">50</div>
+            <div class="stat-label">Total Cases</div>
+        </div>
+        <div class="stat-box" style="background: #d4edda;">
+            <div class="stat-value" style="color: #28a745;">15</div>
+            <div class="stat-label">✅ High Confidence</div>
+        </div>
+        <div class="stat-box" style="background: #fff3cd;">
+            <div class="stat-value" style="color: #ffc107;">35</div>
+            <div class="stat-label">🤔 Medium Confidence</div>
+        </div>
+        <div class="stat-box" style="background: #e8f4f8;">
+            <div class="stat-value" style="color: #3498db;">3</div>
+            <div class="stat-label">📋 Already in Airtable</div>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <button onclick="exportToCSV()">📥 Export to CSV</button>
+        <button onclick="checkAll()">✓ Check All</button>
+        <button onclick="uncheckAll()">✗ Uncheck All</button>
+        <button onclick="filterByConfidence('all')">Show All</button>
+        <button onclick="filterByConfidence('HIGH')">High Only</button>
+        <button onclick="filterByConfidence('MEDIUM')">Medium Only</button>
+    </div>
+    
+    <table id="recommendationsTable">
+        <thead>
+            <tr>
+                <th style="width: 250px;">Claude's Recommendation</th>
+                <th>Name</th>
+                <th>Confidence</th>
+                <th>Claude's Reasoning</th>
+                <th>Evidence</th>
+                <th style="width: 250px;">Your Feedback/Guidance</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>drop</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" checked>
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>16319034965</strong><br></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Phone number</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/16319034965" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>drop</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" checked>
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>18022588598</strong><br></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Phone number</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/18022588598" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>drop</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" checked>
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>admin</strong><br></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>System account or username</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/admin" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>drop</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" checked>
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>afmiller09</strong><br></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>System account or username</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/afmiller09" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Joe James</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" checked>
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Agri-Tech Producers LLC, Joe James</strong><br><span class="in-airtable">✓ In Airtable</span></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Organization + person pattern (past learning)</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Agri-Tech%20Producers%20LLC,%20Joe%20James" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections...">Based on past round - please verify</textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Ananda Fitzsimmons</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" checked>
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Ananda Fitzsimmons (4)</strong><br></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Number variant of Ananda Fitzsimmons</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Ananda%20Fitzsimmons%20(4)" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>drop</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" checked>
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>andreaseke</strong><br></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>System account or username</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/andreaseke" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>drop</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" checked>
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Andres's iPhone (2)</strong><br></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Device name</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Andres's%20iPhone%20(2)" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Angelique</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" checked>
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Angelique</strong><br><span class="in-airtable">✓ In Airtable</span></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Already in Airtable</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Angelique" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Chris Searles</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" checked>
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>BioIntegrity</strong><br><span class="in-airtable">✓ In Airtable</span></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Organization = Chris Searles (past learning: Oct 22)</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/BioIntegrity" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections...">Based on past round - please verify</textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>drop</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" checked>
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>bk</strong><br></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>System account or username</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/bk" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Bru Pearce</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" checked>
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Bru Pearce (4)</strong><br></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Number variant of Bru Pearce</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Bru%20Pearce%20(4)" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Chandrashekhar Biradar</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" checked>
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>CBiradar</strong><br></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Past learning: CBiradar = Chandrashekhar Biradar</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/CBiradar" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections...">Based on past round - please verify</textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Charlotte Anthony</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" checked>
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>charlotte</strong><br></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Past learning: charlotte = Charlotte Anthony</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/charlotte" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections...">Based on past round - please verify</textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Climbien Babungire</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" checked>
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Climbien</strong><br></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Past learning + number variant</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Climbien" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections...">Based on past round - please verify</textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Abigail Castle</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Full name - check Town Hall context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Abigail%20Castle" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>investigate</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Aditi</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Single name - needs context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Aditi" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections...">Need Town Hall or Gmail context to identify</textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable as Krouskop</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Aimee Samara (Krouskop)</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Person name from context: Aimee Samara (Krouskop)</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Aimee%20Samara%20(Krouskop)" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Allison Wu</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Full name - check Town Hall context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Allison%20Wu" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Alnoor IP 14P</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Full name - check Town Hall context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Alnoor%20IP%2014P" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>investigate</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Ana</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Single name - needs context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Ana" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections...">Need Town Hall or Gmail context to identify</textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong></strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>ana - Panama Restoration Lab</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td></td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/ana%20-%20Panama%20Restoration%20Lab" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Ana C</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Full name - check Town Hall context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Ana%20C" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Andrea Manrique</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Full name - check Town Hall context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Andrea%20Manrique" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>investigate</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>aniqa</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Single name - needs context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/aniqa" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections...">Need Town Hall or Gmail context to identify</textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>aniqa Locations: Bangladesh, Egypt, Sikkim</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Full name - check Town Hall context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/aniqa%20Locations:%20Bangladesh,%20Egypt,%20Sikkim" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Anna Calderon</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Full name - check Town Hall context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Anna%20Calderon" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Ansiima Casinga Rolande</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Full name - check Town Hall context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Ansiima%20Casinga%20Rolande" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable as Ecoist</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>BasHam (Ecoist)</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Person name from context: BasHam (Ecoist)</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/BasHam%20(Ecoist)" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Beck Bio4Climate</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Full name - check Town Hall context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Beck%20Bio4Climate" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Benamara Elhabib</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Full name - check Town Hall context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Benamara%20Elhabib" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Betty Bitengo</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Full name - check Town Hall context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Betty%20Bitengo" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>investigate</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Billimarie</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Single name - needs context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Billimarie" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections...">Need Town Hall or Gmail context to identify</textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Billimarie</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Billimarie (3)</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Number variant - base name may need adding</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Billimarie%20(3)" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Bio4Climate1</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Bio4Climate1 (Beck Mordini)</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Number variant - base name may need adding</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Bio4Climate1%20(Beck%20Mordini)" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Mbilizi Kalombo</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Brendah</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Past learning from earlier rounds</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Brendah" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections...">Based on past round - please verify</textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable as ORQAS</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Brendan McNamara (ORQAS)</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Person name from context: Brendan McNamara (ORQAS)</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Brendan%20McNamara%20(ORQAS)" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>investigate</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Brian</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Single name - needs context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Brian" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections...">Need Town Hall or Gmail context to identify</textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>C. Petruzzi-McHale</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Full name - check Town Hall context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/C.%20Petruzzi-McHale" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>investigate</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Charles</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Single name - needs context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Charles" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections...">Need Town Hall or Gmail context to identify</textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Charlie Shore</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Full name - check Town Hall context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Charlie%20Shore" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Charlie Shore, Gaithersburg, MD</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Full name - check Town Hall context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Charlie%20Shore,%20Gaithersburg,%20MD" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Chris Pilley</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Full name - check Town Hall context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Chris%20Pilley" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong></strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>CHRISTOPHER - Tanzania</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td></td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/CHRISTOPHER%20-%20Tanzania" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Christopher Danch</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Full name - check Town Hall context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Christopher%20Danch" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Climbien</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Climbien (3)</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Number variant - base name may need adding</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Climbien%20(3)" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Coakee Wildcat</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Full name - check Town Hall context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Coakee%20Wildcat" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>investigate</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Cole</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Single name - needs context</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Cole" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections...">Need Town Hall or Gmail context to identify</textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable as Indy Boyle-Rhymes</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Cosmic Labyrinth (Indy Boyle-Rhymes)</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Person name from context: Cosmic Labyrinth (Indy Boyle-Rhymes)</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Cosmic%20Labyrinth%20(Indy%20Boyle-Rhymes)" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable as Indy</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Cosmic Labyrinth (Indy)</strong><br></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Person name from context: Cosmic Labyrinth (Indy)</td>
+                <td style="font-size: 11px;">
+                    <a href="https://mail.google.com/mail/u/0/#search/Cosmic%20Labyrinth%20(Indy)" target="_blank" class="evidence-link">📧 Email Query</a>
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+        </tbody>
+    </table>
+    
+    <script>
+        function exportToCSV() {
+            const table = document.getElementById('recommendationsTable');
+            const rows = table.querySelectorAll('tbody tr');
+            let csv = [];
+            
+            csv.push('Name,Claude_Decision,Confidence,Claude_Reasoning,Approve,Your_Feedback,ProcessThis');
+            
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const checkbox = cells[0].querySelector('input[type="checkbox"]');
+                const decision = cells[0].querySelector('div').textContent.trim();
+                const name = cells[1].textContent.trim().split('\n')[0];
+                const confidence = cells[2].textContent.trim();
+                const reasoning = cells[3].textContent.trim().replace(/"/g, '""');
+                const approve = checkbox.checked ? 'YES' : 'NO';
+                const feedback = cells[5].querySelector('textarea').value.replace(/"/g, '""');
+                const processThis = approve === 'YES' ? 'YES' : 'REVIEW';
+                
+                csv.push(`"${name}","${decision}","${confidence}","${reasoning}","${approve}","${feedback}","${processThis}"`);
+            });
+            
+            const csvContent = csv.join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'batch2_feedback.csv';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+        
+        function checkAll() {
+            document.querySelectorAll('.approve-checkbox').forEach(cb => cb.checked = true);
+        }
+        
+        function uncheckAll() {
+            document.querySelectorAll('.approve-checkbox').forEach(cb => cb.checked = false);
+        }
+        
+        function filterByConfidence(level) {
+            const rows = document.querySelectorAll('#recommendationsTable tbody tr');
+            rows.forEach(row => {
+                if (level === 'all') {
+                    row.style.display = '';
+                } else {
+                    const confidenceSpan = row.querySelector('[class^="confidence-"]');
+                    if (confidenceSpan && confidenceSpan.textContent === level) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

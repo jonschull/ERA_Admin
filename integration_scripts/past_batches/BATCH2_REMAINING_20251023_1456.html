@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Batch 2 Remaining - With Fathom Links</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 100%; margin: 0 auto; padding: 15px; background: #f5f5f5; font-size: 13px; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        .header { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .stat-box { background: white; padding: 15px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .stat-value { font-size: 32px; font-weight: bold; color: #3498db; }
+        .stat-label { color: #7f8c8d; font-size: 14px; }
+        .controls { background: white; padding: 15px; border-radius: 6px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        button { background: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin-right: 10px; font-size: 14px; }
+        button:hover { background: #2980b9; }
+        table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        th { background: #34495e; color: white; padding: 12px; text-align: left; position: sticky; top: 0; }
+        td { padding: 10px; border-bottom: 1px solid #ecf0f1; }
+        tr:hover { background: #f8f9fa; }
+        input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; }
+        textarea { width: 100%; padding: 6px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; resize: vertical; min-height: 50px; }
+        .confidence-HIGH { background: #d4edda; color: #155724; padding: 4px 8px; border-radius: 4px; font-weight: bold; }
+        .confidence-MEDIUM { background: #fff3cd; color: #856404; padding: 4px 8px; border-radius: 4px; font-weight: bold; }
+        .evidence-link { color: #3498db; text-decoration: none; margin-right: 4px; }
+        .evidence-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🤖 Batch 2 Remaining Items - With Improvements</h1>
+        <p><strong>Generated:</strong> 2025-10-23 14:56:05</p>
+        <p><strong>Fixed:</strong> ✓ Fathom links added ✓ Airtable checked ✓ Full canonical names ✓ Pattern extraction</p>
+    </div>
+    
+    <div class="stats">
+        <div class="stat-box">
+            <div class="stat-value">25</div>
+            <div class="stat-label">Remaining Cases</div>
+        </div>
+        <div class="stat-box" style="background: #d4edda;">
+            <div class="stat-value" style="color: #28a745;">8</div>
+            <div class="stat-label">✅ High Confidence</div>
+        </div>
+        <div class="stat-box" style="background: #fff3cd;">
+            <div class="stat-value" style="color: #ffc107;">17</div>
+            <div class="stat-label">🤔 Medium Confidence</div>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <button onclick="exportToCSV()">📥 Export to CSV (copies path)</button>
+        <button onclick="checkAll()">✓ Check All</button>
+        <button onclick="uncheckAll()">✗ Uncheck All</button>
+    </div>
+    
+    <table id="recommendationsTable">
+        <thead>
+            <tr>
+                <th style="width: 250px;">Claude's Recommendation</th>
+                <th>Name</th>
+                <th>Confidence</th>
+                <th>Claude's Reasoning</th>
+                <th>Fathom Recordings</th>
+                <th style="width: 250px;">Your Feedback/Guidance</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Aimee Samara</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" checked>
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Aimee Samara (Krouskop)</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Found in Airtable (exact match)</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/165893831" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>drop</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" checked>
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Alnoor IP 14P</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>System/network identifier</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/42536046" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Andrea Manrique Yus</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" checked>
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Andrea Manrique</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Found in Airtable (88% match)</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/226162234" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Ana Calderon</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" checked>
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Anna Calderon</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Found in Airtable (96% match)</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/189386729, https://fathom.video/calls/143656774" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Ansima Casinga Rolande</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" checked>
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Ansiima Casinga Rolande</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Found in Airtable (97% match)</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/242890812, https://fathom.video/calls/289548672, https://fathom.video/calls/226162234" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Brendan McNamara</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" checked>
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Brendan McNamara (ORQAS)</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Found in Airtable (exact match)</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/387912834" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Charles Shore</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" checked>
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Charlie Shore</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Found in Airtable (92% match)</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/89695534, https://fathom.video/calls/28854293, https://fathom.video/calls/26941996, https://fathom.video/calls/22368500, https://fathom.video/calls/20977039, https://fathom.video/calls/19714472" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Christopher P Danch</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" checked>
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Christopher Danch</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Found in Airtable (94% match)</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/247355149" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable as Abigail Castle</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Abigail Castle</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Not found in Airtable - new participant</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/127857495" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable as Allison Wu</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Allison Wu</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Not found in Airtable - new participant</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/110559424" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Ilana Milkes</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>ana - Panama Restoration Lab</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Possible match in Airtable: Ilana Milkes (or Ana Calderon, Ana Beatriz Freitas)</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/301421112" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Ana Calderon</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Ana C</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Possible match in Airtable: Ana Calderon</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/48059317" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Aniqa Moinuddin</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>aniqa</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Possible match in Airtable: Aniqa Moinuddin</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/68631695, https://fathom.video/calls/58214677" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable as BasHam (Ecoist)</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>BasHam (Ecoist)</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Not found in Airtable - new participant</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/209204233" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Billimarie Lubiano Robinson</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Billimarie</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Possible match in Airtable: Billimarie Lubiano Robinson</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/35256954" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Brian Von Herzen</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Brian</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Possible match in Airtable: Brian Von Herzen (or Brian Cartwright, Brian Krawitz)</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/181365987" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable as C. Petruzzi-McHale</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>C. Petruzzi-McHale</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Not found in Airtable - new participant</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/237177484, https://fathom.video/calls/226162234" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Charles Eisenstein</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Charles</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Possible match in Airtable: Charles Eisenstein (or Charles Upton, Charles Shore)</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/200959970, https://fathom.video/calls/189386729, https://fathom.video/calls/121641973" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable as Chris Pilley</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Chris Pilley</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Not found in Airtable - new participant</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/33276578" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Christopher P Danch</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>CHRISTOPHER - Tanzania</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Possible match in Airtable: Christopher P Danch (or Christopher Mackin, Christopher Haines)</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/61933149" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable as Coakee Wildcat</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Coakee Wildcat</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Not found in Airtable - new participant</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/136973840" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>merge with: Cole Enos</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Cole</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Possible match in Airtable: Cole Enos</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/80828271, https://fathom.video/calls/28854293" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable as Indy Boyle-Rhymes</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Cosmic Labyrinth (Indy Boyle-Rhymes)</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Not found in Airtable - new participant</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/110559424" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>add to airtable as Cosmic Labyrinth (Indy)</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>Cosmic Labyrinth (Indy)</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Not found in Airtable - new participant</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/110559424" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;">
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin-bottom: 8px;"><strong>investigate</strong></div>
+                    <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <input type="checkbox" class="approve-checkbox" >
+                        <span style="font-weight: bold;">Approve</span>
+                    </label>
+                </td>
+                <td><strong>afmiller09</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Username - check Fathom recordings for context</td>
+                <td style="font-size: 11px;"><a href="https://fathom.video/calls/104999059" target="_blank" class="evidence-link">🎥</a> <small>(1 recording)</small></td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections..."></textarea></td>
+            </tr>
+
+        </tbody>
+    </table>
+    
+    <script>
+        function exportToCSV() {
+            const table = document.getElementById('recommendationsTable');
+            const rows = table.querySelectorAll('tbody tr');
+            let csv = [];
+            
+            csv.push('Name,Claude_Decision,Confidence,Claude_Reasoning,Approve,Your_Feedback,ProcessThis');
+            
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const checkbox = cells[0].querySelector('input[type="checkbox"]');
+                const decision = cells[0].querySelector('div').textContent.trim();
+                const name = cells[1].textContent.trim();
+                const confidence = cells[2].textContent.trim();
+                const reasoning = cells[3].textContent.trim().replace(/"/g, '""');
+                const approve = checkbox.checked ? 'YES' : 'NO';
+                const feedback = cells[5].querySelector('textarea').value.replace(/"/g, '""');
+                const processThis = approve === 'YES' ? 'YES' : 'REVIEW';
+                
+                csv.push(`"${name}","${decision}","${confidence}","${reasoning}","${approve}","${feedback}","${processThis}"`);
+            });
+            
+            const csvContent = csv.join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            const filename = 'batch2_remaining_' + new Date().toISOString().slice(0,10) + '.csv';
+            a.download = filename;
+            a.click();
+            window.URL.revokeObjectURL(url);
+            
+            const fullPath = '/Users/admin/Downloads/' + filename;
+            navigator.clipboard.writeText(fullPath).then(() => {
+                alert('✅ CSV exported!\n📋 Path copied to clipboard:\n' + fullPath);
+            }).catch(() => {
+                alert('✅ CSV exported as: ' + filename);
+            });
+        }
+        
+        function checkAll() {
+            document.querySelectorAll('.approve-checkbox').forEach(cb => cb.checked = true);
+        }
+        
+        function uncheckAll() {
+            document.querySelectorAll('.approve-checkbox').forEach(cb => cb.checked = false);
+        }
+    </script>
+</body>
+</html>

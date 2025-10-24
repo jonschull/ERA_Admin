@@ -2,7 +2,7 @@
 
 **Purpose:** Script-parseable wireframe for generating folder structure
 **Format:** Each `## FILE: path` section → create that file
-**Date:** October 20, 2025
+**Date:** October 24, 2025
 
 ---
 
@@ -197,8 +197,8 @@ ERA Landscape (visualization)
 
 **Integration Status:**
 - **Phase 4B-1:** ✅ Automated fuzzy matching (364 enriched)
-- **Phase 4B-2:** 🔄 87% complete - Collaborative review (409 enriched, 8 rounds)
-- **Phase 5T:** Next - Town Hall visualization
+- **Phase 4B-2:** ✅ COMPLETE - 459 participants validated (11 batches, Oct 23, 2025)
+- **Phase 5T:** READY - Town Hall visualization (script reinstated)
 - **Future:** Unified MySQL database (Q1 2026)
 
 ### 2. Orientation - Where to Find What
@@ -283,14 +283,14 @@ ERA Landscape (visualization)
 
 **[FathomInventory/](../FathomInventory/)** - Automated meeting analysis
 - Purpose: AI-powered meeting discovery and participant extraction
-- Records: 1,953 participants (1,698 validated/87%, 255 remaining)
+- Records: 682 participants (459 validated/67%, 223 new/unprocessed)
 - Automation: Daily at 3 AM via launchd
 - Status: ✅ Operational
 - Read: [FathomInventory/README.md](#file-fathominventoryreadmemd)
 
 **[airtable/](../airtable/)** - Manual membership tracking
 - Purpose: Membership database, donor tracking, TH attendance
-- Records: 630 people (+58 from Phase 4B-2), 17 TH attendance columns
+- Records: 630 people (+59 from Phase 4B-2), 17 TH attendance columns
 - Scripts: Read-only exports, cross-correlation with Fathom
 - Status: ✅ Operational
 - Read: [airtable/README.md](#file-airtablereadmemd)
@@ -298,19 +298,25 @@ ERA Landscape (visualization)
 **[integration_scripts/](../integration_scripts/)** - Cross-component bridges
 - Purpose: Enrich Fathom data with Airtable information
 - Phase 4B-1: ✅ Automated fuzzy matching (364 enriched)
-- Phase 4B-2: 🔄 87% complete - Collaborative review (409 enriched, 8 rounds)
+- Phase 4B-2: ✅ COMPLETE - 459 participants validated (11 batches, Oct 23, 2025)
+- Phase 5T: READY - export_townhalls_to_landscape.py reinstated
 - Read: [integration_scripts/README.md](#file-integration_scriptsreadmemd)
-- AI Workflow: integration_scripts/AI_WORKFLOW_GUIDE.md
-- Progress: integration_scripts/PHASE4B2_PROGRESS_REPORT.md
 
-**ERA_Landscape** (core component)
-- Purpose: Interactive network visualization
+**[ERA_Landscape/](../ERA_Landscape/)** - Interactive network visualization
+- Purpose: Network graph of ERA ecosystem
 - Content: 350+ organizations, people, projects + relationships
 - Technology: Static HTML/JS, Google Sheets data source, vis.js
 - Live: https://jonschull.github.io/ERA_Admin/ERA_Landscape/
-- Location: `ERA_Landscape/` directory
+- Status: ✅ Operational
 - Read: ERA_Landscape/README.md, NETWORK_ARCHITECTURE.md, VISION.md
 - Special: 65 fixed Town Hall nodes at periphery
+
+**[future_discipline/](../future_discipline/)** 🔬 - Experimental discipline investigations
+- Purpose: Lessons learned from Phase 4B-2, proposed architectures
+- Content: AI discipline failures, drone architecture proposal
+- Status: Experimental / Future Investigation
+- Context: 650+ participants across 11 batches revealed systematic AI discipline challenges
+- Read: [future_discipline/README.md](#file-future_disciplinereadmemd)
 
 #### Quick Start
 
@@ -325,18 +331,17 @@ python export_people.py
 open https://jonschull.github.io/ERA_Admin/ERA_Landscape/
 ```
 
-**Run integration (Phase 4B-2):**
+**Run integration (Phase 5T - Town Hall Visualization):**
 ```bash
 # Verify configuration
 python era_config.py
 
-# Generate review batch
+# Export Town Halls to landscape
 cd integration_scripts
-python3 generate_batch_data.py        # Select next 25 people
-python3 generate_phase4b2_table.py    # Create HTML review
+python3 export_townhalls_to_landscape.py
 
-# Human reviews → exports CSV → AI executes
-# See: integration_scripts/AI_WORKFLOW_GUIDE.md
+# Exports 17 TH meetings + 459 validated participants
+# Updates Google Sheet → landscape auto-refreshes
 ```
 
 **Run Fathom automation manually:**
@@ -388,10 +393,10 @@ python3 -m venv /Users/admin/ERA_Admin_venv
 #### Current Metrics
 
 - **Airtable:** 630 people, 324 TH attendance records
-- **Fathom:** 1,953 participants (1,698 validated/87%)
-- **Validation:** 61.5% baseline → 87% enriched
+- **Fathom:** 682 participants (459 validated/67%)
+- **Validation:** 61.5% baseline → 100% Phase 4B-2 scope complete
 - **Landscape:** 350+ nodes
-- **Integration:** Phase 4B-2 at 87%, Phase 5T next
+- **Integration:** Phase 4B-2 ✅ complete, Phase 5T ready
 
 **Back to:** Top of README
 
@@ -481,13 +486,23 @@ python3 -m venv /Users/admin/ERA_Admin_venv
 #### Current System State
 
 **What's Working:**
-- ✅ **Airtable exports operational** - 630 people (+58 from Phase 4B-2), 17 TH attendance columns
+- ✅ **Airtable exports operational** - 630 people (+59 from Phase 4B-2), 17 TH attendance columns
 - ✅ **Landscape deployed** - https://jonschull.github.io/ERA_Admin/ERA_Landscape/
-- ✅ **Fathom automation running** - Daily at 3 AM, 1,953 participants tracked
+- ✅ **Fathom automation running** - Daily at 3 AM, 682 participants tracked
 - ✅ **Phase 4B-1 complete** - 364 participants enriched via fuzzy matching (Oct 19)
-- ✅ **Phase 4B-2: 87% complete** - 409 participants validated via collaborative review (Oct 20)
+- ✅ **Phase 4B-2 COMPLETE** - 459 participants validated via collaborative review (Oct 23)
 
 **Recent Completions:**
+
+*Oct 24, 2025:*
+- ✅ Phase 4B-2 completion documentation and PR prep
+- ✅ future_discipline/ component created with learnings from Phase 4B-2
+- ✅ export_townhalls_to_landscape.py reinstated (Phase 5T ready)
+
+*Oct 23, 2025:*
+- ✅ Phase 4B-2 COMPLETE (Batch 11 final) - 459 participants validated
+- ✅ All 11 batches completed, 650+ participants processed total
+- ✅ Discipline learnings documented (Reflections_on_discipline.md, drone architecture)
 
 *Oct 22, 2025:*
 - ✅ Phase 4B-2 Rounds 9-13 complete (5 rounds, ~250 people processed)
@@ -495,7 +510,6 @@ python3 -m venv /Users/admin/ERA_Admin_venv
 - ✅ ERA Africa field implementation (PR #18)
 - ✅ Auto-add/auto-correct system for merge targets
 - ✅ Branch protection enforcement (local + remote, PR #19)
-- Database: 535 total, 340 enriched (87%), 195 remaining
 
 *Oct 20, 2025:*
 - ✅ Participant deduplication system (PR #17)
@@ -516,28 +530,28 @@ python3 -m venv /Users/admin/ERA_Admin_venv
   - Automation schedule changed to 3 AM
 
 **Available Next Steps:**
-- 🎯 Phase 4B-2 Completion - Process remaining 255 participants (~5 more rounds)
-- 🎯 Phase 5T: Town Hall Visualization - Export meeting chain to landscape (ready after 4B-2)
+- 🎯 Phase 5T: Town Hall Visualization - Export meeting chain to landscape (READY NOW)
+- 🎯 Phase 4C: Process new participants (223 unprocessed from continued Fathom automation)
 - 🎯 Multi-System Integration - Long-term strategic plan (see ERA_ECOSYSTEM_PLAN.md)
 
 #### Data Inventory
 
 **Airtable (Manual Tracking):**
 - Location: `airtable/people_export.csv`
-- Records: 630 people (+58 from Phase 4B-2 reconciliation)
+- Records: 630 people (+59 from Phase 4B-2 reconciliation)
 - TH Attendance: 17 meetings, 324 attendance records
 - Fields: Name, email, member status, donor flag, phone, etc.
 - Last Export: Run `python airtable/export_people.py` for fresh data
-- Recent Growth: +10% from Fathom participant reconciliation (Oct 20)
+- Recent Growth: +10% from Fathom participant reconciliation (Oct 23)
 
 **Fathom Inventory DB (Automated AI):**
 - Location: `/Users/admin/ERA_Admin/FathomInventory/fathom_emails.db`
-- Participants: 1,953 total
-  - 1,698 validated (87%) - enriched with Airtable data
-  - 255 remaining (13%) - need collaborative review
+- Participants: 682 total (continues to grow with new meetings)
+  - 459 validated (67%) - enriched with Airtable data
+  - 223 new/unprocessed - from continued Fathom automation post-Phase 4B-2
 - Enrichment Status:
   - Phase 4B-1: 364 enriched (Oct 19)
-  - Phase 4B-2: 409 enriched (Oct 20, 8 rounds)
+  - Phase 4B-2: 459 enriched (Oct 23, 11 batches) - COMPLETE
 - Automation: Daily at 3 AM via launchd ✅ Working
 
 **ERA Landscape (Visualization):**
@@ -549,11 +563,13 @@ python3 -m venv /Users/admin/ERA_Admin_venv
 **Validation & Enrichment Data:**
 - Original Report: `/Users/admin/FathomInventory/analysis/townhall_validation_report.md`
   - 61.5% average match rate baseline
-- Phase 4B Progress: `integration_scripts/PHASE4B2_PROGRESS_REPORT.md`
-  - 87% completion (1,698/1,953 validated)
-  - 8 rounds completed (409 participants)
-  - 58 new people added to Airtable
-  - Production-ready collaborative workflow
+- Phase 4B-2 Complete: 459 participants validated (100% of Oct 23 scope)
+  - 11 batches completed (650+ total participants processed)
+  - 59 new people added to Airtable
+  - Production-ready collaborative workflow established
+- Discipline Learnings: `future_discipline/`
+  - Analysis of AI discipline challenges
+  - Proposed drone architecture for future work
 
 #### Integration Status
 
@@ -577,41 +593,31 @@ python3 -m venv /Users/admin/ERA_Admin_venv
 - 188 AI-misspelled names corrected
 - 351 members identified, 64 donors
 
-*Phase 4B-2: Collaborative Review* 🔄 87% Complete (Oct 20)
-- 8 rounds completed - 409 participants validated
-- 58 new people added to Airtable (+10% growth)
-- 255 remaining (~5 more rounds to 95%)
+*Phase 4B-2: Collaborative Review* ✅ COMPLETE (Oct 23)
+- 11 batches completed - 459 participants validated (100% of scope)
+- 59 new people added to Airtable (+10% growth)
+- 650+ total participants processed across all batches
 - Workflow: Human-AI collaboration with Gmail research
-- See: `integration_scripts/PHASE4B2_PROGRESS_REPORT.md`
-- For AI: `integration_scripts/AI_WORKFLOW_GUIDE.md`
+- Discipline learnings documented in future_discipline/
 
 **Current Phase:**
 
-*Phase 4B-2: Collaborative Review* 🔄 87% Complete (5 more rounds)
-- Status: 1,698/1,953 validated (87%)
-- Workflow:
-  1. Generate batch (25 people) → HTML review table
-  2. Human reviews with Gmail research → exports CSV
-  3. AI parses decisions, flags custom comments
-  4. Human-AI discuss ambiguous cases
-  5. AI executes approved actions
-  6. Commit & document
-- Progress: 8 rounds done, 409 validated, 58 added to Airtable
-- Remaining: 255 participants (~5 rounds to 95%)
-- Docs:
-  - Workflow: `integration_scripts/AI_WORKFLOW_GUIDE.md`
-  - Progress: `integration_scripts/PHASE4B2_PROGRESS_REPORT.md`
-  - System: `integration_scripts/README_PHASE4B.md`
-
-*Phase 5T: Town Hall Visualization* ⭐ AFTER 4B-2 (3-4 hours)
+*Phase 5T: Town Hall Visualization* 🎯 READY (3-4 hours)
 - Goal: Export TH meetings as connected chain in landscape
-- Readiness: Phase 4B-2 at 87%, ready when 95%+ complete
+- Readiness: Phase 4B-2 COMPLETE, script reinstated, ready to execute
+- Script: `integration_scripts/export_townhalls_to_landscape.py`
 - Actions:
   1. Query enriched participants from Fathom DB
   2. Format as project nodes (meetings) + person nodes + edges
   3. Export to Google Sheet via Sheets API
   4. Landscape auto-updates
 - Result: Interactive meeting chain with 300+ connections
+- Prerequisites: ✅ Phase 4B-2 complete, ✅ Script ready, ✅ 459 validated participants
+
+*Phase 4C: Process New Participants* (Future)
+- Goal: Process 223 new participants from continued Fathom automation
+- Note: Database continues to grow with new meetings
+- Can use established Phase 4B-2 workflow
 
 #### How to Resume Work
 
@@ -703,24 +709,27 @@ ERA_Admin/
 ├── AI_HANDOFF_GUIDE.md          ← AI workflow
 │
 ├── airtable/
-│   ├── people_export.csv           (630 people, +58 from Phase 4B-2)
+│   ├── people_export.csv           (630 people, +59 from Phase 4B-2)
 │   ├── people_for_matching.csv     (cleaned for fuzzy matching)
 │   └── cross_correlation_report.txt (validation analysis)
 │
 ├── FathomInventory/
-│   ├── fathom_emails.db             (1,953 participants - 87% enriched)
+│   ├── fathom_emails.db             (682 participants - 459 validated)
 │   ├── run_all.sh                   (daily automation at 3 AM)
 │   └── analysis/
 │       ├── analyze_new_era_calls.py        (daily ERA meeting analysis)
 │       ├── validate_townhall_attendance.py (Airtable comparison)
 │       └── townhall_validation_report.md   (baseline: 61.5% match rate)
 │
-└── integration_scripts/         ← Phase 4-5
-    ├── phase4b1_enrich_from_airtable.py  (Phase 4B-1 ✅ Complete)
-    ├── generate_phase4b2_table.py        (Phase 4B-2 🔄 87% Complete)
-    ├── AI_WORKFLOW_GUIDE.md              (For AI assistants)
-    ├── PHASE4B2_PROGRESS_REPORT.md       (8-round analysis)
-    └── export_townhalls_to_landscape.py  (Phase 5T - after 4B-2)
+├── integration_scripts/         ← Phase 4-5
+│   ├── phase4b1_enrich_from_airtable.py  (Phase 4B-1 ✅ Complete)
+│   ├── export_townhalls_to_landscape.py  (Phase 5T - READY)
+│   └── PAST_LEARNINGS.md                 (300+ patterns from Phase 4B-2)
+│
+└── future_discipline/          ← Experimental learnings
+    ├── README.md                         (Overview & guidance)
+    ├── Reflections_on_discipline.md      (AI discipline failures)
+    └── disciplined_investigation_architecture.md (Drone proposal)
 ```
 
 #### Known Issues & Context
@@ -748,28 +757,30 @@ ERA_Admin/
 
 #### Next Steps
 
-**Immediate (Active Now):**
-*Phase 4B-2: Complete Remaining 255 Participants*
-1. 🔄 Continue collaborative review rounds
-2. 🔄 Target 95%+ completion (~5 more rounds)
-3. 🔄 Use established workflow (see `integration_scripts/AI_WORKFLOW_GUIDE.md`)
-
-**After 4B-2 Completion:**
+**Immediate (Ready Now):**
 *Phase 5T: Town Hall Visualization*
-- Export meetings to landscape visualization
-- Connect 300+ participants to meetings
+1. 🎯 Execute export_townhalls_to_landscape.py
+2. 🎯 Export 17 TH meetings as project nodes
+3. 🎯 Connect 459 validated participants to meetings
+4. 🎯 Verify visualization in landscape
 
-*Phase 4C: Automation*
+**Future Work:**
+*Phase 4C: Process New Participants*
+- Process 223 new participants from continued automation
+- Use established Phase 4B-2 workflow
+
+*Phase 6: Automation & Integration*
 - Daily sync of new enrichments
+- Multi-system integration (see ERA_ECOSYSTEM_PLAN.md)
 
 #### Success Metrics
 
 **Phase 4B-2 Completion:**
-- [✓] Production workflow established (8 rounds tested)
-- [✓] 1,698 participants validated (87%)
+- [✓] Production workflow established (11 batches tested)
+- [✓] 459 participants validated (100% of Oct 23 scope)
 - [✓] 630 people in Airtable (+10% growth)
-- [ ] 95%+ completion target (48 more validations)
-- [ ] Remaining 255 participants processed
+- [✓] Discipline learnings documented
+- [✓] COMPLETE - Oct 23, 2025
 
 **Phase 5T Completion:**
 - [ ] 17 TH meetings as project nodes
@@ -790,12 +801,12 @@ ERA_Admin/
 6. **Update this file** if you make significant state changes
 
 **Quick Context Questions:**
-- What's the current phase? **Phase 4B-2 (87% complete) → 5T (Town Hall Viz)**
-- What's working? **All base systems + collaborative workflow operational**
-- What's in progress? **Completing remaining 255 participants (5 more rounds)**
+- What's the current phase? **Phase 5T (Town Hall Viz) - READY**
+- What's working? **All base systems + Phase 4B-2 complete**
+- What's in progress? **PR prep for Phase 4B-2 completion docs**
 - When was last successful run? **Check Fathom cron.log for 3 AM runs**
-- Any blockers? **No - production workflow proven over 8 rounds**
-- For AI workflow? **See `integration_scripts/AI_WORKFLOW_GUIDE.md`**
+- Any blockers? **No - Phase 5T ready to execute**
+- For discipline learnings? **See `future_discipline/README.md`**
 
 #### Component Context
 
@@ -890,7 +901,7 @@ Humans read README, then get distracted or forget context. **Your job:** Help th
 **What you might need:**
 - Current work status → [CONTEXT_RECOVERY.md](#file-context_recoverymd)
 - Philosophy & practices → [WORKING_PRINCIPLES.md](#file-working_principlesmd)
-- Phase-specific AI workflow → integration_scripts/AI_WORKFLOW_GUIDE.md
+- Historical Phase 4B-2 workflow → integration_scripts/archive/superseded_docs/AI_WORKFLOW_GUIDE.md
 - Component details → Component READMEs
 
 ### 3. Principles
@@ -1326,10 +1337,10 @@ Result: Clean, no documentation sprawl
 
 #### Specialized Workflows
 
-**Phase 4B-2: Collaborative Review**
-- See: [integration_scripts/AI_WORKFLOW_GUIDE.md](#file-integration_scriptsai_workflow_guidemd)
-- 6-phase cycle: Generate batch, human reviews, AI parses, discuss, execute, document
-- Human approval required for all actions
+**Phase 4B-2: Collaborative Review** (✅ COMPLETE - Oct 23, 2025)
+- Historical workflow: integration_scripts/archive/superseded_docs/AI_WORKFLOW_GUIDE.md
+- 11 batches completed, 459 participants validated
+- Discipline learnings: future_discipline/ component
 
 **Phase 5T: Town Hall Visualization**
 - Goal: Export TH meetings as connected chain in landscape
@@ -1360,7 +1371,7 @@ Result: Clean, no documentation sprawl
 
 - [WORKING_PRINCIPLES.md](#file-working_principlesmd) - Complete system philosophy
 - [CONTEXT_RECOVERY.md](#file-context_recoverymd) - Current system state
-- integration_scripts/AI_WORKFLOW_GUIDE.md - Phase 4B-2 specific workflow
+- integration_scripts/archive/superseded_docs/ - Historical Phase 4B-2 workflows (archived)
 - Component READMEs - Component-specific details
 
 **Back to:** [README.md](#file-readmemd)
@@ -1973,6 +1984,59 @@ gh pr merge --squash --delete-branch
 python3 docs/archive_and_replace.py  # Creates backup, replaces all
 ```
 
+#### Documentation PR Review Guide
+
+**Beyond mechanical checks, verify:**
+
+**1. Veridicality - Content matches reality:**
+- Obsolete instructions removed or marked historical
+- File references point to actual locations (especially archive/)
+- "Current work" reflects actual current work
+- Completed phases not described as ongoing
+- Instructions match current system state
+- Dates are current
+
+**2. Validation - Generated docs are correct:**
+- Read key generated files (README.md, component READMEs)
+- Confirm wireframe edits propagated correctly
+- Check no deletions of important content (`git diff --stat`)
+- Verify key sections updated (Quick Start, Recent Completions, metrics)
+- Test navigation integrity (`python3 docs/test_navigation.py`)
+
+**3. Consistency - Updates are thorough:**
+- All instances updated (not just some)
+- Cross-references updated
+- Metrics match database/system reality
+- Archive references correct
+- New components properly integrated
+
+**Common mistakes to catch:**
+- ❌ Updated numbers but left obsolete workflow instructions
+- ❌ Moved files but didn't update references to them
+- ❌ Marked phase complete but left "how to resume" instructions
+- ❌ Added new component but didn't list in root README
+- ❌ Regenerated but didn't verify output correctness
+
+**Example checks:**
+```bash
+# Check for old status markers
+grep -r "87%" README.md CONTEXT_RECOVERY.md
+
+# Verify file moves reflected in docs
+grep "generate_phase4b2_table.py" integration_scripts/README.md
+# Should show: archive/experimental/generate_phase4b2_table.py
+
+# Check generated docs are recent
+stat -f %Sm README.md docs/NAVIGATION_WIREFRAME.md
+# README.md should be >= wireframe timestamp
+
+# Verify key content propagated
+grep "Phase 5T.*Ready" README.md
+grep "459.*validated" CONTEXT_RECOVERY.md
+```
+
+**Validation discipline:** Don't just trust the script worked. Read the output.
+
 #### Adding New Documents
 
 **Template for new document in wireframe:**
@@ -2098,11 +2162,12 @@ FathomInventory is one of four components in ERA_Admin. It provides a robust pip
 5. **Reports** daily status with health checks and public URLs
 
 **Current Health:**
-- ✅ **1,953 participants** tracked (1,698 validated/87%, 255 remaining)
+- ✅ **682 participants** tracked (459 validated/67%, 223 new/unprocessed)
 - ✅ **3,229+ emails** processed with full metadata extraction
 - ✅ **Dates normalized** to ISO format (YYYY-MM-DD) at all entry points
 - ✅ **Automation active** - Daily runs at 3:00 AM via macOS launchd
 - ✅ **Enhanced failure detection** - Catches authentication failures immediately
+- ✅ **Phase 4B-2 COMPLETE** - 459 participants validated (Oct 23, 2025)
 
 **Recent Improvements:**
 - ✅ Pre-flight authentication checks (fails fast with clear errors)
@@ -2486,10 +2551,10 @@ Test suite in `tests/` directory:
 
 ### 4. Specialized Topics
 
-#### Current System State (Oct 19, 2025)
+#### Current System State (Oct 24, 2025)
 
 **What's Working:**
-- ✅ **1,953 participants** tracked in SQLite database (87% enriched from Phase 4B-2)
+- ✅ **682 participants** tracked in SQLite database (459 validated/67% from Phase 4B-2)
 - ✅ **3,240+ emails** processed with full metadata
 - ✅ **Database mode** active (TSV migration complete)
 - ✅ **Enhanced failure detection** - catches auth failures immediately
@@ -2497,6 +2562,7 @@ Test suite in `tests/` directory:
 - ✅ **Automated backups** - Local (daily 3 AM) + Google Drive (daily 4 AM)
 - ✅ **Backup verification** - Daily report queries Drive API to confirm uploads
 - ✅ **Fresh authentication** - cookies refreshed regularly
+- ✅ **Phase 4B-2 COMPLETE** - 459 participants validated (Oct 23, 2025)
 
 **Recent Work:**
 
@@ -3262,7 +3328,7 @@ This component provides cross-component integration workflows for enriching part
 
 **The Problem:**
 ERA has people scattered across multiple systems:
-- **Fathom**: 1,953 video call participants (AI-generated names, often misspelled)
+- **Fathom**: 682 video call participants (AI-generated names, often misspelled)
 - **Airtable**: 630 members (authoritative, curated database)
 - **Gmail**: Email history with context about people
 
@@ -3286,19 +3352,21 @@ Phase 4B builds an interactive system where:
 - 188 AI-misspelled names corrected
 - 351 members identified, 64 donors
 
-*Phase 4B-2* ✅ 87% COMPLETE (Oct 20, 2025)
-- 409 participants validated via collaborative review (8 rounds)
-- 58 new people added to Airtable (+10% growth)
-- 255 participants remain (~5 more rounds to 95%)
+*Phase 4B-2* ✅ COMPLETE (Oct 23, 2025)
+- 459 participants validated via collaborative review (11 batches)
+- 59 new people added to Airtable (+10% growth)
+- 650+ total participants processed across all batches
 - Production-ready workflow established
+- Discipline learnings documented in /future_discipline/
 
-*Phase 4B-3* ⏭️ NEXT
-- Add Airtable-only members to Fathom
-- Ready when Phase 4B-2 reaches 95%+
-
-*Phase 5T* ⭐ AFTER 4B-2
+*Phase 5T* 🎯 READY NOW
 - Town Hall visualization in ERA Landscape
-- Export meeting chain to Google Sheet
+- Export script reinstated: export_townhalls_to_landscape.py
+- Ready to execute
+
+*Phase 4C* (Future)
+- Process 223 new participants from continued Fathom automation
+- Can use established Phase 4B-2 workflow
 
 ### 2. Orientation - Where to Find What
 
@@ -3314,25 +3382,23 @@ Phase 4B builds an interactive system where:
 2. Read README_PHASE4B.md for system details
 3. Follow Quick Start in Section 4
 
-**Resuming Phase 4B-2 work:**
-1. Read [CONTEXT_RECOVERY.md](CONTEXT_RECOVERY.md) - Component state
-2. Read [AI_WORKFLOW_GUIDE.md](AI_WORKFLOW_GUIDE.md) - AI-specific workflow
-3. Check PHASE4B2_PROGRESS_REPORT.md - 8-round analysis
-4. Continue from documented next steps
+**Current Work (Phase 5T - Ready):**
+1. Read [README.md](#file-readmemd) - System overview
+2. Check Phase 5T section below - Town Hall visualization ready
+3. Script: export_townhalls_to_landscape.py
+4. Prerequisites: ✅ Phase 4B-2 complete, ✅ 459 validated participants
 
-**AI assistants:**
-1. Read [AI_WORKFLOW_GUIDE.md](AI_WORKFLOW_GUIDE.md) FIRST
-2. 6-phase collaboration cycle explained
-3. Mental states for each phase
-4. Common patterns & decision trees
+**Future Work (Phase 4C):**
+1. Process 223 new participants (from continued Fathom automation)
+2. Can adapt Phase 4B-2 workflow (see archive/superseded_docs/)
+3. Use PAST_LEARNINGS.md (300+ patterns) for efficiency
 
 **What you might need:**
 - **Parent system** → [/README.md](#file-readmemd) - Overall ERA Admin architecture
 - **System-wide status** → [/CONTEXT_RECOVERY.md](#file-context_recoverymd) - Integration status
-- **Component state** → [CONTEXT_RECOVERY.md](CONTEXT_RECOVERY.md) - Phase 4B status
 - **System principles** → [/WORKING_PRINCIPLES.md](#file-working_principlesmd) - Overall philosophy
-- **Phase progress** → PHASE4B2_PROGRESS_REPORT.md - 8-round detailed analysis
-- **AI workflow** → [AI_WORKFLOW_GUIDE.md](AI_WORKFLOW_GUIDE.md) - Collaborative review workflow
+- **Phase 4B-2 history** → archive/superseded_docs/ - Completed workflows (archived)
+- **Discipline learnings** → [/future_discipline/](#file-future_disciplinereadmemd) - AI collaboration lessons
 - **FathomInventory** → [/FathomInventory/README.md](#file-fathominventoryreadmemd) - Participant database
 - **Airtable** → [/airtable/README.md](#file-airtablereadmemd) - Member database
 
@@ -3376,34 +3442,28 @@ Phase 4B builds an interactive system where:
 
 #### Quick Start
 
-**Phase 4B-1 (Re-run to test):**
+**Phase 5T (Current - Ready to execute):**
 ```bash
 cd /Users/admin/ERA_Admin
 source ERA_Admin_venv/bin/activate
-python3 integration_scripts/phase4b1_enrich_from_airtable.py
-```
-Opens HTML table → Review → Export CSV → Process
 
-**Phase 4B-2 (Current - 8 rounds completed, 87% done):**
+# Export Town Hall meetings to landscape
+python3 integration_scripts/export_townhalls_to_landscape.py
+
+# Exports:
+# - 17 TH meetings as project nodes
+# - 459 validated participants
+# - Person-to-meeting edges
+# - Direct to Google Sheet (landscape auto-updates)
+```
+
+**Phase 4B-1 (Historical - can re-run if needed):**
 ```bash
-# 1. Generate batch (next 25 people)
-python3 integration_scripts/generate_batch_data.py
-python3 integration_scripts/generate_phase4b2_table.py
-
-# 2. Review in browser → Export CSV
-
-# 3. Parse and flag custom comments
-python3 integration_scripts/parse_phase4b2_csv.py <csv_file>
-# Discuss custom comments with AI
-
-# 4. Execute approved actions
-python3 integration_scripts/execute_roundN_actions.py
-
-# 5. Document results
-# Update PHASE4B2_PROGRESS_REPORT.md
+python3 integration_scripts/phase4b1_enrich_from_airtable.py
+# Opens HTML table → Review → Export CSV → Process
 ```
 
-Includes Gmail research, interactive HTML, collaborative review.
+**Phase 4B-2:** ✅ Complete (Oct 23, 2025). Learnings documented in /future_discipline/.
 
 #### Phase Details
 
@@ -3427,20 +3487,21 @@ Includes Gmail research, interactive HTML, collaborative review.
 - `phase4b1_enrich_from_airtable.py` - Main pipeline
 - `process_approved_matches.py` - CSV processor
 
-**Phase 4B-2: Collaborative Review** ✅ 87% COMPLETE (Oct 20, 2025)
+**Phase 4B-2: Collaborative Review** ✅ COMPLETE (Oct 23, 2025)
 
 *What we built:*
 - Interactive HTML table generator with Gmail integration
 - CSV parser for collaborative decision-making
 - Automated execution scripts with safety checks
 - Reusable Airtable addition module
+- Discipline documentation and architectural proposals
 
-*Results (8 rounds):*
-- **409 participants validated** (~51 avg per round)
-- **58 new people added to Airtable** (+10% growth)
-- **198 actions executed** (merges, adds, drops)
-- **255 participants remain** (87% complete, up from 64%)
+*Results (11 batches):*
+- **459 participants validated** (100% of Oct 23 scope)
+- **59 new people added to Airtable** (+10% growth)
+- **650+ participants processed** across all batches
 - **Process stabilized** - production-ready workflow
+- **Lessons documented** - /future_discipline/ component created
 
 *Key achievements:*
 - Handled phone numbers as names (3 cases)
@@ -3449,23 +3510,26 @@ Includes Gmail research, interactive HTML, collaborative review.
 - Fixed Bio field usage (now empty, provenance in Provenance field)
 - Processed joint entries, duplicates, variants
 
-*Files:*
-- `generate_batch_data.py` - Select next 25 people
-- `generate_phase4b2_table.py` - Create HTML review interface
-- `parse_phase4b2_csv.py` - Parse decisions, flag custom comments
-- `execute_roundN_actions.py` - 8 round execution scripts
-- `add_to_airtable.py` - Reusable addition module
-- `gmail_research.py` - Gmail context retrieval
+*Historical Files (in archive/):*
+- `experimental/generate_batch_data.py` - Batch selection (archived)
+- `experimental/generate_phase4b2_table.py` - HTML generator (archived)
+- `experimental/parse_phase4b2_csv.py` - CSV parser (archived)
+- Past decisions: `past_decisions/` - All 11 batch CSVs
+- Past batches: `past_batches/` - All HTML review files
 
-*Documentation:*
-- **PHASE4B2_PROGRESS_REPORT.md** - Complete 8-round analysis
-- **AI_WORKFLOW_GUIDE.md** - Step-by-step for AI assistants
+*Active Files:*
+- **PAST_LEARNINGS.md** - 300+ patterns (actively used for future work)
+- `generate_batch_CANONICAL.py` - Production batch generator
+
+*Historical Documentation (in archive/superseded_docs/):*
+- PHASE4B2_PROGRESS_REPORT.md - 11-batch analysis (archived)
+- AI_WORKFLOW_GUIDE.md - Collaborative workflow guide (archived)
 
 **Phase 4B-3: Add Airtable-Only Members** ⏭️ NEXT
 
 *Goal:* Insert Airtable members who haven't appeared in Fathom videos yet.
 
-*Readiness:* Phase 4B-2 is 87% complete (255 remaining). Estimated 5 more rounds to reach 95%+ before starting Phase 4B-3.
+*Readiness:* Phase 4B-2 COMPLETE (Oct 23, 2025). Ready when needed for future participant processing.
 
 #### Philosophy
 
@@ -3611,15 +3675,21 @@ For server deployment, edit `era_config.py` or set environment variables.
 
 ---
 
-## FILE: integration_scripts/AI_WORKFLOW_GUIDE.md
+## FILE: integration_scripts/archive/superseded_docs/AI_WORKFLOW_GUIDE.md
 
-**Path:** `integration_scripts/AI_WORKFLOW_GUIDE.md`
+**Path:** `integration_scripts/archive/superseded_docs/AI_WORKFLOW_GUIDE.md`
+
+**Status:** ⚠️ HISTORICAL DOCUMENT - Phase 4B-2 completed Oct 23, 2025
+
+This document is preserved for reference but describes a completed workflow. For current work, see Phase 5T documentation or future_discipline/ for lessons learned.
+
+---
 
 ### 1. Overview
 
-**For:** AI assistants stepping into Phase 4B-2 mid-stream  
-**Purpose:** Make the human-AI collaboration workflow explicit  
-**Audience:** A "naive AI" without conversation history
+**Purpose:** Historical guide for Phase 4B-2 collaborative review workflow (COMPLETED Oct 23, 2025)  
+**Audience:** Reference for future similar workflows  
+**Note:** This workflow is complete. See /future_discipline/ for lessons learned.
 
 **Mental Model: What This Process Is**
 
@@ -3642,17 +3712,17 @@ You are not trying to solve this alone. You are:
 
 ### 2. Orientation - Where to Find What
 
-**You are at:** integration_scripts AI workflow guide (Phase 4B-2 specific)
+**You are at:** Historical AI workflow guide (Phase 4B-2 - COMPLETED)
 
 **Use this when:**
-- Resuming Phase 4B-2 collaborative review work
-- Understanding the human-AI workflow
-- Learning what requires human approval
-- Troubleshooting workflow issues
+- Understanding how Phase 4B-2 worked (historical reference)
+- Designing similar collaborative workflows
+- Learning from completed human-AI collaboration
+- Reference for future Phase 4C work
 
 **What you might need:**
 - **Parent component** → [README.md](#file-integration_scriptsreadmemd) - integration_scripts overview
-- **Phase progress** → PHASE4B2_PROGRESS_REPORT.md - 8-round analysis
+- **Phase progress** → archive/superseded_docs/PHASE4B2_PROGRESS_REPORT.md - 11-batch analysis (archived)
 - **General AI guidance** → [/AI_HANDOFF_GUIDE.md](#file-ai_handoff_guidemd) - System-wide AI workflow
 - **System principles** → [/WORKING_PRINCIPLES.md](#file-working_principlesmd) - Overall philosophy
 - **Root context** → [/CONTEXT_RECOVERY.md](#file-context_recoverymd) - System state
@@ -3699,6 +3769,7 @@ You are not trying to solve this alone. You are:
 *Your role:* Create sortable HTML table for human review
 
 ```bash
+# Historical scripts (now in archive/experimental/)
 python3 generate_batch_data.py          # Select next 25 people
 python3 generate_phase4b2_table.py      # Create HTML interface
 ```
@@ -3785,8 +3856,8 @@ python3 execute_roundN_actions.py       # N = current round number
 
 *Your role:* Update documentation and commit changes
 
-*What to do:*
-1. Update PHASE4B2_PROGRESS_REPORT.md with round results
+*What to do (historical):*
+1. Update progress report with round results
 2. Commit all changes with descriptive message
 3. Push to GitHub
 4. Update docs/CONTEXT_RECOVERY.md if significant change
@@ -3833,7 +3904,7 @@ python3 execute_roundN_actions.py       # N = current round number
 - Stop if parse_phase4b2_csv.py shows custom comments
 - Show results before asking for confirmation
 - Use transactions (rollback on error)
-- Document in PHASE4B2_PROGRESS_REPORT.md
+- Document in progress report
 - Update CONTEXT_RECOVERY.md if state changed significantly
 
 #### Troubleshooting
@@ -3879,16 +3950,15 @@ python3 parse_phase4b2_csv.py <csv_file>
 python3 execute_roundN_actions.py
 ```
 
-**Files:**
-- `generate_batch_data.py` - Select next 25 people
-- `generate_phase4b2_table.py` - Create HTML review interface
-- `parse_phase4b2_csv.py` - Parse decisions, flag custom comments
-- `execute_roundN_actions.py` - Execute approved actions
-- `add_to_airtable.py` - Reusable Airtable addition module
-- `gmail_research.py` - Gmail context retrieval
-- `PHASE4B2_PROGRESS_REPORT.md` - 8-round analysis
+**Files (all now in archive/):**
+- `experimental/generate_batch_data.py` - Select next 25 people (archived)
+- `experimental/generate_phase4b2_table.py` - HTML review interface (archived)
+- `experimental/parse_phase4b2_csv.py` - Parse decisions (archived)
+- Past batch execution scripts (archived)
+- **PAST_LEARNINGS.md** - 300+ patterns (ACTIVE - used for future work)
+- `superseded_docs/PHASE4B2_PROGRESS_REPORT.md` - 11-batch analysis (archived)
 
-**Key Insight:** This workflow represents significant learning from 8 rounds. The patterns discovered (phone numbers, devices, organizations) are now codified. Future rounds should be smoother.
+**Key Insight:** This workflow represents significant learning from 11 batches (650+ participants). The patterns discovered (phone numbers, devices, organizations) are now codified in PAST_LEARNINGS.md. See /future_discipline/ for architectural proposals.
 
 **Back to:** [integration_scripts/README.md](#file-integration_scriptsreadmemd) | [/README.md](#file-readmemd)
 
@@ -3915,6 +3985,193 @@ pattern = r'^## FILE: (.+\.md)$'
 - [ ] Bidirectional navigation works
 
 **Ready for script generation when validated.**
+
+---
+
+## FILE: future_discipline/README.md
+
+**Path:** `future_discipline/README.md`
+
+### 1. Overview
+
+**Purpose:** Experimental investigations into AI discipline and architectural solutions
+
+This component documents lessons learned from Phase 4B-2 participant reconciliation (650+ participants, 11 batches) and proposes architectural approaches to address systematic AI discipline challenges.
+
+**Status:** 🔬 Experimental / Future Investigation
+
+**What this contains:**
+- Analysis of AI discipline failures during Phase 4B-2
+- Patterns of failure (premature stopping, incomplete checking, memory loss)
+- Proposed "drone architecture" solution (mechanical tasks → scripts, judgment → AI)
+- Comparison with mcp-agent framework approach
+- Not active development - lessons learned and proposals for future consideration
+
+**Context:** During Phase 4B-2 completion (Oct 2025), we encountered systematic issues with AI assistants failing to maintain discipline on repetitive investigative tasks. These documents analyze why this happens and propose solutions.
+
+### 2. Orientation - Where to Find What
+
+**You are at:** Future discipline experiments directory
+
+**Use this when:**
+- Designing AI-human collaboration workflows
+- Investigating AI reliability challenges
+- Understanding Phase 4B-2 lessons learned
+- Considering architectural solutions for AI discipline
+
+**What you might need:**
+- **Parent** → [/README.md](../README.md) - System overview
+- **Related work** → [integration_scripts/](../integration_scripts/) - Phase 4B-2 implementation
+- **Context** → integration_scripts/PAST_LEARNINGS.md - 300+ resolved patterns from Phase 4B-2
+- **Principles** → [/WORKING_PRINCIPLES.md](../WORKING_PRINCIPLES.md) - System-wide philosophy
+
+### 3. Principles
+
+**System-wide:** See [/WORKING_PRINCIPLES.md](../WORKING_PRINCIPLES.md)
+
+**Discipline-specific insights:**
+
+**1. Scripts Are More Disciplined Than AI**
+- Scripts execute mechanically (always check all 6 tools)
+- AI gets lazy, forgets steps, takes shortcuts
+- Use scripts for discipline, AI for judgment
+
+**2. Context Resets Are The Problem**
+- "Indy" asked about 5+ times despite resolution in past batches
+- AI memory doesn't persist across sessions
+- Solution: Scripts that check past decisions (persistence via files, not memory)
+
+**3. Forcing Functions Must Be Architectural**
+- Documentation ("please check X") doesn't work
+- Code that can be bypassed (new scripts) doesn't work
+- Architectural enforcement (workflow won't run without check) works
+
+**4. Decompose Tasks By Cognitive Requirements**
+- Mechanical tasks → scripts (grep, fuzzy match, database queries)
+- Judgment tasks → AI (pattern recognition, inference)
+- Don't ask philosophers to do accounting
+
+### 4. Specialized Topics
+
+#### Reflections on Discipline
+
+**File:** [Reflections_on_discipline.md](Reflections_on_discipline.md) (24KB)
+
+**Summary:**
+- Detailed analysis of discipline failures during Phase 4B-2
+- The "checking vs actually checking" problem
+- Why AI claims to have done work without executing it
+- The quality threshold problem (stopping too early)
+- Memory resets across sessions ("Indy" asked 5 times)
+- Forcing functions that can be bypassed
+- Comparison with human behavior patterns
+
+**Key sections:**
+- The Checking Problem (claims vs reality)
+- The Quality Threshold Problem (good enough vs actually enough)
+- The Memory Problem (context resets)
+- The Bypass Problem (new scripts that skip safeguards)
+- Meta-analysis: Why this is hard to fix
+
+**Epilogue:** Discussion of mcp-agent framework as potential solution
+
+#### Drone Architecture Proposal
+
+**File:** [disciplined_investigation_architecture.md](disciplined_investigation_architecture.md) (17KB)
+
+**Summary:**
+Proposes decomposing Phase 4B-2 investigation workflow into:
+- **Tier 1: Drones** (bash/Python scripts) - Execute all 6 tools mechanically
+- **Tier 2: Rules** (deterministic logic) - Apply automatic decisions (>95% fuzzy match → merge)
+- **Tier 3: Orchestrator** (no AI) - Run drones for all names, batch AI questions
+- **Tier 4: Claude** (high-cognition AI) - ONLY for 30% needing human judgment
+
+**Key insight:** 70% of cases can be auto-resolved without AI. Use scripts for discipline, AI for intelligence.
+
+**Example drone script:**
+```bash
+#!/bin/bash
+# Always checks all 6 tools, never forgets, never gets lazy
+investigate_name.sh "$NAME"
+# Returns structured JSON with all results
+```
+
+**Benefits:**
+- Scripts persist across sessions (solve "Indy asked 5 times" problem)
+- Scripts are disciplined (always check all 6 tools)
+- Cheaper (70% resolved without LLM API calls)
+- Faster (parallel script execution)
+- Evidence-based (results in files, falsifiable)
+
+**Comparison with mcp-agent:**
+- mcp-agent: Orchestrator LLM + worker agents + evaluator LLM
+- Drones: No AI orchestration, scripts + rules + AI only for judgment
+- Trade-off: Flexibility vs determinism
+
+#### Relationship to Phase 4B-2
+
+**Phase 4B-2 Context:**
+- 650+ participants reconciled across 11 batches
+- 6-tool investigation workflow (PAST_LEARNINGS, CSVs, fuzzy match, Fathom, Town Hall agendas, Gmail)
+- Systematic discipline problems identified:
+  - Claiming to check without executing
+  - Stopping after 3-4 tools instead of all 6
+  - Asking about "Indy" 5+ times despite past resolution
+  - Creating bypass scripts that skip forcing functions
+
+**What worked:**
+- Forcing functions in canonical pipeline
+- Human-AI collaboration (HTML review → CSV feedback)
+- PAST_LEARNINGS.md accumulation (300+ patterns)
+- Progress tracking (show which tools used)
+
+**What didn't work:**
+- Relying on AI memory across sessions
+- Documentation saying "please check X"
+- Assuming AI will be disciplined
+
+**Result:** 100% completion (459/459 validated), but at high human oversight cost
+
+#### Current Status
+
+**Phase:** Experimental / Future Investigation
+
+**Not Implemented:**
+- Drone architecture is a proposal, not implementation
+- Would require significant refactoring of Phase 4B-2 workflow
+- Would need testing to validate 70% auto-resolution claim
+
+**Possible Future Work:**
+1. Implement drone scripts for Phase 4B-2 tools
+2. Test auto-resolution rate on historical data
+3. Compare cost/time vs current workflow
+4. Consider mcp-agent framework integration
+5. Generalize to other AI-human workflows
+
+**Questions to Answer:**
+- Does 70% auto-resolution claim hold in practice?
+- Is the architectural overhead worth the discipline gains?
+- Can mcp-agent provide similar benefits with more flexibility?
+- What tasks actually require high-cognition AI vs deterministic rules?
+
+#### Related Documentation
+
+**Phase 4B-2 Implementation:**
+- integration_scripts/PAST_LEARNINGS.md - Patterns learned during reconciliation
+- integration_scripts/generate_batch_CANONICAL.py - Forcing functions implementation
+
+**System Principles:**
+- /WORKING_PRINCIPLES.md - Human-AI collaboration philosophy
+- /AI_HANDOFF_GUIDE.md - AI assistant conventions
+
+**Historical Context:**
+- Phase 4B-2 completed October 23, 2025
+- These reflections written same day, while discipline problems fresh
+- Intended as lessons for future AI-human workflows
+
+---
+
+**Back to:** [/README.md](../README.md)
 
 ---
 

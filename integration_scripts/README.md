@@ -8,7 +8,7 @@ This component provides cross-component integration workflows for enriching part
 
 **The Problem:**
 ERA has people scattered across multiple systems:
-- **Fathom**: 1,953 video call participants (AI-generated names, often misspelled)
+- **Fathom**: 682 video call participants (AI-generated names, often misspelled)
 - **Airtable**: 630 members (authoritative, curated database)
 - **Gmail**: Email history with context about people
 
@@ -32,19 +32,21 @@ Phase 4B builds an interactive system where:
 - 188 AI-misspelled names corrected
 - 351 members identified, 64 donors
 
-*Phase 4B-2* ✅ 87% COMPLETE (Oct 20, 2025)
-- 409 participants validated via collaborative review (8 rounds)
-- 58 new people added to Airtable (+10% growth)
-- 255 participants remain (~5 more rounds to 95%)
+*Phase 4B-2* ✅ COMPLETE (Oct 23, 2025)
+- 459 participants validated via collaborative review (11 batches)
+- 59 new people added to Airtable (+10% growth)
+- 650+ total participants processed across all batches
 - Production-ready workflow established
+- Discipline learnings documented in /future_discipline/
 
-*Phase 4B-3* ⏭️ NEXT
-- Add Airtable-only members to Fathom
-- Ready when Phase 4B-2 reaches 95%+
-
-*Phase 5T* ⭐ AFTER 4B-2
+*Phase 5T* 🎯 READY NOW
 - Town Hall visualization in ERA Landscape
-- Export meeting chain to Google Sheet
+- Export script reinstated: export_townhalls_to_landscape.py
+- Ready to execute
+
+*Phase 4C* (Future)
+- Process 223 new participants from continued Fathom automation
+- Can use established Phase 4B-2 workflow
 
 ### 2. Orientation - Where to Find What
 
@@ -60,25 +62,23 @@ Phase 4B builds an interactive system where:
 2. Read README_PHASE4B.md for system details
 3. Follow Quick Start in Section 4
 
-**Resuming Phase 4B-2 work:**
-1. Read [CONTEXT_RECOVERY.md](CONTEXT_RECOVERY.md) - Component state
-2. Read [AI_WORKFLOW_GUIDE.md](AI_WORKFLOW_GUIDE.md) - AI-specific workflow
-3. Check PHASE4B2_PROGRESS_REPORT.md - 8-round analysis
-4. Continue from documented next steps
+**Current Work (Phase 5T - Ready):**
+1. Read [README.md](../README.md) - System overview
+2. Check Phase 5T section below - Town Hall visualization ready
+3. Script: export_townhalls_to_landscape.py
+4. Prerequisites: ✅ Phase 4B-2 complete, ✅ 459 validated participants
 
-**AI assistants:**
-1. Read [AI_WORKFLOW_GUIDE.md](AI_WORKFLOW_GUIDE.md) FIRST
-2. 6-phase collaboration cycle explained
-3. Mental states for each phase
-4. Common patterns & decision trees
+**Future Work (Phase 4C):**
+1. Process 223 new participants (from continued Fathom automation)
+2. Can adapt Phase 4B-2 workflow (see archive/superseded_docs/)
+3. Use PAST_LEARNINGS.md (300+ patterns) for efficiency
 
 **What you might need:**
 - **Parent system** → [/README.md](../README.md) - Overall ERA Admin architecture
 - **System-wide status** → [/CONTEXT_RECOVERY.md](../CONTEXT_RECOVERY.md) - Integration status
-- **Component state** → [CONTEXT_RECOVERY.md](CONTEXT_RECOVERY.md) - Phase 4B status
 - **System principles** → [/WORKING_PRINCIPLES.md](../WORKING_PRINCIPLES.md) - Overall philosophy
-- **Phase progress** → PHASE4B2_PROGRESS_REPORT.md - 8-round detailed analysis
-- **AI workflow** → [AI_WORKFLOW_GUIDE.md](AI_WORKFLOW_GUIDE.md) - Collaborative review workflow
+- **Phase 4B-2 history** → archive/superseded_docs/ - Completed workflows (archived)
+- **Discipline learnings** → [/future_discipline/](#file-future_disciplinereadmemd) - AI collaboration lessons
 - **FathomInventory** → [/FathomInventory/README.md](../FathomInventory/README.md) - Participant database
 - **Airtable** → [/airtable/README.md](../airtable/README.md) - Member database
 
@@ -122,34 +122,28 @@ Phase 4B builds an interactive system where:
 
 #### Quick Start
 
-**Phase 4B-1 (Re-run to test):**
+**Phase 5T (Current - Ready to execute):**
 ```bash
 cd /Users/admin/ERA_Admin
 source ERA_Admin_venv/bin/activate
-python3 integration_scripts/phase4b1_enrich_from_airtable.py
-```
-Opens HTML table → Review → Export CSV → Process
 
-**Phase 4B-2 (Current - 8 rounds completed, 87% done):**
+# Export Town Hall meetings to landscape
+python3 integration_scripts/export_townhalls_to_landscape.py
+
+# Exports:
+# - 17 TH meetings as project nodes
+# - 459 validated participants
+# - Person-to-meeting edges
+# - Direct to Google Sheet (landscape auto-updates)
+```
+
+**Phase 4B-1 (Historical - can re-run if needed):**
 ```bash
-# 1. Generate batch (next 25 people)
-python3 integration_scripts/generate_batch_data.py
-python3 integration_scripts/generate_phase4b2_table.py
-
-# 2. Review in browser → Export CSV
-
-# 3. Parse and flag custom comments
-python3 integration_scripts/parse_phase4b2_csv.py <csv_file>
-# Discuss custom comments with AI
-
-# 4. Execute approved actions
-python3 integration_scripts/execute_roundN_actions.py
-
-# 5. Document results
-# Update PHASE4B2_PROGRESS_REPORT.md
+python3 integration_scripts/phase4b1_enrich_from_airtable.py
+# Opens HTML table → Review → Export CSV → Process
 ```
 
-Includes Gmail research, interactive HTML, collaborative review.
+**Phase 4B-2:** ✅ Complete (Oct 23, 2025). Learnings documented in /future_discipline/.
 
 #### Phase Details
 
@@ -173,20 +167,21 @@ Includes Gmail research, interactive HTML, collaborative review.
 - `phase4b1_enrich_from_airtable.py` - Main pipeline
 - `process_approved_matches.py` - CSV processor
 
-**Phase 4B-2: Collaborative Review** ✅ 87% COMPLETE (Oct 20, 2025)
+**Phase 4B-2: Collaborative Review** ✅ COMPLETE (Oct 23, 2025)
 
 *What we built:*
 - Interactive HTML table generator with Gmail integration
 - CSV parser for collaborative decision-making
 - Automated execution scripts with safety checks
 - Reusable Airtable addition module
+- Discipline documentation and architectural proposals
 
-*Results (8 rounds):*
-- **409 participants validated** (~51 avg per round)
-- **58 new people added to Airtable** (+10% growth)
-- **198 actions executed** (merges, adds, drops)
-- **255 participants remain** (87% complete, up from 64%)
+*Results (11 batches):*
+- **459 participants validated** (100% of Oct 23 scope)
+- **59 new people added to Airtable** (+10% growth)
+- **650+ participants processed** across all batches
 - **Process stabilized** - production-ready workflow
+- **Lessons documented** - /future_discipline/ component created
 
 *Key achievements:*
 - Handled phone numbers as names (3 cases)
@@ -195,23 +190,26 @@ Includes Gmail research, interactive HTML, collaborative review.
 - Fixed Bio field usage (now empty, provenance in Provenance field)
 - Processed joint entries, duplicates, variants
 
-*Files:*
-- `generate_batch_data.py` - Select next 25 people
-- `generate_phase4b2_table.py` - Create HTML review interface
-- `parse_phase4b2_csv.py` - Parse decisions, flag custom comments
-- `execute_roundN_actions.py` - 8 round execution scripts
-- `add_to_airtable.py` - Reusable addition module
-- `gmail_research.py` - Gmail context retrieval
+*Historical Files (in archive/):*
+- `experimental/generate_batch_data.py` - Batch selection (archived)
+- `experimental/generate_phase4b2_table.py` - HTML generator (archived)
+- `experimental/parse_phase4b2_csv.py` - CSV parser (archived)
+- Past decisions: `past_decisions/` - All 11 batch CSVs
+- Past batches: `past_batches/` - All HTML review files
 
-*Documentation:*
-- **PHASE4B2_PROGRESS_REPORT.md** - Complete 8-round analysis
-- **AI_WORKFLOW_GUIDE.md** - Step-by-step for AI assistants
+*Active Files:*
+- **PAST_LEARNINGS.md** - 300+ patterns (actively used for future work)
+- `generate_batch_CANONICAL.py` - Production batch generator
+
+*Historical Documentation (in archive/superseded_docs/):*
+- PHASE4B2_PROGRESS_REPORT.md - 11-batch analysis (archived)
+- AI_WORKFLOW_GUIDE.md - Collaborative workflow guide (archived)
 
 **Phase 4B-3: Add Airtable-Only Members** ⏭️ NEXT
 
 *Goal:* Insert Airtable members who haven't appeared in Fathom videos yet.
 
-*Readiness:* Phase 4B-2 is 87% complete (255 remaining). Estimated 5 more rounds to reach 95%+ before starting Phase 4B-3.
+*Readiness:* Phase 4B-2 COMPLETE (Oct 23, 2025). Ready when needed for future participant processing.
 
 #### Philosophy
 

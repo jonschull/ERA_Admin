@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude's AI Recommendations - Phase 4B-2</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 15px;
+            background: #f5f5f5;
+            font-size: 13px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .instructions {
+            background: #e8f4f8;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin-bottom: 20px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-box {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .controls {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        
+        button:hover {
+            background: #2980b9;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background: #34495e;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            position: sticky;
+            top: 0;
+        }
+        
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 50px;
+        }
+        
+        .confidence-HIGH {
+            background: #d4edda;
+            color: #155724;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .confidence-MEDIUM {
+            background: #fff3cd;
+            color: #856404;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .confidence-LOW {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .evidence-link {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .evidence-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🤖 Claude's AI Recommendations - Phase 4B-2</h1>
+        <p><strong>Generated:</strong> 2025-10-23 13:43:22</p>
+        <p><strong>Purpose:</strong> AI-first intelligent analysis with evidence. Review, provide feedback, export CSV.</p>
+    </div>
+    
+    <div class="instructions">
+        <h3>📖 How This Works</h3>
+        <ol>
+            <li><strong>Review my decisions:</strong> Check recommendation, confidence, and evidence links</li>
+            <li><strong>Approve checkbox:</strong> ✓ = I'm right (pre-checked for HIGH confidence), ✗ = needs review</li>
+            <li><strong>Add feedback:</strong> Explain errors or provide guidance:
+                <ul>
+                    <li>✅ "approve" or leave blank if you agree</li>
+                    <li>❌ "wrong because..." - Teach me what I got wrong</li>
+                    <li>🔧 "should be: [action]" - Provide correct decision</li>
+                    <li>💡 "guidance: ..." - Help me improve my judgment</li>
+                </ul>
+            </li>
+            <li><strong>Export CSV:</strong> Click button, save file, send it back to me</li>
+        </ol>
+    </div>
+    
+    <div class="stats">
+        <div class="stat-box">
+            <div class="stat-value">50</div>
+            <div class="stat-label">Total Cases</div>
+        </div>
+        <div class="stat-box" style="background: #d4edda;">
+            <div class="stat-value" style="color: #28a745;">23</div>
+            <div class="stat-label">✅ High Confidence (Auto-Approved)</div>
+        </div>
+        <div class="stat-box" style="background: #fff3cd;">
+            <div class="stat-value" style="color: #ffc107;">13</div>
+            <div class="stat-label">🤔 Medium Confidence</div>
+        </div>
+        <div class="stat-box" style="background: #f8d7da;">
+            <div class="stat-value" style="color: #dc3545;">14</div>
+            <div class="stat-label">⚠️ Low/Drop</div>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <button onclick="exportToCSV()">📥 Export to CSV</button>
+        <button onclick="checkAll()">✓ Check All</button>
+        <button onclick="uncheckAll()">✗ Uncheck All</button>
+        <button onclick="filterByConfidence('all')">Show All</button>
+        <button onclick="filterByConfidence('HIGH')">High Only</button>
+        <button onclick="filterByConfidence('MEDIUM')">Medium Only</button>
+        <button onclick="filterByConfidence('LOW')">Low Only</button>
+    </div>
+    
+    <table id="recommendationsTable">
+        <thead>
+            <tr>
+                <th>Approve</th>
+                <th>Name</th>
+                <th>Claude's Decision</th>
+                <th>Confidence</th>
+                <th>Claude's Reasoning</th>
+                <th>Evidence</th>
+                <th>Your Feedback Here</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" checked></td>
+                <td><strong>JP</strong></td>
+                <td><strong>merge with: John Perlin</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Found in 3 Town Halls. JP = John Perlin pattern</td>
+                <td style="font-size: 11px;">
+                    <strong>3 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-09-03</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-05-28</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-01-08</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/JP" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" checked></td>
+                <td><strong>Jon Schull (Enabling The Future)</strong></td>
+                <td><strong>merge with: Jon Schull</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>This is you - variant name</td>
+                <td style="font-size: 11px;">
+                    <strong>3 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-04-30</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-03-19</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-02-19</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Jon%20Schull%20(Enabling%20The%20Future)" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" checked></td>
+                <td><strong>Jon Schull, EcoRestoration Alliance</strong></td>
+                <td><strong>merge with: Jon Schull</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>This is you</td>
+                <td style="font-size: 11px;">
+                    <strong>3 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-04-30</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-02-19</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-02-05</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Jon%20Schull,%20EcoRestoration%20Alliance" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" checked></td>
+                <td><strong>Jon Schull, EcoRestoration Alliance (2)</strong></td>
+                <td><strong>merge with: Jon Schull</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>This is you - number variant</td>
+                <td style="font-size: 11px;">
+                    <strong>3 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-09-03</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-06-25</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-05-28</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Jon%20Schull,%20EcoRestoration%20Alliance%20(2)" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" checked></td>
+                <td><strong>Jon Schull, EcoRestoration Alliance (7)</strong></td>
+                <td><strong>merge with: Jon Schull</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>This is you - number variant</td>
+                <td style="font-size: 11px;">
+                    <strong>3 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-09-03</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-06-25</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-05-28</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Jon%20Schull,%20EcoRestoration%20Alliance%20(7)" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" checked></td>
+                <td><strong>Joshua Konkankoh</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Found in 2 Town Halls. Cameroonian journalist</td>
+                <td style="font-size: 11px;">
+                    <strong>2 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2024-05-22</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2024-03-14</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Joshua%20Konkankoh" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" checked></td>
+                <td><strong>Joshua Laizer</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>5 Fathom recordings = clear participant</td>
+                <td style="font-size: 11px;">
+                    ❌ No Town Hall meetings
+                    <a href="https://mail.google.com/mail/u/0/#search/Joshua%20Laizer" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" checked></td>
+                <td><strong>Joshua Laizer (4)</strong></td>
+                <td><strong>merge with: Joshua Laizer</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Number variant. 3 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <strong>3 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-09-03</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-06-25</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-05-28</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Joshua%20Laizer%20(4)" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" checked></td>
+                <td><strong>Joshua Laizer (7)</strong></td>
+                <td><strong>merge with: Joshua Laizer</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Number variant. 3 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <strong>3 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-09-03</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-06-25</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-05-28</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Joshua%20Laizer%20(7)" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" checked></td>
+                <td><strong>Judith D. Schwartz</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Found in 2 Town Halls. Author, Soil Centric</td>
+                <td style="font-size: 11px;">
+                    <strong>2 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-01-08</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2023-08-16</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Judith%20D.%20Schwartz" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" checked></td>
+                <td><strong>Julia</strong></td>
+                <td><strong>add to airtable as Julia Lindley</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Found in 2 Town Halls as Julia Lindley</td>
+                <td style="font-size: 11px;">
+                    <strong>2 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2024-09-04</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2023-03-29</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Julia" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" checked></td>
+                <td><strong>Justin Ritchie (3)</strong></td>
+                <td><strong>merge with: Justin Ritchie</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Number variant. 3 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <strong>3 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-09-17</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-09-03</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-08-06</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Justin%20Ritchie%20(3)" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" checked></td>
+                <td><strong>KALOMBO-MBILIZI</strong></td>
+                <td><strong>merge with: Kalombo Mbilizi</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>All-caps variant. 3 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <strong>3 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2024-08-21</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2024-03-14</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2024-01-17</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/KALOMBO-MBILIZI" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" checked></td>
+                <td><strong>Kaluki Paul Mutuku</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Base name for variants</td>
+                <td style="font-size: 11px;">
+                    ❌ No Town Hall meetings
+                    <a href="https://mail.google.com/mail/u/0/#search/Kaluki%20Paul%20Mutuku" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" checked></td>
+                <td><strong>Kaluki Paul Mutuku (2)</strong></td>
+                <td><strong>merge with: Kaluki Paul Mutuku</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Number variant. 3 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <strong>3 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-09-03</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-06-25</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-05-28</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Kaluki%20Paul%20Mutuku%20(2)" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" checked></td>
+                <td><strong>Kaluki Paul Mutuku (4)</strong></td>
+                <td><strong>merge with: Kaluki Paul Mutuku</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Number variant. 3 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <strong>3 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-09-03</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-06-25</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-05-28</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Kaluki%20Paul%20Mutuku%20(4)" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" checked></td>
+                <td><strong>Karim</strong></td>
+                <td><strong>add to airtable as Karim Camara</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>3 Town Halls. Context: Abdoul Karim Camara, Guinea</td>
+                <td style="font-size: 11px;">
+                    <strong>3 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-01-08</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2024-05-22</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2024-03-14</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Karim" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" checked></td>
+                <td><strong>Katrina Jeffries (5)</strong></td>
+                <td><strong>merge with: Katrina Jeffries</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Number variant. 3 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <strong>3 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-09-03</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-06-25</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-05-28</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Katrina%20Jeffries%20(5)" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" checked></td>
+                <td><strong>Kethia</strong></td>
+                <td><strong>merge with: Kethia Calixte</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>1 Town Hall. Single name variant</td>
+                <td style="font-size: 11px;">
+                    <strong>1 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2024-03-14</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Kethia" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" checked></td>
+                <td><strong>Kevin A.</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Found in 3 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <strong>3 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-09-17</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-09-03</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-08-06</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Kevin%20A." target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" checked></td>
+                <td><strong>Kevin Li</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Found in 3 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <strong>3 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-09-03</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-05-28</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-04-30</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Kevin%20Li" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" checked></td>
+                <td><strong>Leonard</strong></td>
+                <td><strong>merge with: Leonard Iyamuremye</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Single name variant. 3 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <strong>3 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-09-17</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-06-25</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-05-28</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Leonard" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-HIGH">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" checked></td>
+                <td><strong>Leonard IYAMUREME</strong></td>
+                <td><strong>merge with: Leonard Iyamuremye</strong></td>
+                <td><span class="confidence-HIGH">HIGH</span></td>
+                <td>Spelling variant. 3 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <strong>3 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-02-05</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-01-08</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2024-12-18</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Leonard%20IYAMUREME" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Jeremy - Open Forest Protocol</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>1 Town Hall. Direct msg about OpenForestProtocol.org</td>
+                <td style="font-size: 11px;">
+                    <strong>1 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-04-30</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Jeremy%20-%20Open%20Forest%20Protocol" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Juan José Pimento</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>1 Town Hall from Panama</td>
+                <td style="font-size: 11px;">
+                    <strong>1 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2023-11-08</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Juan%20José%20Pimento" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Juan from Panama</strong></td>
+                <td><strong>merge with: Juan Carlos Monterrey</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Your comment suggests this name</td>
+                <td style="font-size: 11px;">
+                    <strong>1 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2023-11-08</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Juan%20from%20Panama" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Justin R-Söndergaard</strong></td>
+                <td><strong>merge with: Justin Roborg-Sondergaard</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>83% Airtable match</td>
+                <td style="font-size: 11px;">
+                    ❌ No Town Hall meetings
+                    <a href="https://mail.google.com/mail/u/0/#search/Justin%20R-Söndergaard" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Justin Ritchie</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>1 Town Hall presenting Transition US</td>
+                <td style="font-size: 11px;">
+                    <strong>1 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2023-09-13</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Justin%20Ritchie" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Katharine King</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>2 Town Halls</td>
+                <td style="font-size: 11px;">
+                    <strong>2 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2023-05-24</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2023-01-18</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Katharine%20King" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Kathleen Groppe</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>1 Town Hall. You asked her to present</td>
+                <td style="font-size: 11px;">
+                    <strong>1 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2024-07-31</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Kathleen%20Groppe" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Kathryn Alexander, MA</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>1 Town Hall. Requested email list</td>
+                <td style="font-size: 11px;">
+                    <strong>1 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2024-12-11</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Kathryn%20Alexander,%20MA" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Kim Chapple</strong></td>
+                <td><strong>merge with: Kimberly Chapple</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Kim = Kimberly. 1 Town Hall</td>
+                <td style="font-size: 11px;">
+                    <strong>1 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2023-11-08</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Kim%20Chapple" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Kwaxala / Pete</strong></td>
+                <td><strong>add to airtable as Pete Corke</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>1 Town Hall. Your comment suggests Pete Corke</td>
+                <td style="font-size: 11px;">
+                    <strong>1 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-08-06</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Kwaxala%20/%20Pete" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Larry Kopald</strong></td>
+                <td><strong>add to airtable</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>1 Town Hall. Your comment: answer is obvious</td>
+                <td style="font-size: 11px;">
+                    <strong>1 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2024-06-05</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Larry%20Kopald" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Lastborn's Galaxy A11 (3)</strong></td>
+                <td><strong>merge with: Ilarion</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>3 Town Halls. Your comment: Ilarion Mercullief</td>
+                <td style="font-size: 11px;">
+                    <strong>3 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-09-17</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-09-03</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-08-06</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Lastborn's%20Galaxy%20A11%20(3)" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-MEDIUM">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Lee G</strong></td>
+                <td><strong>merge with: Lee Golpariani</strong></td>
+                <td><span class="confidence-MEDIUM">MEDIUM</span></td>
+                <td>Lee G = Lee Golpariani pattern</td>
+                <td style="font-size: 11px;">
+                    <strong>1 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2023-05-24</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Lee%20G" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-LOW">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Belizey</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>No context found</td>
+                <td style="font-size: 11px;">
+                    ❌ No Town Hall meetings
+                    <a href="https://mail.google.com/mail/u/0/#search/Belizey" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-LOW">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>John K Carroll</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>No context found</td>
+                <td style="font-size: 11px;">
+                    ❌ No Town Hall meetings
+                    <a href="https://mail.google.com/mail/u/0/#search/John%20K%20Carroll" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-LOW">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>John's iPhone</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>Device name</td>
+                <td style="font-size: 11px;">
+                    <strong>1 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2023-08-16</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/John's%20iPhone" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-LOW">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Josean's iPhone</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>Device name</td>
+                <td style="font-size: 11px;">
+                    <strong>1 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2023-08-16</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Josean's%20iPhone" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-LOW">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Josean's iPhone (11)</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>Device name</td>
+                <td style="font-size: 11px;">
+                    <strong>3 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-09-03</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-05-28</a></small><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2025-04-30</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Josean's%20iPhone%20(11)" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-LOW">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Joseph Manning</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>No context found</td>
+                <td style="font-size: 11px;">
+                    ❌ No Town Hall meetings
+                    <a href="https://mail.google.com/mail/u/0/#search/Joseph%20Manning" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-LOW">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Joshua Price</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>Context is about economics not person</td>
+                <td style="font-size: 11px;">
+                    <strong>1 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2023-03-29</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Joshua%20Price" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-LOW">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Joshua Shepard</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>No context found</td>
+                <td style="font-size: 11px;">
+                    ❌ No Town Hall meetings
+                    <a href="https://mail.google.com/mail/u/0/#search/Joshua%20Shepard" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-LOW">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Judith Rosen</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>No context found</td>
+                <td style="font-size: 11px;">
+                    ❌ No Town Hall meetings
+                    <a href="https://mail.google.com/mail/u/0/#search/Judith%20Rosen" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-LOW">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Jules</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>No context found</td>
+                <td style="font-size: 11px;">
+                    ❌ No Town Hall meetings
+                    <a href="https://mail.google.com/mail/u/0/#search/Jules" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-LOW">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Kaitlin Sullivan</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>No context found</td>
+                <td style="font-size: 11px;">
+                    ❌ No Town Hall meetings
+                    <a href="https://mail.google.com/mail/u/0/#search/Kaitlin%20Sullivan" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-LOW">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Kathia Burillo</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>No context found</td>
+                <td style="font-size: 11px;">
+                    ❌ No Town Hall meetings
+                    <a href="https://mail.google.com/mail/u/0/#search/Kathia%20Burillo" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-LOW">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Kinari Webb</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>No context found</td>
+                <td style="font-size: 11px;">
+                    ❌ No Town Hall meetings
+                    <a href="https://mail.google.com/mail/u/0/#search/Kinari%20Webb" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+            <tr class="row-LOW">
+                <td style="text-align: center;"><input type="checkbox" class="approve-checkbox" ></td>
+                <td><strong>Lastborn's Galaxy A11</strong></td>
+                <td><strong>drop</strong></td>
+                <td><span class="confidence-LOW">LOW</span></td>
+                <td>Device name</td>
+                <td style="font-size: 11px;">
+                    <strong>1 Town Hall meeting(s):</strong><br><small>📅 <a href="https://docs.google.com/document/d/1oPYGLKfQ0PFWJHpME0hKhRHYXZbh73kFXnq2kRF8UiU/edit" target="_blank" class="evidence-link">2024-06-05</a></small><br>
+                    <a href="https://mail.google.com/mail/u/0/#search/Lastborn's%20Galaxy%20A11" target="_blank" class="evidence-link">📧 Gmail</a>
+                    
+                </td>
+                <td><textarea class="feedback-text" placeholder="Your feedback/corrections (or leave blank to approve)"></textarea></td>
+            </tr>
+
+        </tbody>
+    </table>
+    
+    <script>
+        function exportToCSV() {
+            const table = document.getElementById('recommendationsTable');
+            const rows = table.querySelectorAll('tbody tr');
+            let csv = [];
+            
+            // Header
+            csv.push('Name,Claude_Decision,Confidence,Claude_Reasoning,Approve,Your_Feedback,ProcessThis');
+            
+            // Data rows
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const checkbox = cells[0].querySelector('input[type="checkbox"]');
+                const name = cells[1].textContent.trim();
+                const decision = cells[2].textContent.trim();
+                const confidence = cells[3].textContent.trim();
+                const reasoning = cells[4].textContent.trim().replace(/"/g, '""');
+                const approve = checkbox.checked ? 'YES' : 'NO';
+                const feedback = cells[6].querySelector('textarea').value.replace(/"/g, '""');
+                const processThis = approve === 'YES' && feedback.toLowerCase().indexOf('wrong') === -1 ? 'YES' : 'REVIEW';
+                
+                csv.push(`"${name}","${decision}","${confidence}","${reasoning}","${approve}","${feedback}","${processThis}"`);
+            });
+            
+            // Download
+            const csvContent = csv.join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'claude_recommendations_feedback.csv';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+        
+        function checkAll() {
+            document.querySelectorAll('.approve-checkbox').forEach(cb => cb.checked = true);
+        }
+        
+        function uncheckAll() {
+            document.querySelectorAll('.approve-checkbox').forEach(cb => cb.checked = false);
+        }
+        
+        function filterByConfidence(level) {
+            const rows = document.querySelectorAll('#recommendationsTable tbody tr');
+            rows.forEach(row => {
+                if (level === 'all') {
+                    row.style.display = '';
+                } else {
+                    const confidenceSpan = row.querySelector('[class^="confidence-"]');
+                    if (confidenceSpan && confidenceSpan.textContent === level) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
