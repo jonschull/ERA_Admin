@@ -62,25 +62,23 @@ Phase 4B builds an interactive system where:
 2. Read README_PHASE4B.md for system details
 3. Follow Quick Start in Section 4
 
-**Resuming Phase 4B-2 work:**
-1. Read [CONTEXT_RECOVERY.md](CONTEXT_RECOVERY.md) - Component state
-2. Read [AI_WORKFLOW_GUIDE.md](AI_WORKFLOW_GUIDE.md) - AI-specific workflow
-3. Check PHASE4B2_PROGRESS_REPORT.md - 8-round analysis
-4. Continue from documented next steps
+**Current Work (Phase 5T - Ready):**
+1. Read [README.md](../README.md) - System overview
+2. Check Phase 5T section below - Town Hall visualization ready
+3. Script: export_townhalls_to_landscape.py
+4. Prerequisites: ✅ Phase 4B-2 complete, ✅ 459 validated participants
 
-**AI assistants:**
-1. Read [AI_WORKFLOW_GUIDE.md](AI_WORKFLOW_GUIDE.md) FIRST
-2. 6-phase collaboration cycle explained
-3. Mental states for each phase
-4. Common patterns & decision trees
+**Future Work (Phase 4C):**
+1. Process 223 new participants (from continued Fathom automation)
+2. Can adapt Phase 4B-2 workflow (see archive/superseded_docs/)
+3. Use PAST_LEARNINGS.md (300+ patterns) for efficiency
 
 **What you might need:**
 - **Parent system** → [/README.md](../README.md) - Overall ERA Admin architecture
 - **System-wide status** → [/CONTEXT_RECOVERY.md](../CONTEXT_RECOVERY.md) - Integration status
-- **Component state** → [CONTEXT_RECOVERY.md](CONTEXT_RECOVERY.md) - Phase 4B status
 - **System principles** → [/WORKING_PRINCIPLES.md](../WORKING_PRINCIPLES.md) - Overall philosophy
-- **Phase progress** → PHASE4B2_PROGRESS_REPORT.md - 8-round detailed analysis
-- **AI workflow** → [AI_WORKFLOW_GUIDE.md](AI_WORKFLOW_GUIDE.md) - Collaborative review workflow
+- **Phase 4B-2 history** → archive/superseded_docs/ - Completed workflows (archived)
+- **Discipline learnings** → [/future_discipline/](#file-future_disciplinereadmemd) - AI collaboration lessons
 - **FathomInventory** → [/FathomInventory/README.md](../FathomInventory/README.md) - Participant database
 - **Airtable** → [/airtable/README.md](../airtable/README.md) - Member database
 
@@ -124,16 +122,11 @@ Phase 4B builds an interactive system where:
 
 #### Quick Start
 
-**Phase 4B-1 (Re-run to test):**
+**Phase 5T (Current - Ready to execute):**
 ```bash
 cd /Users/admin/ERA_Admin
 source ERA_Admin_venv/bin/activate
-python3 integration_scripts/phase4b1_enrich_from_airtable.py
-```
-Opens HTML table → Review → Export CSV → Process
 
-**Phase 5T (Current - Ready to execute):**
-```bash
 # Export Town Hall meetings to landscape
 python3 integration_scripts/export_townhalls_to_landscape.py
 
@@ -144,7 +137,13 @@ python3 integration_scripts/export_townhalls_to_landscape.py
 # - Direct to Google Sheet (landscape auto-updates)
 ```
 
-Phase 4B-2 complete, documented in /future_discipline/ for lessons learned.
+**Phase 4B-1 (Historical - can re-run if needed):**
+```bash
+python3 integration_scripts/phase4b1_enrich_from_airtable.py
+# Opens HTML table → Review → Export CSV → Process
+```
+
+**Phase 4B-2:** ✅ Complete (Oct 23, 2025). Learnings documented in /future_discipline/.
 
 #### Phase Details
 
@@ -191,17 +190,20 @@ Phase 4B-2 complete, documented in /future_discipline/ for lessons learned.
 - Fixed Bio field usage (now empty, provenance in Provenance field)
 - Processed joint entries, duplicates, variants
 
-*Files:*
-- `generate_batch_data.py` - Select next 25 people
-- `generate_phase4b2_table.py` - Create HTML review interface
-- `parse_phase4b2_csv.py` - Parse decisions, flag custom comments
-- `execute_roundN_actions.py` - 8 round execution scripts
-- `add_to_airtable.py` - Reusable addition module
-- `gmail_research.py` - Gmail context retrieval
+*Historical Files (in archive/):*
+- `experimental/generate_batch_data.py` - Batch selection (archived)
+- `experimental/generate_phase4b2_table.py` - HTML generator (archived)
+- `experimental/parse_phase4b2_csv.py` - CSV parser (archived)
+- Past decisions: `past_decisions/` - All 11 batch CSVs
+- Past batches: `past_batches/` - All HTML review files
 
-*Documentation:*
-- **PHASE4B2_PROGRESS_REPORT.md** - Complete 8-round analysis
-- **AI_WORKFLOW_GUIDE.md** - Step-by-step for AI assistants
+*Active Files:*
+- **PAST_LEARNINGS.md** - 300+ patterns (actively used for future work)
+- `generate_batch_CANONICAL.py` - Production batch generator
+
+*Historical Documentation (in archive/superseded_docs/):*
+- PHASE4B2_PROGRESS_REPORT.md - 11-batch analysis (archived)
+- AI_WORKFLOW_GUIDE.md - Collaborative workflow guide (archived)
 
 **Phase 4B-3: Add Airtable-Only Members** ⏭️ NEXT
 

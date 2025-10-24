@@ -177,18 +177,17 @@ python export_people.py
 open https://jonschull.github.io/ERA_Admin/ERA_Landscape/
 ```
 
-**Run integration (Phase 4B-2):**
+**Run integration (Phase 5T - Town Hall Visualization):**
 ```bash
 # Verify configuration
 python era_config.py
 
-# Generate review batch
+# Export Town Halls to landscape
 cd integration_scripts
-python3 generate_batch_data.py        # Select next 25 people
-python3 generate_phase4b2_table.py    # Create HTML review
+python3 export_townhalls_to_landscape.py
 
-# Human reviews → exports CSV → AI executes
-# See: integration_scripts/AI_WORKFLOW_GUIDE.md
+# Exports 17 TH meetings + 459 validated participants
+# Updates Google Sheet → landscape auto-refreshes
 ```
 
 **Run Fathom automation manually:**

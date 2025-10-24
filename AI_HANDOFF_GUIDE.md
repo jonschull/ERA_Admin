@@ -73,7 +73,7 @@ Humans read README, then get distracted or forget context. **Your job:** Help th
 **What you might need:**
 - Current work status → [CONTEXT_RECOVERY.md](CONTEXT_RECOVERY.md)
 - Philosophy & practices → [WORKING_PRINCIPLES.md](WORKING_PRINCIPLES.md)
-- Phase-specific AI workflow → integration_scripts/AI_WORKFLOW_GUIDE.md
+- Historical Phase 4B-2 workflow → integration_scripts/archive/superseded_docs/AI_WORKFLOW_GUIDE.md
 - Component details → Component READMEs
 
 ### 3. Principles
@@ -509,10 +509,10 @@ Result: Clean, no documentation sprawl
 
 #### Specialized Workflows
 
-**Phase 4B-2: Collaborative Review**
-- See: [integration_scripts/AI_WORKFLOW_GUIDE.md](integration_scripts/AI_WORKFLOW_GUIDE.md)
-- 6-phase cycle: Generate batch, human reviews, AI parses, discuss, execute, document
-- Human approval required for all actions
+**Phase 4B-2: Collaborative Review** (✅ COMPLETE - Oct 23, 2025)
+- Historical workflow: integration_scripts/archive/superseded_docs/AI_WORKFLOW_GUIDE.md
+- 11 batches completed, 459 participants validated
+- Discipline learnings: future_discipline/ component
 
 **Phase 5T: Town Hall Visualization**
 - Goal: Export TH meetings as connected chain in landscape
@@ -543,7 +543,7 @@ Result: Clean, no documentation sprawl
 
 - [WORKING_PRINCIPLES.md](WORKING_PRINCIPLES.md) - Complete system philosophy
 - [CONTEXT_RECOVERY.md](CONTEXT_RECOVERY.md) - Current system state
-- integration_scripts/AI_WORKFLOW_GUIDE.md - Phase 4B-2 specific workflow
+- integration_scripts/archive/superseded_docs/ - Historical Phase 4B-2 workflows (archived)
 - Component READMEs - Component-specific details
 
 **Back to:** [README.md](README.md)

@@ -331,18 +331,17 @@ python export_people.py
 open https://jonschull.github.io/ERA_Admin/ERA_Landscape/
 ```
 
-**Run integration (Phase 4B-2):**
+**Run integration (Phase 5T - Town Hall Visualization):**
 ```bash
 # Verify configuration
 python era_config.py
 
-# Generate review batch
+# Export Town Halls to landscape
 cd integration_scripts
-python3 generate_batch_data.py        # Select next 25 people
-python3 generate_phase4b2_table.py    # Create HTML review
+python3 export_townhalls_to_landscape.py
 
-# Human reviews → exports CSV → AI executes
-# See: integration_scripts/AI_WORKFLOW_GUIDE.md
+# Exports 17 TH meetings + 459 validated participants
+# Updates Google Sheet → landscape auto-refreshes
 ```
 
 **Run Fathom automation manually:**
@@ -902,7 +901,7 @@ Humans read README, then get distracted or forget context. **Your job:** Help th
 **What you might need:**
 - Current work status → [CONTEXT_RECOVERY.md](#file-context_recoverymd)
 - Philosophy & practices → [WORKING_PRINCIPLES.md](#file-working_principlesmd)
-- Phase-specific AI workflow → integration_scripts/AI_WORKFLOW_GUIDE.md
+- Historical Phase 4B-2 workflow → integration_scripts/archive/superseded_docs/AI_WORKFLOW_GUIDE.md
 - Component details → Component READMEs
 
 ### 3. Principles
@@ -1338,10 +1337,10 @@ Result: Clean, no documentation sprawl
 
 #### Specialized Workflows
 
-**Phase 4B-2: Collaborative Review**
-- See: [integration_scripts/AI_WORKFLOW_GUIDE.md](#file-integration_scriptsai_workflow_guidemd)
-- 6-phase cycle: Generate batch, human reviews, AI parses, discuss, execute, document
-- Human approval required for all actions
+**Phase 4B-2: Collaborative Review** (✅ COMPLETE - Oct 23, 2025)
+- Historical workflow: integration_scripts/archive/superseded_docs/AI_WORKFLOW_GUIDE.md
+- 11 batches completed, 459 participants validated
+- Discipline learnings: future_discipline/ component
 
 **Phase 5T: Town Hall Visualization**
 - Goal: Export TH meetings as connected chain in landscape
@@ -1372,7 +1371,7 @@ Result: Clean, no documentation sprawl
 
 - [WORKING_PRINCIPLES.md](#file-working_principlesmd) - Complete system philosophy
 - [CONTEXT_RECOVERY.md](#file-context_recoverymd) - Current system state
-- integration_scripts/AI_WORKFLOW_GUIDE.md - Phase 4B-2 specific workflow
+- integration_scripts/archive/superseded_docs/ - Historical Phase 4B-2 workflows (archived)
 - Component READMEs - Component-specific details
 
 **Back to:** [README.md](#file-readmemd)
@@ -3330,25 +3329,23 @@ Phase 4B builds an interactive system where:
 2. Read README_PHASE4B.md for system details
 3. Follow Quick Start in Section 4
 
-**Resuming Phase 4B-2 work:**
-1. Read [CONTEXT_RECOVERY.md](CONTEXT_RECOVERY.md) - Component state
-2. Read [AI_WORKFLOW_GUIDE.md](AI_WORKFLOW_GUIDE.md) - AI-specific workflow
-3. Check PHASE4B2_PROGRESS_REPORT.md - 8-round analysis
-4. Continue from documented next steps
+**Current Work (Phase 5T - Ready):**
+1. Read [README.md](#file-readmemd) - System overview
+2. Check Phase 5T section below - Town Hall visualization ready
+3. Script: export_townhalls_to_landscape.py
+4. Prerequisites: ✅ Phase 4B-2 complete, ✅ 459 validated participants
 
-**AI assistants:**
-1. Read [AI_WORKFLOW_GUIDE.md](AI_WORKFLOW_GUIDE.md) FIRST
-2. 6-phase collaboration cycle explained
-3. Mental states for each phase
-4. Common patterns & decision trees
+**Future Work (Phase 4C):**
+1. Process 223 new participants (from continued Fathom automation)
+2. Can adapt Phase 4B-2 workflow (see archive/superseded_docs/)
+3. Use PAST_LEARNINGS.md (300+ patterns) for efficiency
 
 **What you might need:**
 - **Parent system** → [/README.md](#file-readmemd) - Overall ERA Admin architecture
 - **System-wide status** → [/CONTEXT_RECOVERY.md](#file-context_recoverymd) - Integration status
-- **Component state** → [CONTEXT_RECOVERY.md](CONTEXT_RECOVERY.md) - Phase 4B status
 - **System principles** → [/WORKING_PRINCIPLES.md](#file-working_principlesmd) - Overall philosophy
-- **Phase progress** → PHASE4B2_PROGRESS_REPORT.md - 8-round detailed analysis
-- **AI workflow** → [AI_WORKFLOW_GUIDE.md](AI_WORKFLOW_GUIDE.md) - Collaborative review workflow
+- **Phase 4B-2 history** → archive/superseded_docs/ - Completed workflows (archived)
+- **Discipline learnings** → [/future_discipline/](#file-future_disciplinereadmemd) - AI collaboration lessons
 - **FathomInventory** → [/FathomInventory/README.md](#file-fathominventoryreadmemd) - Participant database
 - **Airtable** → [/airtable/README.md](#file-airtablereadmemd) - Member database
 
@@ -3392,16 +3389,11 @@ Phase 4B builds an interactive system where:
 
 #### Quick Start
 
-**Phase 4B-1 (Re-run to test):**
+**Phase 5T (Current - Ready to execute):**
 ```bash
 cd /Users/admin/ERA_Admin
 source ERA_Admin_venv/bin/activate
-python3 integration_scripts/phase4b1_enrich_from_airtable.py
-```
-Opens HTML table → Review → Export CSV → Process
 
-**Phase 5T (Current - Ready to execute):**
-```bash
 # Export Town Hall meetings to landscape
 python3 integration_scripts/export_townhalls_to_landscape.py
 
@@ -3412,7 +3404,13 @@ python3 integration_scripts/export_townhalls_to_landscape.py
 # - Direct to Google Sheet (landscape auto-updates)
 ```
 
-Phase 4B-2 complete, documented in /future_discipline/ for lessons learned.
+**Phase 4B-1 (Historical - can re-run if needed):**
+```bash
+python3 integration_scripts/phase4b1_enrich_from_airtable.py
+# Opens HTML table → Review → Export CSV → Process
+```
+
+**Phase 4B-2:** ✅ Complete (Oct 23, 2025). Learnings documented in /future_discipline/.
 
 #### Phase Details
 
@@ -3459,17 +3457,20 @@ Phase 4B-2 complete, documented in /future_discipline/ for lessons learned.
 - Fixed Bio field usage (now empty, provenance in Provenance field)
 - Processed joint entries, duplicates, variants
 
-*Files:*
-- `generate_batch_data.py` - Select next 25 people
-- `generate_phase4b2_table.py` - Create HTML review interface
-- `parse_phase4b2_csv.py` - Parse decisions, flag custom comments
-- `execute_roundN_actions.py` - 8 round execution scripts
-- `add_to_airtable.py` - Reusable addition module
-- `gmail_research.py` - Gmail context retrieval
+*Historical Files (in archive/):*
+- `experimental/generate_batch_data.py` - Batch selection (archived)
+- `experimental/generate_phase4b2_table.py` - HTML generator (archived)
+- `experimental/parse_phase4b2_csv.py` - CSV parser (archived)
+- Past decisions: `past_decisions/` - All 11 batch CSVs
+- Past batches: `past_batches/` - All HTML review files
 
-*Documentation:*
-- **PHASE4B2_PROGRESS_REPORT.md** - Complete 8-round analysis
-- **AI_WORKFLOW_GUIDE.md** - Step-by-step for AI assistants
+*Active Files:*
+- **PAST_LEARNINGS.md** - 300+ patterns (actively used for future work)
+- `generate_batch_CANONICAL.py` - Production batch generator
+
+*Historical Documentation (in archive/superseded_docs/):*
+- PHASE4B2_PROGRESS_REPORT.md - 11-batch analysis (archived)
+- AI_WORKFLOW_GUIDE.md - Collaborative workflow guide (archived)
 
 **Phase 4B-3: Add Airtable-Only Members** ⏭️ NEXT
 
@@ -3621,15 +3622,21 @@ For server deployment, edit `era_config.py` or set environment variables.
 
 ---
 
-## FILE: integration_scripts/AI_WORKFLOW_GUIDE.md
+## FILE: integration_scripts/archive/superseded_docs/AI_WORKFLOW_GUIDE.md
 
-**Path:** `integration_scripts/AI_WORKFLOW_GUIDE.md`
+**Path:** `integration_scripts/archive/superseded_docs/AI_WORKFLOW_GUIDE.md`
+
+**Status:** ⚠️ HISTORICAL DOCUMENT - Phase 4B-2 completed Oct 23, 2025
+
+This document is preserved for reference but describes a completed workflow. For current work, see Phase 5T documentation or future_discipline/ for lessons learned.
+
+---
 
 ### 1. Overview
 
-**For:** AI assistants stepping into Phase 4B-2 mid-stream  
-**Purpose:** Make the human-AI collaboration workflow explicit  
-**Audience:** A "naive AI" without conversation history
+**Purpose:** Historical guide for Phase 4B-2 collaborative review workflow (COMPLETED Oct 23, 2025)  
+**Audience:** Reference for future similar workflows  
+**Note:** This workflow is complete. See /future_discipline/ for lessons learned.
 
 **Mental Model: What This Process Is**
 
@@ -3652,17 +3659,17 @@ You are not trying to solve this alone. You are:
 
 ### 2. Orientation - Where to Find What
 
-**You are at:** integration_scripts AI workflow guide (Phase 4B-2 specific)
+**You are at:** Historical AI workflow guide (Phase 4B-2 - COMPLETED)
 
 **Use this when:**
-- Resuming Phase 4B-2 collaborative review work
-- Understanding the human-AI workflow
-- Learning what requires human approval
-- Troubleshooting workflow issues
+- Understanding how Phase 4B-2 worked (historical reference)
+- Designing similar collaborative workflows
+- Learning from completed human-AI collaboration
+- Reference for future Phase 4C work
 
 **What you might need:**
 - **Parent component** → [README.md](#file-integration_scriptsreadmemd) - integration_scripts overview
-- **Phase progress** → PHASE4B2_PROGRESS_REPORT.md - 8-round analysis
+- **Phase progress** → archive/superseded_docs/PHASE4B2_PROGRESS_REPORT.md - 11-batch analysis (archived)
 - **General AI guidance** → [/AI_HANDOFF_GUIDE.md](#file-ai_handoff_guidemd) - System-wide AI workflow
 - **System principles** → [/WORKING_PRINCIPLES.md](#file-working_principlesmd) - Overall philosophy
 - **Root context** → [/CONTEXT_RECOVERY.md](#file-context_recoverymd) - System state
@@ -3709,6 +3716,7 @@ You are not trying to solve this alone. You are:
 *Your role:* Create sortable HTML table for human review
 
 ```bash
+# Historical scripts (now in archive/experimental/)
 python3 generate_batch_data.py          # Select next 25 people
 python3 generate_phase4b2_table.py      # Create HTML interface
 ```
@@ -3795,8 +3803,8 @@ python3 execute_roundN_actions.py       # N = current round number
 
 *Your role:* Update documentation and commit changes
 
-*What to do:*
-1. Update PHASE4B2_PROGRESS_REPORT.md with round results
+*What to do (historical):*
+1. Update progress report with round results
 2. Commit all changes with descriptive message
 3. Push to GitHub
 4. Update docs/CONTEXT_RECOVERY.md if significant change
@@ -3843,7 +3851,7 @@ python3 execute_roundN_actions.py       # N = current round number
 - Stop if parse_phase4b2_csv.py shows custom comments
 - Show results before asking for confirmation
 - Use transactions (rollback on error)
-- Document in PHASE4B2_PROGRESS_REPORT.md
+- Document in progress report
 - Update CONTEXT_RECOVERY.md if state changed significantly
 
 #### Troubleshooting
@@ -3889,16 +3897,15 @@ python3 parse_phase4b2_csv.py <csv_file>
 python3 execute_roundN_actions.py
 ```
 
-**Files:**
-- `generate_batch_data.py` - Select next 25 people
-- `generate_phase4b2_table.py` - Create HTML review interface
-- `parse_phase4b2_csv.py` - Parse decisions, flag custom comments
-- `execute_roundN_actions.py` - Execute approved actions
-- `add_to_airtable.py` - Reusable Airtable addition module
-- `gmail_research.py` - Gmail context retrieval
-- `PHASE4B2_PROGRESS_REPORT.md` - 8-round analysis
+**Files (all now in archive/):**
+- `experimental/generate_batch_data.py` - Select next 25 people (archived)
+- `experimental/generate_phase4b2_table.py` - HTML review interface (archived)
+- `experimental/parse_phase4b2_csv.py` - Parse decisions (archived)
+- Past batch execution scripts (archived)
+- **PAST_LEARNINGS.md** - 300+ patterns (ACTIVE - used for future work)
+- `superseded_docs/PHASE4B2_PROGRESS_REPORT.md` - 11-batch analysis (archived)
 
-**Key Insight:** This workflow represents significant learning from 8 rounds. The patterns discovered (phone numbers, devices, organizations) are now codified. Future rounds should be smoother.
+**Key Insight:** This workflow represents significant learning from 11 batches (650+ participants). The patterns discovered (phone numbers, devices, organizations) are now codified in PAST_LEARNINGS.md. See /future_discipline/ for architectural proposals.
 
 **Back to:** [integration_scripts/README.md](#file-integration_scriptsreadmemd) | [/README.md](#file-readmemd)
 

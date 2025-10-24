@@ -1,10 +1,16 @@
-# integration_scripts/AI_WORKFLOW_GUIDE.md
+# integration_scripts/archive/superseded_docs/AI_WORKFLOW_GUIDE.md
+
+**Status:** ⚠️ HISTORICAL DOCUMENT - Phase 4B-2 completed Oct 23, 2025
+
+This document is preserved for reference but describes a completed workflow. For current work, see Phase 5T documentation or future_discipline/ for lessons learned.
+
+---
 
 ### 1. Overview
 
-**For:** AI assistants stepping into Phase 4B-2 mid-stream  
-**Purpose:** Make the human-AI collaboration workflow explicit  
-**Audience:** A "naive AI" without conversation history
+**Purpose:** Historical guide for Phase 4B-2 collaborative review workflow (COMPLETED Oct 23, 2025)  
+**Audience:** Reference for future similar workflows  
+**Note:** This workflow is complete. See /future_discipline/ for lessons learned.
 
 **Mental Model: What This Process Is**
 
@@ -27,26 +33,26 @@ You are not trying to solve this alone. You are:
 
 ### 2. Orientation - Where to Find What
 
-**You are at:** integration_scripts AI workflow guide (Phase 4B-2 specific)
+**You are at:** Historical AI workflow guide (Phase 4B-2 - COMPLETED)
 
 **Use this when:**
-- Resuming Phase 4B-2 collaborative review work
-- Understanding the human-AI workflow
-- Learning what requires human approval
-- Troubleshooting workflow issues
+- Understanding how Phase 4B-2 worked (historical reference)
+- Designing similar collaborative workflows
+- Learning from completed human-AI collaboration
+- Reference for future Phase 4C work
 
 **What you might need:**
-- **Parent component** → [README.md](README.md) - integration_scripts overview
-- **Phase progress** → PHASE4B2_PROGRESS_REPORT.md - 8-round analysis
-- **General AI guidance** → [/AI_HANDOFF_GUIDE.md](../AI_HANDOFF_GUIDE.md) - System-wide AI workflow
-- **System principles** → [/WORKING_PRINCIPLES.md](../WORKING_PRINCIPLES.md) - Overall philosophy
-- **Root context** → [/CONTEXT_RECOVERY.md](../CONTEXT_RECOVERY.md) - System state
+- **Parent component** → [README.md](../../README.md) - integration_scripts overview
+- **Phase progress** → archive/superseded_docs/PHASE4B2_PROGRESS_REPORT.md - 11-batch analysis (archived)
+- **General AI guidance** → [/AI_HANDOFF_GUIDE.md](../../../AI_HANDOFF_GUIDE.md) - System-wide AI workflow
+- **System principles** → [/WORKING_PRINCIPLES.md](../../../WORKING_PRINCIPLES.md) - Overall philosophy
+- **Root context** → [/CONTEXT_RECOVERY.md](../../../CONTEXT_RECOVERY.md) - System state
 
 ### 3. Principles
 
-**System-wide:** See [/WORKING_PRINCIPLES.md](../WORKING_PRINCIPLES.md)
+**System-wide:** See [/WORKING_PRINCIPLES.md](../../../WORKING_PRINCIPLES.md)
 
-**General AI workflow:** See [/AI_HANDOFF_GUIDE.md](../AI_HANDOFF_GUIDE.md)
+**General AI workflow:** See [/AI_HANDOFF_GUIDE.md](../../../AI_HANDOFF_GUIDE.md)
 
 **Phase 4B-2 specific principles:**
 
@@ -84,6 +90,7 @@ You are not trying to solve this alone. You are:
 *Your role:* Create sortable HTML table for human review
 
 ```bash
+# Historical scripts (now in archive/experimental/)
 python3 generate_batch_data.py          # Select next 25 people
 python3 generate_phase4b2_table.py      # Create HTML interface
 ```
@@ -170,8 +177,8 @@ python3 execute_roundN_actions.py       # N = current round number
 
 *Your role:* Update documentation and commit changes
 
-*What to do:*
-1. Update PHASE4B2_PROGRESS_REPORT.md with round results
+*What to do (historical):*
+1. Update progress report with round results
 2. Commit all changes with descriptive message
 3. Push to GitHub
 4. Update docs/CONTEXT_RECOVERY.md if significant change
@@ -218,7 +225,7 @@ python3 execute_roundN_actions.py       # N = current round number
 - Stop if parse_phase4b2_csv.py shows custom comments
 - Show results before asking for confirmation
 - Use transactions (rollback on error)
-- Document in PHASE4B2_PROGRESS_REPORT.md
+- Document in progress report
 - Update CONTEXT_RECOVERY.md if state changed significantly
 
 #### Troubleshooting
@@ -264,15 +271,14 @@ python3 parse_phase4b2_csv.py <csv_file>
 python3 execute_roundN_actions.py
 ```
 
-**Files:**
-- `generate_batch_data.py` - Select next 25 people
-- `generate_phase4b2_table.py` - Create HTML review interface
-- `parse_phase4b2_csv.py` - Parse decisions, flag custom comments
-- `execute_roundN_actions.py` - Execute approved actions
-- `add_to_airtable.py` - Reusable Airtable addition module
-- `gmail_research.py` - Gmail context retrieval
-- `PHASE4B2_PROGRESS_REPORT.md` - 8-round analysis
+**Files (all now in archive/):**
+- `experimental/generate_batch_data.py` - Select next 25 people (archived)
+- `experimental/generate_phase4b2_table.py` - HTML review interface (archived)
+- `experimental/parse_phase4b2_csv.py` - Parse decisions (archived)
+- Past batch execution scripts (archived)
+- **PAST_LEARNINGS.md** - 300+ patterns (ACTIVE - used for future work)
+- `superseded_docs/PHASE4B2_PROGRESS_REPORT.md` - 11-batch analysis (archived)
 
-**Key Insight:** This workflow represents significant learning from 8 rounds. The patterns discovered (phone numbers, devices, organizations) are now codified. Future rounds should be smoother.
+**Key Insight:** This workflow represents significant learning from 11 batches (650+ participants). The patterns discovered (phone numbers, devices, organizations) are now codified in PAST_LEARNINGS.md. See /future_discipline/ for architectural proposals.
 
-**Back to:** [integration_scripts/README.md](README.md) | [/README.md](../README.md)
+**Back to:** [integration_scripts/README.md](../../README.md) | [/README.md](../../../README.md)
