@@ -1,0 +1,744 @@
+[
+  {
+    "variant": "Belizey",
+    "target": "Mbilizi Kalombo",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 28 - name variant already resolved"
+  },
+  {
+    "variant": "Dr. Sanmi O.",
+    "target": "Sanmi Olowosile",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Strip 'Dr.' title, expand 'O.' to Olowosile (created during execution)"
+  },
+  {
+    "variant": "Duane Norris",
+    "target": "Duane Norris",
+    "action": "ADD_TO_AIRTABLE",
+    "confidence": "HIGH",
+    "reasoning": "Full name, 2 TH attendances - add as member"
+  },
+  {
+    "variant": "Folorunsho Dayo Oluwafemi",
+    "target": "Folorunsho Dayo Oluwafemi",
+    "action": "MARK_VALIDATED",
+    "confidence": "HIGH",
+    "reasoning": "Already canonical form - just needs validated_by_airtable=1"
+  },
+  {
+    "variant": "Frederic Jennings, www.bio4climate.org",
+    "target": "Fred Jennings",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Name variant Frederic\u2192Fred, strip website suffix. 5 TH attendances"
+  },
+  {
+    "variant": "Geoffrey Kwala",
+    "target": "Geofrey Kwala",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 533 - spelling variant (96% match)"
+  },
+  {
+    "variant": "Geoffrey Kwala (3)",
+    "target": "Geofrey Kwala",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant of above"
+  },
+  {
+    "variant": "Geoffrey Kwala (5)",
+    "target": "Geofrey Kwala",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant of above"
+  },
+  {
+    "variant": "George",
+    "target": "George Karwani",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 479 - resolved in past CSVs as George Karwani"
+  },
+  {
+    "variant": "George (5)",
+    "target": "George Karwani",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant of George \u2192 George Karwani"
+  },
+  {
+    "variant": "George (Yogi Karwa)",
+    "target": "George Karwani",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Person in parentheses pattern - base name George \u2192 George Karwani per PAST_LEARNINGS"
+  },
+  {
+    "variant": "George K.",
+    "target": "George Karwani",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 479 - resolved in past CSVs as George Karwani"
+  },
+  {
+    "variant": "George Karwani-Tanzania",
+    "target": "George Karwani",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Location suffix pattern - strip '-Tanzania'"
+  },
+  {
+    "variant": "Gerardo",
+    "target": "Gerardo Martinez",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 536 - Town Hall agenda (GALA)"
+  },
+  {
+    "variant": "Global Earth Repair",
+    "target": "Michael Pilarski",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Organization \u2192 person. PAST_LEARNINGS line 225, 242. 19 TH attendances - significant history"
+  },
+  {
+    "variant": "Indy",
+    "target": "Indy Singh",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 45 - RESOLVED 5+ TIMES! Single name variant"
+  },
+  {
+    "variant": "Indy Rishi Singh",
+    "target": "Indy Singh",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Full name variant with middle name Rishi"
+  },
+  {
+    "variant": "Ir Marius",
+    "target": "Marius Iragi Ziganara",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 244 - Marius \u2192 Marius Iragi Ziganara, 'Ir' prefix variant"
+  },
+  {
+    "variant": "Ir Marius (3)",
+    "target": "Marius Iragi Ziganara",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant of above"
+  },
+  {
+    "variant": "Ir Marius Z",
+    "target": "Marius Iragi Ziganara",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Variant with 'Ir' prefix and 'Z' initial for Ziganara"
+  },
+  {
+    "variant": "Jan Dietrick & Ron Whitehurst, BugFarm, Ventura, CA",
+    "target": "Jan Dietrick",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Two-person entry with org/location suffix. Extract first person: Jan Dietrick"
+  },
+  {
+    "variant": "Jan Dietrick, W Ventura",
+    "target": "Jan Dietrick",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 321 - organization suffix pattern"
+  },
+  {
+    "variant": "Jeremiah",
+    "target": "Jeremiah Baumann",
+    "action": "MERGE",
+    "confidence": "NEEDS_USER",
+    "reasoning": "Single first name - need to investigate. Checking for Jeremiah in Airtable or past records"
+  },
+  {
+    "variant": "Jimmy",
+    "target": "Jimmy Pryor",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 47 - resolved in Batch 11"
+  },
+  {
+    "variant": "Jme Conway",
+    "target": "Jamie Conway",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 534 - nickname (90% match)"
+  },
+  {
+    "variant": "John Dennis Liu (3)",
+    "target": "John Dennis Liu",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant - strip (3)"
+  },
+  {
+    "variant": "john Magugu (3)",
+    "target": "John Magugu",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Case normalization + number variant"
+  },
+  {
+    "variant": "John's iPhone",
+    "target": null,
+    "action": "REMOVE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 498 - Device names \u2192 drop (can't reliably determine owner)"
+  },
+  {
+    "variant": "jon",
+    "target": "Jon Schull",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Single first name variant \u2192 Jon Schull (per PAST_LEARNINGS line 102)"
+  },
+  {
+    "variant": "Jon Schull (Enabling The Future)",
+    "target": "Jon Schull",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Parenthetical suffix pattern - extract base name"
+  },
+  {
+    "variant": "Jon Schull, EcoRestoration Alliance",
+    "target": "Jon Schull",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Organization suffix pattern - extract base name"
+  },
+  {
+    "variant": "Jon Schull, EcoRestoration Alliance (2)",
+    "target": "Jon Schull",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant of above"
+  },
+  {
+    "variant": "Jon Schull, EcoRestoration Alliance (7)",
+    "target": "Jon Schull",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant of above"
+  },
+  {
+    "variant": "Josean's iPhone",
+    "target": null,
+    "action": "REMOVE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 488, 498 - Device names \u2192 drop (can't reliably determine owner)"
+  },
+  {
+    "variant": "Josean's iPhone (11)",
+    "target": null,
+    "action": "REMOVE",
+    "confidence": "HIGH",
+    "reasoning": "Device name number variant \u2192 drop"
+  },
+  {
+    "variant": "Joshua Laizer (4)",
+    "target": "Joshua Laizer",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant - strip (4)"
+  },
+  {
+    "variant": "Joshua Laizer (7)",
+    "target": "Joshua Laizer",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant - strip (7)"
+  },
+  {
+    "variant": "JP",
+    "target": "John Perlin",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 50 - initials resolved in Batch 11"
+  },
+  {
+    "variant": "Juan from Panama",
+    "target": "Juan Bernal",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Location suffix pattern - likely Juan Bernal from Panama team"
+  },
+  {
+    "variant": "Judith D. Schwartz",
+    "target": "Judith D. Schwartz",
+    "action": "ADD_TO_AIRTABLE",
+    "confidence": "HIGH",
+    "reasoning": "Full name with middle initial, 1 TH attendance - add as member"
+  },
+  {
+    "variant": "juliet",
+    "target": "Juliet Millican",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Single first name variant - previously identified in session (case 158)"
+  },
+  {
+    "variant": "Justin R-S\u00f6ndergaard",
+    "target": "Justin Ritchie",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Name variant - hyphenated surname variant"
+  },
+  {
+    "variant": "Justin Ritchie (3)",
+    "target": "Justin Ritchie",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant - strip (3)"
+  },
+  {
+    "variant": "Kaluki Paul Mutuku (2)",
+    "target": "Kaluki Paul Mutuku",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant - strip (2)"
+  },
+  {
+    "variant": "Kaluki Paul Mutuku (4)",
+    "target": "Kaluki Paul Mutuku",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant - strip (4)"
+  },
+  {
+    "variant": "Katrina Jeffries (5)",
+    "target": "Katrina Jeffries",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant - strip (5)"
+  },
+  {
+    "variant": "Kethia",
+    "target": "Kethia Toussaint",
+    "action": "MERGE",
+    "confidence": "NEEDS_USER",
+    "reasoning": "Single first name - likely Kethia Toussaint based on ERA Africa context"
+  },
+  {
+    "variant": "Kim Chapple",
+    "target": "Kim Chapple",
+    "action": "ADD_TO_AIRTABLE",
+    "confidence": "HIGH",
+    "reasoning": "Full name, 1 TH attendance - add as member"
+  },
+  {
+    "variant": "Leonard",
+    "target": "Leonard Iyamureme",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Single first name \u2192 full name. Leonard Iyamureme found in next entry with 21 TH attendances"
+  },
+  {
+    "variant": "Leonard IYAMUREME",
+    "target": "Leonard Iyamureme",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Normalize to title case. 21 TH attendances - merge all caps variant to proper case"
+  },
+  {
+    "variant": "Leonard IYAMUREME (10)",
+    "target": "Leonard Iyamureme",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant, normalize to title case"
+  },
+  {
+    "variant": "Leonard IYAMUREME (3)",
+    "target": "Leonard Iyamureme",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant, normalize to title case"
+  },
+  {
+    "variant": "Leonce",
+    "target": "Leonce Bulonze",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 49 - resolved in Batch 11"
+  },
+  {
+    "variant": "Leonce (2)",
+    "target": "Leonce Bulonze",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant of Leonce \u2192 Leonce Bulonze"
+  },
+  {
+    "variant": "Leonce Bulonze (2)",
+    "target": "Leonce Bulonze",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant - strip (2)"
+  },
+  {
+    "variant": "Leticia Bernardes - explorer.land by OpenForests",
+    "target": "Leticia Bernardes",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Organization suffix pattern - extract person, strip '- explorer.land by OpenForests'"
+  },
+  {
+    "variant": "Loren Miller",
+    "target": "Loren Miller",
+    "action": "MARK_VALIDATED",
+    "confidence": "HIGH",
+    "reasoning": "Already processed in previous session (case 111) as ADD_TO_AIRTABLE, just needs validation flag"
+  },
+  {
+    "variant": "Maarten Klop (3)",
+    "target": "Maarten Klop",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant - strip (3)"
+  },
+  {
+    "variant": "Majd Thabit",
+    "target": "Majd Thabit",
+    "action": "MARK_VALIDATED",
+    "confidence": "HIGH",
+    "reasoning": "Already processed in previous session (target for 'majd'), just needs validation flag"
+  },
+  {
+    "variant": "Marcel de Berg (4)",
+    "target": "Marcel de Berg",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant - strip (4)"
+  },
+  {
+    "variant": "MARIUS IRAGI (4)",
+    "target": "Marius Iragi Ziganara",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant, normalize to title case - Marius Iragi Ziganara"
+  },
+  {
+    "variant": "Mark",
+    "target": "Mark Frederiks",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 48 - resolved in Batch 11"
+  },
+  {
+    "variant": "Mark Frederiks",
+    "target": "Mark Frederiks",
+    "action": "MARK_VALIDATED",
+    "confidence": "HIGH",
+    "reasoning": "Canonical form created during previous execution, just needs validation flag"
+  },
+  {
+    "variant": "Mark Haubner, Long Island, NY",
+    "target": "Mark Haubner",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Location suffix pattern - strip ', Long Island, NY'"
+  },
+  {
+    "variant": "Mbakire hajira (2)",
+    "target": "Mbakire hajira",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant - PAST_LEARNINGS line 247: separate person from Mayaya Mack, ERA Africa member"
+  },
+  {
+    "variant": "Mbakire hajira (4)",
+    "target": "Mbakire hajira",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant - separate person, ERA Africa member"
+  },
+  {
+    "variant": "Michael",
+    "target": null,
+    "action": "REMOVE",
+    "confidence": "HIGH",
+    "reasoning": "Single name, unable to identify after investigation. 1 TH attendance - remove per user"
+  },
+  {
+    "variant": "Monifa Maat \"The Healthy Motivator\"",
+    "target": "Monifa Maat",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 510-514 - strip tagline and quotes"
+  },
+  {
+    "variant": "Mooyoung Han",
+    "target": "Mooyoung Han",
+    "action": "MARK_VALIDATED",
+    "confidence": "HIGH",
+    "reasoning": "Canonical form created as target during previous execution, just needs validation flag"
+  },
+  {
+    "variant": "MOSES",
+    "target": "Moses Ojunju",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 299 - found via email search (GFCCA). Normalize to title case"
+  },
+  {
+    "variant": "MOSES, GFCCA",
+    "target": "Moses Ojunju",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Organization suffix pattern + normalize to title case. Moses Ojunju (GFCCA)"
+  },
+  {
+    "variant": "MOSES, GFCCA (2)",
+    "target": "Moses Ojunju",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant of above"
+  },
+  {
+    "variant": "MOSES, GFCCA (5)",
+    "target": "Moses Ojunju",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant of above"
+  },
+  {
+    "variant": "Mtokani Saleh (5)",
+    "target": "Mtokani Saleh",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant - strip (5)"
+  },
+  {
+    "variant": "Mtokani Saleh (6)",
+    "target": "Mtokani Saleh",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant - strip (6)"
+  },
+  {
+    "variant": "Mtokani Saleh (9)",
+    "target": "Mtokani Saleh",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant - strip (9)"
+  },
+  {
+    "variant": "MUTASA BRIAN (2)",
+    "target": "Mutasa Brian",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant, normalize to title case"
+  },
+  {
+    "variant": "MUTASA BRIAN (3)",
+    "target": "Mutasa Brian",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant, normalize to title case"
+  },
+  {
+    "variant": "Nabil Chaib-draa",
+    "target": "Nabil Chaib Draa",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 42, 492 - hyphen variant, canonical is with spaces"
+  },
+  {
+    "variant": "Nabil Chaibdraa",
+    "target": "Nabil Chaib Draa",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 43, 493 - no hyphen variant, canonical is with spaces"
+  },
+  {
+    "variant": "Nikko",
+    "target": "Nikolas Pierlejewski",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Nickname variant from previous session (case 159)"
+  },
+  {
+    "variant": "Nkwi Flores",
+    "target": "Nawi Flores",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 304 - typo (90% fuzzy match)"
+  },
+  {
+    "variant": "Nyaguthii",
+    "target": "Nyaguthii Chege",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 538 - Town Hall agenda"
+  },
+  {
+    "variant": "Orbis Expeditions",
+    "target": "James Arnott",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 558 - Organization \u2192 person (james@orbis-expeditions.com)"
+  },
+  {
+    "variant": "Ousman Pame",
+    "target": "Ousman Pame",
+    "action": "MARK_VALIDATED",
+    "confidence": "HIGH",
+    "reasoning": "Canonical form created as target during previous execution, just needs validation flag"
+  },
+  {
+    "variant": "Patrick",
+    "target": "Patrick Geary",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 537 - Town Hall agenda"
+  },
+  {
+    "variant": "Peter / Erica",
+    "target": "Erica Gies",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 489 - Two-person entry, extract the one still active"
+  },
+  {
+    "variant": "Philip Bogdonoff, Bio4Climate.org",
+    "target": "Philip Bogdonoff",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Organization/website suffix pattern - strip ', Bio4Climate.org'"
+  },
+  {
+    "variant": "Poyom",
+    "target": "Poyom Riles",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 540 - Town Hall agenda"
+  },
+  {
+    "variant": "Rob De Laet (4)",
+    "target": "Rob De Laet",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant - strip (4)"
+  },
+  {
+    "variant": "Rob De Laet (7)",
+    "target": "Rob De Laet",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant - strip (7)"
+  },
+  {
+    "variant": "Rob Lewis, northwest Washington, Salish Sea",
+    "target": "Rob Lewis",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Location suffix pattern - strip geographic metadata"
+  },
+  {
+    "variant": "Rob Lewis, Skagit River Watershed",
+    "target": "Rob Lewis",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 322 - organization suffix pattern"
+  },
+  {
+    "variant": "Rochelle",
+    "target": "Rochelle Bell",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Single name. PAST_LEARNINGS line 241: MC Planning \u2192 Rochelle Bell"
+  },
+  {
+    "variant": "Rodger",
+    "target": "Rodger Savory",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 490 - resolved with user guidance"
+  },
+  {
+    "variant": "Rodger Savory Esq.",
+    "target": "Rodger Savory",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Strip title suffix 'Esq.'"
+  },
+  {
+    "variant": "Russ Speer (2)",
+    "target": "Russ Speer",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant - strip (2)"
+  },
+  {
+    "variant": "Russ Speer (3)",
+    "target": "Russ Speer",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant - strip (3)"
+  },
+  {
+    "variant": "Russ Speer (9)",
+    "target": "Russ Speer",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Number variant - strip (9)"
+  },
+  {
+    "variant": "Samuel Ombeni",
+    "target": "Samuel Ombeni",
+    "action": "MARK_VALIDATED",
+    "confidence": "HIGH",
+    "reasoning": "Canonical spelling 'Ombeni' (not 'Obeni' per user note). Just needs validation flag"
+  },
+  {
+    "variant": "Sandra",
+    "target": "Sandra Garcia",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 539 - Town Hall agenda (Bay Area)"
+  },
+  {
+    "variant": "sheil001",
+    "target": "Douglas Sheil",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 40, 491 - username pattern resolved with user guidance"
+  },
+  {
+    "variant": "Victoria Zelin & Jonathan Cloud",
+    "target": "Victoria Zelin Cloud",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Two-person entry - Victoria Zelin Cloud is the combined name in Airtable"
+  },
+  {
+    "variant": "Victoria Zelin-Cloud",
+    "target": "Victoria Zelin Cloud",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "Hyphen variant - canonical is with space per PAST_LEARNINGS line 340"
+  },
+  {
+    "variant": "Yuri Herzfeld",
+    "target": "Iuri Herzfled",
+    "action": "MERGE",
+    "confidence": "HIGH",
+    "reasoning": "PAST_LEARNINGS line 532 - Name variant (Yuri/Iuri)"
+  },
+  {
+    "variant": "Zach Weis",
+    "target": "Zach Weis",
+    "action": "MARK_VALIDATED",
+    "confidence": "HIGH",
+    "reasoning": "Canonical form created as target during previous execution (Water Stories, Zach (3)), just needs validation flag"
+  }
+]
