@@ -199,7 +199,7 @@
 *Phase 5T: Town Hall Visualization* 🎯 READY (3-4 hours)
 - Goal: Export TH meetings as connected chain in landscape
 - Readiness: Phase 4B-2 COMPLETE, script reinstated, ready to execute
-- Script: `integration_scripts/export_townhalls_to_landscape.py`
+- Script: `integration_scripts/participant_reconciliation/export_townhalls_to_landscape.py`
 - Actions:
   1. Query enriched participants from Fathom DB
   2. Format as project nodes (meetings) + person nodes + edges
@@ -276,7 +276,7 @@ python validate_townhall_attendance.py
 **Update Landscape Visualization:**
 ```bash
 # Phase 5T script (when ready)
-cd integration_scripts
+cd integration_scripts/participant_reconciliation
 python export_townhalls_to_landscape.py
 # Writes to Google Sheet → Landscape updates automatically
 ```
@@ -315,10 +315,12 @@ ERA_Admin/
 │       ├── validate_townhall_attendance.py (Airtable comparison)
 │       └── townhall_validation_report.md   (baseline: 61.5% match rate)
 │
-├── integration_scripts/         ← Phase 4-5
-│   ├── phase4b1_enrich_from_airtable.py  (Phase 4B-1 ✅ Complete)
-│   ├── export_townhalls_to_landscape.py  (Phase 5T - READY)
-│   └── PAST_LEARNINGS.md                 (300+ patterns from Phase 4B-2)
+├── integration_scripts/         ← Integration workflows
+│   ├── README.md                         (Integration types overview)
+│   └── participant_reconciliation/       (Fathom ↔ Airtable)
+│       ├── phase4b1_enrich_from_airtable.py  (Phase 4B-1 ✅)
+│       ├── export_townhalls_to_landscape.py  (Phase 5T - READY)
+│       └── PAST_LEARNINGS.md                 (300+ patterns)
 │
 └── future_discipline/          ← Experimental learnings
     ├── README.md                         (Overview & guidance)

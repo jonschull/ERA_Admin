@@ -1,0 +1,2002 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Town Hall Participant Member Review</title>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        .stats {
+            color: #666;
+            font-size: 14px;
+        }
+        .controls {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        button.secondary {
+            background: #6c757d;
+        }
+        button.secondary:hover {
+            background: #545b62;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        th {
+            background: #f8f9fa;
+            padding: 12px 8px;
+            text-align: left;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 2px solid #dee2e6;
+            cursor: pointer;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        th:hover {
+            background: #e9ecef;
+        }
+        td {
+            padding: 12px 8px;
+            border-bottom: 1px solid #dee2e6;
+            vertical-align: top;
+        }
+        tr:hover {
+            background: #f8f9fa;
+        }
+        .validated {
+            color: #28a745;
+            font-weight: 600;
+        }
+        .not-validated {
+            color: #dc3545;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .meetings {
+            font-size: 12px;
+            color: #666;
+        }
+        .meeting-item {
+            margin: 4px 0;
+            padding: 4px;
+            background: #f8f9fa;
+            border-radius: 3px;
+        }
+        .email-count {
+            font-weight: 600;
+            color: #007bff;
+        }
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 4px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .check-all {
+            margin-left: 10px;
+            font-size: 14px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="header">
+        <h1>🎯 Town Hall Participant Member Review</h1>
+        <div class="stats">
+            <strong>135</strong> non-member Town Hall participants to review
+            <br>Review organizational affiliations and participation patterns to decide membership status
+        </div>
+        <div style="margin-top: 10px; color: #666; font-size: 13px;">
+            <strong>Pattern:</strong> Actionable HTML - Rich context + Human decisions + CSV export
+        </div>
+    </div>
+    
+    <div class="controls">
+        <button onclick="exportToCSV()">📥 Export Decisions to CSV</button>
+        <button class="secondary" onclick="checkAll()">☑️ Check All</button>
+        <button class="secondary" onclick="uncheckAll()">☐ Uncheck All</button>
+        <span style="margin-left: 20px; color: #666;">
+            Selected: <strong id="selectedCount">0</strong> / 135
+        </span>
+    </div>
+    
+    <table id="reviewTable">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">✓ Make<br>Member</th>
+                <th onclick="sortTable(1)">Name</th>
+                <th onclick="sortTable(2)">Status</th>
+                <th onclick="sortTable(3)">Organization</th>
+                <th onclick="sortTable(4)">TH Attendance</th>
+                <th onclick="sortTable(5)">Email<br>History</th>
+                <th onclick="sortTable(6)">Contact Info</th>
+                <th onclick="sortTable(7)">Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr data-pid="2634" data-name="Abigail Castle">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Abigail Castle</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Recent graduate of George Mason University with a bachelor's in environmental science</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-07-31 - <a href="https://fathom.video/share/i1gcZD_whDRnrr268zn8ssyis-aTZyr9?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Abigail+Castle" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="337" data-name="Adrian Roebke">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Adrian Roebke</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-11-13 - <a href="https://fathom.video/share/bnqvnyfNXF9xhNxSc3fqTRY7KrM3vWc5?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Adrian+Roebke" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style='font-size: 11px; color: #666;'>adrian.roebke@posteo.net</span><br><a href='https://airtable.com' target='_blank'>🗃️ Airtable</a></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2595" data-name="Agri-Tech Producers LLC, Joe James">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Agri-Tech Producers LLC, Joe James</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Agri-Tech Producers LLC, ecorestoration alliance</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-05-14 - <a href="https://fathom.video/share/EYYy5yJc1HxVRBWtoK-tNbextMvfhzR4?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Agri-Tech+Producers+LLC,+Joe+James" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="96" data-name="Alfredo Quarto">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Alfredo Quarto</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Unknown</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-05-14 - <a href="https://fathom.video/share/EYYy5yJc1HxVRBWtoK-tNbextMvfhzR4?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Alfredo+Quarto" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><a href='https://airtable.com' target='_blank'>🗃️ Airtable</a></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2637" data-name="Allison Wu">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Allison Wu</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>AIML scientist, climate tech consultant</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-06-19 - <a href="https://fathom.video/share/yfHQbLa9x1GGfusW1en_gxXApY8YuWf9?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Allison+Wu" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2384" data-name="aniqa Locations: Bangladesh, Egypt, Sikkim">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>aniqa Locations: Bangladesh, Egypt, Sikkim</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Technology consulting, Ecorestoration Alliance (ERA)</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-02-14 - <a href="https://fathom.video/share/L2V2iyAGPe8iMMdUJrDM8cxsZqzzLu9z?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/aniqa+Locations:+Bangladesh,+Egypt,+Sikkim" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><a href='https://airtable.com' target='_blank'>🗃️ Airtable</a></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="414" data-name="Bill Reed">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Bill Reed</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Regenesis, regenerative development and design</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-08-21 - <a href="https://fathom.video/share/3MEMgX_G1hHaab-P9s1WhJGeTVw51EVo?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Bill+Reed" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style='font-size: 11px; color: #666;'>bill@regenesisgroup.com</span><br><a href='https://airtable.com' target='_blank'>🗃️ Airtable</a></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2268" data-name="craig">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>craig</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>HarvestCraft, Center for Agroecology</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-06-19 - <a href="https://fathom.video/share/yfHQbLa9x1GGfusW1en_gxXApY8YuWf9?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/craig" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2613" data-name="Dawn Carroll-Nish">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Dawn Carroll-Nish</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Unknown</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-01-22 - <a href="https://fathom.video/share/96QQyajMBKGzfyLA7xRtevnsSKoF-u1W?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Dawn+Carroll-Nish" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2639" data-name="Dr. Sanmi Olowosile (3)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Dr. Sanmi Olowosile (3)</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>African network of green ambassadors, Sustainable Green Environment Initiative, Green Building Council in Nigeria</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-05-22 - <a href="https://fathom.video/share/4b-Z3URGmwVJzG549B6RHvaw6uAaqkX_?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Dr.+Sanmi+Olowosile+(3)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2646" data-name="Dumi (Joomi Vanda)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Dumi (Joomi Vanda)</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Entrepreneur, environmental sustainability and climate change projects</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-04-10 - <a href="https://fathom.video/share/RwzYqyzfXQjE8NaWGNZdmr2BKvhqaHne?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Dumi+(Joomi+Vanda)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2114" data-name="e-NABLE Events">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>e-NABLE Events</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Unknown</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-01-19 - <a href="https://fathom.video/share/bzkX_EBD8U_PqrPn9r9UTNpN7w-2AyJb?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/e-NABLE+Events" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="4" data-name="e-NABLE Events (3)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>e-NABLE Events (3)</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Unknown</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-01-19 - <a href="https://fathom.video/share/bzkX_EBD8U_PqrPn9r9UTNpN7w-2AyJb?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/e-NABLE+Events+(3)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2603" data-name="EcoAgriculture Partners">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>EcoAgriculture Partners</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Economist, founder of EcoAgriculture Partners, 1,000 Landscapes for 1 Billion People</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-03-19 - <a href="https://fathom.video/share/8FMPzU-SGoe3phszNqWocaRQScEx-u6z?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/EcoAgriculture+Partners" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="796" data-name="Frank">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Frank</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>FarmTree</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-09-13 - <a href="https://fathom.video/share/JLzRWNoRc8M5_z1o-fgw1yyPNTiqUgym?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Frank" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style='font-size: 11px; color: #666;'>frank@permaguide.com</span><br><a href='https://airtable.com' target='_blank'>🗃️ Airtable</a></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2594" data-name="George Sendero">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>George Sendero</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Unknown</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-06-11 - <a href="https://fathom.video/share/HQMbWNzZW-wPzHH9c8FxizRi9ThBEJ-F?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/George+Sendero" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2598" data-name="Graham Boyd - Evolutesix">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Graham Boyd - Evolutesix</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-04-30 - <a href="https://fathom.video/share/oraqzwzr44tMmxcKWtEpxJqKszyENGA9?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Graham+Boyd+-+Evolutesix" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2652" data-name="Grant Holton, MoreTreesNow.eco">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Grant Holton, MoreTreesNow.eco</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>MoreTreesNow.eco</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-02-28 - <a href="https://fathom.video/share/5nSPBszeDv3mtuvHyHBWDFRgX8KyG7ub?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Grant+Holton,+MoreTreesNow.eco" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2641" data-name="Grupo Ecológico Sierra Gorda I.A.P. (3)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Grupo Ecológico Sierra Gorda I.A.P. (3)</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Grupo Ecológico Sierra Gorda I.A.P.</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-05-22 - <a href="https://fathom.video/share/4b-Z3URGmwVJzG549B6RHvaw6uAaqkX_?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Grupo+Ecológico+Sierra+Gorda+I.A.P.+(3)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2663" data-name="Hart Hagen">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Hart Hagen</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Chair of Eco Restoration Alliance steering committee</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-01-17 - <a href="https://fathom.video/share/XK7bNYjdzu7XWyzzEH1UuW-9fbJAZG3i?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Hart+Hagen" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2631" data-name="Jake Fairbanks Kelley">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Jake Fairbanks Kelley</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Forterra</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-10-02 - <a href="https://fathom.video/share/DYuyr3v-xmJ3BUwnSi34skMszc4pUhr_?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Jake+Fairbanks+Kelley" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="108" data-name="Jeremy - Open Forest Protocol">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Jeremy - Open Forest Protocol</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Open Forest Protocol</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-04-30 - <a href="https://fathom.video/share/oraqzwzr44tMmxcKWtEpxJqKszyENGA9?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Jeremy+-+Open+Forest+Protocol" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2588" data-name="Jeremy Simon">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Jeremy Simon</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Unknown</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-01-19 - <a href="https://fathom.video/share/bzkX_EBD8U_PqrPn9r9UTNpN7w-2AyJb?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Jeremy+Simon" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2205" data-name="jim Bledsoe Napa California">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>jim Bledsoe Napa California</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-11-13 - <a href="https://fathom.video/share/bnqvnyfNXF9xhNxSc3fqTRY7KrM3vWc5?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/jim+Bledsoe+Napa+California" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2640" data-name="Joshua Konkankoh">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Joshua Konkankoh</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Very well Cameroon, African We</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-05-22 - <a href="https://fathom.video/share/4b-Z3URGmwVJzG549B6RHvaw6uAaqkX_?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Joshua+Konkankoh" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2682" data-name="Joshua Shepard">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Joshua Shepard</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Passionate about the environment, working on a project to build an online platform for regenerative businesses</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-07-19 - <a href="https://fathom.video/share/4L9UNxzsob5E_zwULWAM5wqJn2vwc-sv?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Joshua+Shepard" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2665" data-name="Juan José Pimento">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Juan José Pimento</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Executive Interim Director of Hydro Environmental Technology Innovation Research Center</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-11-08 - <a href="https://fathom.video/share/Ce-ykE6tLzosbgNaqbsNEKDAseZ6nqmb?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Juan+José+Pimento" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2246" data-name="Julia">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Julia</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Florida Oceanographic Society</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-09-04 - <a href="https://fathom.video/share/m-BtsizGPJKWYyGshimwzzuBPzk6b6XM?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Julia" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2253" data-name="KALOMBO-MBILIZI">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>KALOMBO-MBILIZI</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Social worker, social administration, refugee organization founder/director</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-08-21 - <a href="https://fathom.video/share/3MEMgX_G1hHaab-P9s1WhJGeTVw51EVo?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/KALOMBO-MBILIZI" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="421" data-name="Kathleen Groppe">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Kathleen Groppe</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-07-31 - <a href="https://fathom.video/share/i1gcZD_whDRnrr268zn8ssyis-aTZyr9?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Kathleen+Groppe" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2612" data-name="Kathryn Alexander, MA">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Kathryn Alexander, MA</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Soil Smart, Soil Wise</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-01-22 - <a href="https://fathom.video/share/96QQyajMBKGzfyLA7xRtevnsSKoF-u1W?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Kathryn+Alexander,+MA" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="616" data-name="Kethia Calixte">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Kethia Calixte</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Works with Redez</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-03-14 - <a href="https://fathom.video/share/dfSsrJYwkXrpNYxs5yPNx142n8x1m4wd?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Kethia+Calixte" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style='font-size: 11px; color: #666;'>kethia.calixte@gmail.com</span><br><a href='https://airtable.com' target='_blank'>🗃️ Airtable</a></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="23" data-name="Kwaxala / Pete">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Kwaxala / Pete</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Kwaxala</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-08-06 - <a href="https://fathom.video/share/WT6U2XeCkdSvzxRHzJCVQSUsyQ1HwsNt?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Kwaxala+/+Pete" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="464" data-name="Larry Kopald">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Larry Kopald</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-06-05 - <a href="https://fathom.video/share/q7XFo7vxZPZUvuJ-yKWa4QCHVoS7Laki?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Larry+Kopald" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="1603" data-name="Lastborn's Galaxy A11">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Lastborn's Galaxy A11</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-06-05 - <a href="https://fathom.video/share/q7XFo7vxZPZUvuJ-yKWa4QCHVoS7Laki?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Lastborn's+Galaxy+A11" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="475" data-name="Lastborn's Galaxy A11 (3)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Lastborn's Galaxy A11 (3)</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-06-05 - <a href="https://fathom.video/share/q7XFo7vxZPZUvuJ-yKWa4QCHVoS7Laki?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Lastborn's+Galaxy+A11+(3)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2673" data-name="Lee G">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Lee G</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Co-founder of Encino Conservancy</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-09-27 - <a href="https://fathom.video/share/aoqEJ3JcQxh-GxzcvxCTMAsHzT2fHGCz?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Lee+G" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="503" data-name="Leticia Bernardes">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Leticia Bernardes</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Open Forests</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-05-22 - <a href="https://fathom.video/share/4b-Z3URGmwVJzG549B6RHvaw6uAaqkX_?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Leticia+Bernardes" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style='font-size: 11px; color: #666;'>leticia.bernardes@openforests.com</span><br><a href='https://airtable.com' target='_blank'>🗃️ Airtable</a></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="889" data-name="Lisa Merton">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Lisa Merton</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Greenbelt Movement International</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-06-21 - <a href="https://fathom.video/share/f-v9AZTHEnia5ajs-7xzhB-qDge1JxyS?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Lisa+Merton" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2438" data-name="Maria Ehrnström-Fuentes">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Maria Ehrnström-Fuentes</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Researcher</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-09-13 - <a href="https://fathom.video/share/JLzRWNoRc8M5_z1o-fgw1yyPNTiqUgym?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Maria+Ehrnström-Fuentes" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="1938" data-name="Marius Iragi Ziganara">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Marius Iragi Ziganara</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Enabling The Future</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-09-13 - <a href="https://fathom.video/share/JLzRWNoRc8M5_z1o-fgw1yyPNTiqUgym?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Marius+Iragi+Ziganara" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style='font-size: 11px; color: #666;'>iragiziganira@gmail.com</span><br></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="1764" data-name="Mark Luckenbach">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Mark Luckenbach</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Writes behavior change programs for municipalities and nonprofits, trained in Community Based Social Marketing</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-11-27 - <a href="https://fathom.video/share/3WBhiRd81u9JhC2fGH7EC6A4Qhr7vKdz?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Mark+Luckenbach" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2445" data-name="melissamcgaughey">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>melissamcgaughey</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Volunteer with "Art and Science in One" program</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-08-30 - <a href="https://fathom.video/share/HG9uWLkyyfjG2tre-bbsXxjEyvmgjmsz?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/melissamcgaughey" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="143" data-name="Michael Haupt">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Michael Haupt</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Unknown</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-03-19 - <a href="https://fathom.video/share/8FMPzU-SGoe3phszNqWocaRQScEx-u6z?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Michael+Haupt" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="409" data-name="Michael Levin">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Michael Levin</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Harvard University, Tufts University</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-08-21 - <a href="https://fathom.video/share/3MEMgX_G1hHaab-P9s1WhJGeTVw51EVo?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Michael+Levin" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2135" data-name="Mike Lynn">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Mike Lynn</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-04-30 - <a href="https://fathom.video/share/oraqzwzr44tMmxcKWtEpxJqKszyENGA9?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Mike+Lynn" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2547" data-name="MOHAMMED ALKHALID">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>MOHAMMED ALKHALID</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>NetZero</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-02-05 - <a href="https://fathom.video/share/k2n4mRW6aFFLxLdT_zbHJ3JgZsDjkkz_?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/MOHAMMED+ALKHALID" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2118" data-name="Neal Spackman">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Neal Spackman</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Unknown</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-08-06 - <a href="https://fathom.video/share/WT6U2XeCkdSvzxRHzJCVQSUsyQ1HwsNt?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Neal+Spackman" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="405" data-name="Nima Schei">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Nima Schei</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Hummingbird's AI, Miami AI Club</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-09-04 - <a href="https://fathom.video/share/m-BtsizGPJKWYyGshimwzzuBPzk6b6XM?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Nima+Schei" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="382" data-name="Noah David">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Noah David</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Farm Rock Children's Helper</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-10-02 - <a href="https://fathom.video/share/DYuyr3v-xmJ3BUwnSi34skMszc4pUhr_?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Noah+David" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style='font-size: 11px; color: #666;'>dnoah5006@gmail.com</span><br><a href='https://airtable.com' target='_blank'>🗃️ Airtable</a></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2539" data-name="Paolo Nardi">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Paolo Nardi</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Unknown</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-02-05 - <a href="https://fathom.video/share/k2n4mRW6aFFLxLdT_zbHJ3JgZsDjkkz_?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Paolo+Nardi" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2203" data-name="Paulo de Carvalho">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Paulo de Carvalho</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Not listed</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-11-13 - <a href="https://fathom.video/share/s6n-pMqokzw6yb26PsHZSreyhkDuMDKs?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Paulo+de+Carvalho" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2313" data-name="Paulo Magalhães">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Paulo Magalhães</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Common Home of Humanity</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-04-10 - <a href="https://fathom.video/share/RwzYqyzfXQjE8NaWGNZdmr2BKvhqaHne?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Paulo+Magalhães" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="741" data-name="Richard Lukens">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Richard Lukens</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Unknown</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-10-25 - <a href="https://fathom.video/share/dGQv_RmFEmBndidX8EWuiysJtz68xHjU?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Richard+Lukens" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="487" data-name="robertopedrazaruiz">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>robertopedrazaruiz</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-05-22 - <a href="https://fathom.video/share/4b-Z3URGmwVJzG549B6RHvaw6uAaqkX_?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/robertopedrazaruiz" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2252" data-name="Samuel Obeni">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Samuel Obeni</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Unknown</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-08-21 - <a href="https://fathom.video/share/3MEMgX_G1hHaab-P9s1WhJGeTVw51EVo?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Samuel+Obeni" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="649" data-name="Sean Pettersen">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Sean Pettersen</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-01-31 - <a href="https://fathom.video/share/yHUb7DqvbzyeBk6ihy4EzsbesLxabG2e?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Sean+Pettersen" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="146" data-name="Sol Moran">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Sol Moran</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Unknown</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-03-19 - <a href="https://fathom.video/share/8FMPzU-SGoe3phszNqWocaRQScEx-u6z?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Sol+Moran" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style='font-size: 11px; color: #666;'>moran.broza@gmail.com</span><br><a href='https://airtable.com' target='_blank'>🗃️ Airtable</a></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2530" data-name="SteveApfelbaum">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>SteveApfelbaum</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-04-16 - <a href="https://fathom.video/share/CxBXTnVoMyRxcTkcMaovs3HBhPeZssu9?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/SteveApfelbaum" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="495" data-name="Thilo Herbst">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Thilo Herbst</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-05-22 - <a href="https://fathom.video/share/4b-Z3URGmwVJzG549B6RHvaw6uAaqkX_?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Thilo+Herbst" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style='font-size: 11px; color: #666;'>thilo.herbst@openforests.com</span><br><a href='https://airtable.com' target='_blank'>🗃️ Airtable</a></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2183" data-name="Verónica Giraldo">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Verónica Giraldo</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>Chief Partnerships Officer for Producer's Trust, board member of the Alliance of Latinos in Agriculture</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-11-27 - <a href="https://fathom.video/share/3WBhiRd81u9JhC2fGH7EC6A4Qhr7vKdz?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Verónica+Giraldo" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2296" data-name="William Wildcat">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>William Wildcat</strong></td>
+                <td class="validated">✅ Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-04-24 - <a href="https://fathom.video/share/VVAuC9yChYCXU2nkT2YES-kAPNJzRAoc?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/William+Wildcat" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2828" data-name="Belizey">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Belizey</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Involved with refugee aid and restoration projects</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-10-16 - <a href="https://fathom.video/share/cikyFYEBcKW_TGjsEoQPT-XZQHrTtFC_?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Belizey" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2810" data-name="bk">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>bk</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-11-13 - <a href="https://fathom.video/share/bnqvnyfNXF9xhNxSc3fqTRY7KrM3vWc5?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/bk" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2797" data-name="Charles">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Charles</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Decentralized water consultant, Abundant Earth Foundation</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-12-18 - <a href="https://fathom.video/share/y43cNrhAURYNzsrg3twig-xkHZQ5Pu87?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Charles" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2853" data-name="Dr. Sanmi O.">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Dr. Sanmi O.</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Represents Sustainable Green Environment Initiative, Nigerian hub of the Museum for the United Nations</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-03-14 - <a href="https://fathom.video/share/dfSsrJYwkXrpNYxs5yPNx142n8x1m4wd?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Dr.+Sanmi+O." target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2763" data-name="Ed">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Ed</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>ecorestoration alliance</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-05-14 - <a href="https://fathom.video/share/EYYy5yJc1HxVRBWtoK-tNbextMvfhzR4?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Ed" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2859" data-name="Folorunsho Dayo Oluwafemi (Dale)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Folorunsho Dayo Oluwafemi (Dale)</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Initiative for Climate Change and Renewable Energy Advocacy (ICCREA)</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-02-14 - <a href="https://fathom.video/share/L2V2iyAGPe8iMMdUJrDM8cxsZqzzLu9z?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Folorunsho+Dayo+Oluwafemi+(Dale)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2839" data-name="Folorunsho Dayo Oluwafemi (Founder ICCREA)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Folorunsho Dayo Oluwafemi (Founder ICCREA)</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-05-22 - <a href="https://fathom.video/share/4b-Z3URGmwVJzG549B6RHvaw6uAaqkX_?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Folorunsho+Dayo+Oluwafemi+(Founder+ICCREA)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2769" data-name="Frederic Jennings, www.bio4climate.org">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Frederic Jennings, www.bio4climate.org</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Bio4Climate.org</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-04-02 - <a href="https://fathom.video/share/8iktrP9qtRo7fwDBAdUyq2MUeyk7hYq-?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Frederic+Jennings,+www.bio4climate.org" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2794" data-name="Geoffrey Kwala (5)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Geoffrey Kwala (5)</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Unknown</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-01-08 - <a href="https://fathom.video/share/r2yszCP52gcgLbLwtqid7vDSMswkDfAK?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Geoffrey+Kwala+(5)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2854" data-name="George (Yogi Karwa)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>George (Yogi Karwa)</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Managing Director of Climate Smart Solutions</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-03-14 - <a href="https://fathom.video/share/dfSsrJYwkXrpNYxs5yPNx142n8x1m4wd?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/George+(Yogi+Karwa)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2887" data-name="George Karwani-Tanzania">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>George Karwani-Tanzania</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Climate Smart Solutions</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-09-13 - <a href="https://fathom.video/share/JLzRWNoRc8M5_z1o-fgw1yyPNTiqUgym?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/George+Karwani-Tanzania" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2815" data-name="Gerardo">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Gerardo</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>CEO of the Global Alliance of Latinos in Agriculture (GALA), full-time farmer</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-10-16 - <a href="https://fathom.video/share/cikyFYEBcKW_TGjsEoQPT-XZQHrTtFC_?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Gerardo" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2818" data-name="Indy">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Indy</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Works with Cosmic Labyrinth, involved with the California Donut Economics Coalition</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-11-27 - <a href="https://fathom.video/share/3WBhiRd81u9JhC2fGH7EC6A4Qhr7vKdz?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Indy" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2864" data-name="Indy Rishi Singh">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Indy Rishi Singh</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Cosmic Labyrinth</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-01-03 - <a href="https://fathom.video/share/prtrQa1FGKVAbWVzVEd3gyvh94V9g9Ay?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Indy+Rishi+Singh" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2867" data-name="Jan Dietrick & Ron Whitehurst, BugFarm, Ventura, CA">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Jan Dietrick & Ron Whitehurst, BugFarm, Ventura, CA</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>BugFarm</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-01-03 - <a href="https://fathom.video/share/prtrQa1FGKVAbWVzVEd3gyvh94V9g9Ay?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Jan+Dietrick+&+Ron+Whitehurst,+BugFarm,+Ventura,+CA" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2889" data-name="Jan Dietrick, W Ventura">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Jan Dietrick, W Ventura</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Rinconvitova Factories, "a bug farmer"</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-08-30 - <a href="https://fathom.video/share/HG9uWLkyyfjG2tre-bbsXxjEyvmgjmsz?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Jan+Dietrick,+W+Ventura" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2813" data-name="Jeremiah">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Jeremiah</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Involved in impact investing in regenerative agriculture, creating regenerative villages and healthy habitats, ecosystem restoration</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-10-16 - <a href="https://fathom.video/share/cikyFYEBcKW_TGjsEoQPT-XZQHrTtFC_?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Jeremiah" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2898" data-name="jim">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>jim</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Unknown</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-08-02 - <a href="https://fathom.video/share/aNiAxzRjXQW7shyxFds5az2phY-b2np6?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/jim" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2869" data-name="Jimmy">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Jimmy</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Works with Texas Master Naturalists, native plant people</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-01-03 - <a href="https://fathom.video/share/prtrQa1FGKVAbWVzVEd3gyvh94V9g9Ay?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Jimmy" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2788" data-name="Jme Conway">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Jme Conway</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Unknown</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-01-08 - <a href="https://fathom.video/share/r2yszCP52gcgLbLwtqid7vDSMswkDfAK?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Jme+Conway" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2773" data-name="John Dennis Liu (3)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>John Dennis Liu (3)</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Unknown</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-03-19 - <a href="https://fathom.video/share/8FMPzU-SGoe3phszNqWocaRQScEx-u6z?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/John+Dennis+Liu+(3)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2829" data-name="JP">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>JP</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Author</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-07-17 - <a href="https://fathom.video/share/p6AD_2kLN42adR132orXUyE24LgzQCRk?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/JP" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2873" data-name="Juan from Panama">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Juan from Panama</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Obama Fellow, Executive Director of Geiversity Panama's Ecological University</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-11-08 - <a href="https://fathom.video/share/Ce-ykE6tLzosbgNaqbsNEKDAseZ6nqmb?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Juan+from+Panama" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2791" data-name="Judith D. Schwartz">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Judith D. Schwartz</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>SoilCentric</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-01-08 - <a href="https://fathom.video/share/r2yszCP52gcgLbLwtqid7vDSMswkDfAK?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Judith+D.+Schwartz" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2871" data-name="Justin R-Söndergaard">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Justin R-Söndergaard</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Applied ecologist, small consultancy helping private landowners in Europe</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-12-20 - <a href="https://fathom.video/share/VFdPGGHo7ob5S-zqzsxDYY8an7L4Pafz?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Justin+R-Söndergaard" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2899" data-name="Justin Ritchie (3)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Justin Ritchie (3)</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Transition US</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-09-13 - <a href="https://fathom.video/share/JLzRWNoRc8M5_z1o-fgw1yyPNTiqUgym?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Justin+Ritchie+(3)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2868" data-name="Katrina Jeffries (5)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Katrina Jeffries (5)</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Works with Dr. Usman Palm, Eco Villages</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-01-03 - <a href="https://fathom.video/share/prtrQa1FGKVAbWVzVEd3gyvh94V9g9Ay?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Katrina+Jeffries+(5)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2855" data-name="Kethia">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Kethia</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Works with Redez</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-03-14 - <a href="https://fathom.video/share/dfSsrJYwkXrpNYxs5yPNx142n8x1m4wd?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Kethia" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2876" data-name="Kim Chapple">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Kim Chapple</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Bioregioning efforts in Great Lakes Bioregion, Turtle Island Institute</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-11-08 - <a href="https://fathom.video/share/Ce-ykE6tLzosbgNaqbsNEKDAseZ6nqmb?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Kim+Chapple" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2822" data-name="Leonard IYAMUREME (3)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Leonard IYAMUREME (3)</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Youth for Nature, Weefall Climate</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-10-30 - <a href="https://fathom.video/share/fcax26484UVR3x46a54pYEsw-atkLzhM?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Leonard+IYAMUREME+(3)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2841" data-name="Leticia Bernardes - explorer.land by OpenForests">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Leticia Bernardes - explorer.land by OpenForests</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Open Forests</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-05-22 - <a href="https://fathom.video/share/4b-Z3URGmwVJzG549B6RHvaw6uAaqkX_?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Leticia+Bernardes+-+explorer.land+by+OpenForests" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2807" data-name="Loren Miller">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Loren Miller</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Not listed</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-11-13 - <a href="https://fathom.video/share/s6n-pMqokzw6yb26PsHZSreyhkDuMDKs?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Loren+Miller" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2893" data-name="majd">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>majd</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Mechanical engineer working at the Elon Space Center, interested in collaborating with the Eco Restoration Alliance</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-08-16 - <a href="https://fathom.video/share/MgPtVLozFKnH-H_vQNyMEwysj3kUx4Qx?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/majd" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2802" data-name="Mark">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Mark</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Writes behavior change programs for municipalities and nonprofits, trained in Community Based Social Marketing</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-11-27 - <a href="https://fathom.video/share/3WBhiRd81u9JhC2fGH7EC6A4Qhr7vKdz?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Mark" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2781" data-name="Mark Haubner, Long Island, NY">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Mark Haubner, Long Island, NY</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-02-19 - <a href="https://fathom.video/share/HAnSeSgBx8n2obtzQVXdSuYAAxPz5M-b?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Mark+Haubner,+Long+Island,+NY" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2767" data-name="markfrederiks">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>markfrederiks</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Game designer, short food supply chain and regional food economies</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-04-02 - <a href="https://fathom.video/share/8iktrP9qtRo7fwDBAdUyq2MUeyk7hYq-?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/markfrederiks" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2883" data-name="Monifa Maat "The Healthy Motivator"">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Monifa Maat "The Healthy Motivator"</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Ado Foundation International</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-10-11 - <a href="https://fathom.video/share/QuSPHkczFYAQgPS1gx5JV8M-GcxsFbpK?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Monifa+Maat+"The+Healthy+Motivator"" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2830" data-name="Mooyoung Han (3)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Mooyoung Han (3)</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Unknown</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-06-19 - <a href="https://fathom.video/share/yfHQbLa9x1GGfusW1en_gxXApY8YuWf9?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Mooyoung+Han+(3)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2833" data-name="Mooyoung Han (5)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Mooyoung Han (5)</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Seoul National University, World Health Organization</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-06-19 - <a href="https://fathom.video/share/yfHQbLa9x1GGfusW1en_gxXApY8YuWf9?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Mooyoung+Han+(5)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2831" data-name="Myhan">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Myhan</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Unknown</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-06-19 - <a href="https://fathom.video/share/yfHQbLa9x1GGfusW1en_gxXApY8YuWf9?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Myhan" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2874" data-name="Nabil Chaib-draa">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Nabil Chaib-draa</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Co-founder of Veriver Without Border</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-11-08 - <a href="https://fathom.video/share/Ce-ykE6tLzosbgNaqbsNEKDAseZ6nqmb?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Nabil+Chaib-draa" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2877" data-name="Nabil Chaibdraa">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Nabil Chaibdraa</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Co-founder of Veriver Without Border</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-11-08 - <a href="https://fathom.video/share/Ce-ykE6tLzosbgNaqbsNEKDAseZ6nqmb?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Nabil+Chaibdraa" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2905" data-name="Nyaguthii">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Nyaguthii</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Greenbelt Movement</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-06-21 - <a href="https://fathom.video/share/f-v9AZTHEnia5ajs-7xzhB-qDge1JxyS?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Nyaguthii" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2909" data-name="Orbis Expeditions">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Orbis Expeditions</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Rewilding Africa, Orbis Expeditions</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-02-05 - <a href="https://fathom.video/share/k2n4mRW6aFFLxLdT_zbHJ3JgZsDjkkz_?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Orbis+Expeditions" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2809" data-name="Ousmane Aly Pame">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Ousmane Aly Pame</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Not listed</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-11-13 - <a href="https://fathom.video/share/s6n-pMqokzw6yb26PsHZSreyhkDuMDKs?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Ousmane+Aly+Pame" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2880" data-name="Patrick">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Patrick</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Farmer, student at University of Limerick, Enable the Future</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-11-08 - <a href="https://fathom.video/share/Ce-ykE6tLzosbgNaqbsNEKDAseZ6nqmb?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Patrick" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2895" data-name="pbeco">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>pbeco</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Unknown</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-08-02 - <a href="https://fathom.video/share/aNiAxzRjXQW7shyxFds5az2phY-b2np6?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/pbeco" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2892" data-name="Peter / Erica">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Peter / Erica</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Journalist covering science and the environment, author of "Water Always Wins"</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-08-30 - <a href="https://fathom.video/share/HG9uWLkyyfjG2tre-bbsXxjEyvmgjmsz?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Peter+/+Erica" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2768" data-name="Philip Bogdonoff, Bio4Climate.org">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Philip Bogdonoff, Bio4Climate.org</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Bio4Climate.org, Eco-Restoration Alliance</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-04-02 - <a href="https://fathom.video/share/8iktrP9qtRo7fwDBAdUyq2MUeyk7hYq-?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Philip+Bogdonoff,+Bio4Climate.org" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2866" data-name="Poyom">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Poyom</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Civil engineer, focus on water and stormwater</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-01-03 - <a href="https://fathom.video/share/prtrQa1FGKVAbWVzVEd3gyvh94V9g9Ay?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Poyom" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2835" data-name="pynotic">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>pynotic</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-06-05 - <a href="https://fathom.video/share/q7XFo7vxZPZUvuJ-yKWa4QCHVoS7Laki?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/pynotic" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2832" data-name="pynotic (Alex)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>pynotic (Alex)</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Unknown</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-06-19 - <a href="https://fathom.video/share/yfHQbLa9x1GGfusW1en_gxXApY8YuWf9?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/pynotic+(Alex)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2896" data-name="Restor Eco">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Restor Eco</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Restor.eco</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-08-02 - <a href="https://fathom.video/share/aNiAxzRjXQW7shyxFds5az2phY-b2np6?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Restor+Eco" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2902" data-name="Rob De Laet (4)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Rob De Laet (4)</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Pudding Climate Chaos project</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-09-13 - <a href="https://fathom.video/share/JLzRWNoRc8M5_z1o-fgw1yyPNTiqUgym?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Rob+De+Laet+(4)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2849" data-name="Rob De Laet (7)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Rob De Laet (7)</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-03-27 - <a href="https://fathom.video/share/S18HzFp_ys3dGb5AuZfy9N__N43yYVWK?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Rob+De+Laet+(7)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2908" data-name="Rob Lewis, northwest Washington, Salish Sea">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Rob Lewis, northwest Washington, Salish Sea</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Writer, interest in ecosystem restoration</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-04-16 - <a href="https://fathom.video/share/CxBXTnVoMyRxcTkcMaovs3HBhPeZssu9?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Rob+Lewis,+northwest+Washington,+Salish+Sea" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2786" data-name="Rob Lewis, Skagit River Watershed">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Rob Lewis, Skagit River Watershed</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Biodiversity for Livable Climate, Eco-Restoration Alliance</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-01-22 - <a href="https://fathom.video/share/96QQyajMBKGzfyLA7xRtevnsSKoF-u1W?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Rob+Lewis,+Skagit+River+Watershed" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2856" data-name="Rochelle">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Rochelle</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-02-28 - <a href="https://fathom.video/share/5nSPBszeDv3mtuvHyHBWDFRgX8KyG7ub?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Rochelle" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2790" data-name="Rodger">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Rodger</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Unknown</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-01-08 - <a href="https://fathom.video/share/r2yszCP52gcgLbLwtqid7vDSMswkDfAK?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Rodger" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2770" data-name="Rodger Savory Esq.">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Rodger Savory Esq.</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Deserts to Grasslands project</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-04-02 - <a href="https://fathom.video/share/8iktrP9qtRo7fwDBAdUyq2MUeyk7hYq-?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Rodger+Savory+Esq." target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2784" data-name="Russ Speer (3)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Russ Speer (3)</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-02-19 - <a href="https://fathom.video/share/HAnSeSgBx8n2obtzQVXdSuYAAxPz5M-b?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Russ+Speer+(3)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2847" data-name="Russ Speer (9)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Russ Speer (9)</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-04-24 - <a href="https://fathom.video/share/VVAuC9yChYCXU2nkT2YES-kAPNJzRAoc?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Russ+Speer+(9)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2825" data-name="Samuel Ombeni">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Samuel Ombeni</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Unknown</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-08-21 - <a href="https://fathom.video/share/3MEMgX_G1hHaab-P9s1WhJGeTVw51EVo?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Samuel+Ombeni" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2865" data-name="Sandra">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Sandra</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Coach, facilitator, healer</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-01-03 - <a href="https://fathom.video/share/prtrQa1FGKVAbWVzVEd3gyvh94V9g9Ay?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Sandra" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2857" data-name="sheil001">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>sheil001</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-02-28 - <a href="https://fathom.video/share/5nSPBszeDv3mtuvHyHBWDFRgX8KyG7ub?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/sheil001" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2760" data-name="sustainavistas">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>sustainavistas</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>ecorestoration alliance</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-05-14 - <a href="https://fathom.video/share/EYYy5yJc1HxVRBWtoK-tNbextMvfhzR4?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/sustainavistas" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2836" data-name="sustainavistas (3)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>sustainavistas (3)</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-06-05 - <a href="https://fathom.video/share/q7XFo7vxZPZUvuJ-yKWa4QCHVoS7Laki?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/sustainavistas+(3)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2840" data-name="sustainavistas (5)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>sustainavistas (5)</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>This participant's company is not listed in the calendar event</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-05-22 - <a href="https://fathom.video/share/4b-Z3URGmwVJzG549B6RHvaw6uAaqkX_?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/sustainavistas+(5)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2906" data-name="Victoria Zelin & Jonathan Cloud">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Victoria Zelin & Jonathan Cloud</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>The possible plan</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2023-06-07 - <a href="https://fathom.video/share/MYxhvBCCcVe2Tg_Bsb_-wc5NFh115zVb?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Victoria+Zelin+&+Jonathan+Cloud" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2764" data-name="Victoria Zelin-Cloud">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Victoria Zelin-Cloud</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>ecorestoration alliance</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-05-14 - <a href="https://fathom.video/share/EYYy5yJc1HxVRBWtoK-tNbextMvfhzR4?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Victoria+Zelin-Cloud" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2792" data-name="Water Stories (Zach)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Water Stories (Zach)</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Water Stories</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-01-08 - <a href="https://fathom.video/share/r2yszCP52gcgLbLwtqid7vDSMswkDfAK?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Water+Stories+(Zach)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2804" data-name="Yuri Herzfeld">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Yuri Herzfeld</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Soil scientist, hydrologist, landscape project manager, co-director of the Panama project with the Eco-Restoration Alliance</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2024-11-27 - <a href="https://fathom.video/share/3WBhiRd81u9JhC2fGH7EC6A4Qhr7vKdz?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Yuri+Herzfeld" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+            <tr data-pid="2771" data-name="Zach (3)">
+                <td style="text-align: center;">
+                    <input type="checkbox" class="make-member" onchange="updateCount()">
+                </td>
+                <td><strong>Zach (3)</strong></td>
+                <td class="not-validated">⏳ Not Validated</td>
+                <td>Cycle Restoration Practitioners</td>
+                <td><div class="meetings"><div class="meeting-item">📅 2025-04-02 - <a href="https://fathom.video/share/8iktrP9qtRo7fwDBAdUyq2MUeyk7hYq-?tab=summary&utm_campaign=postmeetingsummary&utm_content=view_recording_link&utm_medium=email" target="_blank">View Recording</a></div></div></td>
+                <td style="font-size: 12px;"><div style="color: #999;">No emails</div><div style="font-size: 11px;"><a href="https://mail.google.com/mail/u/0/#search/Zach+(3)" target="_blank">🔍 Search Gmail</a></div></td>
+                <td style="font-size: 12px;"><span style="color: #999;">No data</span></td>
+                <td><input type="text" class="notes" placeholder="Optional notes..."></td>
+            </tr>
+        
+        </tbody>
+    </table>
+    
+    <script>
+        // Update selected count
+        function updateCount() {
+            const checked = $('.make-member:checked').length;
+            $('#selectedCount').text(checked);
+        }
+        
+        // Check all
+        function checkAll() {
+            $('.make-member').prop('checked', true);
+            updateCount();
+        }
+        
+        // Uncheck all
+        function uncheckAll() {
+            $('.make-member').prop('checked', false);
+            updateCount();
+        }
+        
+        // Sort table
+        let sortDirection = {};
+        function sortTable(columnIndex) {
+            const table = document.getElementById('reviewTable');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            sortDirection[columnIndex] = !sortDirection[columnIndex];
+            const ascending = sortDirection[columnIndex];
+            
+            rows.sort((a, b) => {
+                let aVal = a.cells[columnIndex].textContent.trim();
+                let bVal = b.cells[columnIndex].textContent.trim();
+                
+                // Handle numeric columns
+                if (columnIndex === 5) { // Email count
+                    aVal = parseInt(aVal) || 0;
+                    bVal = parseInt(bVal) || 0;
+                }
+                
+                if (aVal < bVal) return ascending ? -1 : 1;
+                if (aVal > bVal) return ascending ? 1 : -1;
+                return 0;
+            });
+            
+            rows.forEach(row => tbody.appendChild(row));
+        }
+        
+        // Export to CSV
+        function exportToCSV() {
+            let csv = 'participant_id,name,make_member,notes\n';
+            
+            $('#reviewTable tbody tr').each(function() {
+                const pid = $(this).data('pid');
+                const name = $(this).data('name');
+                const makeMember = $(this).find('.make-member').is(':checked') ? '1' : '0';
+                const notes = $(this).find('.notes').val().replace(/,/g, ';').replace(/"/g, '\"');
+                
+                csv += `${pid},"${name}",${makeMember},"${notes}"\n`;
+            });
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'member_review_decisions_20251024_1455.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            alert('CSV exported! Check your downloads folder.');
+        }
+        
+        // Initialize count
+        $(document).ready(function() {
+            updateCount();
+        });
+    </script>
+</body>
+</html>

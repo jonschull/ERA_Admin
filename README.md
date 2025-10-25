@@ -141,12 +141,17 @@ ERA Landscape (visualization)
 - Status: ✅ Operational
 - Read: [airtable/README.md](airtable/README.md)
 
-**[integration_scripts/](../integration_scripts/)** - Cross-component bridges
-- Purpose: Enrich Fathom data with Airtable information
-- Phase 4B-1: ✅ Automated fuzzy matching (364 enriched)
-- Phase 4B-2: ✅ COMPLETE - 459 participants validated (11 batches, Oct 23, 2025)
-- Phase 5T: READY - export_townhalls_to_landscape.py reinstated
+**[integration_scripts/](../integration_scripts/)** - Integration workflows
+- Purpose: Cross-system data synchronization (Fathom, Airtable, Landscape, etc.)
+- Current: participant_reconciliation/ (Fathom ↔ Airtable)
+- Future: survey_integration/, project_data_integration/, etc.
 - Read: [integration_scripts/README.md](integration_scripts/README.md)
+
+**[integration_scripts/participant_reconciliation/](../integration_scripts/participant_reconciliation/)** - Participant data reconciliation
+- Phase 4B-1: ✅ 364 participants enriched via fuzzy matching
+- Phase 4B-2: ✅ COMPLETE - 459 participants validated (11 batches, Oct 23, 2025)  
+- Phase 5T: READY - Town Hall visualization
+- Read: [participant_reconciliation/README.md](#file-integration_scriptsparticipant_reconciliationreadmemd)
 
 **[ERA_Landscape/](../ERA_Landscape/)** - Interactive network visualization
 - Purpose: Network graph of ERA ecosystem
@@ -183,7 +188,7 @@ open https://jonschull.github.io/ERA_Admin/ERA_Landscape/
 python era_config.py
 
 # Export Town Halls to landscape
-cd integration_scripts
+cd integration_scripts/participant_reconciliation
 python3 export_townhalls_to_landscape.py
 
 # Exports 17 TH meetings + 459 validated participants

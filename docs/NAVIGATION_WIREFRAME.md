@@ -295,12 +295,17 @@ ERA Landscape (visualization)
 - Status: ✅ Operational
 - Read: [airtable/README.md](#file-airtablereadmemd)
 
-**[integration_scripts/](../integration_scripts/)** - Cross-component bridges
-- Purpose: Enrich Fathom data with Airtable information
-- Phase 4B-1: ✅ Automated fuzzy matching (364 enriched)
-- Phase 4B-2: ✅ COMPLETE - 459 participants validated (11 batches, Oct 23, 2025)
-- Phase 5T: READY - export_townhalls_to_landscape.py reinstated
+**[integration_scripts/](../integration_scripts/)** - Integration workflows
+- Purpose: Cross-system data synchronization (Fathom, Airtable, Landscape, etc.)
+- Current: participant_reconciliation/ (Fathom ↔ Airtable)
+- Future: survey_integration/, project_data_integration/, etc.
 - Read: [integration_scripts/README.md](#file-integration_scriptsreadmemd)
+
+**[integration_scripts/participant_reconciliation/](../integration_scripts/participant_reconciliation/)** - Participant data reconciliation
+- Phase 4B-1: ✅ 364 participants enriched via fuzzy matching
+- Phase 4B-2: ✅ COMPLETE - 459 participants validated (11 batches, Oct 23, 2025)  
+- Phase 5T: READY - Town Hall visualization
+- Read: [participant_reconciliation/README.md](#file-integration_scriptsparticipant_reconciliationreadmemd)
 
 **[ERA_Landscape/](../ERA_Landscape/)** - Interactive network visualization
 - Purpose: Network graph of ERA ecosystem
@@ -337,7 +342,7 @@ open https://jonschull.github.io/ERA_Admin/ERA_Landscape/
 python era_config.py
 
 # Export Town Halls to landscape
-cd integration_scripts
+cd integration_scripts/participant_reconciliation
 python3 export_townhalls_to_landscape.py
 
 # Exports 17 TH meetings + 459 validated participants
@@ -605,7 +610,7 @@ python3 -m venv /Users/admin/ERA_Admin_venv
 *Phase 5T: Town Hall Visualization* 🎯 READY (3-4 hours)
 - Goal: Export TH meetings as connected chain in landscape
 - Readiness: Phase 4B-2 COMPLETE, script reinstated, ready to execute
-- Script: `integration_scripts/export_townhalls_to_landscape.py`
+- Script: `integration_scripts/participant_reconciliation/export_townhalls_to_landscape.py`
 - Actions:
   1. Query enriched participants from Fathom DB
   2. Format as project nodes (meetings) + person nodes + edges
@@ -682,7 +687,7 @@ python validate_townhall_attendance.py
 **Update Landscape Visualization:**
 ```bash
 # Phase 5T script (when ready)
-cd integration_scripts
+cd integration_scripts/participant_reconciliation
 python export_townhalls_to_landscape.py
 # Writes to Google Sheet → Landscape updates automatically
 ```
@@ -721,10 +726,12 @@ ERA_Admin/
 │       ├── validate_townhall_attendance.py (Airtable comparison)
 │       └── townhall_validation_report.md   (baseline: 61.5% match rate)
 │
-├── integration_scripts/         ← Phase 4-5
-│   ├── phase4b1_enrich_from_airtable.py  (Phase 4B-1 ✅ Complete)
-│   ├── export_townhalls_to_landscape.py  (Phase 5T - READY)
-│   └── PAST_LEARNINGS.md                 (300+ patterns from Phase 4B-2)
+├── integration_scripts/         ← Integration workflows
+│   ├── README.md                         (Integration types overview)
+│   └── participant_reconciliation/       (Fathom ↔ Airtable)
+│       ├── phase4b1_enrich_from_airtable.py  (Phase 4B-1 ✅)
+│       ├── export_townhalls_to_landscape.py  (Phase 5T - READY)
+│       └── PAST_LEARNINGS.md                 (300+ patterns)
 │
 └── future_discipline/          ← Experimental learnings
     ├── README.md                         (Overview & guidance)
@@ -901,7 +908,7 @@ Humans read README, then get distracted or forget context. **Your job:** Help th
 **What you might need:**
 - Current work status → [CONTEXT_RECOVERY.md](#file-context_recoverymd)
 - Philosophy & practices → [WORKING_PRINCIPLES.md](#file-working_principlesmd)
-- Historical Phase 4B-2 workflow → integration_scripts/archive/superseded_docs/AI_WORKFLOW_GUIDE.md
+- Historical Phase 4B-2 workflow → integration_scripts/participant_reconciliation/archive/superseded_docs/AI_WORKFLOW_GUIDE.md
 - Component details → Component READMEs
 
 ### 3. Principles
@@ -985,7 +992,7 @@ Humans read README, then get distracted or forget context. **Your job:** Help th
    ├─> What does Fathom DB contain?
    └─> What format does Landscape need?
 
-4. Create: integration_scripts/your_script.py
+4. Create: integration_scripts/[integration_type]/your_script.py
    ├─> Use absolute paths for cross-component access
    ├─> Add provenance tracking
    └─> Generate validation reports
@@ -1047,9 +1054,9 @@ Humans read README, then get distracted or forget context. **Your job:** Help th
 import os
 from pathlib import Path
 
-# Get ERA_Admin root (scripts are in integration_scripts/)
+# Get ERA_Admin root (scripts are in integration_scripts/[type]/)
 SCRIPT_DIR = Path(__file__).parent
-ERA_ADMIN_ROOT = SCRIPT_DIR.parent
+ERA_ADMIN_ROOT = SCRIPT_DIR.parent.parent  # Up two levels
 
 # Internal paths (within ERA_Admin) - relative
 AIRTABLE_DIR = ERA_ADMIN_ROOT / "airtable"
@@ -1338,7 +1345,7 @@ Result: Clean, no documentation sprawl
 #### Specialized Workflows
 
 **Phase 4B-2: Collaborative Review** (✅ COMPLETE - Oct 23, 2025)
-- Historical workflow: integration_scripts/archive/superseded_docs/AI_WORKFLOW_GUIDE.md
+- Historical workflow: integration_scripts/participant_reconciliation/archive/superseded_docs/AI_WORKFLOW_GUIDE.md
 - 11 batches completed, 459 participants validated
 - Discipline learnings: future_discipline/ component
 
@@ -1353,7 +1360,7 @@ Result: Clean, no documentation sprawl
 - Airtable exports: `airtable/people_export.csv`
 - Fathom database: `FathomInventory/fathom_emails.db`
 - Landscape data: Google Sheet ID `1cR5X2xFSGffivfsMjyHDDeDJQv6R0kQpVUJsEJ2_1yY`
-- Integration scripts: `integration_scripts/*.py`
+- Integration scripts: `integration_scripts/participant_reconciliation/*.py`
 
 **Standard Tools:**
 - Fuzzy matching: fuzzywuzzy library, 80% threshold
@@ -1371,7 +1378,7 @@ Result: Clean, no documentation sprawl
 
 - [WORKING_PRINCIPLES.md](#file-working_principlesmd) - Complete system philosophy
 - [CONTEXT_RECOVERY.md](#file-context_recoverymd) - Current system state
-- integration_scripts/archive/superseded_docs/ - Historical Phase 4B-2 workflows (archived)
+- integration_scripts/participant_reconciliation/archive/ - Historical Phase 4B-2 workflows
 - Component READMEs - Component-specific details
 
 **Back to:** [README.md](#file-readmemd)
@@ -1483,7 +1490,7 @@ The content below in Section 4 contains all the principles. They are organized i
 **Current Components:**
 - `airtable/` - Manual membership tracking
 - `FathomInventory/` - Automated meeting analysis
-- `integration_scripts/` - Cross-component workflows
+- `integration_scripts/` - Integration workflows (participant_reconciliation/, future types)
 - `ERA_Landscape/` - Network visualization (Town Halls, interactive graph)
 
 **Principle:** You should NOT need to understand all component internals to work at integration level.
@@ -1822,7 +1829,7 @@ print(f"🎯 Next step: Review report, then run Phase 5")
 # How to Be an Intelligent Assistant
 
 **Date:** October 25, 2025  
-**Context:** Lessons from [Phase 4B-2](integration_scripts/README.md) (650+ participants) and [Alias Resolution](integration_scripts/ALIAS_RESOLUTION_README.md) (38 duplicates merged)
+**Context:** Lessons from [Phase 4B-2](integration_scripts/participant_reconciliation/README.md) (650+ participants) and [Alias Resolution](integration_scripts/participant_reconciliation/ALIAS_RESOLUTION_README.md) (38 duplicates merged)
 
 ---
 
@@ -2086,7 +2093,7 @@ def execute_approved_actions(decisions):
 
 **Task:** Reconcile 650+ participant names from Fathom meeting transcripts across 11 batches
 
-**See:** [integration_scripts/README.md](#file-integration_scriptsreadmemd) for full documentation
+**See:** [participant_reconciliation/README.md](#file-integration_scriptsparticipant_reconciliationreadmemd) for full documentation
 
 ### How the Process Should Have Worked
 
@@ -2190,7 +2197,7 @@ if response.lower() != 'yes':
 
 **Task:** Merge 56 duplicate participant records, reduce to 13 remaining conflicts
 
-**See:** [integration_scripts/ALIAS_RESOLUTION_README.md](#file-integration_scriptsalias_resolution_readmemd) for full documentation
+**See:** [participant_reconciliation/ALIAS_RESOLUTION_README.md](#file-integration_scriptsparticipant_reconciliationalias_resolution_readmemd) for full documentation
 
 ### How It Worked (Following The Pattern)
 
@@ -2733,7 +2740,7 @@ python3 docs/archive_and_replace.py  # Creates backup, replaces all
 grep -r "87%" README.md CONTEXT_RECOVERY.md
 
 # Verify file moves reflected in docs
-grep "generate_phase4b2_table.py" integration_scripts/README.md
+grep "generate_phase4b2_table.py" integration_scripts/participant_reconciliation/README.md
 # Should show: archive/experimental/generate_phase4b2_table.py
 
 # Check generated docs are recent
@@ -3031,7 +3038,7 @@ FathomInventory is one of four components in ERA_Admin. It provides a robust pip
 **4. Self-Contained Component**
 - **Works standalone** - Can be understood without reading parent docs
 - **Clear interfaces** - Exposes `fathom_emails.db` and `all_fathom_calls.tsv`
-- **Minimal coupling** - Integration happens at integration_scripts/ level
+- **Minimal coupling** - Integration happens at integration_scripts/[type]/ level
 
 ### 4. Specialized Topics
 
@@ -3912,7 +3919,8 @@ This component provides easy, routine access to the current ERA membership datab
 - **Parent system** → [/README.md](#file-readmemd) - Overall ERA Admin architecture
 - **System-wide status** → [/CONTEXT_RECOVERY.md](#file-context_recoverymd) - Integration status
 - **System principles** → [/WORKING_PRINCIPLES.md](#file-working_principlesmd) - Overall philosophy
-- **Integration** → [/integration_scripts/README.md](#file-integration_scriptsreadmemd) - Cross-component workflows
+- **Integration** → [/integration_scripts/README.md](#file-integration_scriptsreadmemd) - Integration types overview
+- **Participant reconciliation** → [/integration_scripts/participant_reconciliation/README.md](#file-integration_scriptsparticipant_reconciliationreadmemd) - Fathom ↔ Airtable
 
 ### 3. Principles
 
@@ -4024,7 +4032,7 @@ python compare_exports.py people_export.csv people_export_previous.csv
 python export_for_fathom_matching.py
 
 # Run cross-correlation (from integration_scripts/)
-cd ../integration_scripts
+cd ../integration_scripts/participant_reconciliation
 python cross_correlate.py
 ```
 
@@ -4042,10 +4050,10 @@ python cross_correlate.py
 - **Engagement patterns** - Analyze TH attendance over time
 - **Geographic distribution** - Map member locations
 
-**With integration_scripts:**
+**With integration_scripts/participant_reconciliation:**
 - Phase 4B-1: Automated fuzzy matching (364 participants enriched)
-- Phase 4B-2: Collaborative review (409 validated, 58 new people added)
-- Phase 5T: Town Hall visualization (ready when 95%+ complete)
+- Phase 4B-2: Collaborative review (459 validated, 59 new people added)
+- Phase 5T: Town Hall visualization (READY - Oct 25, 2025)
 
 #### Maintenance
 
@@ -4344,11 +4352,159 @@ ORDER BY c.date
 
 **Path:** `integration_scripts/README.md`
 
+# integration_scripts/
+
+**Purpose:** Integration workflows between ERA's various data systems
+
+---
+
+## Overview
+
+ERA Admin manages data across multiple systems that need to be integrated and kept in sync:
+- **Fathom**: Video call transcripts and participant data
+- **Airtable**: Curated member database
+- **ERA Landscape**: Network visualization
+- **Future**: Surveys, grants, projects, etc.
+
+This component provides integration workflows for cross-system data synchronization.
+
+---
+
+## Current Integrations
+
+### participant_reconciliation/
+
+**Status:** ✅ Production-ready  
+**Purpose:** Reconcile Fathom participant data with Airtable member database
+
+Integrates:
+- Fathom video call participants (682 people, AI-generated names)
+- Airtable members (630 people, human-curated)
+- Town Hall attendance tracking
+- Alias resolution system
+
+**Achievements:**
+- Phase 4B-1: 364 participants enriched via fuzzy matching
+- Phase 4B-2: 459 participants validated through collaborative review (11 batches)
+- Alias resolution: 38 duplicates merged, 77% redundancy reduction
+- 100% validation achieved
+
+**See:** [participant_reconciliation/README.md](#file-integration_scriptsparticipant_reconciliationreadmemd)
+
+**Active for:**
+- Phase 5T: Town Hall visualization in ERA Landscape
+- Phase 4C (future): Processing additional participants as they join
+
+---
+
+## Future Integrations
+
+**Candidates for future integration types:**
+
+- **Survey Integration**: Sync ERA member survey responses
+- **Project Data Integration**: Connect project databases
+- **Grant Tracking Integration**: Coordinate grant management across systems
+- **Content Integration**: Sync articles, resources, publications
+- **Event Data Integration**: Coordinate event attendance and outcomes
+
+**Pattern to follow:**
+1. Create subdirectory (e.g., `survey_integration/`)
+2. Include README.md documenting purpose, status, achievements
+3. Separate reusable tools from one-time execution scripts
+4. Archive completed work in `archive/` subdirectory
+5. Document learnings and patterns for future similar work
+
+---
+
+## Architecture Principles
+
+**From participant_reconciliation learnings:**
+
+1. **Human-AI Collaboration**
+   - AI applies intelligent judgment (pattern recognition, multi-factor analysis)
+   - Human provides guidance and corrections
+   - Scripts execute approved decisions mechanically
+
+2. **Reusability Over One-Time Scripts**
+   - Separate generic tools from batch-specific execution
+   - Archive completed work but preserve patterns
+   - Document what worked vs what didn't
+
+3. **Data Safety**
+   - Automatic backups before changes
+   - Comprehensive validation
+   - Reversible operations
+   - Audit trails
+
+4. **Incremental Processing**
+   - Process in batches with human review
+   - Generate evidence-rich HTML for decisions
+   - CSV for feedback and corrections
+   - Learn from corrections
+
+**See:** [/HOW_TO_BE_AN_INTELLIGENT_ASSISTANT.md](#file-how_to_be_an_intelligent_assistantmd) for AI collaboration patterns
+
+---
+
+## What You Might Need
+
+**System overview:**
+- [/README.md](#file-readmemd) - ERA Admin system architecture
+- [/CONTEXT_RECOVERY.md](#file-context_recoverymd) - Current status across all components
+- [/WORKING_PRINCIPLES.md](#file-working_principlesmd) - System-wide philosophy
+
+**Related components:**
+- [FathomInventory/README.md](#file-fathominventoryreadmemd) - Video call data
+- [airtable/README.md](#file-airtablereadmemd) - Member database
+- [ERA_Landscape/README.md](#file-era_landscapereadmemd) - Network visualization
+
+---
+
+## For New Integrations
+
+**When creating a new integration type:**
+
+1. **Review participant_reconciliation/ as template**
+   - Reusable tools vs one-time scripts
+   - Archive structure
+   - Documentation patterns
+
+2. **Document clearly**
+   - What systems are being integrated?
+   - What problem does this solve?
+   - What's the current status?
+   - What patterns emerged?
+
+3. **Separate concerns**
+   - Tools (reusable)
+   - Data (active state)
+   - Archive (completed work)
+   - Documentation (guides and summaries)
+
+4. **Follow safety principles**
+   - Backups before modifications
+   - Validation of results
+   - Human oversight for decisions
+   - Audit trails
+
+---
+
+**Component structure managed:** October 25, 2025  
+**Current integrations:** 1 (participant_reconciliation)
+
+**Back to:** [README.md](#file-readmemd)
+
+---
+
+## FILE: integration_scripts/participant_reconciliation/README.md
+
+**Path:** `integration_scripts/participant_reconciliation/README.md`
+
 ### 1. Overview
 
-**Purpose:** Scripts for reconciling data between ERA's various systems
+**Purpose:** Reconcile Fathom participant data with Airtable member database
 
-This component provides cross-component integration workflows for enriching participant data. It is one of four components in ERA_Admin and serves as the **integration layer** connecting FathomInventory (AI-generated) with Airtable (human-curated).
+This integration connects FathomInventory (AI-generated participant names) with Airtable (human-curated member database) through collaborative human-AI review.
 
 **The Problem:**
 ERA has people scattered across multiple systems:
@@ -4394,30 +4550,10 @@ Phase 4B builds an interactive system where:
 
 ### 2. Orientation - Where to Find What
 
-**You are at:** integration_scripts component README
-
-**Which README to read:**
-- **This file**: Overview and quick start
-- **README_PHASE4B.md**: Complete Phase 4B system guide (detailed)
-- **README_PHASE4B_DETAILED.md**: Technical deep dive (implementation)
-
-**First-time users:**
-1. Read this Overview (Section 1)
-2. Read README_PHASE4B.md for system details
-3. Follow Quick Start in Section 4
-
-**Current Work (Phase 5T - Ready):**
-1. Read [README.md](#file-readmemd) - System overview
-2. Check Phase 5T section below - Town Hall visualization ready
-3. Script: export_townhalls_to_landscape.py
-4. Prerequisites: ✅ Phase 4B-2 complete, ✅ 459 validated participants
-
-**Future Work (Phase 4C):**
-1. Process 223 new participants (from continued Fathom automation)
-2. Can adapt Phase 4B-2 workflow (see archive/superseded_docs/)
-3. Use PAST_LEARNINGS.md (300+ patterns) for efficiency
+**You are at:** participant_reconciliation integration README
 
 **What you might need:**
+- **Parent integration** → [../README.md](#file-integration_scriptsreadmemd) - Integration types overview
 - **Parent system** → [/README.md](#file-readmemd) - Overall ERA Admin architecture
 - **System-wide status** → [/CONTEXT_RECOVERY.md](#file-context_recoverymd) - Integration status
 - **System principles** → [/WORKING_PRINCIPLES.md](#file-working_principlesmd) - Overall philosophy
@@ -4430,7 +4566,7 @@ Phase 4B builds an interactive system where:
 
 **System-wide:** See [/WORKING_PRINCIPLES.md](#file-working_principlesmd)
 
-**integration_scripts-specific:**
+**Participant reconciliation-specific:**
 
 **1. Collaborative Human-AI Workflow**
 - **AI proposes, human disposes** - AI generates candidates, human makes final decisions
@@ -4699,9 +4835,9 @@ For server deployment, edit `era_config.py` or set environment variables.
 
 ---
 
-## FILE: integration_scripts/ALIAS_RESOLUTION_README.md
+## FILE: integration_scripts/participant_reconciliation/ALIAS_RESOLUTION_README.md
 
-**Path:** `integration_scripts/ALIAS_RESOLUTION_README.md`
+**Path:** `integration_scripts/participant_reconciliation/ALIAS_RESOLUTION_README.md`
 
 # Fathom Alias Resolution System
 

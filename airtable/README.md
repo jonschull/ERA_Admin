@@ -49,7 +49,8 @@ This component provides easy, routine access to the current ERA membership datab
 - **Parent system** → [/README.md](../README.md) - Overall ERA Admin architecture
 - **System-wide status** → [/CONTEXT_RECOVERY.md](../CONTEXT_RECOVERY.md) - Integration status
 - **System principles** → [/WORKING_PRINCIPLES.md](../WORKING_PRINCIPLES.md) - Overall philosophy
-- **Integration** → [/integration_scripts/README.md](../integration_scripts/README.md) - Cross-component workflows
+- **Integration** → [/integration_scripts/README.md](../integration_scripts/README.md) - Integration types overview
+- **Participant reconciliation** → [/integration_scripts/participant_reconciliation/README.md](#file-integration_scriptsparticipant_reconciliationreadmemd) - Fathom ↔ Airtable
 
 ### 3. Principles
 
@@ -161,7 +162,7 @@ python compare_exports.py people_export.csv people_export_previous.csv
 python export_for_fathom_matching.py
 
 # Run cross-correlation (from integration_scripts/)
-cd ../integration_scripts
+cd ../integration_scripts/participant_reconciliation
 python cross_correlate.py
 ```
 
@@ -179,10 +180,10 @@ python cross_correlate.py
 - **Engagement patterns** - Analyze TH attendance over time
 - **Geographic distribution** - Map member locations
 
-**With integration_scripts:**
+**With integration_scripts/participant_reconciliation:**
 - Phase 4B-1: Automated fuzzy matching (364 participants enriched)
-- Phase 4B-2: Collaborative review (409 validated, 58 new people added)
-- Phase 5T: Town Hall visualization (ready when 95%+ complete)
+- Phase 4B-2: Collaborative review (459 validated, 59 new people added)
+- Phase 5T: Town Hall visualization (READY - Oct 25, 2025)
 
 #### Maintenance
 
