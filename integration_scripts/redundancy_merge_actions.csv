@@ -1,0 +1,55 @@
+merge_from,merge_to,reason,confidence
+Angelique,Angelique Garcia,User confirmed - same person,HIGH
+Angelique Gonzalez,Angelique Garcia,User confirmed - misremembered,HIGH
+Alnoor Sheriff,Alnoor Sharif,User confirmed - typo,HIGH
+Ana,Ana Calderon,User confirmed - first name only,HIGH
+Ana C,Ana Calderon,User confirmed - short form,HIGH
+"Ana C🔁 Name variant resolved in earlier round",Ana Calderon,User confirmed - variant,HIGH
+Christopher P Danch,Christopher Danch,User confirmed - middle initial,HIGH
+Chris searles,Chris Searles,Case difference typo,HIGH
+Climbien,Climbien Babungire,First name vs full name,HIGH
+Dr. Sanmi Olowosile,Dr. Sanmi Olowosile,Keep correct spelling (Olowwosile is typo),HIGH
+Olowwosile Sanmi,Dr. Sanmi Olowosile,Typo + name order,HIGH
+Huling,Ed Huling,Last name vs full name,HIGH
+Joomi Vanda,Dumi Banda,Database verified - same meeting/affiliation,HIGH
+Marius Iraqi Ziganari,Marius Iragi Ziganara,Spelling typo (Iraqi→Iragi),HIGH
+Emmanuel URAMUTSE (2),Emmanuel URAMUTSE,Number suffix - same person,HIGH
+Lastborn's Galaxy A11 (3),Lastborn's Galaxy A11,Number suffix - same person,HIGH
+"Leonard Iyamuremye ",Leonard Iyamuremye,Trailing whitespace,HIGH
+mbilizi Kalombo (2),Mbilizi Kalombo,Number suffix + case,HIGH
+mbilizi Kalombo (3),Mbilizi Kalombo,Number suffix + case,HIGH
+Mike Lynn (2),Mike Lynn,Number suffix - same person,HIGH
+Peter Gubbels Groundswell-West Africa (5),Peter Gubbels Groundswell-West Africa,Number suffix - same person,HIGH
+Erica Geies,Erica Gies,Typo in last name,HIGH
+melissamcgaughey,Melissa Mcgaughey,Username vs proper name,HIGH
+SteveApfelbaum,Steve Apfelbaum,Missing space,HIGH
+MOHAMMED ALKHALID,Mohammed Al Khalid,All caps + spacing,HIGH
+Poulomi Chakravarty,Dr. Poulomi Chakravarty,Missing title,HIGH
+Judith Schwartz,Judith D. Schwartz,Missing middle initial,HIGH
+Kathryn Alexander,Kathryn Alexander MA,Missing credential,HIGH
+Maria Ehrnstrom-Fuentes,Maria Ehrnström-Fuentes,Missing Swedish diacritic,HIGH
+Paulo Magalhaes,Paulo Magalhães,Missing Portuguese diacritic,HIGH
+Veronica Giraldo,Verónica Giraldo,Missing Spanish diacritic,HIGH
+Joshua Shepard,Joshua Sheppard,Database verified - same meeting,HIGH
+Joshua Shephard,Joshua Sheppard,Database verified - spelling variant,HIGH
+Neil Spackman,Neal Spackman,USER CORRECTED - Neal is correct spelling,HIGH
+Loren Miller,Lauren Miller,USER CORRECTED - same person,HIGH
+Mooyong Han,Moo Young Han,Spacing variant,HIGH
+Mooyoung Han,Moo Young Han,Spacing variant,HIGH
+Muhangi Musinga,Muhange Musinga,Spelling typo,HIGH
+Zach Weis,Zach Weiss,Likely typo but common name,MEDIUM
+Hart Hagen,Hart Hagan,USER CORRECTED - Hagan is correct spelling,HIGH
+Mark Fredericks,Mark Frederiks,Dutch name variant,MEDIUM
+Samuel Obeni,Samuell Ombeni,USER CORRECTED - Ombeni is correct,HIGH
+Karim,Karim Camara,USER CORRECTED - first name vs full name,HIGH
+Sol,Sol Moran,USER CORRECTED - first name vs full name,HIGH
+Thilo,Thilo Herbst,USER CORRECTED - first name vs full name,HIGH
+Zach Weis,Zach Weiss,USER CORRECTED - Weiss is correct spelling,HIGH
+Mark Fredericks,Mark Frederiks,USER CORRECTED - Frederiks is correct spelling,HIGH
+"Leonard Iyamuremye ",Leonard Iyamuremye,Database verified - same person with trailing space,HIGH
+"Kathryn Alexander, MA",Kathryn Alexander MA,Comma placement - has email,HIGH
+Sean Pettersen,Sean Petterson,Database verified - Petterson has email,HIGH
+Frank,Frank van Schoubroeck,Database verified - same meeting (37381089),HIGH
+Tom,Tom Snyder,Database verified - same meeting (165893831),HIGH
+Cassandra Kiki,Cassandra Kiki Ami,Likely full name with last name added,HIGH
+Paulo Carvalho,Paulo de Carvalho,Portuguese name with 'de' particle,HIGH
