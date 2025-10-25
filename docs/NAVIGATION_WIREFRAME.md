@@ -1975,9 +1975,26 @@ git diff
 git add -A
 git commit -m "Update documentation: [description]"
 git push origin docs/update-something
-gh pr create --fill
+gh pr create --fill  # Use --fill, not --body with long text
 gh pr merge --squash --delete-branch
 ```
+
+**⚠️ WARNING: Avoid `gh pr create` hangs**
+
+Using `--body` with long multi-line text can cause `gh pr create` to hang indefinitely:
+
+```bash
+# ❌ DON'T DO THIS (causes hangs):
+gh pr create --title "..." --body "Very long text
+with multiple lines
+and lots of content..."
+
+# ✅ DO THIS INSTEAD:
+git push origin branch-name
+gh pr create --fill  # Uses commit message, edit in browser if needed
+```
+
+**Why it hangs:** Long command-line arguments can cause the GitHub CLI to freeze, especially with complex formatting or special characters. Use `--fill` to populate from commits, then edit the PR description in the GitHub web UI if you need more detail.
 
 **For major overhauls only:**
 ```bash
