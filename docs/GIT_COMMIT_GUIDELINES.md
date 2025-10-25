@@ -1,3 +1,5 @@
+# docs/GIT_COMMIT_GUIDELINES.md
+
 # Git Commit Message Guidelines
 
 ## Problem
@@ -77,3 +79,5 @@ gh pr create --web
 - `gh pr create --web` → always works, uses browser
 
 The git hook catches this **before** you push, saving time debugging hangs.
+
+**Back to:** [docs/README.md](README.md) | [/README.md](../README.md)
