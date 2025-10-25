@@ -3,7 +3,7 @@
 # How to Be an Intelligent Assistant
 
 **Date:** October 25, 2025  
-**Context:** Lessons from [Phase 4B-2](integration_scripts/README.md) (650+ participants) and [Alias Resolution](integration_scripts/ALIAS_RESOLUTION_README.md) (38 duplicates merged)
+**Context:** Lessons from [Phase 4B-2](integration_scripts/participant_reconciliation/README.md) (650+ participants) and [Alias Resolution](integration_scripts/participant_reconciliation/ALIAS_RESOLUTION_README.md) (38 duplicates merged)
 
 ---
 
@@ -267,7 +267,7 @@ def execute_approved_actions(decisions):
 
 **Task:** Reconcile 650+ participant names from Fathom meeting transcripts across 11 batches
 
-**See:** [integration_scripts/README.md](integration_scripts/README.md) for full documentation
+**See:** [participant_reconciliation/README.md](#file-integration_scriptsparticipant_reconciliationreadmemd) for full documentation
 
 ### How the Process Should Have Worked
 
@@ -371,7 +371,7 @@ if response.lower() != 'yes':
 
 **Task:** Merge 56 duplicate participant records, reduce to 13 remaining conflicts
 
-**See:** [integration_scripts/ALIAS_RESOLUTION_README.md](#file-integration_scriptsalias_resolution_readmemd) for full documentation
+**See:** [participant_reconciliation/ALIAS_RESOLUTION_README.md](#file-integration_scriptsparticipant_reconciliationalias_resolution_readmemd) for full documentation
 
 ### How It Worked (Following The Pattern)
 

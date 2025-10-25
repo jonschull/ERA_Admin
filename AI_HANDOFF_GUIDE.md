@@ -73,7 +73,7 @@ Humans read README, then get distracted or forget context. **Your job:** Help th
 **What you might need:**
 - Current work status → [CONTEXT_RECOVERY.md](CONTEXT_RECOVERY.md)
 - Philosophy & practices → [WORKING_PRINCIPLES.md](WORKING_PRINCIPLES.md)
-- Historical Phase 4B-2 workflow → integration_scripts/archive/superseded_docs/AI_WORKFLOW_GUIDE.md
+- Historical Phase 4B-2 workflow → integration_scripts/participant_reconciliation/archive/superseded_docs/AI_WORKFLOW_GUIDE.md
 - Component details → Component READMEs
 
 ### 3. Principles
@@ -157,7 +157,7 @@ Humans read README, then get distracted or forget context. **Your job:** Help th
    ├─> What does Fathom DB contain?
    └─> What format does Landscape need?
 
-4. Create: integration_scripts/your_script.py
+4. Create: integration_scripts/[integration_type]/your_script.py
    ├─> Use absolute paths for cross-component access
    ├─> Add provenance tracking
    └─> Generate validation reports
@@ -219,9 +219,9 @@ Humans read README, then get distracted or forget context. **Your job:** Help th
 import os
 from pathlib import Path
 
-# Get ERA_Admin root (scripts are in integration_scripts/)
+# Get ERA_Admin root (scripts are in integration_scripts/[type]/)
 SCRIPT_DIR = Path(__file__).parent
-ERA_ADMIN_ROOT = SCRIPT_DIR.parent
+ERA_ADMIN_ROOT = SCRIPT_DIR.parent.parent  # Up two levels
 
 # Internal paths (within ERA_Admin) - relative
 AIRTABLE_DIR = ERA_ADMIN_ROOT / "airtable"
@@ -510,7 +510,7 @@ Result: Clean, no documentation sprawl
 #### Specialized Workflows
 
 **Phase 4B-2: Collaborative Review** (✅ COMPLETE - Oct 23, 2025)
-- Historical workflow: integration_scripts/archive/superseded_docs/AI_WORKFLOW_GUIDE.md
+- Historical workflow: integration_scripts/participant_reconciliation/archive/superseded_docs/AI_WORKFLOW_GUIDE.md
 - 11 batches completed, 459 participants validated
 - Discipline learnings: future_discipline/ component
 
@@ -525,7 +525,7 @@ Result: Clean, no documentation sprawl
 - Airtable exports: `airtable/people_export.csv`
 - Fathom database: `FathomInventory/fathom_emails.db`
 - Landscape data: Google Sheet ID `1cR5X2xFSGffivfsMjyHDDeDJQv6R0kQpVUJsEJ2_1yY`
-- Integration scripts: `integration_scripts/*.py`
+- Integration scripts: `integration_scripts/participant_reconciliation/*.py`
 
 **Standard Tools:**
 - Fuzzy matching: fuzzywuzzy library, 80% threshold
@@ -543,7 +543,7 @@ Result: Clean, no documentation sprawl
 
 - [WORKING_PRINCIPLES.md](WORKING_PRINCIPLES.md) - Complete system philosophy
 - [CONTEXT_RECOVERY.md](CONTEXT_RECOVERY.md) - Current system state
-- integration_scripts/archive/superseded_docs/ - Historical Phase 4B-2 workflows (archived)
+- integration_scripts/participant_reconciliation/archive/ - Historical Phase 4B-2 workflows
 - Component READMEs - Component-specific details
 
 **Back to:** [README.md](README.md)

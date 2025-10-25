@@ -1,3 +1,5 @@
+# integration_scripts/README.md
+
 # integration_scripts/
 
 **Purpose:** Integration workflows between ERA's various data systems
@@ -35,7 +37,7 @@ Integrates:
 - Alias resolution: 38 duplicates merged, 77% redundancy reduction
 - 100% validation achieved
 
-**See:** [participant_reconciliation/README.md](participant_reconciliation/README.md)
+**See:** [participant_reconciliation/README.md](#file-integration_scriptsparticipant_reconciliationreadmemd)
 
 **Active for:**
 - Phase 5T: Town Hall visualization in ERA Landscape
@@ -88,7 +90,7 @@ Integrates:
    - CSV for feedback and corrections
    - Learn from corrections
 
-**See:** [/HOW_TO_BE_AN_INTELLIGENT_ASSISTANT.md](../HOW_TO_BE_AN_INTELLIGENT_ASSISTANT.md) for AI collaboration patterns
+**See:** [/HOW_TO_BE_AN_INTELLIGENT_ASSISTANT.md](#file-how_to_be_an_intelligent_assistantmd) for AI collaboration patterns
 
 ---
 
@@ -102,7 +104,7 @@ Integrates:
 **Related components:**
 - [FathomInventory/README.md](../FathomInventory/README.md) - Video call data
 - [airtable/README.md](../airtable/README.md) - Member database
-- [ERA_Landscape/README.md](../ERA_Landscape/README.md) - Network visualization
+- [ERA_Landscape/README.md](#file-era_landscapereadmemd) - Network visualization
 
 ---
 
@@ -137,3 +139,5 @@ Integrates:
 
 **Component structure managed:** October 25, 2025  
 **Current integrations:** 1 (participant_reconciliation)
+
+**Back to:** [README.md](../README.md)

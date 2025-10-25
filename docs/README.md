@@ -221,7 +221,7 @@ python3 docs/archive_and_replace.py  # Creates backup, replaces all
 grep -r "87%" README.md CONTEXT_RECOVERY.md
 
 # Verify file moves reflected in docs
-grep "generate_phase4b2_table.py" integration_scripts/README.md
+grep "generate_phase4b2_table.py" integration_scripts/participant_reconciliation/README.md
 # Should show: archive/experimental/generate_phase4b2_table.py
 
 # Check generated docs are recent

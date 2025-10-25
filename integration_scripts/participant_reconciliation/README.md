@@ -1,10 +1,10 @@
-# integration_scripts/README.md
+# integration_scripts/participant_reconciliation/README.md
 
 ### 1. Overview
 
-**Purpose:** Scripts for reconciling data between ERA's various systems
+**Purpose:** Reconcile Fathom participant data with Airtable member database
 
-This component provides cross-component integration workflows for enriching participant data. It is one of four components in ERA_Admin and serves as the **integration layer** connecting FathomInventory (AI-generated) with Airtable (human-curated).
+This integration connects FathomInventory (AI-generated participant names) with Airtable (human-curated member database) through collaborative human-AI review.
 
 **The Problem:**
 ERA has people scattered across multiple systems:
@@ -50,43 +50,23 @@ Phase 4B builds an interactive system where:
 
 ### 2. Orientation - Where to Find What
 
-**You are at:** integration_scripts component README
-
-**Which README to read:**
-- **This file**: Overview and quick start
-- **README_PHASE4B.md**: Complete Phase 4B system guide (detailed)
-- **README_PHASE4B_DETAILED.md**: Technical deep dive (implementation)
-
-**First-time users:**
-1. Read this Overview (Section 1)
-2. Read README_PHASE4B.md for system details
-3. Follow Quick Start in Section 4
-
-**Current Work (Phase 5T - Ready):**
-1. Read [README.md](../README.md) - System overview
-2. Check Phase 5T section below - Town Hall visualization ready
-3. Script: export_townhalls_to_landscape.py
-4. Prerequisites: ✅ Phase 4B-2 complete, ✅ 459 validated participants
-
-**Future Work (Phase 4C):**
-1. Process 223 new participants (from continued Fathom automation)
-2. Can adapt Phase 4B-2 workflow (see archive/superseded_docs/)
-3. Use PAST_LEARNINGS.md (300+ patterns) for efficiency
+**You are at:** participant_reconciliation integration README
 
 **What you might need:**
-- **Parent system** → [/README.md](../README.md) - Overall ERA Admin architecture
-- **System-wide status** → [/CONTEXT_RECOVERY.md](../CONTEXT_RECOVERY.md) - Integration status
-- **System principles** → [/WORKING_PRINCIPLES.md](../WORKING_PRINCIPLES.md) - Overall philosophy
+- **Parent integration** → [../README.md](../README.md) - Integration types overview
+- **Parent system** → [/README.md](../../README.md) - Overall ERA Admin architecture
+- **System-wide status** → [/CONTEXT_RECOVERY.md](../../CONTEXT_RECOVERY.md) - Integration status
+- **System principles** → [/WORKING_PRINCIPLES.md](../../WORKING_PRINCIPLES.md) - Overall philosophy
 - **Phase 4B-2 history** → archive/superseded_docs/ - Completed workflows (archived)
 - **Discipline learnings** → [/future_discipline/](#file-future_disciplinereadmemd) - AI collaboration lessons
-- **FathomInventory** → [/FathomInventory/README.md](../FathomInventory/README.md) - Participant database
-- **Airtable** → [/airtable/README.md](../airtable/README.md) - Member database
+- **FathomInventory** → [/FathomInventory/README.md](../../FathomInventory/README.md) - Participant database
+- **Airtable** → [/airtable/README.md](../../airtable/README.md) - Member database
 
 ### 3. Principles
 
-**System-wide:** See [/WORKING_PRINCIPLES.md](../WORKING_PRINCIPLES.md)
+**System-wide:** See [/WORKING_PRINCIPLES.md](../../WORKING_PRINCIPLES.md)
 
-**integration_scripts-specific:**
+**Participant reconciliation-specific:**
 
 **1. Collaborative Human-AI Workflow**
 - **AI proposes, human disposes** - AI generates candidates, human makes final decisions
@@ -329,11 +309,11 @@ For server deployment, edit `era_config.py` or set environment variables.
 #### Integration With Other Components
 
 **Reads from:**
-- **Airtable** (via [airtable/README.md](../airtable/README.md))
+- **Airtable** (via [airtable/README.md](../../airtable/README.md))
   - `people_export.csv` - 630 members (ground truth)
   - `people_for_matching.csv` - Cleaned for fuzzy matching
 
-- **FathomInventory** (via [FathomInventory/README.md](../FathomInventory/README.md))
+- **FathomInventory** (via [FathomInventory/README.md](../../FathomInventory/README.md))
   - `fathom_emails.db` - 1,953 participants
   - Participant table for enrichment
 
@@ -351,4 +331,4 @@ For server deployment, edit `era_config.py` or set environment variables.
   - Town Hall meeting chain visualization
   - Export enriched participants to Google Sheet
 
-**Back to:** [/README.md](../README.md)
+**Back to:** [/README.md](../../README.md)

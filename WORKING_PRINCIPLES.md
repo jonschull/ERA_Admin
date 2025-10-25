@@ -101,7 +101,7 @@ The content below in Section 4 contains all the principles. They are organized i
 **Current Components:**
 - `airtable/` - Manual membership tracking
 - `FathomInventory/` - Automated meeting analysis
-- `integration_scripts/` - Cross-component workflows
+- `integration_scripts/` - Integration workflows (participant_reconciliation/, future types)
 - `ERA_Landscape/` - Network visualization (Town Halls, interactive graph)
 
 **Principle:** You should NOT need to understand all component internals to work at integration level.

@@ -87,7 +87,7 @@ FathomInventory is one of four components in ERA_Admin. It provides a robust pip
 **4. Self-Contained Component**
 - **Works standalone** - Can be understood without reading parent docs
 - **Clear interfaces** - Exposes `fathom_emails.db` and `all_fathom_calls.tsv`
-- **Minimal coupling** - Integration happens at integration_scripts/ level
+- **Minimal coupling** - Integration happens at integration_scripts/[type]/ level
 
 ### 4. Specialized Topics
 

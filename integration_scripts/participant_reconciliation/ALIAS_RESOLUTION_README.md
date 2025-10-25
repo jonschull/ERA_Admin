@@ -1,4 +1,4 @@
-# integration_scripts/ALIAS_RESOLUTION_README.md
+# integration_scripts/participant_reconciliation/ALIAS_RESOLUTION_README.md
 
 # Fathom Alias Resolution System
 
@@ -31,14 +31,14 @@ Track context-dependent alias-to-person mappings from Fathom meetings. Enables q
 - Resolving ambiguous participant names
 
 **What you might need:**
-- **Parent** → [integration_scripts/README.md](README.md) - Integration workflows
+- **Parent** → [integration_scripts/README.md](../README.md) - Integration workflows
 - **Data source** → Phase 4B-2 CSV decisions in `past_decisions/`
-- **Database** → [FathomInventory/fathom_emails.db](../FathomInventory/README.md)
+- **Database** → [FathomInventory/fathom_emails.db](../../FathomInventory/README.md)
 - **Scripts** → build_alias_resolution_table.py, query_participant_sessions.py, detect_participant_redundancies.py, execute_redundancy_merges.py
 
 ### 3. Principles
 
-**System-wide:** See [/WORKING_PRINCIPLES.md](../WORKING_PRINCIPLES.md)
+**System-wide:** See [/WORKING_PRINCIPLES.md](../../WORKING_PRINCIPLES.md)
 
 **Alias resolution-specific:**
 
@@ -115,4 +115,4 @@ python execute_redundancy_merges.py
 3. **detect_participant_redundancies.py** - Systematic duplicate detection across 5 strategies
 4. **execute_redundancy_merges.py** - Safe merge execution with automatic backups
 
-**Back to:** [integration_scripts/README.md](README.md) | [/README.md](../README.md)
+**Back to:** [integration_scripts/README.md](../README.md) | [/README.md](../../README.md)
