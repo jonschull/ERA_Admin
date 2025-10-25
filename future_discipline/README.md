@@ -6,7 +6,9 @@
 
 This component documents lessons learned from Phase 4B-2 participant reconciliation (650+ participants, 11 batches) and proposes architectural approaches to address systematic AI discipline challenges.
 
-**Status:** 🔬 Experimental / Future Investigation
+**Status:** ⚠️ SUPERSEDED by /HOW_TO_BE_AN_INTELLIGENT_ASSISTANT.md (Oct 25, 2025)
+
+**Why superseded:** The "drone architecture" approach assumed AI cannot be disciplined. Subsequent work (alias resolution cleanup) proved that AI CAN apply intelligent judgment when knowledge is properly internalized. The key is human-AI collaboration, not scripting everything.
 
 **What this contains:**
 - Analysis of AI discipline failures during Phase 4B-2
