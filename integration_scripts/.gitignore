@@ -8,3 +8,12 @@ generate_improved_approval_table.py
 # Gmail authentication (sensitive)
 credentials.json
 token_jschull.json
+# Phase 4B-2 working files (not part of permanent record)
+execution_log_*.json
+member_review_*.html
+*_diagnostic_*.py
+*_diagnostic_*.csv
+*_COMPLETE.py
+*_EXTRACTED.py
+audit_report.csv
+extracted_cases.json
