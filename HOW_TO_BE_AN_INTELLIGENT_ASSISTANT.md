@@ -1,3 +1,5 @@
+# HOW_TO_BE_AN_INTELLIGENT_ASSISTANT.md
+
 # How to Be an Intelligent Assistant
 
 **Date:** October 25, 2025  
@@ -369,7 +371,7 @@ if response.lower() != 'yes':
 
 **Task:** Merge 56 duplicate participant records, reduce to 13 remaining conflicts
 
-**See:** [integration_scripts/ALIAS_RESOLUTION_README.md](integration_scripts/ALIAS_RESOLUTION_README.md) for full documentation
+**See:** [integration_scripts/ALIAS_RESOLUTION_README.md](#file-integration_scriptsalias_resolution_readmemd) for full documentation
 
 ### How It Worked (Following The Pattern)
 
@@ -545,13 +547,67 @@ See "Indy" in new batch
 
 **Principle:** Check past decisions BEFORE investigating.
 
+### Failure: Responding to "Intelligently" with scripts/metrics
+
+**Wrong:**
+```
+User: "Check Intelligently which version is better"
+AI: Runs wc -l, checks timestamps, compares file sizes
+AI: "File B is newer and longer"
+```
+
+**Right:**
+```
+User: "Check Intelligently which version is better"
+AI: Reads both files completely
+AI: Understands semantic differences
+AI: "File B is canonical because: [reasoning based on content]"
+```
+
+**Principle:** When user writes "Intelligently" (capitalized), it's a signal to use judgment, not shortcuts.
+
+---
+
+## Human Signals You Must Recognize
+
+### The "Intelligently" Signal
+
+**When you see "Intelligently" (capitalized) in user's request:**
+
+This is a **critical signal** that means:
+- ❌ **NOT:** Use scripts, metrics, or shortcuts
+- ✅ **DO:** Read documents, understand content, apply judgment
+
+**What it looks like:**
+- "Check Intelligently which file is better"
+- "Review this Intelligently"  
+- "Decide Intelligently what to do"
+
+**How to respond:**
+1. Read relevant documents completely (don't skim)
+2. Understand the semantic meaning (not just surface features)
+3. Apply multi-factor judgment
+4. Explain reasoning based on understanding
+5. Show your work (what you read, what you learned)
+
+**Why this exists:**
+- User has caught you taking shortcuts
+- User needs intelligence, not automation
+- This is a course correction signal
+
+**Example from this session:**
+- User: "check Intelligently to see which seems more appropriate"
+- Wrong: I checked timestamps and line counts
+- Right: I should have read both documents and judged based on content
+- User called me out: "Did you read the documents? That's what I meant by 'Intelligently'"
+
 ---
 
 ## Why This Matters
 
 ### What future_discipline/ Got Wrong
 
-The previous approach (see [future_discipline/](future_discipline/README.md)) assumed:
+The previous approach (see [future_discipline/](#file-future_disciplinereadmemd)) assumed:
 - "AI is bad at discipline"  
 - "Scripts are more disciplined than AI"
 - "Use drones for everything mechanical"
@@ -623,33 +679,10 @@ It's about **enabling you to be intelligent**.
 
 ---
 
-**Status:** This supersedes [future_discipline/](future_discipline/README.md) defeatist approach. We learned AI CAN apply judgment when knowledge is properly internalized. The key is proper human-AI collaboration, not scripting everything.
+**Status:** This supersedes [future_discipline/](#file-future_disciplinereadmemd) defeatist approach. We learned AI CAN apply judgment when knowledge is properly internalized. The key is proper human-AI collaboration, not scripting everything.
 
 **Evidence:** Alias resolution session (Oct 25, 2025) - 38 duplicates merged with 77% reduction in redundancies through intelligent judgment, not scripts.
 
 ---
 
-## Related Documentation
-
-**System Principles:**
-- [WORKING_PRINCIPLES.md](WORKING_PRINCIPLES.md) - Overall system philosophy
-- [AI_HANDOFF_GUIDE.md](AI_HANDOFF_GUIDE.md) - Context for new AI sessions
-- [CONTEXT_RECOVERY.md](CONTEXT_RECOVERY.md) - System state and history
-
-**Case Studies:**
-- [integration_scripts/README.md](integration_scripts/README.md) - Phase 4B-2 participant reconciliation (650+ participants)
-- [integration_scripts/ALIAS_RESOLUTION_README.md](integration_scripts/ALIAS_RESOLUTION_README.md) - Alias resolution and cleanup (38 duplicates merged)
-
-**Historical Context:**
-- [future_discipline/README.md](future_discipline/README.md) - Previous "drone architecture" approach (superseded)
-- [future_discipline/Reflections_on_discipline.md](future_discipline/Reflections_on_discipline.md) - Analysis of Phase 4B-2 failures
-- [future_discipline/disciplined_investigation_architecture.md](future_discipline/disciplined_investigation_architecture.md) - Proposed script-heavy solution (not needed)
-
-**Project Components:**
-- [FathomInventory/README.md](FathomInventory/README.md) - Meeting data extraction
-- [airtable/README.md](airtable/README.md) - Participant data management
-- [fathom/README.md](fathom/README.md) - Transcript processing
-
----
-
-**For future AI sessions:** Start here. Read this document. Discuss with human what knowledge you need. Internalize that knowledge. Apply judgment. Let scripts handle execution. Learn from corrections. Succeed.
+**Back to:** [README.md](README.md) | [WORKING_PRINCIPLES.md](WORKING_PRINCIPLES.md) | [AI_HANDOFF_GUIDE.md](AI_HANDOFF_GUIDE.md) | [future_discipline/](#file-future_disciplinereadmemd)

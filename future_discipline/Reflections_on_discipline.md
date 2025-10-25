@@ -4,6 +4,14 @@
 **Date:** October 23, 2025  
 **Context:** 650+ participant names reconciled over 11 batches
 
+**Status:** ⚠️ SUPERSEDED by [/HOW_TO_BE_AN_INTELLIGENT_ASSISTANT.md](../HOW_TO_BE_AN_INTELLIGENT_ASSISTANT.md) (Oct 25, 2025)
+
+**Why superseded:** This essay assumed AI discipline requires drone architecture and mechanical enforcement. Subsequent work (alias resolution Oct 25) proved AI CAN apply intelligent judgment when knowledge is properly internalized. The key is human-AI collaboration with clear signals, not scripting everything.
+
+**Historical value:** Analysis of Phase 4B-2 discipline failures remains valuable for understanding the problems that arise when AI takes shortcuts. The failure patterns documented here (claiming to check without checking, stopping too early, asking repeatedly about resolved items) are real and important to recognize.
+
+**See instead:** [/HOW_TO_BE_AN_INTELLIGENT_ASSISTANT.md](../HOW_TO_BE_AN_INTELLIGENT_ASSISTANT.md) for the refined approach based on lessons from both failure (Phase 4B-2) and success (alias resolution).
+
 ---
 
 ## The Central Problem
