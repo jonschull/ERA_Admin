@@ -69,23 +69,25 @@ The test is **working correctly** but our docs have **legitimate issues** to fix
 
 ---
 
-## 🚀 Next Steps:
+## 🚀 Progress (Oct 28, 2025):
 
-### Option 1: Fix Issues First (Recommended)
-1. Add member_enrichment to integration_scripts/README.md links
-2. Fix FathomInventory broken link references
-3. Add ERA_Landscape docs to navigation tree
-4. Fix .github/pull_request_template path
+### ✅ Fixed in PR #34:
+1. ✅ Fix .github/pull_request_template.md PR_CHECKLIST path
+2. ✅ Add member_enrichment to integration_scripts/README.md links
+3. ✅ Fix participant_reconciliation broken archive links
+4. ✅ Improve test filtering (mailto:, archives, malformed URLs)
 
-### Option 2: Use Bypass for Now
-```bash
-SKIP_NAV_TEST=1 ./docs/update_docs.sh
-```
+### ✅ Fixed in current branch:
+1. ✅ Add ERA_Landscape root navigation links (all component docs)
+2. ✅ Fix FathomInventory doc paths in NAVIGATION_WIREFRAME
+3. ✅ Fix future_discipline doc paths
+4. ✅ Fix integration_scripts paths
 
-**For this commit**, I recommend **Option 2** (bypass) because:
-- Test integration itself is complete and working
-- Fixes to actual doc structure should be separate commits
-- Allows you to review the test framework changes independently
+### Remaining (auxiliary docs only):
+- docs/NAVIGATION_DESIGN.md, DIFF_SUMMARY.md, WIREFRAME_DIFF_SUMMARY.md (internal working docs)
+- Most are one-time analysis docs, not part of main navigation tree
+
+**Status:** Core production docs working. SKIP_NAV_TEST still available for auxiliary doc work.
 
 ---
 

@@ -327,3 +327,7 @@ MIT License - See parent project for details.
 **Historical repo**: https://github.com/jonschull/ERA_Landscape_Static (archived)  
 **Main Project**: https://github.com/jonschull/ERA_ClimateWeek  
 **Developer**: Jon Schull
+
+---
+
+**Back to:** [ERA_Admin README](../README.md)

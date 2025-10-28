@@ -455,3 +455,6 @@ Potential improvements:
 - **Can I use a different hosting?** Yes, any static host works
 
 **Philosophy:** Simple is better. Edit HTML/JS directly. No unnecessary tooling.
+---
+
+**Back to:** [ERA_Landscape README](README.md) | [ERA_Admin README](../README.md)
