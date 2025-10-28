@@ -37,7 +37,7 @@ Integrates:
 - Alias resolution: 38 duplicates merged, 77% redundancy reduction
 - 100% validation achieved
 
-**See:** [participant_reconciliation/README.md](#file-integration_scriptsparticipant_reconciliationreadmemd)
+**See:** [participant_reconciliation/README.md](participant_reconciliation/README.md)
 
 **Active for:**
 - Phase 5T: Town Hall visualization in ERA Landscape
@@ -58,7 +58,7 @@ Bio generation and profile enrichment for ERA members:
 - V8: Paradigm shift to Fathom DB as primary source
 - LinkedIn scraping technique established as active ongoing tool
 
-**See:** [member_enrichment/README.md](#file-integration_scriptsmember_enrichmentreadmemd)
+**See:** [member_enrichment/README.md](member_enrichment/README.md)
 
 **Current work:**
 - 5 members remaining (1 to remove, 3 ERA Africa, 1 full ERA member)

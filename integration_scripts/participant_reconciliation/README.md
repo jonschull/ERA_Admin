@@ -248,14 +248,14 @@ Phase 4B scripts follow this pattern.
 
 **For Humans:**
 - **This README** - Overview and quick start
-- **[README_PHASE4B.md](README_PHASE4B.md)** - Complete Phase 4B system guide
-- **[README_PHASE4B_DETAILED.md](README_PHASE4B_DETAILED.md)** - Technical deep dive
-- **[PHASE4B2_PROGRESS_REPORT.md](PHASE4B2_PROGRESS_REPORT.md)** - 8-round progress analysis
-- **[CONTEXT_RECOVERY.md](CONTEXT_RECOVERY.md)** - Quick orientation for resuming work
-- **[COMMIT_PHASE4B1.md](COMMIT_PHASE4B1.md)** - What was built & why
+- **[README_PHASE4B.md](archive/superseded_docs/README_PHASE4B.md)** - Complete Phase 4B system guide (archived)
+- **[README_PHASE4B_DETAILED.md](archive/superseded_docs/README_PHASE4B_DETAILED.md)** - Technical deep dive (archived)
+- **[PHASE4B2_PROGRESS_REPORT.md](archive/superseded_docs/PHASE4B2_PROGRESS_REPORT.md)** - 8-round progress analysis (archived)
+- **[AI_ASSISTANT_CONTEXT_RECOVERY.md](AI_ASSISTANT_CONTEXT_RECOVERY.md)** - Quick orientation for resuming work
+- **[COMMIT_PHASE4B1.md](archive/docs/COMMIT_PHASE4B1.md)** - What was built & why (archived)
 
 **For AI Assistants:**
-- **[AI_WORKFLOW_GUIDE.md](AI_WORKFLOW_GUIDE.md)** - Complete workflow for naive AI
+- **[AI_WORKFLOW_GUIDE.md](archive/superseded_docs/AI_WORKFLOW_GUIDE.md)** - Complete workflow for naive AI (archived)
   - Makes implicit habits explicit
   - 6-phase collaboration cycle
   - Mental states for each phase
@@ -295,15 +295,16 @@ For server deployment, edit `era_config.py` or set environment variables.
 - `TEMPLATE_database_script.py` - Standard pattern for DB modifications
 
 **Documentation:**
-- `README_PHASE4B.md` - Complete system guide
-- `README_PHASE4B_DETAILED.md` - Technical implementation details
-- `PHASE4B2_PROGRESS_REPORT.md` - 8-round analysis with metrics
-- `AI_WORKFLOW_GUIDE.md` - AI assistant workflow guide
-- `CONTEXT_RECOVERY.md` - Component state and resuming work
-- `COMMIT_PHASE4B1.md` - Phase 4B-1 implementation notes
+- `archive/superseded_docs/README_PHASE4B.md` - Complete system guide (archived)
+- `archive/superseded_docs/README_PHASE4B_DETAILED.md` - Technical implementation details (archived)
+- `archive/superseded_docs/PHASE4B2_PROGRESS_REPORT.md` - 8-round analysis with metrics (archived)
+- `archive/superseded_docs/AI_WORKFLOW_GUIDE.md` - AI assistant workflow guide (archived)
+- `AI_ASSISTANT_CONTEXT_RECOVERY.md` - Component state and resuming work
+- `archive/docs/COMMIT_PHASE4B1.md` - Phase 4B-1 implementation notes (archived)
 
 **Archives:**
-- `archive/early_rounds/` - Rounds 1-3 (learning phase)
+- `archive/superseded_docs/` - Historical documentation (Phase 4B completion)
+- `archive/docs/` - Development documentation and plans
 - `archive/rounds_4_8/` - Rounds 4-8 (production phase)
 
 #### Integration With Other Components

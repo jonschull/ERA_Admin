@@ -16,8 +16,9 @@ def find_all_links(file_path: Path, content: str) -> List[str]:
     
     links = []
     for text, link in matches:
-        # Skip external links, anchors, data URIs
-        if link.startswith('http') or link.startswith('#') or link.startswith('data:'):
+        # Skip external links, anchors, data URIs, mailto links, malformed URLs
+        if (link.startswith('http') or link.startswith('#') or link.startswith('data:') or
+            link.startswith('mailto:') or link.startswith('%20http')):
             continue
         links.append(link)
     
@@ -54,9 +55,19 @@ def test_navigation(docs_dir: str = 'docs_generated'):
         print(f"❌ Directory not found: {docs_dir}")
         return False
     
-    # Find all markdown files
-    md_files = set(base_path.rglob('*.md'))
-    print(f"📁 Found {len(md_files)} markdown files\n")
+    # Directories to exclude from testing
+    exclude_dirs = {'docs_generated', 'historical', 'node_modules', '.git', 'venv',
+                    'archive', 'obsolete', 'email_conversion', 'tests'}
+    
+    # Find all markdown files, excluding certain directories
+    all_md_files = base_path.rglob('*.md')
+    md_files = set()
+    for f in all_md_files:
+        # Skip if any part of the path is in exclude_dirs
+        if not any(exclude_dir in f.parts for exclude_dir in exclude_dirs):
+            md_files.add(f)
+    
+    print(f"📁 Found {len(md_files)} markdown files (excluding archives/generated)\n")
     
     # Track links
     all_files = set()

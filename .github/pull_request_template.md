@@ -24,4 +24,4 @@
 
 ---
 
-📖 **First time contributing?** See [PR Checklist](.github/PR_CHECKLIST.md)
+📖 **First time contributing?** See [PR Checklist](PR_CHECKLIST.md)
