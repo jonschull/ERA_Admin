@@ -44,7 +44,7 @@ docs_generated/
 ### ✅ Link Conversion Verified
 
 **Root to Subdirectory:**
-- Link: `[FathomInventory/README.md](FathomInventory/README.md)` ✅
+- Link: `[FathomInventory/README.md](../FathomInventory/README.md)` ✅
 - Works: Direct relative path
 
 **Subdirectory to Root:**
@@ -55,7 +55,7 @@ docs_generated/
 **Deep Nesting:**
 - From: `FathomInventory/authentication/README.md`
 - To parent: `[FathomInventory/README.md](../README.md)` ✅
-- To root: `[/README.md](../../README.md)` ✅
+- To root: `[/README.md](../README.md)` ✅
 - Works: Correct relative pathing
 
 ### ✅ Content Verification

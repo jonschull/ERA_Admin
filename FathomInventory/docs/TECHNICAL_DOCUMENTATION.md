@@ -17,14 +17,14 @@ As of September 19, 2025, the core data extraction pipeline has been rigorously 
 2. **Structured Data Parsing**: The `parse_mds/parse_md.py` script parses the Markdown to extract 12 key fields, including meeting titles, dates, participant counts, and detailed metrics like `action_items_count` and `next_steps_count`.
 3. **Definitive Validation**: The entire pipeline was validated by comparing the data extracted directly from HTML against the data extracted from the final Markdown. The two independent methods produced **100% identical results** across all 11 test files and all 12 metrics.
 
-For a complete, field-by-field breakdown of the validation results, see the definitive report:
-**[./parse_mds/definitive_comparison.md](./parse_mds/definitive_comparison.md)**
+For a complete, field-by-field breakdown of the validation results, see the definitive report in the parse_mds/ archive folder.
+*Note: Historical validation report - see parse_mds/ directory for analysis artifacts*
 
 ## Project Architecture
 
 The project is designed with a modular architecture. The root directory contains the main orchestration scripts that operate on the production database, while the subdirectories (`email_conversion/` and `parse_mds/`) contain self-contained modules that can be developed and tested independently.
 
-![Project Architecture](project_architecture.png)
+*TODO: Add project architecture diagram here*
 
 * **Root Utilities**: These are the primary scripts for running the production workflow, such as `download_emails.py` and the batch processing scripts. They import and utilize the functionality from the modules.
 * **`email_conversion` Module**: A self-contained utility responsible for the single task of converting email HTML to Markdown. It has its own test data and can be validated in isolation.
@@ -178,7 +178,7 @@ Title	Date	Duration	Hyperlink	shareStatus	sharedWith	shareTimestamp
 
 For a comprehensive view of all file interactions, dependencies, and data flows, see the complete architecture diagram:
 
-Alternative view: ![Static PNG version](./comprehensive_architecture.png)
+*TODO: Add comprehensive architecture diagram here*
 
 ```dot
 digraph FathomInventoryComprehensive {

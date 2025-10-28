@@ -43,7 +43,7 @@
 ```
 
 ```diff
- **[airtable/](../airtable/)** - Manual membership tracking
+ **[airtable/](airtable/README.md)** - Manual membership tracking
  - Purpose: Membership database, donor tracking, TH attendance
 -- Records: 630 people (+58 from Phase 4B-2), 17 TH attendance columns
 +- Records: 630 people (+59 from Phase 4B-2), 17 TH attendance columns
@@ -51,7 +51,7 @@
 ```
 
 ```diff
- **[integration_scripts/](../integration_scripts/)** - Cross-component bridges
+ **[integration_scripts/](integration_scripts/README.md)** - Cross-component bridges
  - Purpose: Enrich Fathom data with Airtable information
  - Phase 4B-1: ✅ Automated fuzzy matching (364 enriched)
 -- Phase 4B-2: 🔄 87% complete - Collaborative review (409 enriched, 8 rounds)
@@ -65,7 +65,7 @@
 
 ### Change Pattern 4: New Component Added
 ```diff
-+**[future_discipline/](../future_discipline/)** 🔬 - Experimental discipline investigations
++**[future_discipline/](future_discipline/README.md)** 🔬 - Experimental discipline investigations
 +- Purpose: Lessons learned from Phase 4B-2, proposed architectures
 +- Content: AI discipline failures, drone architecture proposal
 +- Status: Experimental / Future Investigation
@@ -251,7 +251,7 @@ systematic AI discipline challenges.
 
 ### 3. Principles
 
-**System-wide:** See [/WORKING_PRINCIPLES.md](../WORKING_PRINCIPLES.md)
+**System-wide:** See [/WORKING_PRINCIPLES.md](WORKING_PRINCIPLES.md)
 
 **Discipline-specific insights:**
 
