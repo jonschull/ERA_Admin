@@ -3000,7 +3000,7 @@ FathomInventory is one of four components in ERA_Admin. It provides a robust pip
 3. Continue from documented next steps
 
 **Making changes:**
-1. Read [DEVELOPMENT.md](DEVELOPMENT.md) - Workflow, testing, constraints
+1. Read [DEVELOPMENT.md](../ERA_Landscape/DEVELOPMENT.md) - Workflow, testing, constraints
 2. Follow component-specific development practices
 3. Test before committing
 
@@ -3233,7 +3233,7 @@ python test_google_auth.py     # Test Gmail access only
 - [AUTHENTICATION_GUIDE.md](../FathomInventory/docs/AUTHENTICATION_GUIDE.md) - All auth methods and troubleshooting
 - [AUTOMATION_MONITORING_GUIDE.md](../FathomInventory/docs/AUTOMATION_MONITORING_GUIDE.md) - Scheduling and monitoring
 - [FAILURE_DETECTION_IMPROVEMENTS.md](../FathomInventory/docs/FAILURE_DETECTION_IMPROVEMENTS.md) - Recent reliability enhancements
-- [CONFIGURATION_ERRORS.md](docs/CONFIGURATION_ERRORS.md) - Critical setup requirements and recovery
+- [CONFIGURATION_ERRORS.md](../FathomInventory/docs/CONFIGURATION_ERRORS.md) - Critical setup requirements and recovery
 
 #### Component Organization
 
@@ -4769,14 +4769,14 @@ Phase 4B scripts follow this pattern.
 
 **For Humans:**
 - **This README** - Overview and quick start
-- **[README_PHASE4B.md](README_PHASE4B.md)** - Complete Phase 4B system guide
-- **[README_PHASE4B_DETAILED.md](README_PHASE4B_DETAILED.md)** - Technical deep dive
-- **[PHASE4B2_PROGRESS_REPORT.md](PHASE4B2_PROGRESS_REPORT.md)** - 8-round progress analysis
-- **[CONTEXT_RECOVERY.md](CONTEXT_RECOVERY.md)** - Quick orientation for resuming work
-- **[COMMIT_PHASE4B1.md](COMMIT_PHASE4B1.md)** - What was built & why
+- **[README_PHASE4B.md](../integration_scripts/participant_reconciliation/archive/superseded_docs/README_PHASE4B.md)** - Complete Phase 4B system guide (archived)
+- **[README_PHASE4B_DETAILED.md](../integration_scripts/participant_reconciliation/archive/superseded_docs/README_PHASE4B_DETAILED.md)** - Technical deep dive (archived)
+- **[PHASE4B2_PROGRESS_REPORT.md](../integration_scripts/participant_reconciliation/archive/superseded_docs/PHASE4B2_PROGRESS_REPORT.md)** - 8-round progress analysis (archived)
+- **[AI_ASSISTANT_CONTEXT_RECOVERY.md](../integration_scripts/participant_reconciliation/AI_ASSISTANT_CONTEXT_RECOVERY.md)** - Quick orientation for resuming work
+- **[COMMIT_PHASE4B1.md](../integration_scripts/participant_reconciliation/archive/docs/COMMIT_PHASE4B1.md)** - What was built & why (archived)
 
 **For AI Assistants:**
-- **[AI_WORKFLOW_GUIDE.md](AI_WORKFLOW_GUIDE.md)** - Complete workflow for naive AI
+- **[AI_WORKFLOW_GUIDE.md](../integration_scripts/participant_reconciliation/archive/superseded_docs/AI_WORKFLOW_GUIDE.md)** - Complete workflow for naive AI (archived)
   - Makes implicit habits explicit
   - 6-phase collaboration cycle
   - Mental states for each phase
@@ -4784,8 +4784,8 @@ Phase 4B scripts follow this pattern.
   - Critical rules & troubleshooting
 
 **Archives:**
-- **[archive/early_rounds/](archive/early_rounds/)** - Historical scripts (Rounds 1-3)
-- **[archive/rounds_4_8/](archive/rounds_4_8/)** - Rounds 4-8 execution scripts
+- **[archive/early_rounds/](../integration_scripts/participant_reconciliation/archive/early_rounds/)** - Historical scripts (Rounds 1-3)
+- **[archive/rounds_4_8/](../integration_scripts/participant_reconciliation/archive/rounds_4_8/)** - Rounds 4-8 execution scripts
 
 #### Configuration
 
@@ -4816,12 +4816,12 @@ For server deployment, edit `era_config.py` or set environment variables.
 - `TEMPLATE_database_script.py` - Standard pattern for DB modifications
 
 **Documentation:**
-- `README_PHASE4B.md` - Complete system guide
-- `README_PHASE4B_DETAILED.md` - Technical implementation details
-- `PHASE4B2_PROGRESS_REPORT.md` - 8-round analysis with metrics
-- `AI_WORKFLOW_GUIDE.md` - AI assistant workflow guide
-- `CONTEXT_RECOVERY.md` - Component state and resuming work
-- `COMMIT_PHASE4B1.md` - Phase 4B-1 implementation notes
+- `archive/superseded_docs/README_PHASE4B.md` - Complete system guide (archived)
+- `archive/superseded_docs/README_PHASE4B_DETAILED.md` - Technical implementation details (archived)
+- `archive/superseded_docs/PHASE4B2_PROGRESS_REPORT.md` - 8-round analysis with metrics (archived)
+- `archive/superseded_docs/AI_WORKFLOW_GUIDE.md` - AI assistant workflow guide (archived)
+- `AI_ASSISTANT_CONTEXT_RECOVERY.md` - Component state and resuming work
+- `archive/docs/COMMIT_PHASE4B1.md` - Phase 4B-1 implementation notes (archived)
 
 **Archives:**
 - `archive/early_rounds/` - Rounds 1-3 (learning phase)
@@ -5830,12 +5830,12 @@ User can save edits back to Sheet
 
 **For Users:**
 - [README.md](README.md) - This file (quick start, deployment)
-- [KNOWN_ISSUES.md](KNOWN_ISSUES.md) - Current bugs and workarounds
+- [KNOWN_ISSUES.md](../ERA_Landscape/KNOWN_ISSUES.md) - Current bugs and workarounds
 
 **For Developers:**
-- [NETWORK_ARCHITECTURE.md](NETWORK_ARCHITECTURE.md) - **Technical deep-dive:** Town Hall treatment, physics engine, node sizing, slider controls
-- [DEVELOPMENT.md](DEVELOPMENT.md) - Development workflow and testing
-- [AI_HANDOFF_GUIDE.md](AI_HANDOFF_GUIDE.md) - Context for AI assistants
+- [NETWORK_ARCHITECTURE.md](../ERA_Landscape/NETWORK_ARCHITECTURE.md) - **Technical deep-dive:** Town Hall treatment, physics engine, node sizing, slider controls
+- [DEVELOPMENT.md](../ERA_Landscape/DEVELOPMENT.md) - Development workflow and testing
+- [AI_HANDOFF_GUIDE.md](../ERA_Landscape/AI_HANDOFF_GUIDE.md) - Context for AI assistants
 
 ## Files
 
@@ -5990,7 +5990,7 @@ Works on any static host:
 - ✅ Interactive graph (drag, zoom, pan)
 - ✅ **Town Hall Integration** (65 events in fixed peripheral ring)
   - Grey edges with distance-based fading
-  - See [NETWORK_ARCHITECTURE.md](NETWORK_ARCHITECTURE.md) for details
+  - See [NETWORK_ARCHITECTURE.md](../ERA_Landscape/NETWORK_ARCHITECTURE.md) for details
 - ✅ **Network Settings Modal** (🌐 button)
   - Node Scaling (constant ↔ logarithmic)
   - Node Size (0.2-3.0x multiplier)
@@ -6469,7 +6469,7 @@ spread = page.evaluate("/* calculate geometric spread */")
 
 # Known Issues - ERA Landscape
 
-**See also:** [NETWORK_ARCHITECTURE.md](NETWORK_ARCHITECTURE.md) for technical details
+**See also:** [NETWORK_ARCHITECTURE.md](../ERA_Landscape/NETWORK_ARCHITECTURE.md) for technical details
 
 ## Active Issues
 

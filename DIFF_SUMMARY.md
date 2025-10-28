@@ -275,7 +275,7 @@ All objective tests pass:
 
 **Root README Component List - BEFORE:**
 ```markdown
-**[integration_scripts/](../integration_scripts/)**
+:**[integration_scripts](integration_scripts/README.md)**
 - Phase 4B-2: 🔄 87% complete - Collaborative review (409 enriched, 8 rounds)
 - AI Workflow: integration_scripts/AI_WORKFLOW_GUIDE.md
 - Progress: integration_scripts/PHASE4B2_PROGRESS_REPORT.md
@@ -283,13 +283,13 @@ All objective tests pass:
 
 **Root README Component List - AFTER:**
 ```markdown
-**[integration_scripts/](../integration_scripts/)**
+:**[integration_scripts](integration_scripts/README.md)**
 - Phase 4B-1: ✅ Automated fuzzy matching (364 enriched)
 - Phase 4B-2: ✅ COMPLETE - 459 participants validated (11 batches, Oct 23, 2025)
 - Phase 5T: READY - export_townhalls_to_landscape.py reinstated
 - Read: [integration_scripts/README.md](#file-integration_scriptsreadmemd)
 
-**[future_discipline/](../future_discipline/)** 🔬 - Experimental discipline investigations
+:**[future_discipline](future_discipline/README.md)** 🔬 - Experimental discipline investigations
 - Purpose: Lessons learned from Phase 4B-2, proposed architectures
 - Content: AI discipline failures, drone architecture proposal
 - Status: Experimental / Future Investigation

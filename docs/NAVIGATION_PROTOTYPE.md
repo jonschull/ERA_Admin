@@ -555,7 +555,7 @@ source ../ERA_Admin_venv/bin/activate
 ./run_all.sh  # Runs full pipeline
 ```
 
-**For details:** See [DEVELOPMENT.md](FathomInventory/DEVELOPMENT.md)
+**For details:** See [ERA_Landscape DEVELOPMENT.md](../ERA_Landscape/DEVELOPMENT.md)
 
 ---
 

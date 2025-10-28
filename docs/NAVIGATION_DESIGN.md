@@ -159,7 +159,7 @@ Level 4: Specialized docs (authentication/, analysis/, specific workflows)
 ## Specialized Workflows
 
 For **Phase 4B-2 collaborative review:**
-→ See [integration_scripts/AI_WORKFLOW_GUIDE.md](integration_scripts/AI_WORKFLOW_GUIDE.md)
+→ See [integration_scripts/AI_WORKFLOW_GUIDE.md](../integration_scripts/participant_reconciliation/archive/superseded_docs/AI_WORKFLOW_GUIDE.md)
 
 This guide provides the general framework; that guide provides specific 6-phase workflow for human-AI data curation.
 ```
@@ -280,13 +280,13 @@ This guide provides the general framework; that guide provides specific 6-phase 
 # Specialized Topic
 
 **Component:** [Component README](../README.md)  
-**Applies principles from:** [WORKING_PRINCIPLES.md](../../WORKING_PRINCIPLES.md) - [Which sections]
+**Applies principles from:** [WORKING_PRINCIPLES.md](../WORKING_PRINCIPLES.md) - [Which sections]
 
 ---
 
 ## 📍 Path
 
-[README](../../README.md) → [Component](../README.md) → [Subarea] → **This Guide**
+[README](../README.md) → [Component](../README.md) → [Subarea] → **This Guide**
 
 **Scope:** This covers [specific topic]. For [related topic] see [other doc].
 
@@ -300,7 +300,7 @@ This guide provides the general framework; that guide provides specific 6-phase 
 
 **Broader context:** [Component README](../README.md)  
 **Related tasks:** [Other specialized doc]  
-**Principles applied:** [WORKING_PRINCIPLES.md](../../WORKING_PRINCIPLES.md)
+**Principles applied:** [WORKING_PRINCIPLES.md](../WORKING_PRINCIPLES.md)
 ```
 
 ---
@@ -342,7 +342,7 @@ For system-wide status → see [main doc](../CONTEXT_RECOVERY.md)
 # Analysis Module - Context Recovery
 
 **See:**
-- [Main CONTEXT_RECOVERY.md](../../CONTEXT_RECOVERY.md) - System status
+- [Main CONTEXT_RECOVERY.md](../CONTEXT_RECOVERY.md) - System status
 - [FathomInventory CONTEXT_RECOVERY.md](../CONTEXT_RECOVERY.md) - Component status
 
 **This document:** Analysis module specific context
@@ -362,7 +362,7 @@ This guide covers general AI workflow patterns.
 
 ### Phase 4B-2 Collaborative Data Review
 Complex multi-phase human-AI workflow for data curation.
-→ **See:** [integration_scripts/AI_WORKFLOW_GUIDE.md](integration_scripts/AI_WORKFLOW_GUIDE.md)
+→ **See:** [integration_scripts/AI_WORKFLOW_GUIDE.md](../integration_scripts/participant_reconciliation/archive/superseded_docs/AI_WORKFLOW_GUIDE.md)
 
 [Provides: 6-phase cycle, mental states, decision trees]
 ```
