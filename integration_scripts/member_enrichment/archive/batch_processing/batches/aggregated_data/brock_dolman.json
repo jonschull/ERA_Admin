@@ -1,0 +1,22 @@
+{
+  "name": "Brock Dolman",
+  "database": null,
+  "airtable": {
+    "name": "Brock Dolman",
+    "email": "Brock@oaec.org",
+    "phone": "",
+    "bio": "",
+    "affiliated_orgs": "",
+    "publish": ""
+  },
+  "linkedin_matches": [],
+  "transcript_mentions": [],
+  "phone_info": null,
+  "sources_found": {
+    "database": false,
+    "airtable": true,
+    "linkedin": false,
+    "transcripts": false,
+    "phone": false
+  }
+}

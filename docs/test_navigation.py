@@ -16,8 +16,8 @@ def find_all_links(file_path: Path, content: str) -> List[str]:
     
     links = []
     for text, link in matches:
-        # Skip external links, anchors
-        if link.startswith('http') or link.startswith('#'):
+        # Skip external links, anchors, data URIs
+        if link.startswith('http') or link.startswith('#') or link.startswith('data:'):
             continue
         links.append(link)
     
@@ -25,10 +25,25 @@ def find_all_links(file_path: Path, content: str) -> List[str]:
 
 
 def resolve_link(from_file: Path, link: str, base_dir: Path) -> Path:
-    """Resolve relative link to absolute path."""
+    """Resolve relative link to target path within base_dir."""
+    # Strip fragment anchors (#section)
+    if '#' in link:
+        link = link.split('#')[0]
+    
+    # If empty after stripping anchor, it's a self-reference
+    if not link:
+        return from_file
+    
+    # Resolve relative to the file's directory
     from_dir = from_file.parent
-    target = (from_dir / link).resolve()
-    return target.relative_to(base_dir)
+    target = (from_dir / link)
+    
+    # Normalize the path (resolve .. and .)
+    # Use os.path.normpath to avoid resolve() issues with relative paths
+    target_str = os.path.normpath(str(target))
+    target = Path(target_str)
+    
+    return target
 
 
 def test_navigation(docs_dir: str = 'docs_generated'):
@@ -37,7 +52,7 @@ def test_navigation(docs_dir: str = 'docs_generated'):
     
     if not base_path.exists():
         print(f"❌ Directory not found: {docs_dir}")
-        return
+        return False
     
     # Find all markdown files
     md_files = set(base_path.rglob('*.md'))
@@ -64,11 +79,26 @@ def test_navigation(docs_dir: str = 'docs_generated'):
         
         for link in links:
             try:
-                target = resolve_link(rel_path, link, Path('.'))
-                linked_files.add(target)
+                # Resolve link relative to this file's location
+                target = resolve_link(rel_path, link, base_path)
+                
+                # Make target relative to base_path for comparison
+                if target.is_absolute():
+                    # Skip absolute paths outside our tree
+                    continue
+                    
+                # Normalize target path
+                target_normalized = Path(os.path.normpath(str(target)))
+                
+                # Check if target exists
+                target_full = base_path / target_normalized
+                if target_full.exists():
+                    linked_files.add(target_normalized)
+                else:
+                    broken_links.append((rel_path, link, f"File not found: {target_normalized}"))
                 
                 # Check if it's README.md in root
-                if target == Path('README.md'):
+                if target_normalized == Path('README.md'):
                     has_root_link = True
                     
             except Exception as e:
@@ -79,8 +109,11 @@ def test_navigation(docs_dir: str = 'docs_generated'):
     # Find orphans (files not linked to)
     orphans = all_files - linked_files
     
-    # Find files without path to root
-    no_root_path = [f for f, has_link in links_to_root.items() if not has_link and f != Path('README.md')]
+    # Find files without path to root (exclude .github files - they're templates)
+    no_root_path = [f for f, has_link in links_to_root.items() 
+                    if not has_link 
+                    and f != Path('README.md')
+                    and not str(f).startswith('.github/')]
     
     print("=" * 60)
     print("NAVIGATION TEST RESULTS")
@@ -130,11 +163,14 @@ def test_navigation(docs_dir: str = 'docs_generated'):
     
     if not orphans and not no_root_path and not broken_links:
         print("🎉 NAVIGATION INTEGRITY: PERFECT")
+        return True
     else:
         print("⚠️  NAVIGATION ISSUES DETECTED")
+        return False
 
 
 if __name__ == '__main__':
     import sys
     docs_dir = sys.argv[1] if len(sys.argv) > 1 else 'docs_generated'
-    test_navigation(docs_dir)
+    success = test_navigation(docs_dir)
+    sys.exit(0 if success else 1)

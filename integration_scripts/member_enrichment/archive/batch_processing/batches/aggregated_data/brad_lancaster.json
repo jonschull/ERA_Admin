@@ -1,0 +1,47 @@
+{
+  "name": "Brad Lancaster",
+  "database": null,
+  "airtable": {
+    "name": "Brad Lancaster",
+    "email": "BradLank@gmail.com",
+    "phone": "",
+    "bio": "",
+    "affiliated_orgs": "",
+    "publish": ""
+  },
+  "linkedin_matches": [
+    {
+      "type": "fuzzy",
+      "score": 83,
+      "linkedin_name": "Brent Lancaster",
+      "data": {
+        "url": "https://www.linkedin.com/in/brent-lancaster-47668bb",
+        "email": "",
+        "company": "NC State College of Engineering",
+        "position": "Director of Communication",
+        "connected_on": "15 Aug 2017"
+      }
+    },
+    {
+      "type": "fuzzy",
+      "score": 75,
+      "linkedin_name": "Brad Banas",
+      "data": {
+        "url": "https://www.linkedin.com/in/williambbanas",
+        "email": "",
+        "company": "Boston Scientific",
+        "position": "Regional Manager, Bariatric and Endoluminal Surgery, Western US",
+        "connected_on": "08 Aug 2015"
+      }
+    }
+  ],
+  "transcript_mentions": [],
+  "phone_info": null,
+  "sources_found": {
+    "database": false,
+    "airtable": true,
+    "linkedin": true,
+    "transcripts": false,
+    "phone": false
+  }
+}

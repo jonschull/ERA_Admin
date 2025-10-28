@@ -1,0 +1,273 @@
+# Member Enrichment
+
+**Purpose:** Complete member onboarding by enriching Airtable profiles and preparing for public directory publication
+
+**Status:** 🚀 Active (Oct 25, 2025)
+
+---
+
+## Overview
+
+### The ERA Onboarding Process
+
+When someone becomes an ERA member (introduced at Town Hall, no objections, week passes):
+
+**Full onboarding should include:**
+1. ✅ Update Airtable profile (Bio, email, phone, affiliated organizations)
+2. ✅ Publish in public directory (https://www.ecorestorationalliance.org/public-directory)
+3. ✅ Add to ERA Landscape visualization
+4. ✅ Send welcome email (+ invite to become supporting member)
+5. ✅ Add to Google Groups mailing lists
+
+**Reality:** We've been sloppy. There's a backlog.
+
+### Immediate Scope
+
+**This integration focuses on steps 1-2:**
+1. **Complete Airtable profiles** for members who attended Town Halls
+   - Bios (contextual, personalized)
+   - Email addresses
+   - Phone numbers (where available)
+   - Affiliated organizations
+2. **Prepare for public directory publication** (human activates "Publish" field)
+
+**Current State:**
+- Total members: 592
+- Has Bio: 509 (86%)
+- **No Bio: 83 (14%)** ← Our target
+- Of those without bios:
+  - 19 attended Town Halls (have TH context + likely in email)
+  - 64 never attended Town Halls (LinkedIn only)
+
+### Future Scope
+
+Steps 3-5 (Landscape, welcome email, Google Groups) will be addressed in future integrations or automation.
+
+---
+
+## The Challenge
+
+**Hand-authored bios work best** because they:
+- Capture what makes each person unique to ERA
+- Integrate professional background with ERA engagement
+- Reflect actual contributions and interests discussed in Town Halls
+- Avoid generic LinkedIn summary language
+
+**Sources of information:**
+1. **LinkedIn profiles** (provided by user) → Professional background
+2. **Town Hall participation** (from Fathom database) → Meeting attendance, engagement
+3. **Town Hall transcripts** (era_townhalls_complete.md) → What they said, context, interests
+4. **Email search** (user's email) → Contact info (email, phone), affiliated organizations, background
+5. **Airtable member data** (existing records) → Current affiliations, projects, notes
+
+---
+
+## Approach: Intelligent Assistant Pattern
+
+Following the participant_reconciliation model:
+
+**Human-AI Collaboration:**
+1. AI identifies members needing profiles (prioritized by TH engagement)
+2. Human provides LinkedIn URLs for batch of members
+3. AI researches each member:
+   - Read LinkedIn profile
+   - Search Town Hall transcripts for mentions
+   - Search user's email for contact info, org affiliations, background
+   - Query Fathom database for participation details
+4. AI compiles research notes with sources
+5. AI drafts complete profile updates:
+   - Bio (personalized, contextual - not generic summaries)
+   - Email address (from email search or existing data)
+   - Phone number (if found in email)
+   - Affiliated organizations (from email, LinkedIn, or existing data)
+6. Human reviews, edits, approves
+7. AI updates Airtable programmatically
+8. Human manually activates "Publish" field when ready
+
+**NOT automated profile generation** - This is collaborative curation with AI providing:
+- Multi-source synthesis (LinkedIn + TH context + email correspondence)
+- Pattern recognition (similar members, common themes)
+- Draft generation for human refinement
+- Contact info extraction from email
+
+---
+
+## Key Principles
+
+**1. Context-Rich Bios**
+- NOT: Generic LinkedIn summary copy-paste
+- YES: "Jane Doe is a marine biologist working on coral reef restoration in the Caribbean. In ERA Town Halls, she has shared insights on..."
+
+**2. Prioritization**
+- Town Hall attendees first (we have context)
+- Active members over dormant
+- Recent participants over historical
+
+**3. Human Oversight**
+- AI drafts, human approves every bio
+- Human manually activates "Publish" (not automated)
+- Batch processing with review cycles
+
+**4. Quality Over Speed**
+- Thoughtful, personalized bios
+- Multiple source synthesis
+- Reflect actual ERA engagement
+
+---
+
+## Data Sources
+
+**Airtable:** `/Users/admin/ERA_Admin/airtable/people_export.csv`
+- Fields to update: Name, Bio, Email, Phone, Affiliated Orgs, Publish
+- 592 members, 83 need profile enrichment
+
+**Fathom Database:** `/Users/admin/ERA_Admin/FathomInventory/fathom_emails.db`
+- Town Hall participation records
+- 459 validated participants (from participant_reconciliation)
+
+**Town Hall Transcripts:** `/Users/admin/ERA_Admin/fathom/output/era_townhalls_complete.md`
+- Complete transcripts of all Town Halls
+- Search for mentions, contributions, questions, context
+
+**Email Archive:** (user's email - Gmail search)
+- Contact info (email addresses, phone numbers)
+- Affiliated organizations mentioned in correspondence
+- Background context, introductions, conversations
+- **Access via:** Gmail API or search tools (to be determined)
+
+**LinkedIn:** (provided by user)
+- Professional background
+- Current position, education
+- Organizations, skills, interests
+
+---
+
+## Workflow
+
+### Phase 1: Identify & Prioritize
+
+Generate list of members needing profile enrichment, prioritized by:
+1. Town Hall attendance (count of meetings)
+2. Member status (active vs historical)
+3. Recent engagement
+
+Output: Prioritized list with TH context summary
+
+### Phase 2: LinkedIn Collection
+
+Human provides LinkedIn URLs for batch (e.g., 5-10 members to start)
+
+### Phase 3: Multi-Source Research (AI)
+
+For each member:
+1. Read LinkedIn profile (professional background)
+2. Query Town Hall participation from Fathom database
+3. Search era_townhalls_complete.md for mentions, contributions
+4. Search user's email for:
+   - Email address
+   - Phone number
+   - Affiliated organizations
+   - Background context, introductions
+5. Review existing Airtable data
+6. Synthesize into contextual research notes with sources
+
+### Phase 4: Draft Complete Profiles (AI)
+
+Generate complete profile updates:
+- **Bio:** 2-3 sentences, personalized
+  - Lead with professional background (from LinkedIn)
+  - Integrate ERA context (from Town Halls)
+  - Highlight contributions/interests
+- **Email:** From email search or existing data
+- **Phone:** If found in email correspondence
+- **Affiliated Orgs:** From email, LinkedIn, or existing data
+
+### Phase 5: Human Review
+
+Present drafts in reviewable format (HTML or CSV)
+Human edits, refines, approves each field
+
+### Phase 6: Update Airtable
+
+Programmatically update approved fields:
+- Bio
+- Email
+- Phone
+- Affiliated Orgs
+
+Human manually activates "Publish" field when profile is publication-ready
+
+---
+
+## File Structure
+
+```
+member_enrichment/
+├── README.md (this file)
+├── identify_members_needing_profiles.py
+├── research_member_context.py
+├── generate_profile_drafts.py
+├── update_airtable_profiles.py
+└── batches/
+    ├── batch1_priority_list.csv
+    ├── batch1_linkedin_urls.csv
+    ├── batch1_research_notes.md
+    ├── batch1_profile_drafts.csv
+    └── batch1_approved.csv
+```
+
+---
+
+## Success Metrics
+
+**Immediate Goal:**
+- Profiles enriched: Target 19 (Town Hall attendees without bios)
+- Fields updated: Bio, Email, Phone (where available), Affiliated Orgs
+- Quality: Human-reviewed and edited each field
+- Context integration: LinkedIn + TH transcripts + email correspondence
+- Ready for publication: Profiles complete, awaiting manual "Publish" activation
+
+**Stretch Goal:**
+- Additional profiles: 30-50 more (active members, recent participants)
+- Full backlog: 83 total needing profiles
+
+**Quality Criteria:**
+- Bios are contextual (not generic LinkedIn copy-paste)
+- Contact info is accurate and sourced
+- Affiliated orgs reflect current/relevant organizations
+- Each profile tells the member's ERA story
+
+---
+
+## Related Work
+
+**Participant Reconciliation:** `integration_scripts/participant_reconciliation/`
+- Identified 459 validated Town Hall participants
+- Established human-AI collaboration pattern
+- PAST_LEARNINGS.md has 300+ patterns for judgment calls
+
+**Pattern to follow:**
+- AI proposes, human disposes
+- Batch processing with review cycles
+- Evidence-rich outputs (links to sources)
+- Learn from corrections
+
+---
+
+## Relationship to Full Onboarding
+
+**This integration handles:** Steps 1-2 (Airtable profile enrichment + prepare for publication)
+
+**Future integrations will handle:**
+- Step 3: ERA Landscape visualization (could be `landscape_sync/`)
+- Step 4: Welcome emails (could be `member_communications/`)
+- Step 5: Google Groups management (could be `mailing_list_sync/`)
+
+Eventually, the full onboarding workflow should be automated (triggered when someone becomes a member). But for now, we're cleaning up the backlog manually with AI assistance.
+
+---
+
+**Integration type:** member_enrichment  
+**Parent:** integration_scripts/  
+**Status:** Planning - README complete, awaiting plan approval  
+**Created:** October 25, 2025

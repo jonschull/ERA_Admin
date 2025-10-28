@@ -39,6 +39,28 @@ fi
 
 cd ..
 
+# Test navigation integrity
+echo ""
+echo "🧪 Testing navigation integrity..."
+python3 docs/test_navigation.py docs_generated
+
+NAV_TEST_EXIT=$?
+
+if [ $NAV_TEST_EXIT -ne 0 ]; then
+    echo ""
+    echo "⚠️  Navigation integrity issues detected!"
+    echo "   Set SKIP_NAV_TEST=1 to bypass (not recommended)"
+    
+    if [ "${SKIP_NAV_TEST}" != "1" ]; then
+        echo ""
+        echo "❌ Fix navigation issues before deploying."
+        echo "   Or run: SKIP_NAV_TEST=1 ./docs/update_docs.sh"
+        exit 1
+    else
+        echo "   ⚠️  Skipping navigation test (SKIP_NAV_TEST=1)"
+    fi
+fi
+
 # Copy to production
 echo ""
 echo "📋 Copying to production locations..."

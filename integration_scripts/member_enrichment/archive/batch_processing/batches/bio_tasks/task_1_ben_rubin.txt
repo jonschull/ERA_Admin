@@ -1,0 +1,92 @@
+# BIO WRITER SUB-AGENT TASK
+
+**Task ID:** 1
+**Member:** Ben Rubin
+
+---
+
+
+You are writing a professional bio for Ben Rubin, a member of the EcoRestoration Alliance (ERA).
+
+## DATA SOURCES (Must verify internal consistency)
+
+### Database Info:
+- Location: Rochester, New York
+- Affiliation: Visual arts teacher at Rochester International Academy
+- Email: bwrubin@gmail.com
+- ERA Member: True
+- Town Halls attended: 0
+
+### LinkedIn (verify this matches the person):
+
+- Name: Ben Rubin (Match: 100% exact)
+- Position: Media Coordinator
+- Company: E-nable community
+- URL: https://www.linkedin.com/in/bwrubin
+
+### Town Hall Participation:
+- Found in 103 transcript mentions
+
+Sample mention:
+	https://www.economist.com/asia/2023/03/28/the-global-rice-crisis  
+21:52:01 From Jake Fairbanks Kelley to Everyone:  
+	^ article on how horrible rice is in many ways  
+21:54:17 From Philip Bogdonoff, Bio4Climate.org to Everyone:  
+	@Paul, are you familiar with Purple Mountain?  Small but they do grow rice using dry land planting.  https://purplemountaingrown.com/  
+22:01:47 From Jon Schull, EcoRestoration Alliance to Ben Rubin(Direct Message):  
+	hi  
+22:03:02 From Paul Sturm to Everyone:  
+	Ye...
+
+### Phone: +15852599091
+
+
+## YOUR TASK
+
+Write a professional bio (600-950 characters) for Ben Rubin.
+
+## CRITICAL: DATA CONSISTENCY CHECK
+Before writing, verify:
+1. Does LinkedIn match the person? (Check name, location, affiliation consistency)
+2. Is the email domain consistent with affiliation?
+3. Do Town Hall mentions match the professional background?
+4. If anything is inconsistent, NOTE IT and work with most reliable source (database/transcripts > LinkedIn)
+
+## BIO REQUIREMENTS
+
+**Style:**
+- Third person, conversational
+- Professional but warm
+- Narrative flow (not resume-style)
+
+**Required Elements:**
+1. Current work/role
+2. Professional background (brief)
+3. ERA connection/engagement (specific, not generic)
+4. Unique value/perspective they bring
+5. Optional: Philosophy or personal touch
+
+**Length:** 600-950 characters (aim for ~800)
+
+**Tone Examples from Existing ERA Bios:**
+
+EXAMPLE 1 (Fred Jennings, 616 chars):
+"Ecological Economist. Fred Jennings is from Ipswich, Massachusetts, USA, where he has spent most of his life. He is an ecological economist with a B.A. from Harvard and a Ph.D. from Stanford, both in economics. Fred is also an avid conservationist and fly fisherman. He enjoys the outdoors, and has written about natural processes and about economic theory. He has 40 years of teaching and research experience, first in academics and then in economic litigation. He also enjoys his seasonal practice as a saltwater fly fishing guide in Ipswich, MA. Fred joined Biodiversity for a Livable Climate in 2016."
+
+EXAMPLE 2 (Ananda Fitzsimmons, 489 chars):
+"Ananda Fitzsimmons is an advocate for soil and water, a speaker and author of two books, Hydrate the Earth and Restoring the Pillars of Life. She is the president of the Board of Regeneration Canada, a non profit organization advancing regenerative agriculture and the Vice President of the Board of the EcoRestoration Alliance. Ananda founded Concentric Agriculture, a company which manufactures soil amendments from beneficial microorganisms. She is currently in Uganda."
+
+## OUTPUT FORMAT
+
+Return ONLY:
+1. Your bio (no preamble)
+2. Character count
+3. Any data consistency concerns you noticed
+
+Format:
+BIO:
+[your bio text here]
+
+CHAR COUNT: [number]
+
+DATA CONCERNS: [any inconsistencies or uncertainties]

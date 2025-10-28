@@ -43,6 +43,27 @@ Integrates:
 - Phase 5T: Town Hall visualization in ERA Landscape
 - Phase 4C (future): Processing additional participants as they join
 
+**2. member_enrichment**
+
+Bio generation and profile enrichment for ERA members:
+
+**Purpose:**
+- Ensure every confirmed ERA member has a complete, accurate bio
+- Multi-source research (LinkedIn, Town Halls, email, Fathom DB)
+- Hand-authored bios (personalized, contextual, not generic LinkedIn summaries)
+
+**Progress:**
+- V1 → V8 iterations: 62 → 5 members remaining
+- V7: 16 bios created, 10 non-members removed
+- V8: Paradigm shift to Fathom DB as primary source
+- LinkedIn scraping technique established as active ongoing tool
+
+**See:** [member_enrichment/README.md](#file-integration_scriptsmember_enrichmentreadmemd)
+
+**Current work:**
+- 5 members remaining (1 to remove, 3 ERA Africa, 1 full ERA member)
+- Archive completed: V1-V7 moved to `archive/`
+
 ---
 
 ## Future Integrations
@@ -137,7 +158,7 @@ Integrates:
 
 ---
 
-**Component structure managed:** October 25, 2025  
-**Current integrations:** 1 (participant_reconciliation)
+**Component structure managed:** October 28, 2025  
+**Current integrations:** 2 (participant_reconciliation, member_enrichment)
 
 **Back to:** [README.md](../README.md)

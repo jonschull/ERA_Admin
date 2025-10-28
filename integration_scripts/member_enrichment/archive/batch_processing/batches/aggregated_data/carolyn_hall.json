@@ -1,0 +1,35 @@
+{
+  "name": "Carolyn Hall",
+  "database": null,
+  "airtable": {
+    "name": "Carolyn Hall",
+    "email": "Carolyn@themullooninstitute.org",
+    "phone": "",
+    "bio": "",
+    "affiliated_orgs": "recnWkiHeHuJiXb0P",
+    "publish": ""
+  },
+  "linkedin_matches": [
+    {
+      "type": "exact",
+      "score": 100,
+      "linkedin_name": "Carolyn Hall",
+      "data": {
+        "url": "https://www.linkedin.com/in/carolyn-hall-07ab0b52",
+        "email": "",
+        "company": "The Mulloon Institute",
+        "position": "Chief Executive Officer",
+        "connected_on": "20 May 2024"
+      }
+    }
+  ],
+  "transcript_mentions": [],
+  "phone_info": null,
+  "sources_found": {
+    "database": false,
+    "airtable": true,
+    "linkedin": true,
+    "transcripts": false,
+    "phone": false
+  }
+}
