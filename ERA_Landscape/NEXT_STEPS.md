@@ -264,3 +264,6 @@ open https://jonschull.github.io/ERA_Landscape_Static/
 - `NEXT_STEPS.md` - This file (project status)
 - `AI_HANDOFF_GUIDE.md` - AI assistant methodology
 - `HANDOFF_SUMMARY.txt` - Quick reference for state
+---
+
+**Back to:** [ERA_Landscape README](README.md) | [ERA_Admin README](../README.md)

@@ -146,7 +146,7 @@ git branch -d feature/your-branch  # cleanup
 
 ---
 
-📖 **First time contributing?** See [PR Checklist](.github/PR_CHECKLIST.md)
+📖 **First time contributing?** See [PR Checklist](../.github/PR_CHECKLIST.md)
 
 ---
 
@@ -1829,7 +1829,7 @@ print(f"🎯 Next step: Review report, then run Phase 5")
 # How to Be an Intelligent Assistant
 
 **Date:** October 25, 2025  
-**Context:** Lessons from [Phase 4B-2](integration_scripts/participant_reconciliation/README.md) (650+ participants) and [Alias Resolution](integration_scripts/participant_reconciliation/ALIAS_RESOLUTION_README.md) (38 duplicates merged)
+**Context:** Lessons from [Phase 4B-2](../integration_scripts/participant_reconciliation/README.md) (650+ participants) and [Alias Resolution](../integration_scripts/participant_reconciliation/ALIAS_RESOLUTION_README.md) (38 duplicates merged)
 
 ---
 
@@ -3229,10 +3229,10 @@ python test_google_auth.py     # Test Gmail access only
 ```
 
 **Detailed Documentation:**
-- [TECHNICAL_DOCUMENTATION.md](docs/TECHNICAL_DOCUMENTATION.md) - Complete architecture, validation, workflows
-- [AUTHENTICATION_GUIDE.md](docs/AUTHENTICATION_GUIDE.md) - All auth methods and troubleshooting
-- [AUTOMATION_MONITORING_GUIDE.md](docs/AUTOMATION_MONITORING_GUIDE.md) - Scheduling and monitoring
-- [FAILURE_DETECTION_IMPROVEMENTS.md](docs/FAILURE_DETECTION_IMPROVEMENTS.md) - Recent reliability enhancements
+- [TECHNICAL_DOCUMENTATION.md](../FathomInventory/docs/TECHNICAL_DOCUMENTATION.md) - Complete architecture, validation, workflows
+- [AUTHENTICATION_GUIDE.md](../FathomInventory/docs/AUTHENTICATION_GUIDE.md) - All auth methods and troubleshooting
+- [AUTOMATION_MONITORING_GUIDE.md](../FathomInventory/docs/AUTOMATION_MONITORING_GUIDE.md) - Scheduling and monitoring
+- [FAILURE_DETECTION_IMPROVEMENTS.md](../FathomInventory/docs/FAILURE_DETECTION_IMPROVEMENTS.md) - Recent reliability enhancements
 - [CONFIGURATION_ERRORS.md](docs/CONFIGURATION_ERRORS.md) - Critical setup requirements and recovery
 
 #### Component Organization
@@ -3437,10 +3437,10 @@ Test suite in `tests/` directory:
 - `scripts/upload_backup_to_drive.py` - Google Drive upload
 
 **Technical Documentation:**
-- `docs/FAILURE_DETECTION_IMPROVEMENTS.md` - Oct 17 improvements
-- `docs/TECHNICAL_DOCUMENTATION.md` - Complete system architecture
-- `docs/AUTHENTICATION_GUIDE.md` - Cookie/OAuth setup
-- `docs/AUTOMATION_MONITORING_GUIDE.md` - Scheduling and monitoring
+- `FathomInventory/docs/FAILURE_DETECTION_IMPROVEMENTS.md` - Oct 17 improvements
+- `FathomInventory/docs/TECHNICAL_DOCUMENTATION.md` - Complete system architecture
+- `FathomInventory/docs/AUTHENTICATION_GUIDE.md` - Cookie/OAuth setup
+- `FathomInventory/docs/AUTOMATION_MONITORING_GUIDE.md` - Scheduling and monitoring
 
 **Data Files (gitignored):**
 - `fathom_emails.db` - SQLite database (calls + emails + participants tables)
@@ -5612,7 +5612,7 @@ This component documents lessons learned from Phase 4B-2 participant reconciliat
 
 #### Reflections on Discipline
 
-**File:** [Reflections_on_discipline.md](Reflections_on_discipline.md) (24KB)
+**File:** [Reflections_on_discipline.md](../future_discipline/Reflections_on_discipline.md) (24KB)
 
 **Summary:**
 - Detailed analysis of discipline failures during Phase 4B-2
@@ -5634,7 +5634,7 @@ This component documents lessons learned from Phase 4B-2 participant reconciliat
 
 #### Drone Architecture Proposal
 
-**File:** [disciplined_investigation_architecture.md](disciplined_investigation_architecture.md) (17KB)
+**File:** [disciplined_investigation_architecture.md](../future_discipline/disciplined_investigation_architecture.md) (17KB)
 
 **Summary:**
 Proposes decomposing Phase 4B-2 investigation workflow into:

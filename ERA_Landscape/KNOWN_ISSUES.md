@@ -145,3 +145,6 @@ window.network.redraw();
 
 ### ✅ Physics settings not persisted (Oct 21, 2025)
 **Fixed:** Save to localStorage, restore on load
+---
+
+**Back to:** [ERA_Landscape README](README.md) | [ERA_Admin README](../README.md)
