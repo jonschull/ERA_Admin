@@ -1,0 +1,22 @@
+{
+  "name": "Campbell Webb",
+  "database": null,
+  "airtable": {
+    "name": "Campbell Webb",
+    "email": "campbell.webb@gmail.com",
+    "phone": "",
+    "bio": "",
+    "affiliated_orgs": "",
+    "publish": ""
+  },
+  "linkedin_matches": [],
+  "transcript_mentions": [],
+  "phone_info": null,
+  "sources_found": {
+    "database": false,
+    "airtable": true,
+    "linkedin": false,
+    "transcripts": false,
+    "phone": false
+  }
+}

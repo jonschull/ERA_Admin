@@ -1,0 +1,1882 @@
+Reading V6 file: /Users/admin/ERA_Admin/integration_scripts/member_enrichment/ERA_MEMBERS_LACKING_BIOS_V6.md
+Found 15 APPROVED entries in V6
+
+APPROVED members:
+  - LinkedIn Profile Harvesting
+
+- AI initiates rate-limit-aware scraping (10-15 second delays)
+- Runs in background, monitored periodically
+- Creates batch files with scraped profiles
+
+### 2. Document Versioning
+
+- Each iteration creates new numbered version: `...V2.md`, `...V3.md`, etc.
+- Completed members are removed the NEXT VERSION OF THE  document when marked APPROVED
+- Document versions shrink each iteration until empty
+
+### 3. Member Verification
+
+- Database contains non-members
+- MUST verify Town Hall attendance before treating as member
+- Remove flagged non-members immediately (with documentation)
+
+### 4. Quality Control
+
+- AI proposes, human edits, AI updates database
+- No "bad apples" - fix issues permanently so they don't resurface
+- Document fixes in PAST_LEARNINGS.md
+
+### 5. Data Preservation
+
+- When removing members, document WHY
+- Database corrections (spelling, case, merges) done immediately
+- All changes tracked AND REVERTABLE
+
+## Key Principles
+
+**1. Context-Rich Bios**
+
+- NOT: Generic LinkedIn summary copy-paste
+- YES: Curated for consistency of tone and relevance to ERA
+
+**2. Prioritization**
+
+- Act on those where action is clear
+- Insert questions for those where you don't know what to do
+- Human flags members as "NEXT" for AI to research
+
+**3. Human Oversight**
+
+- AI collects data, drafts bios
+- Human edits and approves every bio
+- AI learns from the process and improves
+
+**4. Quality Over Speed**
+
+- Intelligent solutions via intelligence, not scripts
+- Thoughtful, personalized bios
+- Multiple source synthesis
+- Reflect actual ERA engagement
+
+## Document Structure
+
+For sidebar navigation, this document uses:
+
+- **H1:** Summary, Context, Members Without Bios
+- **H2:** Each member name (only H2 in sidebar for easy navigation)
+- **Member sections:** Bio, Fields, Notes (bolded, not headers)
+
+---
+
+# Members Without Bios
+
+## 1. Angelique Garcia [do RESEARCH from ourRecords]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Unknown
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 2. Arun Bangura [do RESEARCH from ourRecords]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- ERA Africa participant - check Africa Town Hall transcripts
+
+---
+
+## 3. Aviv Green
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Founder of EcoNomads YouTube channel, involved in Pastoralist Savannah Restoration Center in Kenya
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 4. Chris Pilley [do RESEARCH from ourRecords]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Safari company, SOTOP camp
+
+**Notes:**
+
+- Research needed from ERA records
+
+---
+
+## 5. Delkhwa habibi [do RESEARCH from ourRecords]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- Research needed from ERA records
+
+---
+
+## 6. Dushime Ange Leo clevis [do RESEARCH from ourRecords]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- ERA Africa participant - check Africa Town Hall transcripts
+
+---
+
+## 7. Elizabeth Morgan Tyler
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Activist, focused on water issues
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 8. Emmanuel URAMUTSE (548 chars)
+  - Fadja Robert APPROVED;
+
+**Bio:**
+
+Fadja Robert-Carr, DHA, is a healthcare executive, consultant, and wellness advocate focused on health equity and community empowerment. She leads interdisciplinary teams delivering health services and wellness initiatives that expand access to quality care for underserved populations. Her work integrates evidence-based models with community-centered approaches to create measurable health outcomes.
+
+**Fields:**
+
+- **Affiliation:** Not listed
+- **LinkedIn:** https://www.linkedin.com/in/fadja-robert-carr-dha-5b0421154
+
+**Notes:**
+
+- ERA Africa participant - check Africa Town Hall transcripts
+
+---
+
+## 10. Fred Ogden (397 chars)
+  - Gary Glass
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Open Future Coalition
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 12. Gwen [do RESEARCH from ourRecords]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 13. Hadziqah [do RESEARCH from ourRecords]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Brunei
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 14. Hashim Yussif (506 chars)
+  - Heraclio Herrera [Save this but, he's not an ERA Member]
+
+**Bio:**
+
+**LinkedIn Headline:** Especialista en Gestión Medio ambiental
+
+**Bio (Improved - ERA Standards):**
+
+Heraclio Herrera R. is an environmental management specialist at Congreso General Kuna in Panama. His work focuses on indigenous environmental governance and sustainable resource management within Kuna communities.
+
+**Fields:**
+
+- **Affiliation:** Congreso General Kuna (CUNA Institute)
+- **LinkedIn:** https://www.linkedin.com/in/heraclio-herrera-r-b7b05531
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 16. Ilarion (3) [This is Ilarion Larry Merculief, for whom we should have a linkedIn]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- ⚠️ This has been fixed multiple times - verify carefully
+
+---
+
+## 17. Ivan Owen
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Social Glassa
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 18. Jerald Katch
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Retired, working with local arboretum
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 19. Juan Bernal
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Obama Fellow, Executive Director of Geiversity Panama's Ecological University
+
+**Notes:**
+
+- Collect info from ERA records
+
+---
+
+## 20. Julia Lindley (539 chars)
+  - Kaluki Paul Mutuku (1092 chars)
+  - Kathia Burillo
+
+**Bio:**
+
+**LinkedIn Headline:** Executive Director en Fundación Imaginari
+
+**Bio (Improved - ERA Standards):**
+
+Kathia Burillo R. is Executive Director of Fundación Imaginari in Costa Rica. She leads initiatives at the intersection of art, imagination, and social transformation, fostering creative approaches to community development and environmental awareness.
+
+**Fields:**
+
+- **Affiliation:** Imaginary
+- **LinkedIn:** https://www.linkedin.com/in/kathia-burillo-r-a90a4576
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 23. Kevin A.
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Florida International University
+
+**Notes:**
+
+- Collect info from ERA records
+
+---
+
+## 24. Kevin Li
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** USDA (based in Penn State)
+
+**Notes:**
+
+- Verify Town Hall attendance/presentation
+
+---
+
+## 25. Lauren Miller
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Not listed
+
+**Notes:**
+
+- Research from ERA records needed
+
+---
+
+## 26. Lisa Merton
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Greenbelt Movement International
+
+**Notes:**
+
+- Verify Town Hall attendance/presentation
+
+---
+
+## 27. Malaika Patricia
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- Research from ERA records needed
+- ERA Africa participant - check Africa Town Hall transcripts
+
+---
+
+## 28. Mary Ann Edwards
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Email:** maedwardsrn@gmail.com
+- **Affiliation:** Unknown
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 29. Matthew Hooper
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- Verify Town Hall attendance/presentation
+
+---
+
+## 30. Maxime Weidema (319 chars)
+  - Minot Weld (981 chars)
+  - Missy Lahren
+
+**Bio:**
+
+**LinkedIn Headline:** Chair of Board of Directors @ Earth Law Center | Public Interest Lawyer, Producer, and Writer
+
+**LinkedIn About:** Missy Lahren has worked as an activist and public interest lawyer in the San Francisco Bay Area since 1993. She has a Ph.D. in Philosophy and Religion and a M.Ed. in Integral Education, both of which focus on the emerging field of “ecozoic education.” She has been working to expand enforceable human and ecological rights since 1997 through participatory media and board positions at Earth Law Center, Unite for Rights, Planetary Advocates, and Eleanor Lives.
+
+**Bio (Improved - ERA Standards):**
+
+Missy Lahren is Chair of the Board of Directors at Earth Law Center and a public interest lawyer. She advances Earth-centered governance and legal frameworks that recognize the rights of nature and ecosystems.  She has a Ph.D. in Philosophy and Religion and a M.Ed. in Integral Education, both of which focus on the emerging field of “ecozoic education.” She has been working to expand enforceable human and ecological rights since 1997 through participatory media and board positions at Earth Law Center, Unite for Rights, Planetary Advocates, and Eleanor Lives.
+
+**Fields:**
+
+- **Affiliation:** Earth Law Center, Unite for Rights, Planetary Advocates
+- **LinkedIn:** https://www.linkedin.com/in/missy-lahren-earthlawyer
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 33. Mr. Kipilangat Kaura -TAWI [ENRICH WITH ERA AFRICA INFO]
+
+**Bio:**
+
+**LinkedIn Headline:** Conservation Intern at no
+
+**Bio (Improved - ERA Standards):**
+
+Kipilangat Kaura is a conservation intern working on biodiversity protection and community-based conservation initiatives. He is building expertise in wildlife conservation and sustainable land management.
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+- **LinkedIn:** https://www.linkedin.com/in/kipilangat-kaura-2425702bb
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 34. Mtokani Saleh (985 chars)
+  - Munyembabazi Aloys
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- Research from ERA records needed
+- ERA Africa participant - check Africa Town Hall transcripts
+
+---
+
+## 36. Mutasa Brian (821 chars)
+  - Myra Jackson
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Unknown
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 38. Penny Heiple (1381 chars)
+  - Roberto Forte (904 chars)
+  - Roberto Pedraza Ruiz (423 chars)
+  - Scott Schulte (1226 chars)
+  - Steffie Rijpkema
+
+**Bio:**
+
+**LinkedIn Headline:** Project Manager & Team Facilitator | Connecting People, Technology, and Sustainable Impact
+
+**LinkedIn About:** Turning societal challenges into tangible, impactful solutions is what drives me. Whether it is sustainable agriculture, ecosystem restoration, or combatting food waste — my interests are broad, but always rooted in purpose. I thrive in organisations and businesses with a sustainable mission. I enjoy translating complex challenges into clear, pragmatic solutions, bridging the gap between technology and the people it serves. I am energized by bringing people together — aligning teams, improving c
+
+**Bio (Improved - ERA Standards):**
+
+Steffie Rijpkema is a Project Manager and Team Facilitator at FarmTree, connecting people, technology, and sustainability. She specializes in regenerative agriculture initiatives and collaborative approaches to food system transformation.
+
+**Fields:**
+
+- **Affiliation:** FarmTree
+- **LinkedIn:** https://www.linkedin.com/in/steffie-rijpkema-49b457105
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 43. Stella Nakityo
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- Research from ERA records needed
+
+---
+
+## 44. Theopista Abalo (1088 chars)
+  - Wambui Muthee
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Greenbelt Movement
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 46. nding'a ndikon (1470 chars)
+
+Proceeding with database update (user confirmed)...
+
+================================================================================
+PROCESSING V6 APPROVED ENTRIES → SQL DATABASE
+================================================================================
+
+Connecting to database: /Users/admin/ERA_Admin/FathomInventory/fathom_emails.db
+✓  'bio' column already exists
+
+Processing 15 APPROVED entries...
+
+⚠️  LinkedIn Profile Harvesting
+
+- AI initiates rate-limit-aware scraping (10-15 second delays)
+- Runs in background, monitored periodically
+- Creates batch files with scraped profiles
+
+### 2. Document Versioning
+
+- Each iteration creates new numbered version: `...V2.md`, `...V3.md`, etc.
+- Completed members are removed the NEXT VERSION OF THE  document when marked APPROVED
+- Document versions shrink each iteration until empty
+
+### 3. Member Verification
+
+- Database contains non-members
+- MUST verify Town Hall attendance before treating as member
+- Remove flagged non-members immediately (with documentation)
+
+### 4. Quality Control
+
+- AI proposes, human edits, AI updates database
+- No "bad apples" - fix issues permanently so they don't resurface
+- Document fixes in PAST_LEARNINGS.md
+
+### 5. Data Preservation
+
+- When removing members, document WHY
+- Database corrections (spelling, case, merges) done immediately
+- All changes tracked AND REVERTABLE
+
+## Key Principles
+
+**1. Context-Rich Bios**
+
+- NOT: Generic LinkedIn summary copy-paste
+- YES: Curated for consistency of tone and relevance to ERA
+
+**2. Prioritization**
+
+- Act on those where action is clear
+- Insert questions for those where you don't know what to do
+- Human flags members as "NEXT" for AI to research
+
+**3. Human Oversight**
+
+- AI collects data, drafts bios
+- Human edits and approves every bio
+- AI learns from the process and improves
+
+**4. Quality Over Speed**
+
+- Intelligent solutions via intelligence, not scripts
+- Thoughtful, personalized bios
+- Multiple source synthesis
+- Reflect actual ERA engagement
+
+## Document Structure
+
+For sidebar navigation, this document uses:
+
+- **H1:** Summary, Context, Members Without Bios
+- **H2:** Each member name (only H2 in sidebar for easy navigation)
+- **Member sections:** Bio, Fields, Notes (bolded, not headers)
+
+---
+
+# Members Without Bios
+
+## 1. Angelique Garcia [do RESEARCH from ourRecords]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Unknown
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 2. Arun Bangura [do RESEARCH from ourRecords]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- ERA Africa participant - check Africa Town Hall transcripts
+
+---
+
+## 3. Aviv Green
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Founder of EcoNomads YouTube channel, involved in Pastoralist Savannah Restoration Center in Kenya
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 4. Chris Pilley [do RESEARCH from ourRecords]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Safari company, SOTOP camp
+
+**Notes:**
+
+- Research needed from ERA records
+
+---
+
+## 5. Delkhwa habibi [do RESEARCH from ourRecords]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- Research needed from ERA records
+
+---
+
+## 6. Dushime Ange Leo clevis [do RESEARCH from ourRecords]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- ERA Africa participant - check Africa Town Hall transcripts
+
+---
+
+## 7. Elizabeth Morgan Tyler
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Activist, focused on water issues
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 8. Emmanuel URAMUTSE - NOT FOUND in database
+
+⚠️  Fadja Robert APPROVED;
+
+**Bio:**
+
+Fadja Robert-Carr, DHA, is a healthcare executive, consultant, and wellness advocate focused on health equity and community empowerment. She leads interdisciplinary teams delivering health services and wellness initiatives that expand access to quality care for underserved populations. Her work integrates evidence-based models with community-centered approaches to create measurable health outcomes.
+
+**Fields:**
+
+- **Affiliation:** Not listed
+- **LinkedIn:** https://www.linkedin.com/in/fadja-robert-carr-dha-5b0421154
+
+**Notes:**
+
+- ERA Africa participant - check Africa Town Hall transcripts
+
+---
+
+## 10. Fred Ogden - NOT FOUND in database
+
+⚠️  Gary Glass
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Open Future Coalition
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 12. Gwen [do RESEARCH from ourRecords]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 13. Hadziqah [do RESEARCH from ourRecords]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Brunei
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 14. Hashim Yussif - NOT FOUND in database
+
+⚠️  Heraclio Herrera [Save this but, he's not an ERA Member]
+
+**Bio:**
+
+**LinkedIn Headline:** Especialista en Gestión Medio ambiental
+
+**Bio (Improved - ERA Standards):**
+
+Heraclio Herrera R. is an environmental management specialist at Congreso General Kuna in Panama. His work focuses on indigenous environmental governance and sustainable resource management within Kuna communities.
+
+**Fields:**
+
+- **Affiliation:** Congreso General Kuna (CUNA Institute)
+- **LinkedIn:** https://www.linkedin.com/in/heraclio-herrera-r-b7b05531
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 16. Ilarion (3) [This is Ilarion Larry Merculief, for whom we should have a linkedIn]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- ⚠️ This has been fixed multiple times - verify carefully
+
+---
+
+## 17. Ivan Owen
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Social Glassa
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 18. Jerald Katch
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Retired, working with local arboretum
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 19. Juan Bernal
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Obama Fellow, Executive Director of Geiversity Panama's Ecological University
+
+**Notes:**
+
+- Collect info from ERA records
+
+---
+
+## 20. Julia Lindley - NOT FOUND in database
+
+✅ Kaluki Paul Mutuku
+   Old bio: 1092 chars
+   New bio: 1092 chars
+
+⚠️  Kathia Burillo
+
+**Bio:**
+
+**LinkedIn Headline:** Executive Director en Fundación Imaginari
+
+**Bio (Improved - ERA Standards):**
+
+Kathia Burillo R. is Executive Director of Fundación Imaginari in Costa Rica. She leads initiatives at the intersection of art, imagination, and social transformation, fostering creative approaches to community development and environmental awareness.
+
+**Fields:**
+
+- **Affiliation:** Imaginary
+- **LinkedIn:** https://www.linkedin.com/in/kathia-burillo-r-a90a4576
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 23. Kevin A.
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Florida International University
+
+**Notes:**
+
+- Collect info from ERA records
+
+---
+
+## 24. Kevin Li
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** USDA (based in Penn State)
+
+**Notes:**
+
+- Verify Town Hall attendance/presentation
+
+---
+
+## 25. Lauren Miller
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Not listed
+
+**Notes:**
+
+- Research from ERA records needed
+
+---
+
+## 26. Lisa Merton
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Greenbelt Movement International
+
+**Notes:**
+
+- Verify Town Hall attendance/presentation
+
+---
+
+## 27. Malaika Patricia
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- Research from ERA records needed
+- ERA Africa participant - check Africa Town Hall transcripts
+
+---
+
+## 28. Mary Ann Edwards
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Email:** maedwardsrn@gmail.com
+- **Affiliation:** Unknown
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 29. Matthew Hooper
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- Verify Town Hall attendance/presentation
+
+---
+
+## 30. Maxime Weidema - NOT FOUND in database
+
+✅ Minot Weld
+   Old bio: 981 chars
+   New bio: 981 chars
+
+⚠️  Missy Lahren
+
+**Bio:**
+
+**LinkedIn Headline:** Chair of Board of Directors @ Earth Law Center | Public Interest Lawyer, Producer, and Writer
+
+**LinkedIn About:** Missy Lahren has worked as an activist and public interest lawyer in the San Francisco Bay Area since 1993. She has a Ph.D. in Philosophy and Religion and a M.Ed. in Integral Education, both of which focus on the emerging field of “ecozoic education.” She has been working to expand enforceable human and ecological rights since 1997 through participatory media and board positions at Earth Law Center, Unite for Rights, Planetary Advocates, and Eleanor Lives.
+
+**Bio (Improved - ERA Standards):**
+
+Missy Lahren is Chair of the Board of Directors at Earth Law Center and a public interest lawyer. She advances Earth-centered governance and legal frameworks that recognize the rights of nature and ecosystems.  She has a Ph.D. in Philosophy and Religion and a M.Ed. in Integral Education, both of which focus on the emerging field of “ecozoic education.” She has been working to expand enforceable human and ecological rights since 1997 through participatory media and board positions at Earth Law Center, Unite for Rights, Planetary Advocates, and Eleanor Lives.
+
+**Fields:**
+
+- **Affiliation:** Earth Law Center, Unite for Rights, Planetary Advocates
+- **LinkedIn:** https://www.linkedin.com/in/missy-lahren-earthlawyer
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 33. Mr. Kipilangat Kaura -TAWI [ENRICH WITH ERA AFRICA INFO]
+
+**Bio:**
+
+**LinkedIn Headline:** Conservation Intern at no
+
+**Bio (Improved - ERA Standards):**
+
+Kipilangat Kaura is a conservation intern working on biodiversity protection and community-based conservation initiatives. He is building expertise in wildlife conservation and sustainable land management.
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+- **LinkedIn:** https://www.linkedin.com/in/kipilangat-kaura-2425702bb
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 34. Mtokani Saleh - NOT FOUND in database
+
+⚠️  Munyembabazi Aloys
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- Research from ERA records needed
+- ERA Africa participant - check Africa Town Hall transcripts
+
+---
+
+## 36. Mutasa Brian - NOT FOUND in database
+
+⚠️  Myra Jackson
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Unknown
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 38. Penny Heiple - NOT FOUND in database
+
+✅ Roberto Forte
+   Old bio: 904 chars
+   New bio: 904 chars
+
+✅ Roberto Pedraza Ruiz
+   Old bio: 423 chars
+   New bio: 423 chars
+
+✅ Scott Schulte
+   Old bio: 1226 chars
+   New bio: 1226 chars
+
+⚠️  Steffie Rijpkema
+
+**Bio:**
+
+**LinkedIn Headline:** Project Manager & Team Facilitator | Connecting People, Technology, and Sustainable Impact
+
+**LinkedIn About:** Turning societal challenges into tangible, impactful solutions is what drives me. Whether it is sustainable agriculture, ecosystem restoration, or combatting food waste — my interests are broad, but always rooted in purpose. I thrive in organisations and businesses with a sustainable mission. I enjoy translating complex challenges into clear, pragmatic solutions, bridging the gap between technology and the people it serves. I am energized by bringing people together — aligning teams, improving c
+
+**Bio (Improved - ERA Standards):**
+
+Steffie Rijpkema is a Project Manager and Team Facilitator at FarmTree, connecting people, technology, and sustainability. She specializes in regenerative agriculture initiatives and collaborative approaches to food system transformation.
+
+**Fields:**
+
+- **Affiliation:** FarmTree
+- **LinkedIn:** https://www.linkedin.com/in/steffie-rijpkema-49b457105
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 43. Stella Nakityo
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- Research from ERA records needed
+
+---
+
+## 44. Theopista Abalo - NOT FOUND in database
+
+⚠️  Wambui Muthee
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Greenbelt Movement
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 46. nding'a ndikon - NOT FOUND in database
+
+================================================================================
+SUMMARY
+================================================================================
+✅ Bios updated in database: 5
+
+⚠️  Not found in database (10):
+   - LinkedIn Profile Harvesting
+
+- AI initiates rate-limit-aware scraping (10-15 second delays)
+- Runs in background, monitored periodically
+- Creates batch files with scraped profiles
+
+### 2. Document Versioning
+
+- Each iteration creates new numbered version: `...V2.md`, `...V3.md`, etc.
+- Completed members are removed the NEXT VERSION OF THE  document when marked APPROVED
+- Document versions shrink each iteration until empty
+
+### 3. Member Verification
+
+- Database contains non-members
+- MUST verify Town Hall attendance before treating as member
+- Remove flagged non-members immediately (with documentation)
+
+### 4. Quality Control
+
+- AI proposes, human edits, AI updates database
+- No "bad apples" - fix issues permanently so they don't resurface
+- Document fixes in PAST_LEARNINGS.md
+
+### 5. Data Preservation
+
+- When removing members, document WHY
+- Database corrections (spelling, case, merges) done immediately
+- All changes tracked AND REVERTABLE
+
+## Key Principles
+
+**1. Context-Rich Bios**
+
+- NOT: Generic LinkedIn summary copy-paste
+- YES: Curated for consistency of tone and relevance to ERA
+
+**2. Prioritization**
+
+- Act on those where action is clear
+- Insert questions for those where you don't know what to do
+- Human flags members as "NEXT" for AI to research
+
+**3. Human Oversight**
+
+- AI collects data, drafts bios
+- Human edits and approves every bio
+- AI learns from the process and improves
+
+**4. Quality Over Speed**
+
+- Intelligent solutions via intelligence, not scripts
+- Thoughtful, personalized bios
+- Multiple source synthesis
+- Reflect actual ERA engagement
+
+## Document Structure
+
+For sidebar navigation, this document uses:
+
+- **H1:** Summary, Context, Members Without Bios
+- **H2:** Each member name (only H2 in sidebar for easy navigation)
+- **Member sections:** Bio, Fields, Notes (bolded, not headers)
+
+---
+
+# Members Without Bios
+
+## 1. Angelique Garcia [do RESEARCH from ourRecords]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Unknown
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 2. Arun Bangura [do RESEARCH from ourRecords]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- ERA Africa participant - check Africa Town Hall transcripts
+
+---
+
+## 3. Aviv Green
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Founder of EcoNomads YouTube channel, involved in Pastoralist Savannah Restoration Center in Kenya
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 4. Chris Pilley [do RESEARCH from ourRecords]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Safari company, SOTOP camp
+
+**Notes:**
+
+- Research needed from ERA records
+
+---
+
+## 5. Delkhwa habibi [do RESEARCH from ourRecords]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- Research needed from ERA records
+
+---
+
+## 6. Dushime Ange Leo clevis [do RESEARCH from ourRecords]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- ERA Africa participant - check Africa Town Hall transcripts
+
+---
+
+## 7. Elizabeth Morgan Tyler
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Activist, focused on water issues
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 8. Emmanuel URAMUTSE
+   - Fadja Robert APPROVED;
+
+**Bio:**
+
+Fadja Robert-Carr, DHA, is a healthcare executive, consultant, and wellness advocate focused on health equity and community empowerment. She leads interdisciplinary teams delivering health services and wellness initiatives that expand access to quality care for underserved populations. Her work integrates evidence-based models with community-centered approaches to create measurable health outcomes.
+
+**Fields:**
+
+- **Affiliation:** Not listed
+- **LinkedIn:** https://www.linkedin.com/in/fadja-robert-carr-dha-5b0421154
+
+**Notes:**
+
+- ERA Africa participant - check Africa Town Hall transcripts
+
+---
+
+## 10. Fred Ogden
+   - Gary Glass
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Open Future Coalition
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 12. Gwen [do RESEARCH from ourRecords]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 13. Hadziqah [do RESEARCH from ourRecords]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Brunei
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 14. Hashim Yussif
+   - Heraclio Herrera [Save this but, he's not an ERA Member]
+
+**Bio:**
+
+**LinkedIn Headline:** Especialista en Gestión Medio ambiental
+
+**Bio (Improved - ERA Standards):**
+
+Heraclio Herrera R. is an environmental management specialist at Congreso General Kuna in Panama. His work focuses on indigenous environmental governance and sustainable resource management within Kuna communities.
+
+**Fields:**
+
+- **Affiliation:** Congreso General Kuna (CUNA Institute)
+- **LinkedIn:** https://www.linkedin.com/in/heraclio-herrera-r-b7b05531
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 16. Ilarion (3) [This is Ilarion Larry Merculief, for whom we should have a linkedIn]
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- ⚠️ This has been fixed multiple times - verify carefully
+
+---
+
+## 17. Ivan Owen
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Social Glassa
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 18. Jerald Katch
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Retired, working with local arboretum
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 19. Juan Bernal
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Obama Fellow, Executive Director of Geiversity Panama's Ecological University
+
+**Notes:**
+
+- Collect info from ERA records
+
+---
+
+## 20. Julia Lindley
+   - Kathia Burillo
+
+**Bio:**
+
+**LinkedIn Headline:** Executive Director en Fundación Imaginari
+
+**Bio (Improved - ERA Standards):**
+
+Kathia Burillo R. is Executive Director of Fundación Imaginari in Costa Rica. She leads initiatives at the intersection of art, imagination, and social transformation, fostering creative approaches to community development and environmental awareness.
+
+**Fields:**
+
+- **Affiliation:** Imaginary
+- **LinkedIn:** https://www.linkedin.com/in/kathia-burillo-r-a90a4576
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 23. Kevin A.
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Florida International University
+
+**Notes:**
+
+- Collect info from ERA records
+
+---
+
+## 24. Kevin Li
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** USDA (based in Penn State)
+
+**Notes:**
+
+- Verify Town Hall attendance/presentation
+
+---
+
+## 25. Lauren Miller
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Not listed
+
+**Notes:**
+
+- Research from ERA records needed
+
+---
+
+## 26. Lisa Merton
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Greenbelt Movement International
+
+**Notes:**
+
+- Verify Town Hall attendance/presentation
+
+---
+
+## 27. Malaika Patricia
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- Research from ERA records needed
+- ERA Africa participant - check Africa Town Hall transcripts
+
+---
+
+## 28. Mary Ann Edwards
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Email:** maedwardsrn@gmail.com
+- **Affiliation:** Unknown
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 29. Matthew Hooper
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- Verify Town Hall attendance/presentation
+
+---
+
+## 30. Maxime Weidema
+   - Missy Lahren
+
+**Bio:**
+
+**LinkedIn Headline:** Chair of Board of Directors @ Earth Law Center | Public Interest Lawyer, Producer, and Writer
+
+**LinkedIn About:** Missy Lahren has worked as an activist and public interest lawyer in the San Francisco Bay Area since 1993. She has a Ph.D. in Philosophy and Religion and a M.Ed. in Integral Education, both of which focus on the emerging field of “ecozoic education.” She has been working to expand enforceable human and ecological rights since 1997 through participatory media and board positions at Earth Law Center, Unite for Rights, Planetary Advocates, and Eleanor Lives.
+
+**Bio (Improved - ERA Standards):**
+
+Missy Lahren is Chair of the Board of Directors at Earth Law Center and a public interest lawyer. She advances Earth-centered governance and legal frameworks that recognize the rights of nature and ecosystems.  She has a Ph.D. in Philosophy and Religion and a M.Ed. in Integral Education, both of which focus on the emerging field of “ecozoic education.” She has been working to expand enforceable human and ecological rights since 1997 through participatory media and board positions at Earth Law Center, Unite for Rights, Planetary Advocates, and Eleanor Lives.
+
+**Fields:**
+
+- **Affiliation:** Earth Law Center, Unite for Rights, Planetary Advocates
+- **LinkedIn:** https://www.linkedin.com/in/missy-lahren-earthlawyer
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 33. Mr. Kipilangat Kaura -TAWI [ENRICH WITH ERA AFRICA INFO]
+
+**Bio:**
+
+**LinkedIn Headline:** Conservation Intern at no
+
+**Bio (Improved - ERA Standards):**
+
+Kipilangat Kaura is a conservation intern working on biodiversity protection and community-based conservation initiatives. He is building expertise in wildlife conservation and sustainable land management.
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+- **LinkedIn:** https://www.linkedin.com/in/kipilangat-kaura-2425702bb
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 34. Mtokani Saleh
+   - Munyembabazi Aloys
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- Research from ERA records needed
+- ERA Africa participant - check Africa Town Hall transcripts
+
+---
+
+## 36. Mutasa Brian
+   - Myra Jackson
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Unknown
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 38. Penny Heiple
+   - Steffie Rijpkema
+
+**Bio:**
+
+**LinkedIn Headline:** Project Manager & Team Facilitator | Connecting People, Technology, and Sustainable Impact
+
+**LinkedIn About:** Turning societal challenges into tangible, impactful solutions is what drives me. Whether it is sustainable agriculture, ecosystem restoration, or combatting food waste — my interests are broad, but always rooted in purpose. I thrive in organisations and businesses with a sustainable mission. I enjoy translating complex challenges into clear, pragmatic solutions, bridging the gap between technology and the people it serves. I am energized by bringing people together — aligning teams, improving c
+
+**Bio (Improved - ERA Standards):**
+
+Steffie Rijpkema is a Project Manager and Team Facilitator at FarmTree, connecting people, technology, and sustainability. She specializes in regenerative agriculture initiatives and collaborative approaches to food system transformation.
+
+**Fields:**
+
+- **Affiliation:** FarmTree
+- **LinkedIn:** https://www.linkedin.com/in/steffie-rijpkema-49b457105
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 43. Stella Nakityo
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** This participant's company is not listed in the calendar event
+
+**Notes:**
+
+- Research from ERA records needed
+
+---
+
+## 44. Theopista Abalo
+   - Wambui Muthee
+
+**Bio:**
+
+_[No bio draft yet]_
+
+**Fields:**
+
+- **Affiliation:** Greenbelt Movement
+
+**Notes:**
+
+_[No research notes yet]_
+
+---
+
+## 46. nding'a ndikon
+
+================================================================================
+✅ V6 PROCESSING COMPLETE
+================================================================================

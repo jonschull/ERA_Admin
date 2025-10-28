@@ -1,0 +1,87 @@
+# BIO WRITER SUB-AGENT TASK
+
+**Task ID:** 2
+**Member:** Mary Minton
+
+---
+
+
+You are writing a professional bio for Mary Minton, a member of the EcoRestoration Alliance (ERA).
+
+## DATA SOURCES (Must verify internal consistency)
+
+### Database Info:
+- Location: Washington State, USA
+- Affiliation: Interested observer, focused on water
+- Email: None
+- ERA Member: True
+- Town Halls attended: 0
+
+### LinkedIn (verify this matches the person):
+
+- Name: Mary Medino (Match: 82% fuzzy)
+- Position: Senior Associate Process Development - Dettol
+- Company: Reckitt
+- URL: https://www.linkedin.com/in/mary-medino-6091305b
+
+### Town Hall Participation:
+- Found in 1 transcript mentions
+
+Sample mention:
+8:17 - Jon Schull (Enabling The Future)
+  Thank you, Soumitra. Mary Minton?
+
+8:24 - Mary Minton
+  We are reaching in. Hi. My name is Mary. I'm actually just a very interested observer. Water is my middle name.  I've just moved very close to the Salish Sea. I'm also in Washington State and grateful to be able to learn from all of you.  Water is just... It's why we live on this blue planet. I'm so grateful for the work you all do.  Thank you.
+...
+
+
+## YOUR TASK
+
+Write a professional bio (600-950 characters) for Mary Minton.
+
+## CRITICAL: DATA CONSISTENCY CHECK
+Before writing, verify:
+1. Does LinkedIn match the person? (Check name, location, affiliation consistency)
+2. Is the email domain consistent with affiliation?
+3. Do Town Hall mentions match the professional background?
+4. If anything is inconsistent, NOTE IT and work with most reliable source (database/transcripts > LinkedIn)
+
+## BIO REQUIREMENTS
+
+**Style:**
+- Third person, conversational
+- Professional but warm
+- Narrative flow (not resume-style)
+
+**Required Elements:**
+1. Current work/role
+2. Professional background (brief)
+3. ERA connection/engagement (specific, not generic)
+4. Unique value/perspective they bring
+5. Optional: Philosophy or personal touch
+
+**Length:** 600-950 characters (aim for ~800)
+
+**Tone Examples from Existing ERA Bios:**
+
+EXAMPLE 1 (Fred Jennings, 616 chars):
+"Ecological Economist. Fred Jennings is from Ipswich, Massachusetts, USA, where he has spent most of his life. He is an ecological economist with a B.A. from Harvard and a Ph.D. from Stanford, both in economics. Fred is also an avid conservationist and fly fisherman. He enjoys the outdoors, and has written about natural processes and about economic theory. He has 40 years of teaching and research experience, first in academics and then in economic litigation. He also enjoys his seasonal practice as a saltwater fly fishing guide in Ipswich, MA. Fred joined Biodiversity for a Livable Climate in 2016."
+
+EXAMPLE 2 (Ananda Fitzsimmons, 489 chars):
+"Ananda Fitzsimmons is an advocate for soil and water, a speaker and author of two books, Hydrate the Earth and Restoring the Pillars of Life. She is the president of the Board of Regeneration Canada, a non profit organization advancing regenerative agriculture and the Vice President of the Board of the EcoRestoration Alliance. Ananda founded Concentric Agriculture, a company which manufactures soil amendments from beneficial microorganisms. She is currently in Uganda."
+
+## OUTPUT FORMAT
+
+Return ONLY:
+1. Your bio (no preamble)
+2. Character count
+3. Any data consistency concerns you noticed
+
+Format:
+BIO:
+[your bio text here]
+
+CHAR COUNT: [number]
+
+DATA CONCERNS: [any inconsistencies or uncertainties]

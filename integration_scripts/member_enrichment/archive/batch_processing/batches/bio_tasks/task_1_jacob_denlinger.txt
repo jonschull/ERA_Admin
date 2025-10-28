@@ -1,0 +1,85 @@
+# BIO WRITER SUB-AGENT TASK
+
+**Task ID:** 1
+**Member:** Jacob Denlinger
+
+---
+
+
+You are writing a professional bio for Jacob Denlinger, a member of the EcoRestoration Alliance (ERA).
+
+## DATA SOURCES (Must verify internal consistency)
+
+### Database Info:
+- Location: Unknown
+- Affiliation: High school student, interning for the organization
+- Email: jdenlinger26@brophybroncos.org
+- ERA Member: True
+- Town Halls attended: 0
+
+### LinkedIn (verify this matches the person):
+
+- Name: Jacob Denlinger (Match: 100% exact)
+- Position: Intern
+- Company: EcoRestoration Alliance
+- URL: https://www.linkedin.com/in/jacob-denlinger-850707313
+
+### Town Hall Participation:
+- Found in 27 transcript mentions
+
+Sample mention:
+[**Meeting Recording and Transcript**](https://fathom.video/share/q7XFo7vxZPZUvuJ-yKWa4QCHVoS7Laki) | **[Link to this Document](https://docs.google.com/document/d/17Glux2fRAYyz59CIjazzcyKofQ8PHXrUITjG8o2-uj0/edit?usp=sharing)** | [Link to Town Hall Folder](https://drive.google.com/drive/folders/1UBD-b4l3wXfu4rNwwsLw6NiP5hoQY67z?usp=share_link) | [Online Forum](https://groups.google.com/g/ecorestoration-alliance)  
+[Calendar](https://bio4climate.org/era/engage/) ([subscribe](https://calendar.goog...
+
+### Phone: 480 299 0865
+
+
+## YOUR TASK
+
+Write a professional bio (600-950 characters) for Jacob Denlinger.
+
+## CRITICAL: DATA CONSISTENCY CHECK
+Before writing, verify:
+1. Does LinkedIn match the person? (Check name, location, affiliation consistency)
+2. Is the email domain consistent with affiliation?
+3. Do Town Hall mentions match the professional background?
+4. If anything is inconsistent, NOTE IT and work with most reliable source (database/transcripts > LinkedIn)
+
+## BIO REQUIREMENTS
+
+**Style:**
+- Third person, conversational
+- Professional but warm
+- Narrative flow (not resume-style)
+
+**Required Elements:**
+1. Current work/role
+2. Professional background (brief)
+3. ERA connection/engagement (specific, not generic)
+4. Unique value/perspective they bring
+5. Optional: Philosophy or personal touch
+
+**Length:** 600-950 characters (aim for ~800)
+
+**Tone Examples from Existing ERA Bios:**
+
+EXAMPLE 1 (Fred Jennings, 616 chars):
+"Ecological Economist. Fred Jennings is from Ipswich, Massachusetts, USA, where he has spent most of his life. He is an ecological economist with a B.A. from Harvard and a Ph.D. from Stanford, both in economics. Fred is also an avid conservationist and fly fisherman. He enjoys the outdoors, and has written about natural processes and about economic theory. He has 40 years of teaching and research experience, first in academics and then in economic litigation. He also enjoys his seasonal practice as a saltwater fly fishing guide in Ipswich, MA. Fred joined Biodiversity for a Livable Climate in 2016."
+
+EXAMPLE 2 (Ananda Fitzsimmons, 489 chars):
+"Ananda Fitzsimmons is an advocate for soil and water, a speaker and author of two books, Hydrate the Earth and Restoring the Pillars of Life. She is the president of the Board of Regeneration Canada, a non profit organization advancing regenerative agriculture and the Vice President of the Board of the EcoRestoration Alliance. Ananda founded Concentric Agriculture, a company which manufactures soil amendments from beneficial microorganisms. She is currently in Uganda."
+
+## OUTPUT FORMAT
+
+Return ONLY:
+1. Your bio (no preamble)
+2. Character count
+3. Any data consistency concerns you noticed
+
+Format:
+BIO:
+[your bio text here]
+
+CHAR COUNT: [number]
+
+DATA CONCERNS: [any inconsistencies or uncertainties]

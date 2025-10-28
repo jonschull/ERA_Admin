@@ -1,0 +1,12 @@
+BIO:
+Rayan Naraqi Farhoumand is a Phoenix-based sustainable development advocate and founder of DEAL Inc., a grassroots initiative that makes recycled educational resources accessible for literacy and youth engagement in developing nations. A former ERA intern (March 2024 - July 2025), Rayan brings multilingual skills and cross-cultural collaboration experience to his work challenging systemic instability in regions with fragile governance. His involvement with the Murphy Student Climate Coalition in Arizona reflects his commitment to bridging academic theory with hands-on action, particularly at the intersection of environmental restoration, social equity, and economic development. Through his entrepreneurial work in both private and public sectors, Rayan supports innovative organizations and start-ups driving inclusive, sustainable solutions. His participation in ERA demonstrated his recognition that ecological restoration and socioeconomic development are inseparable—healthy ecosystems provide the foundation for resilient communities, especially in developing nations facing governance challenges and climate vulnerability.
+
+CHAR COUNT: 947
+
+DATA CONCERNS:
+- Database says "ERA Member: False" but LinkedIn shows he worked at ERA March 2024 - July 2025 (intern) - LinkedIn more accurate
+- Database says "High school student" but doesn't capture his extensive sustainable development work and DEAL Inc. founding - LinkedIn provides fuller picture
+- LinkedIn shows current position as "Server at Flower Child" (likely part-time job while doing development work) - led with development work as primary identity
+- Database shows 0 Town Halls attended, no transcript mentions - limited direct ERA engagement data beyond internship
+- Used LinkedIn About section as primary source since it provides detailed mission statement in his own words
+- Bio is at 947 chars (upper limit) due to complex international development work requiring context
