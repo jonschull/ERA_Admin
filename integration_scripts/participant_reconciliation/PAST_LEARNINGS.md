@@ -594,6 +594,33 @@ Only these were truly removed (user confirmed):
 **Net effect:** Reduced from 555 to 461 participants, achieved 100% validation
 **Total reduction:** 555 → 461 (94 duplicates/variants removed)
 
+### ⚠️ **CRITICAL: False Conflations Fixed**
+
+**Date:** 2025-10-27
+
+| False Name | Actual People | How Fixed | Notes |
+|------------|---------------|-----------|-------|
+| Craig McNamara (id 454) | **Craig Erickson** + ~~NOT A REAL PERSON~~ | DELETED from database | Database conflation merged data from Craig Erickson (real ERA attendee) with Airtable record for "Craig McNamara" who is NOT a real ERA member. |
+
+**Pattern:** Database conflation created false person by merging:
+- Email from Airtable ghost record (SierraOrchards@me.com - not real)
+- Affiliation from actual attendee (Craig Erickson - HarvestCraft)
+- Meeting attendance from actual attendee (Craig Erickson)
+
+**Resolution:** 
+- ✅ DELETED from database (id 454)
+- ⚠️ **MUST DELETE from Airtable:** recPVicv40VMCWvXx (SierraOrchards@me.com)
+- ✅ Keep separate records:
+  - Craig Erickson (id 1823) - HarvestCraft, ERA Town Hall attendee
+  - Brendan McNamara (id 1536) - Global Earth Repair Foundation, ERA Africa TH attendee
+
+**User clarification:** "There IS no real Craig McNamara. You can remove him from Airtable."
+
+**NEVER:**
+- Add "Craig McNamara" to database
+- Merge anything with Airtable record recPVicv40VMCWvXx
+- Confuse Craig Erickson with Craig McNamara
+
 ### 🆕 **New Patterns Discovered**
 
 1. **Account Sharing:**
