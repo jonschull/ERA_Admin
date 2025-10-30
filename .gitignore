@@ -108,6 +108,15 @@ build/
 **/*_dump.csv
 
 # ----------------------
+# Downloaded Data Sources
+# ----------------------
+Other_Data_Sources/GDrive/pre_fathom_docs.md
+Other_Data_Sources/GDrive/gdrive_historical_inventory.txt
+Other_Data_Sources/GDrive/search_results.txt
+Other_Data_Sources/GGroups/google_cookies.json
+Other_Data_Sources/GGroups/*_members_*.csv
+
+# ----------------------
 # Historical Archives (tracked but excluded from diff)
 # ----------------------
 # Keep historical/ folders in Git but mark as binary

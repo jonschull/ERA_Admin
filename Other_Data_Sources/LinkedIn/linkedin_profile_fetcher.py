@@ -27,7 +27,7 @@ USAGE:
     1. Update URLs list with members to scrape
     2. Ensure linkedin_cookies.json exists and is recent
     3. Run: python3 linkedin_profile_fetcher.py
-    4. Profiles saved to: batches/linkedin_profiles/
+    4. Profiles saved to: profiles/
 
 SUCCESS RATE:
     - Original attempt: 3/18 (failed due to strict timeout)
@@ -47,7 +47,7 @@ from datetime import datetime
 # Paths
 SCRIPT_DIR = Path(__file__).parent
 COOKIES_FILE = SCRIPT_DIR / "linkedin_cookies.json"
-OUTPUT_DIR = SCRIPT_DIR / "batches" / "linkedin_profiles"
+OUTPUT_DIR = SCRIPT_DIR / "profiles"
 
 # Remaining 12 members that appeared to timeout but may have loaded
 # Fixed script now handles navigation timeouts gracefully
