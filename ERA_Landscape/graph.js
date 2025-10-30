@@ -789,6 +789,9 @@
   
   // Helper function to start expansion timer
   function startExpansionTimer(nodeId) {
+    // Change cursor to indicate timer is running
+    network.canvas.body.container.style.cursor = 'progress';
+    
     // Start hold timer for progressive expansion from CURRENT order
     // This will expand if user continues holding for 3 seconds
     if (selectionState.highlightOrder < 3) {
@@ -806,13 +809,23 @@
                 selectionState.highlightOrder++;
                 applyHighlight(nodeId, selectionState.highlightOrder);
                 console.log(`⏱️ Timer expanded to order ${selectionState.highlightOrder}`);
+              } else {
+                // Reached max order, restore cursor
+                network.canvas.body.container.style.cursor = 'default';
               }
             }, 3000);
+          } else {
+            // Reached max order, restore cursor
+            network.canvas.body.container.style.cursor = 'default';
           }
+        } else {
+          // Timer finished but conditions not met, restore cursor
+          network.canvas.body.container.style.cursor = 'default';
         }
       }, 3000);
     } else {
       console.log('✋ Already at max order (3)');
+      network.canvas.body.container.style.cursor = 'default';
     }
   }
   
@@ -822,6 +835,9 @@
       clearTimeout(selectionState.holdTimer);
       selectionState.holdTimer = null;
     }
+    
+    // Restore cursor
+    network.canvas.body.container.style.cursor = 'default';
     
     // Clear highlight
     clearHighlight();
@@ -833,6 +849,8 @@
       clearTimeout(selectionState.holdTimer);
       selectionState.holdTimer = null;
     }
+    // Restore cursor
+    network.canvas.body.container.style.cursor = 'default';
   });
   
   // Cancel progressive expansion when mouse is released
@@ -843,6 +861,8 @@
       selectionState.holdTimer = null;
       console.log('🛑 Progressive expansion cancelled on mouse release');
     }
+    // Restore cursor
+    network.canvas.body.container.style.cursor = 'default';
   });
   
   console.log('✅ Node selection highlighting enabled (1st/2nd/3rd order with progressive expansion)');
