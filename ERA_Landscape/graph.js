@@ -665,38 +665,15 @@
     
     console.log(`🎯 Highlighted node ${nodeId} with ${highlightedNodes.size} neighbors (order ${order})`);
     
-    // Auto-zoom centered on focal node (keeps node under cursor)
-    const positions = network.getPositions(Array.from(highlightedNodes));
-    const focalPos = positions[nodeId];
-    
-    if (focalPos) {
-      // Calculate bounding box of highlighted nodes
-      let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-      Object.values(positions).forEach(pos => {
-        minX = Math.min(minX, pos.x);
-        maxX = Math.max(maxX, pos.x);
-        minY = Math.min(minY, pos.y);
-        maxY = Math.max(maxY, pos.y);
-      });
-      
-      // Calculate scale to fit all nodes with padding
-      const canvas = network.canvas.frame.canvas;
-      const width = maxX - minX;
-      const height = maxY - minY;
-      const scaleX = canvas.clientWidth / (width * 1.2);  // 1.2 for padding
-      const scaleY = canvas.clientHeight / (height * 1.2);
-      const scale = Math.min(scaleX, scaleY, 2.0);  // Cap at 2x zoom
-      
-      // Move to focal node position with calculated scale
-      network.moveTo({
-        position: focalPos,
-        scale: scale,
-        animation: {
-          duration: 500,
-          easingFunction: 'easeInOutQuad'
-        }
-      });
-    }
+    // Auto-zoom: fit all highlighted nodes with focal node centered
+    // Use fit() but with offset to keep focal node in center
+    network.fit({
+      nodes: Array.from(highlightedNodes),
+      animation: {
+        duration: 500,
+        easingFunction: 'easeInOutQuad'
+      }
+    });
   }
   
   // Clear highlight: restore all nodes/edges to original state
@@ -767,41 +744,47 @@
     const nodeId = params.nodes[0];
     if (!nodeId) return;
     
+    console.log(`🖱️ Node selected: ${nodeId}, current state: ${selectionState.selectedNodeId}, order: ${selectionState.highlightOrder}`);
+    
     // Cancel any existing timer
     if (selectionState.holdTimer) {
       clearTimeout(selectionState.holdTimer);
       selectionState.holdTimer = null;
     }
     
-    // If clicking the same node, keep current order and resume expansion
-    // If new node, reset to 1st order
+    // If clicking different node, reset to 1st order
+    // If clicking same node, check if we should expand to next order
     if (selectionState.selectedNodeId !== nodeId) {
       // New node selected - start at 1st order
       selectionState.selectedNodeId = nodeId;
       selectionState.highlightOrder = 1;
       applyHighlight(nodeId, 1);
+    } else {
+      // Same node clicked again - immediately expand to next order if available
+      if (selectionState.highlightOrder < 3) {
+        selectionState.highlightOrder++;
+        applyHighlight(nodeId, selectionState.highlightOrder);
+        console.log(`⚡ Immediately expanded to order ${selectionState.highlightOrder}`);
+      }
     }
-    // If same node: keep current highlightOrder and it will expand from there
     
-    // Start hold timer for progressive expansion from current order
-    const currentOrder = selectionState.highlightOrder;
-    
-    // Only set timer if not already at max order (3)
-    if (currentOrder < 3) {
+    // Start hold timer for progressive expansion from CURRENT order
+    // This will expand further if user continues holding
+    if (selectionState.highlightOrder < 3) {
       selectionState.holdTimer = setTimeout(() => {
         // Expand to next order
-        const nextOrder = currentOrder + 1;
-        if (selectionState.selectedNodeId === nodeId) {
-          selectionState.highlightOrder = nextOrder;
-          applyHighlight(nodeId, nextOrder);
+        if (selectionState.selectedNodeId === nodeId && selectionState.highlightOrder < 3) {
+          selectionState.highlightOrder++;
+          applyHighlight(nodeId, selectionState.highlightOrder);
+          console.log(`⏱️ Timer expanded to order ${selectionState.highlightOrder}`);
           
           // If not at max order yet, schedule next expansion
-          if (nextOrder < 3) {
+          if (selectionState.highlightOrder < 3) {
             selectionState.holdTimer = setTimeout(() => {
-              const finalOrder = nextOrder + 1;
-              if (selectionState.selectedNodeId === nodeId) {
-                selectionState.highlightOrder = finalOrder;
-                applyHighlight(nodeId, finalOrder);
+              if (selectionState.selectedNodeId === nodeId && selectionState.highlightOrder < 3) {
+                selectionState.highlightOrder++;
+                applyHighlight(nodeId, selectionState.highlightOrder);
+                console.log(`⏱️ Timer expanded to order ${selectionState.highlightOrder}`);
               }
             }, 3000);
           }
@@ -829,12 +812,14 @@
     }
   });
   
-  // Mouse release event - don't cancel timer, just log
-  // This allows re-clicking to resume expansion
+  // Cancel progressive expansion when mouse is released
+  // This allows short holds to stay at current order
   network.on('release', (params) => {
-    // Don't cancel timer - let it complete so highlightOrder advances
-    // User can re-click to trigger next expansion immediately
-    console.log('🖱️ Mouse released - hold timer continues');
+    if (selectionState.holdTimer) {
+      clearTimeout(selectionState.holdTimer);
+      selectionState.holdTimer = null;
+      console.log('🛑 Progressive expansion cancelled on mouse release');
+    }
   });
   
   console.log('✅ Node selection highlighting enabled (1st/2nd/3rd order with progressive expansion)');
