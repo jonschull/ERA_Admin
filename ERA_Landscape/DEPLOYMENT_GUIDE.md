@@ -285,6 +285,3 @@ Site is working correctly when:
 - ✅ No console errors
 
 **Current Status**: ✅ All criteria met, production ready!
----
-
-**Back to:** [ERA_Landscape README](README.md) | [ERA_Admin README](../README.md)

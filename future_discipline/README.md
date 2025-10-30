@@ -63,7 +63,7 @@ This component documents lessons learned from Phase 4B-2 participant reconciliat
 
 #### Reflections on Discipline
 
-**File:** [Reflections_on_discipline.md](Reflections_on_discipline.md) (24KB)
+**File:** [Reflections_on_discipline.md](../future_discipline/Reflections_on_discipline.md) (24KB)
 
 **Summary:**
 - Detailed analysis of discipline failures during Phase 4B-2
@@ -85,7 +85,7 @@ This component documents lessons learned from Phase 4B-2 participant reconciliat
 
 #### Drone Architecture Proposal
 
-**File:** [disciplined_investigation_architecture.md](disciplined_investigation_architecture.md) (17KB)
+**File:** [disciplined_investigation_architecture.md](../future_discipline/disciplined_investigation_architecture.md) (17KB)
 
 **Summary:**
 Proposes decomposing Phase 4B-2 investigation workflow into:

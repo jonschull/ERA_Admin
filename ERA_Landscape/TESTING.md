@@ -542,6 +542,3 @@ time.sleep(2)  # Watch what happens
 - **Need to see what's happening?** → Set `headless=False` in test
 
 **When in doubt:** Open index.html in Chrome, open console, and see what's actually happening.
----
-
-**Back to:** [ERA_Landscape README](README.md) | [ERA_Admin README](../README.md)

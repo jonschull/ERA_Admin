@@ -248,14 +248,14 @@ Phase 4B scripts follow this pattern.
 
 **For Humans:**
 - **This README** - Overview and quick start
-- **[README_PHASE4B.md](archive/superseded_docs/README_PHASE4B.md)** - Complete Phase 4B system guide (archived)
-- **[README_PHASE4B_DETAILED.md](archive/superseded_docs/README_PHASE4B_DETAILED.md)** - Technical deep dive (archived)
-- **[PHASE4B2_PROGRESS_REPORT.md](archive/superseded_docs/PHASE4B2_PROGRESS_REPORT.md)** - 8-round progress analysis (archived)
-- **[AI_ASSISTANT_CONTEXT_RECOVERY.md](AI_ASSISTANT_CONTEXT_RECOVERY.md)** - Quick orientation for resuming work
-- **[COMMIT_PHASE4B1.md](archive/docs/COMMIT_PHASE4B1.md)** - What was built & why (archived)
+- **[README_PHASE4B.md](../integration_scripts/participant_reconciliation/archive/superseded_docs/README_PHASE4B.md)** - Complete Phase 4B system guide (archived)
+- **[README_PHASE4B_DETAILED.md](../integration_scripts/participant_reconciliation/archive/superseded_docs/README_PHASE4B_DETAILED.md)** - Technical deep dive (archived)
+- **[PHASE4B2_PROGRESS_REPORT.md](../integration_scripts/participant_reconciliation/archive/superseded_docs/PHASE4B2_PROGRESS_REPORT.md)** - 8-round progress analysis (archived)
+- **[AI_ASSISTANT_CONTEXT_RECOVERY.md](../integration_scripts/participant_reconciliation/AI_ASSISTANT_CONTEXT_RECOVERY.md)** - Quick orientation for resuming work
+- **[COMMIT_PHASE4B1.md](../integration_scripts/participant_reconciliation/archive/docs/COMMIT_PHASE4B1.md)** - What was built & why (archived)
 
 **For AI Assistants:**
-- **[AI_WORKFLOW_GUIDE.md](archive/superseded_docs/AI_WORKFLOW_GUIDE.md)** - Complete workflow for naive AI (archived)
+- **[AI_WORKFLOW_GUIDE.md](../integration_scripts/participant_reconciliation/archive/superseded_docs/AI_WORKFLOW_GUIDE.md)** - Complete workflow for naive AI (archived)
   - Makes implicit habits explicit
   - 6-phase collaboration cycle
   - Mental states for each phase
@@ -263,8 +263,8 @@ Phase 4B scripts follow this pattern.
   - Critical rules & troubleshooting
 
 **Archives:**
-- **[archive/early_rounds/](archive/early_rounds/)** - Historical scripts (Rounds 1-3)
-- **[archive/rounds_4_8/](archive/rounds_4_8/)** - Rounds 4-8 execution scripts
+- **[archive/early_rounds/](../integration_scripts/participant_reconciliation/archive/early_rounds/)** - Historical scripts (Rounds 1-3)
+- **[archive/rounds_4_8/](../integration_scripts/participant_reconciliation/archive/rounds_4_8/)** - Rounds 4-8 execution scripts
 
 #### Configuration
 
@@ -303,8 +303,7 @@ For server deployment, edit `era_config.py` or set environment variables.
 - `archive/docs/COMMIT_PHASE4B1.md` - Phase 4B-1 implementation notes (archived)
 
 **Archives:**
-- `archive/superseded_docs/` - Historical documentation (Phase 4B completion)
-- `archive/docs/` - Development documentation and plans
+- `archive/early_rounds/` - Rounds 1-3 (learning phase)
 - `archive/rounds_4_8/` - Rounds 4-8 (production phase)
 
 #### Integration With Other Components
