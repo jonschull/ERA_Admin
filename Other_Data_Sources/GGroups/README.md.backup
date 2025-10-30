@@ -1,0 +1,446 @@
+# GGroups - Google Groups Membership Data
+
+## Purpose
+
+Store and process Google Groups membership lists for ERA member verification.
+
+Here are my cookies
+[
+    {
+        "domain": ".google.com",
+        "expirationDate": 1796133197.628403,
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "SAPISID",
+        "path": "/",
+        "sameSite": null,
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "9PPZQ9uyh9nsHbmS/AkmRvHndYc_6mmmfO"
+    },
+    {
+        "domain": ".google.com",
+        "expirationDate": 1796133197.628504,
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "__Secure-3PAPISID",
+        "path": "/",
+        "sameSite": "no_restriction",
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "9PPZQ9uyh9nsHbmS/AkmRvHndYc_6mmmfO"
+    },
+    {
+        "domain": ".google.com",
+        "expirationDate": 1774215078.069045,
+        "hostOnly": false,
+        "httpOnly": true,
+        "name": "AEC",
+        "path": "/",
+        "sameSite": "lax",
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "AaJma5sBDkq5VNYzIFQOMdVLJvkEWGEuIw2Zzc4iZkheIlTxafHzybNiHSg"
+    },
+    {
+        "domain": "groups.google.com",
+        "expirationDate": 1793807128.8902,
+        "hostOnly": true,
+        "httpOnly": true,
+        "name": "OSID",
+        "path": "/",
+        "sameSite": null,
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "g.a0001wgSU49IwLTUTG913YLWhY2mW5zANMRDT8zNQNnh1iLQbyc7xVc7BeqQajo3zpOQio1IuwACgYKAcwSARASFQHGX2MialqAWPDDco0V-mu_FXNYAhoVAUF8yKoRUDTVQ62buGWmqQB98k1n0076"
+    },
+    {
+        "domain": ".google.com",
+        "expirationDate": 1777482993.666578,
+        "hostOnly": false,
+        "httpOnly": true,
+        "name": "NID",
+        "path": "/",
+        "sameSite": "no_restriction",
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "526=X0X__AKv4m3lFDD_Ex3NXUAvOs-FpzVUgDGU2qUqqZ_f5rmZHTU00Du_jdXFFTXxz_q5p1Mp1yLD6NbxJEmDSBAfiJiqo3mh7zsh_KreeEulZ4hcizCs-YxnZizSAS_ZoUwvmcmiA3DQ87gFsfK7CvgCzo34xMPHF4sEpdupV0QOO8mpCR_kek3GSo5Rv2igF2PnxofG5ciXdAKi1PjICPujQKc1UM2Cddp7ZP5h4XgLFeulSAxbfmmsv74zYhIWn_OOQ96Lrt-oE_AdP1VrhefHTjPgVMzV4SVkXA8pVtKUal1Nbi4BdK5zsjWM8QFeInCaAwu82Ub8kPvICAtH0QZOUxc5ySPOYuSTHLWOMuROWNjosQpuIWei6K35TI64OInFEFglwcbXHuWdzsOnSska3MifjiZJc5zKO2ll_NqFjGLVR3wiT8ascsow59FpGks2GdQC2tqnsrXHgvo150LujilAXyI14EJWVmvJTvpO_HTrEuEn_E1h2JM8cyiYBLc1TmLBo2YnaSE3zE-u3CmIg-4BGfV_each0zlD5fZM8sb1JqZmacTTNKz-U6nxIFCeyXwRk2rArmlQmHzM9VkerDsTi_73_veh9Y0z0XrwoSqYAfab9g5YHEMFlmJFW1L20DoxkkEVXK9hTqiQ1zZ-U0XRWV_lokiYUktEGNgUu_hay2JktVzkr_9cZr_d5DMbNPXsz2IulqK63kYVNEQuL6zx6rx-LMqb9gndl6DtxOtdFoLbhpuYm993kB7376g8Pu-Vf1LtgCiLq_JyFXtRLSTgckAnoBLVH9B6b0N8J5XUGEmzH8xGUlclgMCftPhq9hsdDXQKXWJJzcXl52p9O97zt2XptbKQgBXFgmabC6Ng6kqWYC52qSdNbmyK8ysZOcLOSflCECjrB7Y_22MFRfT7mjaa64d7H_bcqY0C6evBv2dr8AySUvpwtYn5YoXk3YJYDS7zgHLgkUS1rD_ZTl5ArnvVlvvv-9rRt4fX7Pqh0HWrJUqjvMLmHtiT7nq6f0GKMszkq9VyJO6OCc_5_10uuzEvqRXNGDrUqXzr9Om9Mz4R3rQmjD8U_rj2BQXYwE0sEWYOJPfWrbdl5kYeSfqq_mUy2fDccEcGwkvRpZ5be3dlzojgJuCdx34dBm9pMxaff0qGNaiEMGIVjwZRCV2Oqz8cNk0AUnAGTZKNLdaEZLw39xek1gyDiSp8uHPWqINF3WSAIb9NRB6WUhx5u84GF_zmkDgjsSx1rA77J2AJGs5-2dpSUthJ55TsBmoxq8S91d2TjeYeiV6DrasyyBOlModuO5P4Vt9VMdj256i5xjEvI7MecDb2vYqTTt5JMqvEpmRr9N-9CM5FWTJmVU8jiVqDxIP1AL-inqKk1lluq6sIvbaaiNg8i8-IwI6QYPdaZhH2-AxuOw7G5oBcfUO5Kg819x9wOaF3JOjkeCHw3r0glPQ8VGaKTcAO4V0Ye92CwhCzwkF6T-2HKr0Iyh3siqw9ojeQCPzUo3jWJ4DySOv2etzrDBaI4-XGeZZGZhggQOaxauyWhZwX2CrD4VyxNoHnghyN3YXFDvB066HjbYyh-douc7N5EZfkmE6u4cEwi4AhNwMy4WOMM3CPzQcIkwhZpHrSQGCHiZRaEkzWkqAutnV1hw_woq6UVUbaezeLwD9Iz4q80L3t2WVEK_xJcOrhGCFgAoGghr16lUnKstDxrOFn1kjDb-eGyoUzMBgh4IWMifLbM1zlP-SfHR2dWATnOOdmTB5ec65doSFPNt0NUms2GC9J2mdWqWHVIFkgvBIQJvqlXViFZuvAuUsfE9CKeCg4T_3NZjcOwi80wqLBUWPagB9bftWCLUVZ8HeK_eHdjzN4LqeJRqmVxAssCTBsNtDMygya1WfxkQx1uaiQgh7pyYUKA80ciGEGfCa2hWXTMhCxCZhmwmkpPklrKVAn0oJRCP5fO0i3CzL2IUxg2avKFbah-WLTeiHwCNYLQhGc6zsZ2NrXQCorMuqk6Ztwz7ZoUnmgYGq8CHh7ek9Ns4wrpVNMDWsuR6YU2p21GcLfqkN71Kos52cWGoQCvRLc3NIfI2j23QMwiWyJG8vt4s-V4m1BLVzdS4znPtXut9ODIMAtuXOgQIYVVb1el8yH2XkX6o2sjzSNokDL57u3lQF56Q"
+    },
+    {
+        "domain": ".google.com",
+        "expirationDate": 1796133197.628352,
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "APISID",
+        "path": "/",
+        "sameSite": null,
+        "secure": false,
+        "session": false,
+        "storeId": null,
+        "value": "-ROL4i-uHfC71_Du/ACeYEA342wUXXRnRT"
+    },
+    {
+        "domain": ".google.com",
+        "expirationDate": 1793225990.871616,
+        "hostOnly": false,
+        "httpOnly": true,
+        "name": "__Secure-1PSIDTS",
+        "path": "/",
+        "sameSite": null,
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "sidts-CjIBwQ9iIw4IxJC-cX-gfu8Hb11fOzIgfjPfuKrD9dJC7m9_N5D48OW-vE6CfJRuiOvb5RAA"
+    },
+    {
+        "domain": "groups.google.com",
+        "expirationDate": 1761839130,
+        "hostOnly": true,
+        "httpOnly": false,
+        "name": "OTZ",
+        "path": "/",
+        "sameSite": null,
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "8282386_72_76_104100_72_446760"
+    },
+    {
+        "domain": ".groups.google.com",
+        "expirationDate": 1796249346.416986,
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "_ga",
+        "path": "/",
+        "sameSite": null,
+        "secure": false,
+        "session": false,
+        "storeId": null,
+        "value": "GA1.1.1553898701.1751315361"
+    },
+    {
+        "domain": ".google.com",
+        "expirationDate": 1796133197.628453,
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "__Secure-1PAPISID",
+        "path": "/",
+        "sameSite": null,
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "9PPZQ9uyh9nsHbmS/AkmRvHndYc_6mmmfO"
+    },
+    {
+        "domain": ".groups.google.com",
+        "expirationDate": 1796249349.295542,
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "_ga_25FL2NNXTY",
+        "path": "/",
+        "sameSite": null,
+        "secure": false,
+        "session": false,
+        "storeId": null,
+        "value": "GS2.1.s1761688526$o9$g1$t1761689349$j57$l0$h0"
+    },
+    {
+        "domain": ".google.com",
+        "expirationDate": 1796133197.629199,
+        "hostOnly": false,
+        "httpOnly": true,
+        "name": "__Secure-3PSID",
+        "path": "/",
+        "sameSite": "no_restriction",
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "g.a0002wgSU7CBd-7Bdg9IlabrrHTb6CJHC1DJW5_wfvZ5vLf4XnzY8wdLOwXpj9SxeWtXpMbJrAACgYKAagSAQASFQHGX2MiBvs1kBCM2h335kKCkxUgehoVAUF8yKq2lN2UG0wtRSr7RXbVgVhD0076"
+    },
+    {
+        "domain": ".google.com",
+        "expirationDate": 1796133197.62915,
+        "hostOnly": false,
+        "httpOnly": true,
+        "name": "__Secure-1PSID",
+        "path": "/",
+        "sameSite": null,
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "g.a0002wgSU7CBd-7Bdg9IlabrrHTb6CJHC1DJW5_wfvZ5vLf4XnzY_wPdY0ylnMLGiAMy6_J4aAACgYKAZISAQASFQHGX2Mi7XWTS-4H3oR-DDObcFDslBoVAUF8yKq0xLBzKAIBWAOxI2cZhZrt0076"
+    },
+    {
+        "domain": ".google.com",
+        "expirationDate": 1793226138.254695,
+        "hostOnly": false,
+        "httpOnly": true,
+        "name": "__Secure-1PSIDCC",
+        "path": "/",
+        "sameSite": null,
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "AKEyXzXSHb3r0FQhCPj8rigriZ9sUocD9PWvOQf0eLdpmpCe7piqALHG7msdj70zazYs-0zxNKQ"
+    },
+    {
+        "domain": ".google.com",
+        "expirationDate": 1793226138.255317,
+        "hostOnly": false,
+        "httpOnly": true,
+        "name": "__Secure-3PSIDCC",
+        "path": "/",
+        "sameSite": "no_restriction",
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "AKEyXzV77kSrOSBc8QBmmHuKrnRSHhY-6axdioC-DDa_F5rgZUUogIbOgUHOPXZvR6Xif5X9knk"
+    },
+    {
+        "domain": ".google.com",
+        "expirationDate": 1793225990.87217,
+        "hostOnly": false,
+        "httpOnly": true,
+        "name": "__Secure-3PSIDTS",
+        "path": "/",
+        "sameSite": "no_restriction",
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "sidts-CjIBwQ9iIw4IxJC-cX-gfu8Hb11fOzIgfjPfuKrD9dJC7m9_N5D48OW-vE6CfJRuiOvb5RAA"
+    },
+    {
+        "domain": "groups.google.com",
+        "expirationDate": 1793807128.890504,
+        "hostOnly": true,
+        "httpOnly": true,
+        "name": "__Secure-OSID",
+        "path": "/",
+        "sameSite": "no_restriction",
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "g.a0001wgSU49IwLTUTG913YLWhY2mW5zANMRDT8zNQNnh1iLQbyc70mHR7pcEovsz5Caj8unw4AACgYKAe0SARASFQHGX2MiAuQmd5SUN6RDUNrYXUiG7hoVAUF8yKqUf2EuX1Mc9POnFM9muzlV0076"
+    },
+    {
+        "domain": ".google.com",
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "__Secure-STRP",
+        "path": "/",
+        "sameSite": "strict",
+        "secure": true,
+        "session": true,
+        "storeId": null,
+        "value": "ADq1D7o6YmzQP2eT4S5Kmi7Wd6zU8vGTeALQr6dXguQwlInlf29VPvIFWUDnjtydYxX6yylHewVUj5f7UJSeAqma93jZsmyB-1Ve"
+    },
+    {
+        "domain": "groups.google.com",
+        "expirationDate": 1762552526.366529,
+        "hostOnly": true,
+        "httpOnly": true,
+        "name": "COMPASS",
+        "path": "/",
+        "sameSite": "no_restriction",
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "groups-frontend-http=CgAQ3pOFyAYaYgAJa4lXiZyUzeB8UcJPHiVQuNJle7D7Aa-YyW0wM-AIN4xPeElAT-8bp55WVafsVFKWAg2Vun9wih0iWIld8ZJwPDHhwp9iG5TnWsIiXkNU4S6tB15B9iOdZfkT52Yn-mD8IAEwAQ"
+    },
+    {
+        "domain": ".google.com",
+        "expirationDate": 1796133197.628158,
+        "hostOnly": false,
+        "httpOnly": true,
+        "name": "HSID",
+        "path": "/",
+        "sameSite": null,
+        "secure": false,
+        "session": false,
+        "storeId": null,
+        "value": "AxmTRLVbQ4WuGNjr-"
+    },
+    {
+        "domain": ".google.com",
+        "hostOnly": false,
+        "httpOnly": true,
+        "name": "S",
+        "path": "/",
+        "sameSite": null,
+        "secure": false,
+        "session": true,
+        "storeId": null,
+        "value": "billing-ui-v3=wcAfpLN5K8Fz4RMAbeO-UBJWbUBE_kba:billing-ui-v3-efe=wcAfpLN5K8Fz4RMAbeO-UBJWbUBE_kba"
+    },
+    {
+        "domain": ".google.com",
+        "expirationDate": 1796133197.629103,
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "SID",
+        "path": "/",
+        "sameSite": null,
+        "secure": false,
+        "session": false,
+        "storeId": null,
+        "value": "g.a0002wgSU7CBd-7Bdg9IlabrrHTb6CJHC1DJW5_wfvZ5vLf4XnzY40vUqoDKpN9VPcFFvRZnwwACgYKAfASAQASFQHGX2MivJ1nhrfgkoE5oKIwjsbH8hoVAUF8yKo537sV9fumy0hd2HoYrLzE0076"
+    },
+    {
+        "domain": ".google.com",
+        "expirationDate": 1793226138.253584,
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "SIDCC",
+        "path": "/",
+        "sameSite": null,
+        "secure": false,
+        "session": false,
+        "storeId": null,
+        "value": "AKEyXzVs2yETx7Ahxzx4m4rM3P2Z9FFkTEeZpf-PMstnK8Wn0Yg3gaTF-GAdXkU0CPubSWafOu5n"
+    },
+    {
+        "domain": ".google.com",
+        "expirationDate": 1796133197.628298,
+        "hostOnly": false,
+        "httpOnly": true,
+        "name": "SSID",
+        "path": "/",
+        "sameSite": null,
+        "secure": true,
+        "session": false,
+        "storeId": null,
+        "value": "Auho1KHuNqr3GdxjC"
+    }
+]
+
+## Expected Data
+
+- Membership list exports (CSV/JSON)
+- Join dates
+- Group participation records
+- Email addresses associated with groups
+
+## Priority
+
+**HIGH** - Google Groups membership is a primary indicator of member status.
+
+## Data Sources
+
+- ERA main Google Group: `ecorestoration-alliance`
+- ERA updates group
+- ERA working groups
+- Other ERA-related groups
+
+## Tools Available
+
+### `read_group_members.py` - Read and export member lists
+
+Automated web scraping of Google Groups member lists using Playwright.
+
+**First-time setup (one-time login):**
+
+```bash
+cd Other_Data_Sources/GGroups
+
+# Install playwright if needed
+pip install playwright
+playwright install chromium
+
+# Login and save cookies (opens browser for manual login)
+python3 read_group_members.py ecorestoration-alliance --login
+```
+
+**Regular usage:**
+
+```bash
+# Read members (uses saved cookies)
+python3 read_group_members.py ecorestoration-alliance
+
+# Custom output file
+python3 read_group_members.py ecorestoration-alliance --output era_members.csv
+```
+
+**Output:**
+
+- CSV file: `<group>_members_<date>.csv`
+- Columns: email, name, notes
+- Ready for cross-referencing with Fathom DB/Airtable
+
+### `google_groups_manager.py` - Base framework
+
+Reusable Playwright-based framework for Google Groups automation.
+
+**Current capabilities:**
+
+- ✅ Read member lists
+- ✅ Cookie-based authentication
+- ✅ Headless operation
+
+**Future capabilities (framework ready):**
+
+- 🔜 Add members from CSV
+- 🔜 Remove members from CSV
+- 🔜 Sync members with Fathom DB
+
+## Usage Workflow
+
+**1. Initial Setup:**
+
+```bash
+cd Other_Data_Sources/GGroups
+python3 read_group_members.py ecorestoration-alliance --login
+```
+
+**2. Read Members:**
+
+```bash
+python3 read_group_members.py ecorestoration-alliance
+```
+
+**3. Cross-Reference:**
+
+```bash
+# Use exported CSV to verify members in Fathom DB
+# Compare with Airtable published members
+# Identify members missing from one system
+```
+
+## Authentication
+
+- **Method:** Cookie-based (saved after manual login)
+- **Cookies file:** `google_cookies.json` (gitignored)
+- **Refresh:** Re-run with `--login` flag if cookies expire
+
+## Why Playwright?
+
+Google Groups API doesn't support public groups (only Workspace domains).
+Playwright automates the web interface - works for any group you have access to.
+
+**Benefits:**
+
+- No API limitations
+- Works with public groups
+- Can automate all web UI operations
+- Already used in FathomInventory and ERA_Landscape
+
+## Files
+
+**Active:**
+
+- `read_group_members.py` - CLI tool for reading members
+- `google_groups_manager.py` - Reusable automation framework
+- `google_cookies.json` - Saved authentication (gitignored)
+- `*_members_*.csv` - Exported member lists (gitignored)
+
+**Future:**
+
+- `add_members.py` - Bulk add members from CSV
+- `remove_members.py` - Bulk remove members
+- `sync_members.py` - Sync with Fathom DB
+
+**Back to:** [Other_Data_Sources README](../README.md)

@@ -538,6 +538,3 @@ Plus: private column (boolean: false = public/merged, true = private/excluded)
 ---
 
 **Let's start simple and iterate based on real user needs.**
----
-
-**Back to:** [ERA_Landscape README](README.md) | [ERA_Admin README](../README.md)

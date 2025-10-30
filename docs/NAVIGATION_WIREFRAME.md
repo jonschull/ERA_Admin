@@ -323,6 +323,13 @@ ERA Landscape (visualization)
 - Context: 650+ participants across 11 batches revealed systematic AI discipline challenges
 - Read: [future_discipline/README.md](#file-future_disciplinereadmemd)
 
+**[Other_Data_Sources/](../Other_Data_Sources/)** - Member verification data sources
+- Purpose: External data sources for member verification and historical context
+- Components: LinkedIn (profile scraper), GGroups (member lists), Zeffy (donations), GDrive (pre-Fathom docs), Wix (legacy data)
+- Status: ✅ Operational (LinkedIn, GGroups, Zeffy, GDrive functional)
+- Authentication: Browser cookie-based (BROWSER_COOKIE_AUTH_PATTERN.md)
+- Read: [Other_Data_Sources/README.md](#file-other_data_sourcesreadmemd)
+
 #### Quick Start
 
 **Check current state:**

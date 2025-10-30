@@ -1,0 +1,13 @@
+# LinkedIn cookies (sensitive authentication data)
+linkedin_cookies.json
+
+# Downloaded profile data
+profiles/
+*.json
+
+# Test outputs
+test_output/
+
+# Python cache
+__pycache__/
+*.pyc

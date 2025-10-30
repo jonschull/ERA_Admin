@@ -49,7 +49,7 @@ FathomInventory is one of four components in ERA_Admin. It provides a robust pip
 3. Continue from documented next steps
 
 **Making changes:**
-1. Read [DEVELOPMENT.md](DEVELOPMENT.md) - Workflow, testing, constraints
+1. Read [DEVELOPMENT.md](../ERA_Landscape/DEVELOPMENT.md) - Workflow, testing, constraints
 2. Follow component-specific development practices
 3. Test before committing
 
@@ -278,11 +278,11 @@ python test_google_auth.py     # Test Gmail access only
 ```
 
 **Detailed Documentation:**
-- [TECHNICAL_DOCUMENTATION.md](docs/TECHNICAL_DOCUMENTATION.md) - Complete architecture, validation, workflows
-- [AUTHENTICATION_GUIDE.md](docs/AUTHENTICATION_GUIDE.md) - All auth methods and troubleshooting
-- [AUTOMATION_MONITORING_GUIDE.md](docs/AUTOMATION_MONITORING_GUIDE.md) - Scheduling and monitoring
-- [FAILURE_DETECTION_IMPROVEMENTS.md](docs/FAILURE_DETECTION_IMPROVEMENTS.md) - Recent reliability enhancements
-- [CONFIGURATION_ERRORS.md](docs/CONFIGURATION_ERRORS.md) - Critical setup requirements and recovery
+- [TECHNICAL_DOCUMENTATION.md](../FathomInventory/docs/TECHNICAL_DOCUMENTATION.md) - Complete architecture, validation, workflows
+- [AUTHENTICATION_GUIDE.md](../FathomInventory/docs/AUTHENTICATION_GUIDE.md) - All auth methods and troubleshooting
+- [AUTOMATION_MONITORING_GUIDE.md](../FathomInventory/docs/AUTOMATION_MONITORING_GUIDE.md) - Scheduling and monitoring
+- [FAILURE_DETECTION_IMPROVEMENTS.md](../FathomInventory/docs/FAILURE_DETECTION_IMPROVEMENTS.md) - Recent reliability enhancements
+- [CONFIGURATION_ERRORS.md](../FathomInventory/docs/CONFIGURATION_ERRORS.md) - Critical setup requirements and recovery
 
 #### Component Organization
 

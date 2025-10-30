@@ -146,10 +146,10 @@
 - `scripts/upload_backup_to_drive.py` - Google Drive upload
 
 **Technical Documentation:**
-- `docs/FAILURE_DETECTION_IMPROVEMENTS.md` - Oct 17 improvements
-- `docs/TECHNICAL_DOCUMENTATION.md` - Complete system architecture
-- `docs/AUTHENTICATION_GUIDE.md` - Cookie/OAuth setup
-- `docs/AUTOMATION_MONITORING_GUIDE.md` - Scheduling and monitoring
+- `FathomInventory/docs/FAILURE_DETECTION_IMPROVEMENTS.md` - Oct 17 improvements
+- `FathomInventory/docs/TECHNICAL_DOCUMENTATION.md` - Complete system architecture
+- `FathomInventory/docs/AUTHENTICATION_GUIDE.md` - Cookie/OAuth setup
+- `FathomInventory/docs/AUTOMATION_MONITORING_GUIDE.md` - Scheduling and monitoring
 
 **Data Files (gitignored):**
 - `fathom_emails.db` - SQLite database (calls + emails + participants tables)

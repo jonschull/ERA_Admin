@@ -3,7 +3,7 @@
 # How to Be an Intelligent Assistant
 
 **Date:** October 25, 2025  
-**Context:** Lessons from [Phase 4B-2](integration_scripts/participant_reconciliation/README.md) (650+ participants) and [Alias Resolution](integration_scripts/participant_reconciliation/ALIAS_RESOLUTION_README.md) (38 duplicates merged)
+**Context:** Lessons from [Phase 4B-2](../integration_scripts/participant_reconciliation/README.md) (650+ participants) and [Alias Resolution](../integration_scripts/participant_reconciliation/ALIAS_RESOLUTION_README.md) (38 duplicates merged)
 
 ---
 

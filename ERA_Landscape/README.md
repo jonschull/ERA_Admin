@@ -94,12 +94,12 @@ User can save edits back to Sheet
 
 **For Users:**
 - [README.md](README.md) - This file (quick start, deployment)
-- [KNOWN_ISSUES.md](KNOWN_ISSUES.md) - Current bugs and workarounds
+- [KNOWN_ISSUES.md](../ERA_Landscape/KNOWN_ISSUES.md) - Current bugs and workarounds
 
 **For Developers:**
-- [NETWORK_ARCHITECTURE.md](NETWORK_ARCHITECTURE.md) - **Technical deep-dive:** Town Hall treatment, physics engine, node sizing, slider controls
-- [DEVELOPMENT.md](DEVELOPMENT.md) - Development workflow and testing
-- [AI_HANDOFF_GUIDE.md](AI_HANDOFF_GUIDE.md) - Context for AI assistants
+- [NETWORK_ARCHITECTURE.md](../ERA_Landscape/NETWORK_ARCHITECTURE.md) - **Technical deep-dive:** Town Hall treatment, physics engine, node sizing, slider controls
+- [DEVELOPMENT.md](../ERA_Landscape/DEVELOPMENT.md) - Development workflow and testing
+- [AI_HANDOFF_GUIDE.md](../ERA_Landscape/AI_HANDOFF_GUIDE.md) - Context for AI assistants
 
 ## Files
 
@@ -254,7 +254,7 @@ Works on any static host:
 - ✅ Interactive graph (drag, zoom, pan)
 - ✅ **Town Hall Integration** (65 events in fixed peripheral ring)
   - Grey edges with distance-based fading
-  - See [NETWORK_ARCHITECTURE.md](NETWORK_ARCHITECTURE.md) for details
+  - See [NETWORK_ARCHITECTURE.md](../ERA_Landscape/NETWORK_ARCHITECTURE.md) for details
 - ✅ **Network Settings Modal** (🌐 button)
   - Node Scaling (constant ↔ logarithmic)
   - Node Size (0.2-3.0x multiplier)
@@ -327,7 +327,3 @@ MIT License - See parent project for details.
 **Historical repo**: https://github.com/jonschull/ERA_Landscape_Static (archived)  
 **Main Project**: https://github.com/jonschull/ERA_ClimateWeek  
 **Developer**: Jon Schull
-
----
-
-**Back to:** [ERA_Admin README](../README.md)

@@ -127,33 +127,33 @@ ERA Landscape (visualization)
 
 #### Components
 
-**[FathomInventory/](FathomInventory/README.md)** - Automated meeting analysis
+**[FathomInventory/](../FathomInventory/)** - Automated meeting analysis
 - Purpose: AI-powered meeting discovery and participant extraction
 - Records: 682 participants (459 validated/67%, 223 new/unprocessed)
 - Automation: Daily at 3 AM via launchd
 - Status: ✅ Operational
 - Read: [FathomInventory/README.md](FathomInventory/README.md)
 
-**[airtable/](airtable/README.md)** - Manual membership tracking
+**[airtable/](../airtable/)** - Manual membership tracking
 - Purpose: Membership database, donor tracking, TH attendance
 - Records: 630 people (+59 from Phase 4B-2), 17 TH attendance columns
 - Scripts: Read-only exports, cross-correlation with Fathom
 - Status: ✅ Operational
 - Read: [airtable/README.md](airtable/README.md)
 
-**[integration_scripts/](integration_scripts/README.md)** - Integration workflows
+**[integration_scripts/](../integration_scripts/)** - Integration workflows
 - Purpose: Cross-system data synchronization (Fathom, Airtable, Landscape, etc.)
 - Current: participant_reconciliation/ (Fathom ↔ Airtable)
 - Future: survey_integration/, project_data_integration/, etc.
 - Read: [integration_scripts/README.md](integration_scripts/README.md)
 
-**[integration_scripts/participant_reconciliation/](integration_scripts/participant_reconciliation/README.md)** - Participant data reconciliation
+**[integration_scripts/participant_reconciliation/](../integration_scripts/participant_reconciliation/)** - Participant data reconciliation
 - Phase 4B-1: ✅ 364 participants enriched via fuzzy matching
 - Phase 4B-2: ✅ COMPLETE - 459 participants validated (11 batches, Oct 23, 2025)  
 - Phase 5T: READY - Town Hall visualization
-- Read: [participant_reconciliation/README.md](integration_scripts/participant_reconciliation/README.md)
+- Read: [participant_reconciliation/README.md](#file-integration_scriptsparticipant_reconciliationreadmemd)
 
-**[ERA_Landscape/](ERA_Landscape/README.md)** - Interactive network visualization
+**[ERA_Landscape/](../ERA_Landscape/)** - Interactive network visualization
 - Purpose: Network graph of ERA ecosystem
 - Content: 350+ organizations, people, projects + relationships
 - Technology: Static HTML/JS, Google Sheets data source, vis.js
@@ -162,12 +162,19 @@ ERA Landscape (visualization)
 - Read: ERA_Landscape/README.md, NETWORK_ARCHITECTURE.md, VISION.md
 - Special: 65 fixed Town Hall nodes at periphery
 
-**[future_discipline/](future_discipline/README.md)** 🔬 - Experimental discipline investigations
+**[future_discipline/](../future_discipline/)** 🔬 - Experimental discipline investigations
 - Purpose: Lessons learned from Phase 4B-2, proposed architectures
 - Content: AI discipline failures, drone architecture proposal
 - Status: Experimental / Future Investigation
 - Context: 650+ participants across 11 batches revealed systematic AI discipline challenges
 - Read: [future_discipline/README.md](#file-future_disciplinereadmemd)
+
+**[Other_Data_Sources/](../Other_Data_Sources/)** - Member verification data sources
+- Purpose: External data sources for member verification and historical context
+- Components: LinkedIn (profile scraper), GGroups (member lists), Zeffy (donations), GDrive (pre-Fathom docs), Wix (legacy data)
+- Status: ✅ Operational (LinkedIn, GGroups, Zeffy, GDrive functional)
+- Authentication: Browser cookie-based (BROWSER_COOKIE_AUTH_PATTERN.md)
+- Read: [Other_Data_Sources/README.md](#file-other_data_sourcesreadmemd)
 
 #### Quick Start
 

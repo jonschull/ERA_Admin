@@ -1,0 +1,18 @@
+# Authentication cookies (sensitive)
+zeffy_cookies.json
+zeffy_cookies_raw.txt
+backups/
+
+# Downloaded data
+zeffy_payments_*.xlsx
+zeffy_payments_*.csv
+*.json
+!.gitignore
+
+# Screenshots
+zeffy_auth_test.png
+zeffy_logged_in.png
+
+# Python cache
+__pycache__/
+*.pyc
