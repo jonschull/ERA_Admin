@@ -584,7 +584,8 @@
       edges.get().forEach(e => {
         selectionState.originalStates.set('edge_' + e.id, {
           color: e.color,
-          opacity: e.opacity !== undefined ? e.opacity : 1
+          opacity: e.opacity !== undefined ? e.opacity : 1,
+          width: e.width !== undefined ? e.width : 1
         });
       });
     }
@@ -636,10 +637,15 @@
       const toHighlighted = highlightedNodes.has(e.to);
       
       if (fromHighlighted && toHighlighted) {
-        // Edge between highlighted nodes: full opacity
+        // Edge between highlighted nodes: full opacity and brighter color
         edgeUpdates.push({
           id: e.id,
-          opacity: 1
+          opacity: 1,
+          width: 2,  // Make highlighted edges more visible
+          color: {
+            color: '#2B7CE9',  // Bright blue for highlighted edges
+            highlight: '#2B7CE9'
+          }
         });
       } else {
         // Edge not fully in highlighted set: dim it
@@ -649,7 +655,8 @@
             color: 'rgba(200,200,200,0.1)',
             highlight: 'rgba(200,200,200,0.1)'
           },
-          opacity: 0.1
+          opacity: 0.1,
+          width: 1
         });
       }
     });
@@ -657,6 +664,15 @@
     edges.update(edgeUpdates);
     
     console.log(`🎯 Highlighted node ${nodeId} with ${highlightedNodes.size} neighbors (order ${order})`);
+    
+    // Auto-zoom to fit highlighted nodes in view
+    network.fit({
+      nodes: Array.from(highlightedNodes),
+      animation: {
+        duration: 500,
+        easingFunction: 'easeInOutQuad'
+      }
+    });
   }
   
   // Clear highlight: restore all nodes/edges to original state
@@ -672,9 +688,8 @@
           opacity: original.opacity
         };
         
-        // Restore color if it was changed
-        if (n.color && typeof n.color === 'object' && 
-            n.color.background && n.color.background.includes('rgba(200,200,200')) {
+        // Always restore original color to fix yellow nodes staying bright
+        if (original.color) {
           update.color = original.color;
         }
         
@@ -700,7 +715,8 @@
       if (original) {
         const update = {
           id: e.id,
-          opacity: original.opacity
+          opacity: original.opacity,
+          width: original.width
         };
         
         // Restore color if it was changed
@@ -727,43 +743,46 @@
     const nodeId = params.nodes[0];
     if (!nodeId) return;
     
-    // If clicking the same node, cycle through orders or clear
+    // If clicking the same node, start/resume progressive expansion from current order
     if (selectionState.selectedNodeId === nodeId) {
-      if (selectionState.highlightOrder < 3) {
-        selectionState.highlightOrder++;
-        applyHighlight(nodeId, selectionState.highlightOrder);
-      } else {
-        // Already at 3rd order, clear on next click
-        clearHighlight();
-        return;
-      }
+      // Already selected - resume expansion from current order
+      // Don't change the highlight yet, just start the timer
     } else {
-      // New node selected
+      // New node selected - start at 1st order
       selectionState.selectedNodeId = nodeId;
       selectionState.highlightOrder = 1;
       applyHighlight(nodeId, 1);
     }
     
-    // Start hold timer for progressive expansion
+    // Start/resume hold timer for progressive expansion from current order
     if (selectionState.holdTimer) {
       clearTimeout(selectionState.holdTimer);
     }
     
-    selectionState.holdTimer = setTimeout(() => {
-      // After 2 seconds, expand to 2nd order
-      if (selectionState.selectedNodeId === nodeId && selectionState.highlightOrder === 1) {
-        selectionState.highlightOrder = 2;
-        applyHighlight(nodeId, 2);
-        
-        // After another 2 seconds, expand to 3rd order
-        selectionState.holdTimer = setTimeout(() => {
-          if (selectionState.selectedNodeId === nodeId && selectionState.highlightOrder === 2) {
-            selectionState.highlightOrder = 3;
-            applyHighlight(nodeId, 3);
+    const currentOrder = selectionState.highlightOrder;
+    
+    // Only set timer if not already at max order (3)
+    if (currentOrder < 3) {
+      selectionState.holdTimer = setTimeout(() => {
+        // Expand to next order
+        const nextOrder = currentOrder + 1;
+        if (selectionState.selectedNodeId === nodeId && selectionState.highlightOrder === currentOrder) {
+          selectionState.highlightOrder = nextOrder;
+          applyHighlight(nodeId, nextOrder);
+          
+          // If not at max order yet, schedule next expansion
+          if (nextOrder < 3) {
+            selectionState.holdTimer = setTimeout(() => {
+              const finalOrder = nextOrder + 1;
+              if (selectionState.selectedNodeId === nodeId && selectionState.highlightOrder === nextOrder) {
+                selectionState.highlightOrder = finalOrder;
+                applyHighlight(nodeId, finalOrder);
+              }
+            }, 3000);
           }
-        }, 2000);
-      }
-    }, 2000);
+        }
+      }, 3000);
+    }
   });
   
   // Handle deselection (click on canvas)
@@ -782,6 +801,15 @@
     if (selectionState.holdTimer) {
       clearTimeout(selectionState.holdTimer);
       selectionState.holdTimer = null;
+    }
+  });
+  
+  // Cancel progressive expansion when mouse is released (allows short holds to stay at 1st order)
+  network.on('release', (params) => {
+    if (selectionState.holdTimer) {
+      clearTimeout(selectionState.holdTimer);
+      selectionState.holdTimer = null;
+      console.log('🛑 Progressive expansion cancelled on mouse release');
     }
   });
   
@@ -1181,6 +1209,15 @@
         // Continuously reapply highlights every 100ms to prevent network from overriding them
         if (highlightInterval) clearInterval(highlightInterval);
         highlightInterval = setInterval(reapplyHighlights, 100);
+        
+        // Auto-zoom to the highlighted node
+        network.fit({
+          nodes: [nodeId],
+          animation: {
+            duration: 500,
+            easingFunction: 'easeInOutQuad'
+          }
+        });
       }
     }
     
