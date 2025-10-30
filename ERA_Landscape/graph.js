@@ -753,18 +753,16 @@
     }
     
     // If clicking different node, reset to 1st order and apply highlight
-    // If clicking same node, keep current order (DON'T expand yet - wait for hold)
+    // If clicking same node, keep current order (DON'T re-apply - just restart timer)
     if (selectionState.selectedNodeId !== nodeId) {
       // New node selected - start at 1st order
       selectionState.selectedNodeId = nodeId;
       selectionState.highlightOrder = 1;
       applyHighlight(nodeId, 1);
-    }
-    // If same node: keep current order, re-apply highlight to refresh, and start timer
-    else {
-      // Re-apply current highlight (refreshes the view)
-      applyHighlight(nodeId, selectionState.highlightOrder);
-      console.log(`🔄 Re-selected same node at order ${selectionState.highlightOrder}`);
+    } else {
+      // Same node: just restart the timer from current order
+      // Don't re-apply highlight - it's already applied and originalStates are stored
+      console.log(`🔄 Re-selected same node at order ${selectionState.highlightOrder}, restarting timer`);
     }
     
     // Start hold timer for progressive expansion from CURRENT order
