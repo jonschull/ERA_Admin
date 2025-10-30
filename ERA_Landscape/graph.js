@@ -665,14 +665,38 @@
     
     console.log(`🎯 Highlighted node ${nodeId} with ${highlightedNodes.size} neighbors (order ${order})`);
     
-    // Auto-zoom to fit highlighted nodes in view
-    network.fit({
-      nodes: Array.from(highlightedNodes),
-      animation: {
-        duration: 500,
-        easingFunction: 'easeInOutQuad'
-      }
-    });
+    // Auto-zoom centered on focal node (keeps node under cursor)
+    const positions = network.getPositions(Array.from(highlightedNodes));
+    const focalPos = positions[nodeId];
+    
+    if (focalPos) {
+      // Calculate bounding box of highlighted nodes
+      let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+      Object.values(positions).forEach(pos => {
+        minX = Math.min(minX, pos.x);
+        maxX = Math.max(maxX, pos.x);
+        minY = Math.min(minY, pos.y);
+        maxY = Math.max(maxY, pos.y);
+      });
+      
+      // Calculate scale to fit all nodes with padding
+      const canvas = network.canvas.frame.canvas;
+      const width = maxX - minX;
+      const height = maxY - minY;
+      const scaleX = canvas.clientWidth / (width * 1.2);  // 1.2 for padding
+      const scaleY = canvas.clientHeight / (height * 1.2);
+      const scale = Math.min(scaleX, scaleY, 2.0);  // Cap at 2x zoom
+      
+      // Move to focal node position with calculated scale
+      network.moveTo({
+        position: focalPos,
+        scale: scale,
+        animation: {
+          duration: 500,
+          easingFunction: 'easeInOutQuad'
+        }
+      });
+    }
   }
   
   // Clear highlight: restore all nodes/edges to original state
@@ -805,13 +829,12 @@
     }
   });
   
-  // Cancel progressive expansion when mouse is released (allows short holds to stay at 1st order)
+  // Mouse release event - don't cancel timer, just log
+  // This allows re-clicking to resume expansion
   network.on('release', (params) => {
-    if (selectionState.holdTimer) {
-      clearTimeout(selectionState.holdTimer);
-      selectionState.holdTimer = null;
-      console.log('🛑 Progressive expansion cancelled on mouse release');
-    }
+    // Don't cancel timer - let it complete so highlightOrder advances
+    // User can re-click to trigger next expansion immediately
+    console.log('🖱️ Mouse released - hold timer continues');
   });
   
   console.log('✅ Node selection highlighting enabled (1st/2nd/3rd order with progressive expansion)');
