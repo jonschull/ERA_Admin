@@ -521,6 +521,352 @@
     });
     console.log('✅ Initial stabilization done - nodes now draggable, high damping will naturally stop movement');
   });
+  
+  // === Node Selection Highlighting with Progressive Expansion ===
+  let selectionState = {
+    selectedNodeId: null,
+    highlightOrder: 1,  // 1, 2, or 3 (order of connections to highlight)
+    holdTimer: null,
+    originalStates: new Map()  // Store original node/edge states for restoration
+  };
+  
+  // Find neighbors up to N orders away
+  function getNeighbors(nodeId, maxOrder) {
+    const neighbors = new Set([nodeId]); // Include the selected node itself
+    const currentLevel = new Set([nodeId]);
+    
+    for (let order = 0; order < maxOrder; order++) {
+      const nextLevel = new Set();
+      
+      for (const currentNodeId of currentLevel) {
+        // Find all edges connected to this node
+        const connectedEdges = edges.get().filter(e => 
+          e.from === currentNodeId || e.to === currentNodeId
+        );
+        
+        // Add the other end of each edge
+        connectedEdges.forEach(edge => {
+          const otherId = edge.from === currentNodeId ? edge.to : edge.from;
+          if (!neighbors.has(otherId)) {
+            neighbors.add(otherId);
+            nextLevel.add(otherId);
+          }
+        });
+      }
+      
+      // Move to next level
+      currentLevel.clear();
+      nextLevel.forEach(id => currentLevel.add(id));
+      
+      if (currentLevel.size === 0) break; // No more connections to follow
+    }
+    
+    return neighbors;
+  }
+  
+  // Apply highlight effect: dim non-connected nodes/edges, brighten connected ones
+  function applyHighlight(nodeId, order) {
+    if (!nodeId) return;
+    
+    const highlightedNodes = getNeighbors(nodeId, order);
+    
+    // Store original states if not already stored
+    if (selectionState.originalStates.size === 0) {
+      nodes.get().forEach(n => {
+        selectionState.originalStates.set('node_' + n.id, {
+          color: n.color,
+          opacity: n.opacity !== undefined ? n.opacity : 1,
+          physics: n.physics !== undefined ? n.physics : true,
+          fixed: n.fixed || false
+        });
+      });
+      
+      edges.get().forEach(e => {
+        selectionState.originalStates.set('edge_' + e.id, {
+          color: e.color,
+          opacity: e.opacity !== undefined ? e.opacity : 1,
+          width: e.width !== undefined ? e.width : 1
+        });
+      });
+    }
+    
+    // Update nodes
+    const nodeUpdates = [];
+    nodes.get().forEach(n => {
+      const isTownHall = n.id && String(n.id).startsWith('event::Town Hall');
+      const isHighlighted = highlightedNodes.has(n.id);
+      
+      if (isHighlighted) {
+        // Highlighted: full opacity, enable physics (except Town Halls)
+        const update = {
+          id: n.id,
+          opacity: 1
+        };
+        
+        // Town Halls stay fixed even when highlighted
+        if (isTownHall) {
+          update.physics = false;
+          update.fixed = {x: true, y: true};
+        } else {
+          update.physics = true;
+          update.fixed = false;
+        }
+        
+        nodeUpdates.push(update);
+      } else {
+        // Dimmed: low opacity, frozen in place
+        nodeUpdates.push({
+          id: n.id,
+          color: {
+            background: 'rgba(200,200,200,0.15)',
+            border: 'rgba(150,150,150,0.2)'
+          },
+          opacity: 0.15,
+          physics: false,
+          fixed: {x: true, y: true}
+        });
+      }
+    });
+    
+    nodes.update(nodeUpdates);
+    
+    // Update edges - only show edges between highlighted nodes
+    const edgeUpdates = [];
+    edges.get().forEach(e => {
+      const fromHighlighted = highlightedNodes.has(e.from);
+      const toHighlighted = highlightedNodes.has(e.to);
+      
+      if (fromHighlighted && toHighlighted) {
+        // Edge between highlighted nodes: full opacity and brighter color
+        edgeUpdates.push({
+          id: e.id,
+          opacity: 1,
+          width: 2,  // Make highlighted edges more visible
+          color: {
+            color: '#2B7CE9',  // Bright blue for highlighted edges
+            highlight: '#2B7CE9'
+          }
+        });
+      } else {
+        // Edge not fully in highlighted set: dim it
+        edgeUpdates.push({
+          id: e.id,
+          color: {
+            color: 'rgba(200,200,200,0.1)',
+            highlight: 'rgba(200,200,200,0.1)'
+          },
+          opacity: 0.1,
+          width: 1
+        });
+      }
+    });
+    
+    edges.update(edgeUpdates);
+    
+    console.log(`🎯 Highlighted node ${nodeId} with ${highlightedNodes.size} neighbors (order ${order})`);
+    
+    // Auto-zoom: fit all highlighted nodes with focal node centered
+    // Use fit() but with offset to keep focal node in center
+    network.fit({
+      nodes: Array.from(highlightedNodes),
+      animation: {
+        duration: 500,
+        easingFunction: 'easeInOutQuad'
+      }
+    });
+  }
+  
+  // Clear highlight: restore all nodes/edges to original state
+  function clearHighlight() {
+    // Restore nodes
+    const nodeUpdates = [];
+    nodes.get().forEach(n => {
+      const original = selectionState.originalStates.get('node_' + n.id);
+      if (original) {
+        const isTownHall = n.id && String(n.id).startsWith('event::Town Hall');
+        const update = {
+          id: n.id,
+          opacity: original.opacity
+        };
+        
+        // Always restore original color to fix yellow nodes staying bright
+        if (original.color) {
+          update.color = original.color;
+        }
+        
+        // Restore physics (Town Halls always stay fixed)
+        if (isTownHall) {
+          update.physics = false;
+          update.fixed = {x: true, y: true};
+        } else {
+          update.physics = original.physics;
+          update.fixed = original.fixed;
+        }
+        
+        nodeUpdates.push(update);
+      }
+    });
+    
+    nodes.update(nodeUpdates);
+    
+    // Restore edges
+    const edgeUpdates = [];
+    edges.get().forEach(e => {
+      const original = selectionState.originalStates.get('edge_' + e.id);
+      if (original) {
+        const update = {
+          id: e.id,
+          opacity: original.opacity,
+          width: original.width
+        };
+        
+        // Restore color if it was changed
+        if (e.color && typeof e.color === 'object') {
+          update.color = original.color;
+        }
+        
+        edgeUpdates.push(update);
+      }
+    });
+    
+    edges.update(edgeUpdates);
+    
+    // Clear stored states
+    selectionState.originalStates.clear();
+    selectionState.selectedNodeId = null;
+    selectionState.highlightOrder = 1;
+    
+    console.log('✨ Highlight cleared');
+  }
+  
+  // Handle node selection (click) - fires on first selection of a new node
+  network.on('selectNode', (params) => {
+    const nodeId = params.nodes[0];
+    if (!nodeId) return;
+    
+    console.log(`🖱️ Node selected: ${nodeId}, current state: ${selectionState.selectedNodeId}, order: ${selectionState.highlightOrder}`);
+    
+    // Cancel any existing timer
+    if (selectionState.holdTimer) {
+      clearTimeout(selectionState.holdTimer);
+      selectionState.holdTimer = null;
+    }
+    
+    // If clicking different node, reset to 1st order and apply highlight
+    if (selectionState.selectedNodeId !== nodeId) {
+      // New node selected - start at 1st order
+      selectionState.selectedNodeId = nodeId;
+      selectionState.highlightOrder = 1;
+      applyHighlight(nodeId, 1);
+    }
+    // Note: if same node, selectNode won't fire again - we handle re-clicks via 'click' event below
+    
+    // Start hold timer for progressive expansion from CURRENT order
+    startExpansionTimer(nodeId);
+  });
+  
+  // Handle clicks on already-selected nodes (selectNode doesn't fire for these)
+  network.on('click', (params) => {
+    // Check if clicking on a node
+    if (params.nodes && params.nodes.length > 0) {
+      const nodeId = params.nodes[0];
+      
+      // Only handle if this is the already-selected node (re-click)
+      if (selectionState.selectedNodeId === nodeId) {
+        console.log(`🔄 Re-clicked same node at order ${selectionState.highlightOrder}, restarting timer`);
+        
+        // Cancel any existing timer
+        if (selectionState.holdTimer) {
+          clearTimeout(selectionState.holdTimer);
+          selectionState.holdTimer = null;
+        }
+        
+        // Restart timer from current order
+        startExpansionTimer(nodeId);
+      }
+    }
+  });
+  
+  // Helper function to start expansion timer
+  function startExpansionTimer(nodeId) {
+    // Change cursor to indicate timer is running
+    network.canvas.body.container.style.cursor = 'progress';
+    
+    // Start hold timer for progressive expansion from CURRENT order
+    // This will expand if user continues holding for 3 seconds
+    if (selectionState.highlightOrder < 3) {
+      selectionState.holdTimer = setTimeout(() => {
+        // Expand to next order after 3 seconds of holding
+        if (selectionState.selectedNodeId === nodeId && selectionState.highlightOrder < 3) {
+          selectionState.highlightOrder++;
+          applyHighlight(nodeId, selectionState.highlightOrder);
+          console.log(`⏱️ Timer expanded to order ${selectionState.highlightOrder}`);
+          
+          // If not at max order yet, schedule next expansion
+          if (selectionState.highlightOrder < 3) {
+            selectionState.holdTimer = setTimeout(() => {
+              if (selectionState.selectedNodeId === nodeId && selectionState.highlightOrder < 3) {
+                selectionState.highlightOrder++;
+                applyHighlight(nodeId, selectionState.highlightOrder);
+                console.log(`⏱️ Timer expanded to order ${selectionState.highlightOrder}`);
+              } else {
+                // Reached max order, restore cursor
+                network.canvas.body.container.style.cursor = 'default';
+              }
+            }, 3000);
+          } else {
+            // Reached max order, restore cursor
+            network.canvas.body.container.style.cursor = 'default';
+          }
+        } else {
+          // Timer finished but conditions not met, restore cursor
+          network.canvas.body.container.style.cursor = 'default';
+        }
+      }, 3000);
+    } else {
+      console.log('✋ Already at max order (3)');
+      network.canvas.body.container.style.cursor = 'default';
+    }
+  }
+  
+  // Handle deselection (click on canvas)
+  network.on('deselectNode', () => {
+    if (selectionState.holdTimer) {
+      clearTimeout(selectionState.holdTimer);
+      selectionState.holdTimer = null;
+    }
+    
+    // Restore cursor
+    network.canvas.body.container.style.cursor = 'default';
+    
+    // Clear highlight
+    clearHighlight();
+  });
+  
+  // Cancel hold timer if user starts dragging
+  network.on('dragStart', () => {
+    if (selectionState.holdTimer) {
+      clearTimeout(selectionState.holdTimer);
+      selectionState.holdTimer = null;
+    }
+    // Restore cursor
+    network.canvas.body.container.style.cursor = 'default';
+  });
+  
+  // Cancel progressive expansion when mouse is released
+  // This allows short holds to stay at current order
+  network.on('release', (params) => {
+    if (selectionState.holdTimer) {
+      clearTimeout(selectionState.holdTimer);
+      selectionState.holdTimer = null;
+      console.log('🛑 Progressive expansion cancelled on mouse release');
+    }
+    // Restore cursor
+    network.canvas.body.container.style.cursor = 'default';
+  });
+  
+  console.log('✅ Node selection highlighting enabled (1st/2nd/3rd order with progressive expansion)');
+  // === End Node Selection Highlighting ===
   // Make the curation modal draggable by the header
   (function(){
     const panel = document.getElementById('curationPanel');
@@ -915,6 +1261,15 @@
         // Continuously reapply highlights every 100ms to prevent network from overriding them
         if (highlightInterval) clearInterval(highlightInterval);
         highlightInterval = setInterval(reapplyHighlights, 100);
+        
+        // Auto-zoom to the highlighted node
+        network.fit({
+          nodes: [nodeId],
+          animation: {
+            duration: 500,
+            easingFunction: 'easeInOutQuad'
+          }
+        });
       }
     }
     
