@@ -739,7 +739,7 @@
     console.log('✨ Highlight cleared');
   }
   
-  // Handle node selection (click)
+  // Handle node selection (click) - fires on first selection of a new node
   network.on('selectNode', (params) => {
     const nodeId = params.nodes[0];
     if (!nodeId) return;
@@ -753,18 +753,42 @@
     }
     
     // If clicking different node, reset to 1st order and apply highlight
-    // If clicking same node, keep current order (DON'T re-apply - just restart timer)
     if (selectionState.selectedNodeId !== nodeId) {
       // New node selected - start at 1st order
       selectionState.selectedNodeId = nodeId;
       selectionState.highlightOrder = 1;
       applyHighlight(nodeId, 1);
-    } else {
-      // Same node: just restart the timer from current order
-      // Don't re-apply highlight - it's already applied and originalStates are stored
-      console.log(`🔄 Re-selected same node at order ${selectionState.highlightOrder}, restarting timer`);
     }
+    // Note: if same node, selectNode won't fire again - we handle re-clicks via 'click' event below
     
+    // Start hold timer for progressive expansion from CURRENT order
+    startExpansionTimer(nodeId);
+  });
+  
+  // Handle clicks on already-selected nodes (selectNode doesn't fire for these)
+  network.on('click', (params) => {
+    // Check if clicking on a node
+    if (params.nodes && params.nodes.length > 0) {
+      const nodeId = params.nodes[0];
+      
+      // Only handle if this is the already-selected node (re-click)
+      if (selectionState.selectedNodeId === nodeId) {
+        console.log(`🔄 Re-clicked same node at order ${selectionState.highlightOrder}, restarting timer`);
+        
+        // Cancel any existing timer
+        if (selectionState.holdTimer) {
+          clearTimeout(selectionState.holdTimer);
+          selectionState.holdTimer = null;
+        }
+        
+        // Restart timer from current order
+        startExpansionTimer(nodeId);
+      }
+    }
+  });
+  
+  // Helper function to start expansion timer
+  function startExpansionTimer(nodeId) {
     // Start hold timer for progressive expansion from CURRENT order
     // This will expand if user continues holding for 3 seconds
     if (selectionState.highlightOrder < 3) {
@@ -790,7 +814,7 @@
     } else {
       console.log('✋ Already at max order (3)');
     }
-  });
+  }
   
   // Handle deselection (click on canvas)
   network.on('deselectNode', () => {
