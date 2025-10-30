@@ -743,22 +743,23 @@
     const nodeId = params.nodes[0];
     if (!nodeId) return;
     
-    // If clicking the same node, start/resume progressive expansion from current order
-    if (selectionState.selectedNodeId === nodeId) {
-      // Already selected - resume expansion from current order
-      // Don't change the highlight yet, just start the timer
-    } else {
+    // Cancel any existing timer
+    if (selectionState.holdTimer) {
+      clearTimeout(selectionState.holdTimer);
+      selectionState.holdTimer = null;
+    }
+    
+    // If clicking the same node, keep current order and resume expansion
+    // If new node, reset to 1st order
+    if (selectionState.selectedNodeId !== nodeId) {
       // New node selected - start at 1st order
       selectionState.selectedNodeId = nodeId;
       selectionState.highlightOrder = 1;
       applyHighlight(nodeId, 1);
     }
+    // If same node: keep current highlightOrder and it will expand from there
     
-    // Start/resume hold timer for progressive expansion from current order
-    if (selectionState.holdTimer) {
-      clearTimeout(selectionState.holdTimer);
-    }
-    
+    // Start hold timer for progressive expansion from current order
     const currentOrder = selectionState.highlightOrder;
     
     // Only set timer if not already at max order (3)
@@ -766,7 +767,7 @@
       selectionState.holdTimer = setTimeout(() => {
         // Expand to next order
         const nextOrder = currentOrder + 1;
-        if (selectionState.selectedNodeId === nodeId && selectionState.highlightOrder === currentOrder) {
+        if (selectionState.selectedNodeId === nodeId) {
           selectionState.highlightOrder = nextOrder;
           applyHighlight(nodeId, nextOrder);
           
@@ -774,7 +775,7 @@
           if (nextOrder < 3) {
             selectionState.holdTimer = setTimeout(() => {
               const finalOrder = nextOrder + 1;
-              if (selectionState.selectedNodeId === nodeId && selectionState.highlightOrder === nextOrder) {
+              if (selectionState.selectedNodeId === nodeId) {
                 selectionState.highlightOrder = finalOrder;
                 applyHighlight(nodeId, finalOrder);
               }
