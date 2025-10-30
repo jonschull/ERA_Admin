@@ -6016,6 +6016,16 @@ Works on any static host:
 - ✅ Re-Load button (re-fetch from Sheets with guardrail)
 - ✅ Color-coded by type (person=blue, org=teal, project=purple, event=grey)
 - ✅ Type parsed from ID prefix (person::, org::, project::, event::)
+- ✅ **Progressive Node Selection Highlighting** (PR #39)
+  - Click node → highlights 1st-order connections
+  - Hold 3 seconds → expands to 2nd-order connections
+  - Hold 6 seconds → expands to 3rd-order connections
+  - Release & re-click → resumes expansion from current level
+  - Highlighted edges: bright blue (#2B7CE9), width=2
+  - Dimmed nodes/edges: 15% opacity, frozen in place
+  - Cursor changes to 'progress' indicator while timer active
+  - Auto-zoom to fit highlighted nodes in view
+  - Works with search fields (qeFrom/qeTo)
 - ✅ Hover tooltips on all buttons
 
 ### Planned
